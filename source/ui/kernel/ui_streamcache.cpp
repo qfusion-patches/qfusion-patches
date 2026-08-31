@@ -293,7 +293,7 @@ std::string StreamCache::CacheFileForUrl( const std::string url, bool noCache )
 		fileName = fileName.substr( 0, delim );
 	}
 
-	std::string cacheName = std::string( WSW_UI_STREAMCACHE_DIR ) + "/" + outstream.str() + 
+	std::string cacheName = std::string( WSW_UI_STREAMCACHE_DIR ) + "/" + outstream.str() +
 		(noCache ? "_0" : "_1") + "_" + fileName;
 	std::transform(cacheName.begin(), cacheName.end(), cacheName.begin(), ::tolower);
 

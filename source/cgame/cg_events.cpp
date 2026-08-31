@@ -107,7 +107,7 @@ static void _LaserImpact( trace_t *trace, vec3_t dir )
 		if( laserOwner->localEffects[LOCALEFFECT_LASERBEAM_SMOKE_TRAIL] + TRAILTIME < cg.time )
 		{
 			laserOwner->localEffects[LOCALEFFECT_LASERBEAM_SMOKE_TRAIL] = cg.time;
-			
+
 			CG_HighVelImpactPuffParticles( trace->endpos, trace->plane.normal, 8, 0.5f, 1.0f, 0.8f, 0.2f, 1.0f, NULL);
 
 			trap_S_StartFixedSound( CG_MediaSfx( cgs.media.sfxLasergunHit[rand()%3] ), trace->endpos, CHAN_AUTO,
@@ -203,7 +203,7 @@ void CG_LaserBeamEffect( centity_t *cent )
 
 		// trace the beam: for tracing we use the real beam origin
 		GS_TraceLaserBeam( &trace, laserOrigin, laserAngles, range, cent->current.number, 0, _LaserImpact );
-		
+
 		// draw the beam: for drawing we use the weapon projection source (already handles the case of viewer entity)
 		if( !CG_PModel_GetProjectionSource( cent->current.number, &projectsource ) )
 			VectorCopy( laserOrigin, projectsource.origin );
@@ -375,7 +375,7 @@ static void CG_FireWeaponEvent( int entNum, int weapon, int fireMode )
 	}
 
 	// flash and barrel effects
-	
+
 	if( weapon == WEAP_GUNBLADE ) // gunblade is special
 	{
 		if( fireMode == FIRE_MODE_STRONG )
@@ -447,7 +447,7 @@ static void CG_LeadWaterSplash( trace_t *tr )
 {
 	int contents;
 	vec_t *dir, *pos;
-	
+
 	contents = tr->contents;
 	pos = tr->endpos;
 	dir = tr->plane.normal;
@@ -675,7 +675,7 @@ static void CG_Event_FireMachinegun( vec3_t origin, vec3_t dir, int weapon, int 
 /*
 * CG_Fire_SunflowerPattern
 */
-static void CG_Fire_SunflowerPattern( vec3_t start, vec3_t dir, int *seed, int ignore, int count, 
+static void CG_Fire_SunflowerPattern( vec3_t start, vec3_t dir, int *seed, int ignore, int count,
 	int hspread, int vspread, int range, void ( *impact )(trace_t *tr) )
 {
 	int i;
@@ -690,7 +690,7 @@ static void CG_Fire_SunflowerPattern( vec3_t start, vec3_t dir, int *seed, int i
 	{
 		fi = i * 2.4; //magic value creating Fibonacci numbers
 		r = cos( (float)*seed + fi ) * hspread * sqrt(fi);
-		u = sin( (float)*seed + fi ) * vspread * sqrt(fi); 
+		u = sin( (float)*seed + fi ) * vspread * sqrt(fi);
 
 		water_trace = GS_TraceBullet( &trace, start, dir, r, u, range, ignore, 0 );
 		if( water_trace )
@@ -712,7 +712,7 @@ static void CG_Fire_SunflowerPattern( vec3_t start, vec3_t dir, int *seed, int i
 /*
 * CG_Fire_RandomPattern
 */
-static void CG_Fire_RandomPattern( vec3_t start, vec3_t dir, int *seed, int ignore, int count, 
+static void CG_Fire_RandomPattern( vec3_t start, vec3_t dir, int *seed, int ignore, int count,
 	int hspread, int vspread, int range, void ( *impact )(trace_t *tr) )
 {
 	int i;
@@ -747,14 +747,14 @@ static void CG_Fire_RandomPattern( vec3_t start, vec3_t dir, int *seed, int igno
 /*
 * CG_Event_FireRiotgun
 */
-static void CG_Event_FireRiotgun( vec3_t origin, vec3_t dir, int weapon, int firemode, int seed, int owner ) 
+static void CG_Event_FireRiotgun( vec3_t origin, vec3_t dir, int weapon, int firemode, int seed, int owner )
 {
 	trace_t	trace;
 	vec3_t end;
 	gs_weapon_definition_t *weapondef = GS_GetWeaponDef( weapon );
 	firedef_t *firedef = ( firemode ) ? &weapondef->firedef : &weapondef->firedef_weak;
 
-	CG_Fire_SunflowerPattern( origin, dir, &seed, owner, firedef->projectile_count, 
+	CG_Fire_SunflowerPattern( origin, dir, &seed, owner, firedef->projectile_count,
 		firedef->spread, firedef->v_spread, firedef->timeout, CG_BulletImpact );
 
 	// spawn a single sound at the impact
@@ -969,15 +969,15 @@ void CG_Event_Pain( entity_state_t *state, int parm )
 	if( parm == PAIN_WARSHELL )
 	{
 		if( ISVIEWERENTITY( state->number ) )
-			trap_S_StartGlobalSound( CG_MediaSfx( cgs.media.sfxShellHit ), CHAN_PAIN, 
+			trap_S_StartGlobalSound( CG_MediaSfx( cgs.media.sfxShellHit ), CHAN_PAIN,
 				cg_volume_players->value );
 		else
-			trap_S_StartRelativeSound( CG_MediaSfx( cgs.media.sfxShellHit ), state->number, CHAN_PAIN, 
+			trap_S_StartRelativeSound( CG_MediaSfx( cgs.media.sfxShellHit ), state->number, CHAN_PAIN,
 				cg_volume_players->value, state->attenuation );
 	}
 	else
 	{
-		CG_SexedSound( state->number, CHAN_PAIN, va( S_PLAYER_PAINS, 25*( parm+1 ) ), 
+		CG_SexedSound( state->number, CHAN_PAIN, va( S_PLAYER_PAINS, 25*( parm+1 ) ),
 			cg_volume_players->value, state->attenuation );
 	}
 
@@ -1002,7 +1002,7 @@ void CG_Event_Pain( entity_state_t *state, int parm )
 void CG_Event_Die( entity_state_t *state, int parm )
 {
 	CG_SexedSound( state->number, CHAN_PAIN, S_PLAYER_DEATH, cg_volume_players->value, state->attenuation );
-	
+
 	switch( parm )
 	{
 	case 0:
@@ -1029,22 +1029,22 @@ void CG_Event_Dash( entity_state_t *state, int parm )
 		break;
 	case 0: // dash front
 		CG_PModel_AddAnimation( state->number, LEGS_DASH, 0, 0, EVENT_CHANNEL );
-		CG_SexedSound( state->number, CHAN_BODY, va( S_PLAYER_DASH_1_to_2, ( rand()&1 )+1 ), 
+		CG_SexedSound( state->number, CHAN_BODY, va( S_PLAYER_DASH_1_to_2, ( rand()&1 )+1 ),
 			cg_volume_players->value, state->attenuation );
 		break;
 	case 1: // dash left
 		CG_PModel_AddAnimation( state->number, LEGS_DASH_LEFT, 0, 0, EVENT_CHANNEL );
-		CG_SexedSound( state->number, CHAN_BODY, va( S_PLAYER_DASH_1_to_2, ( rand()&1 )+1 ), 
+		CG_SexedSound( state->number, CHAN_BODY, va( S_PLAYER_DASH_1_to_2, ( rand()&1 )+1 ),
 			cg_volume_players->value, state->attenuation );
 		break;
 	case 2: // dash right
 		CG_PModel_AddAnimation( state->number, LEGS_DASH_RIGHT, 0, 0, EVENT_CHANNEL );
-		CG_SexedSound( state->number, CHAN_BODY, va( S_PLAYER_DASH_1_to_2, ( rand()&1 )+1 ), 
+		CG_SexedSound( state->number, CHAN_BODY, va( S_PLAYER_DASH_1_to_2, ( rand()&1 )+1 ),
 			cg_volume_players->value, state->attenuation );
 		break;
 	case 3: // dash back
 		CG_PModel_AddAnimation( state->number, LEGS_DASH_BACK, 0, 0, EVENT_CHANNEL );
-		CG_SexedSound( state->number, CHAN_BODY, va( S_PLAYER_DASH_1_to_2, ( rand()&1 )+1 ), 
+		CG_SexedSound( state->number, CHAN_BODY, va( S_PLAYER_DASH_1_to_2, ( rand()&1 )+1 ),
 			cg_volume_players->value, state->attenuation );
 		break;
 	}
@@ -1078,16 +1078,16 @@ void CG_Event_WallJump( entity_state_t *state, int parm, int ev )
 	if( ev == EV_WALLJUMP_FAILED )
 	{
 		if( ISVIEWERENTITY( state->number ) )
-			trap_S_StartGlobalSound( CG_MediaSfx( cgs.media.sfxWalljumpFailed ), CHAN_BODY, 
+			trap_S_StartGlobalSound( CG_MediaSfx( cgs.media.sfxWalljumpFailed ), CHAN_BODY,
 			cg_volume_effects->value );
 		else
 			trap_S_StartRelativeSound( CG_MediaSfx( cgs.media.sfxWalljumpFailed ), state->number, CHAN_BODY, cg_volume_effects->value, ATTN_NORM );
 	}
 	else
 	{
-		CG_SexedSound( state->number, CHAN_BODY, va( S_PLAYER_WALLJUMP_1_to_2, ( rand()&1 )+1 ), 
+		CG_SexedSound( state->number, CHAN_BODY, va( S_PLAYER_WALLJUMP_1_to_2, ( rand()&1 )+1 ),
 			cg_volume_players->value, state->attenuation );
-	
+
 		// smoke effect
 		if( cg_cartoonEffects->integer & 1 )
 		{
@@ -1104,7 +1104,7 @@ void CG_Event_WallJump( entity_state_t *state, int parm, int ev )
 */
 void CG_Event_DoubleJump( entity_state_t *state, int parm )
 {
-	CG_SexedSound( state->number, CHAN_BODY, va( S_PLAYER_JUMP_1_to_2, ( rand()&1 )+1 ), 
+	CG_SexedSound( state->number, CHAN_BODY, va( S_PLAYER_JUMP_1_to_2, ( rand()&1 )+1 ),
 		cg_volume_players->value, state->attenuation );
 }
 
@@ -1122,7 +1122,7 @@ void CG_Event_Jump( entity_state_t *state, int parm )
 	if( xyspeedcheck < 100 )
 	{                      // the player is jumping on the same place, not running
 		CG_PModel_AddAnimation( state->number, LEGS_JUMP_NEUTRAL, 0, 0, EVENT_CHANNEL );
-		CG_SexedSound( state->number, CHAN_BODY, va( S_PLAYER_JUMP_1_to_2, ( rand()&1 )+1 ), 
+		CG_SexedSound( state->number, CHAN_BODY, va( S_PLAYER_JUMP_1_to_2, ( rand()&1 )+1 ),
 			cg_volume_players->value, state->attenuation );
 	}
 	else
@@ -1144,20 +1144,20 @@ void CG_Event_Jump( entity_state_t *state, int parm )
 			if( !cent->jumpedLeft )
 			{
 				CG_PModel_AddAnimation( state->number, LEGS_JUMP_LEG2, 0, 0, EVENT_CHANNEL );
-				CG_SexedSound( state->number, CHAN_BODY, va( S_PLAYER_JUMP_1_to_2, ( rand()&1 )+1 ), 
+				CG_SexedSound( state->number, CHAN_BODY, va( S_PLAYER_JUMP_1_to_2, ( rand()&1 )+1 ),
 					cg_volume_players->value, state->attenuation );
 			}
 			else
 			{
 				CG_PModel_AddAnimation( state->number, LEGS_JUMP_LEG1, 0, 0, EVENT_CHANNEL );
-				CG_SexedSound( state->number, CHAN_BODY, va( S_PLAYER_JUMP_1_to_2, ( rand()&1 )+1 ), 
+				CG_SexedSound( state->number, CHAN_BODY, va( S_PLAYER_JUMP_1_to_2, ( rand()&1 )+1 ),
 					cg_volume_players->value, state->attenuation );
 			}
 		}
 		else
 		{
 			CG_PModel_AddAnimation( state->number, LEGS_JUMP_NEUTRAL, 0, 0, EVENT_CHANNEL );
-			CG_SexedSound( state->number, CHAN_BODY, va( S_PLAYER_JUMP_1_to_2, ( rand()&1 )+1 ), 
+			CG_SexedSound( state->number, CHAN_BODY, va( S_PLAYER_JUMP_1_to_2, ( rand()&1 )+1 ),
 				cg_volume_players->value, state->attenuation );
 		}
 	}
@@ -1237,17 +1237,17 @@ void CG_EntityEvent( entity_state_t *ent, int ev, int parm, bool predicted )
 		}
 
 		CG_FireWeaponEvent( ent->number, weapon, fireMode );
-		
+
 		// riotgun bullets, electrobolt and instagun beams are predicted when the weapon is fired
 		if( predicted )
 		{
 			vec3_t origin;
 
-			if( ( weapon == WEAP_ELECTROBOLT 
+			if( ( weapon == WEAP_ELECTROBOLT
 #ifndef ELECTROBOLT_TEST
 				&& fireMode == FIRE_MODE_STRONG
 #endif
-				) 
+				)
 				|| weapon == WEAP_INSTAGUN )
 			{
 				VectorCopy( cg.predictedPlayerState.pmove.origin, origin );
@@ -1328,7 +1328,7 @@ void CG_EntityEvent( entity_state_t *ent, int ev, int parm, bool predicted )
 		break;
 
 	case EV_JUMP_PAD:
-		CG_SexedSound( ent->number, CHAN_BODY, va( S_PLAYER_JUMP_1_to_2, ( rand()&1 )+1 ), 
+		CG_SexedSound( ent->number, CHAN_BODY, va( S_PLAYER_JUMP_1_to_2, ( rand()&1 )+1 ),
 			cg_volume_players->value, ent->attenuation );
 		CG_PModel_AddAnimation( ent->number, LEGS_JUMP_NEUTRAL, 0, 0, EVENT_CHANNEL );
 		break;
@@ -1695,7 +1695,7 @@ static void CG_FirePlayerStateEvents( void )
 			// auto-switch
 			if( cg_weaponAutoSwitch->integer && ( parm > WEAP_NONE && parm < WEAP_TOTAL ) )
 			{
-				if( !cgs.demoPlaying && cg.predictedPlayerState.pmove.pm_type == PM_NORMAL 
+				if( !cgs.demoPlaying && cg.predictedPlayerState.pmove.pm_type == PM_NORMAL
 					&& cg.predictedPlayerState.POVnum == cgs.playerNum + 1 )
 				{
 					// auto-switch only works when the user didn't have the just-picked weapon

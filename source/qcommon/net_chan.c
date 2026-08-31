@@ -88,7 +88,7 @@ static cvar_t *net_showfragments;
 
 /*
 * Netchan_OutOfBand
-* 
+*
 * Sends an out-of-band datagram
 */
 void Netchan_OutOfBand( const socket_t *socket, const netadr_t *address, size_t length, const uint8_t *data )
@@ -109,7 +109,7 @@ void Netchan_OutOfBand( const socket_t *socket, const netadr_t *address, size_t 
 
 /*
 * Netchan_OutOfBandPrint
-* 
+*
 * Sends a text message in an out-of-band datagram
 */
 void Netchan_OutOfBandPrint( const socket_t *socket, const netadr_t *address, const char *format, ... )
@@ -126,7 +126,7 @@ void Netchan_OutOfBandPrint( const socket_t *socket, const netadr_t *address, co
 
 /*
 * Netchan_Setup
-* 
+*
 * called to open a channel to a remote system
 */
 void Netchan_Setup( netchan_t *chan, const socket_t *socket, const netadr_t *address, int game_port )
@@ -228,7 +228,7 @@ int Netchan_CompressMessage( msg_t *msg )
 	memset( msg_process_data, 0, sizeof( msg_process_data ) );
 
 	//compress the message
-	length = Netchan_ZLibCompressChunk( msg->data, msg->cursize, 
+	length = Netchan_ZLibCompressChunk( msg->data, msg->cursize,
 		msg_process_data, sizeof( msg_process_data ), Z_BEST_COMPRESSION, -MAX_WBITS );
 	if( length < 0 )  // failed to compress, return the error
 		return length;
@@ -279,7 +279,7 @@ int Netchan_DecompressMessage( msg_t *msg )
 
 /*
 * Netchan_DropAllFragments
-* 
+*
 * Send all remaining fragments at once
 */
 static void Netchan_DropAllFragments( netchan_t *chan )
@@ -293,7 +293,7 @@ static void Netchan_DropAllFragments( netchan_t *chan )
 
 /*
 * Netchan_TransmitNextFragment
-* 
+*
 * Send one fragment of the current message
 */
 bool Netchan_TransmitNextFragment( netchan_t *chan )
@@ -368,7 +368,7 @@ bool Netchan_TransmitNextFragment( netchan_t *chan )
 
 /*
 * Netchan_PushAllFragments
-* 
+*
 * Send all remaining fragments at once
 */
 bool Netchan_PushAllFragments( netchan_t *chan )
@@ -384,7 +384,7 @@ bool Netchan_PushAllFragments( netchan_t *chan )
 
 /*
 * Netchan_Transmit
-* 
+*
 * Sends a message to a connection, fragmenting if necessary
 * A 0 length will still generate a packet.
 */
@@ -450,10 +450,10 @@ bool Netchan_Transmit( netchan_t *chan, msg_t *msg )
 
 /*
 * Netchan_Process
-* 
+*
 * Returns false if the message should not be processed due to being
 * out of order or a fragment.
-* 
+*
 * Msg must be large enough to hold MAX_MSGLEN, because if this is the
 * final fragment of a multi-part message, the entire thing will be
 * copied out.

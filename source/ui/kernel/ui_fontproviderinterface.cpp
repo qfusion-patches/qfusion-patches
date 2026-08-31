@@ -13,7 +13,7 @@ using namespace Rocket::Core;
 
 static UI_FontProviderInterface *instance = nullptr;
 
-UI_FontProviderInterface::UI_FontProviderInterface(RenderInterface *render_interface) : 
+UI_FontProviderInterface::UI_FontProviderInterface(RenderInterface *render_interface) :
 	render_interface(render_interface), capture_shader_last(nullptr), capture_geometry(nullptr), capture_texture_last(nullptr)
 {
 	instance = this;
@@ -51,7 +51,7 @@ FontHandle UI_FontProviderInterface::GetFontFaceHandle(const String& family, con
 	return FontHandle(trap::SCR_RegisterFont(family.CString(), (qfontstyle_t)qstyle, (unsigned)size));
 }
 
-int UI_FontProviderInterface::GetCharacterWidth(FontHandle handle) const 
+int UI_FontProviderInterface::GetCharacterWidth(FontHandle handle) const
 {
 	return trap::SCR_FontAdvance((qfontface_s *)(handle));
 }
@@ -81,7 +81,7 @@ int UI_FontProviderInterface::GetUnderline(FontHandle handle, int *thickness) co
 	return -trap::SCR_FontUnderline((qfontface_s *)(handle), thickness);
 }
 
-int UI_FontProviderInterface::GetStringWidth(FontHandle handle, const WString& string, word prior_character) 
+int UI_FontProviderInterface::GetStringWidth(FontHandle handle, const WString& string, word prior_character)
 {
 	String utf8str("");
 	string.ToUTF8(utf8str);
@@ -119,7 +119,7 @@ void UI_FontProviderInterface::DrawCharCallback( int x, int y, int w, int h, flo
 			t->GetDimensions(render_interface);
 			instance->textures[key] = t;
 		}
-		instance->capture_shader_last = shader;	
+		instance->capture_shader_last = shader;
 		instance->capture_texture_last = t;
 	}
 
@@ -157,13 +157,13 @@ void UI_FontProviderInterface::DrawCharCallback( int x, int y, int w, int h, flo
 		character_vertices.resize(character_vertices.size() + 4);
 		character_indices.resize(character_indices.size() + 6);
 
-		GeometryUtilities::GenerateQuad(&character_vertices[0] + (character_vertices.size() - 4), &character_indices[0] + (character_indices.size() - 6), 
-			Vector2f(x, y), Vector2f(w, h), Colourb(color[0]*255, color[1]*255, color[2]*255, color[3]*255), Vector2f(s1, t1), Vector2f(s2, t2), 
+		GeometryUtilities::GenerateQuad(&character_vertices[0] + (character_vertices.size() - 4), &character_indices[0] + (character_indices.size() - 6),
+			Vector2f(x, y), Vector2f(w, h), Colourb(color[0]*255, color[1]*255, color[2]*255, color[3]*255), Vector2f(s1, t1), Vector2f(s2, t2),
 			(int)character_vertices.size() - 4);
 	}
 }
 
-int UI_FontProviderInterface::GenerateString(FontHandle handle, GeometryList& geometry, const WString& string, const Vector2f& position, const Colourb& colour) const 
+int UI_FontProviderInterface::GenerateString(FontHandle handle, GeometryList& geometry, const WString& string, const Vector2f& position, const Colourb& colour) const
 {
 	vec4_t colorf;
 

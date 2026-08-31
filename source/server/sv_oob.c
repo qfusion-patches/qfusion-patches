@@ -469,7 +469,7 @@ static void SVC_Ping( const socket_t *socket, const netadr_t *address )
 
 /*
 * SVC_InfoResponse
-* 
+*
 * Responds with short info for broadcast scans
 * The second parameter should be the current protocol version number.
 */
@@ -587,7 +587,7 @@ static void SVC_GetStatusResponse( const socket_t *socket, const netadr_t *addre
 
 /*
 * SVC_GetChallenge
-* 
+*
 * Returns a challenge number that can be used
 * in a subsequent client_connect command.
 * We do this to prevent denial of service attacks that
@@ -836,7 +836,7 @@ static void SVC_DirectConnect( const socket_t *socket, const netadr_t *address )
 	}
 
 	// get the game a chance to reject this connection or modify the userinfo
-	if( !SV_ClientConnect( socket, address, newcl, userinfo, game_port, challenge, false, 
+	if( !SV_ClientConnect( socket, address, newcl, userinfo, game_port, challenge, false,
 		tv_client, ticket_id, session_id ) )
 	{
 		char *rejtype, *rejflag, *rejtypeflag, *rejmsg;
@@ -949,7 +949,7 @@ static int Rcon_Validate( void )
 
 /*
 * SVC_RemoteCommand
-* 
+*
 * A client issued an rcon command.
 * Shift down the remaining args
 * Redirect all printfs
@@ -1296,7 +1296,7 @@ connectionless_cmd_t connectionless_cmds[] =
 
 /*
 * SV_ConnectionlessPacket
-* 
+*
 * A connectionless packet has four leading 0xff
 * characters to distinguish it from a game channel.
 * Clients that are in the game can still send

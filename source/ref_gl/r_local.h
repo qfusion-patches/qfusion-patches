@@ -242,7 +242,7 @@ typedef struct
 	shader_t		*skyShader;
 	shader_t		*whiteShader;
 	shader_t		*emptyFogShader;
-	
+
 	byte_vec4_t		customColors[NUM_CUSTOMCOLORS];
 } r_shared_t;
 
@@ -325,10 +325,10 @@ typedef struct
 
 	char 			speedsMsg[2048];
 	qmutex_t		*speedsMsgLock;
-	
+
 	msurface_t		*debugSurface;
 	qmutex_t		*debugSurfaceLock;
-	
+
 	char			drawBuffer[32];
 	bool			newDrawBuffer;
 } r_globals_t;
@@ -533,7 +533,7 @@ void		R_AddDynamicLights( unsigned int dlightbits, int state );
 void		R_LightForOrigin( const vec3_t origin, vec3_t dir, vec4_t ambient, vec4_t diffuse, float radius, bool noWorldLight );
 void		R_BuildLightmaps( model_t *mod, int numLightmaps, int w, int h, const uint8_t *data, mlightmapRect_t *rects );
 void		R_InitLightStyles( model_t *mod );
-superLightStyle_t	*R_AddSuperLightStyle( model_t *mod, const int *lightmaps, 
+superLightStyle_t	*R_AddSuperLightStyle( model_t *mod, const int *lightmaps,
 	const uint8_t *lightmapStyles, const uint8_t *vertexStyles, mlightmapRect_t **lmRects );
 void		R_SortSuperLightStyles( model_t *mod );
 void		R_TouchLightmapImages( model_t *mod );
@@ -610,17 +610,17 @@ void		R_TransformForEntity( const entity_t *e );
 void		R_TranslateForEntity( const entity_t *e );
 void		R_TransformBounds( const vec3_t origin, const mat3_t axis, vec3_t mins, vec3_t maxs, vec3_t bbox[8] );
 
-void		R_DrawStretchPic( int x, int y, int w, int h, float s1, float t1, float s2, float t2, 
+void		R_DrawStretchPic( int x, int y, int w, int h, float s1, float t1, float s2, float t2,
 	const vec4_t color, const shader_t *shader );
-void		R_DrawRotatedStretchPic( int x, int y, int w, int h, float s1, float t1, float s2, float t2, 
+void		R_DrawRotatedStretchPic( int x, int y, int w, int h, float s1, float t1, float s2, float t2,
 	float angle, const vec4_t color, const shader_t *shader );
 void		R_UploadRawPic( image_t *texture, int cols, int rows, uint8_t *data );
 void		R_UploadRawYUVPic( image_t **yuvTextures, ref_img_plane_t *yuv );
-void		R_DrawStretchRawYUVBuiltin( int x, int y, int w, int h, float s1, float t1, float s2, float t2, 
+void		R_DrawStretchRawYUVBuiltin( int x, int y, int w, int h, float s1, float t1, float s2, float t2,
 	image_t **yuvTextures, int flip );
 void		R_DrawStretchRaw( int x, int y, int w, int h, float s1, float t1, float s2, float t2 );
 void		R_DrawStretchRawYUV( int x, int y, int w, int h, float s1, float t1, float s2, float t2 );
-void		R_DrawStretchQuick( int x, int y, int w, int h, float s1, float t1, float s2, float t2, 
+void		R_DrawStretchQuick( int x, int y, int w, int h, float s1, float t1, float s2, float t2,
 	const vec4_t color, int program_type, image_t *image, int blendMask );
 
 void		R_InitCustomColors( void );
@@ -646,10 +646,10 @@ void		R_ResetScissor( void );
 void R_InitDrawList( drawList_t *list );
 void R_ClearDrawList( drawList_t *list );
 unsigned R_PackOpaqueOrder( const entity_t *e, const shader_t *shader, bool lightmap, bool dlight );
-void *R_AddSurfToDrawList( drawList_t *list, const entity_t *e, const mfog_t *fog, const shader_t *shader, 
+void *R_AddSurfToDrawList( drawList_t *list, const entity_t *e, const mfog_t *fog, const shader_t *shader,
 	float dist, unsigned int order, const portalSurface_t *portalSurf, void *drawSurf );
 void R_UpdateDrawListSurf( void *psds, unsigned order );
-void R_AddVBOSlice( unsigned int index, unsigned int numVerts, unsigned int numElems, 
+void R_AddVBOSlice( unsigned int index, unsigned int numVerts, unsigned int numElems,
 	unsigned int firstVert, unsigned int firstElem );
 vboSlice_t *R_GetVBOSlice( unsigned int index );
 
@@ -670,9 +670,9 @@ void R_BuildTangentVectors( int numVertexes, vec4_t *xyzArray, vec4_t *normalsAr
 //
 extern drawList_t r_portallist, r_skyportallist;
 
-portalSurface_t *R_AddPortalSurface( const entity_t *ent, const mesh_t *mesh, 
+portalSurface_t *R_AddPortalSurface( const entity_t *ent, const mesh_t *mesh,
 	const vec3_t mins, const vec3_t maxs, const shader_t *shader, void *drawSurf );
-portalSurface_t *R_AddSkyportalSurface( const entity_t *ent, const shader_t *shader, 
+portalSurface_t *R_AddSkyportalSurface( const entity_t *ent, const shader_t *shader,
 	void *drawSurf );
 void R_DrawPortals( void );
 
@@ -691,7 +691,7 @@ int			R_GetClippedFragments( const vec3_t origin, float radius, vec3_t axis[3], 
 //
 rserr_t		R_Init( const char *applicationName, const char *screenshotPrefix, int startupColor,
 				int iconResource, const int *iconXPM,
-				void *hinstance, void *wndproc, void *parenthWnd, 
+				void *hinstance, void *wndproc, void *parenthWnd,
 				bool verbose );
 void		R_BeginRegistration( void );
 void		R_EndRegistration( void );

@@ -293,7 +293,7 @@ vec_t *CG_TeamColor( int team, vec4_t color )
 }
 
 /*
-* 
+*
 */
 uint8_t *_ColorForEntity( int entNum, byte_vec4_t color, bool player )
 {
@@ -369,9 +369,9 @@ uint8_t *_ColorForEntity( int entNum, byte_vec4_t color, bool player )
 	else if( ( player && ( owner->current.number - 1 < gs.maxclients ) ) && cent->current.type != ET_CORPSE )
 	{
 		Vector4Copy( cgs.clientInfo[owner->current.number - 1].color, color );
-	} 
+	}
 	// Make corpses grey
-	else if ( cent->current.type == ET_CORPSE && cent->current.bodyOwner ) 
+	else if ( cent->current.type == ET_CORPSE && cent->current.bodyOwner )
 	{
 		Vector4Set( color, 60, 60, 60, 255 );
 	}
@@ -384,7 +384,7 @@ uint8_t *_ColorForEntity( int entNum, byte_vec4_t color, bool player )
 }
 
 /*
-* 
+*
 */
 uint8_t *CG_TeamColorForEntity( int entNum, byte_vec4_t color )
 {
@@ -392,7 +392,7 @@ uint8_t *CG_TeamColorForEntity( int entNum, byte_vec4_t color )
 }
 
 /*
-* 
+*
 */
 uint8_t *CG_PlayerColorForEntity( int entNum, byte_vec4_t color )
 {
@@ -415,4 +415,3 @@ void CG_RegisterForceModels( void )
 		CG_RegisterTeamColor( team );
 	}
 }
-

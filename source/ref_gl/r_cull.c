@@ -93,7 +93,7 @@ void R_SetupFrustum( const refdef_t *rd, float farClip, cplane_t *frustum )
 
 /*
 * R_CullBox
-* 
+*
 * Returns true if the box is completely outside the frustum
 */
 bool R_CullBox( const vec3_t mins, const vec3_t maxs, const unsigned int clipflags )
@@ -154,7 +154,7 @@ bool R_CullBox( const vec3_t mins, const vec3_t maxs, const unsigned int clipfla
 
 /*
 * R_CullSphere
-* 
+*
 * Returns true if the sphere is completely outside the frustum
 */
 bool R_CullSphere( const vec3_t centre, const float radius, const unsigned int clipflags )

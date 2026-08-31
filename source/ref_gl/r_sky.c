@@ -149,7 +149,7 @@ static void Gen_Box( skydome_t *skydome )
 
 /*
 * Gen_BoxSide
-* 
+*
 * I don't know exactly what Q3A does for skybox texturing, but
 * this is at least fairly close.  We tile the texture onto the
 * inside of a large sphere, and put the camera near the top of
@@ -245,7 +245,7 @@ static void Gen_BoxSide( skydome_t *skydome, int side, vec3_t orig, vec3_t drow,
 			elem += 6;
 		}
 	}
-	
+
 	// upload two static VBO's for each side except for the bottom one
 	// which only has 1 side for skybox
 	if( side != 5 ) {
@@ -262,7 +262,7 @@ static void Gen_BoxSide( skydome_t *skydome, int side, vec3_t orig, vec3_t drow,
 /*
 * R_DrawSkyBoxSide
 */
-static void R_DrawSkyBoxSide( const skydome_t *skydome, const visSkySide_t *visSide, const shader_t *skyShader, 
+static void R_DrawSkyBoxSide( const skydome_t *skydome, const visSkySide_t *visSide, const shader_t *skyShader,
 	const shader_t *skyboxShader, const mfog_t *fog, int imageIndex )
 {
 	int side = visSide->index;
@@ -285,7 +285,7 @@ static void R_DrawSkyBoxSide( const skydome_t *skydome, const visSkySide_t *visS
 /*
 * R_DrawSkyBox
 */
-static void R_DrawSkyBox( const skydome_t *skydome, const visSkySide_t *visSides, const shader_t *skyShader, 
+static void R_DrawSkyBox( const skydome_t *skydome, const visSkySide_t *visSides, const shader_t *skyShader,
 	const shader_t *skyboxShader, const mfog_t *fog )
 {
 	int i;
@@ -297,7 +297,7 @@ static void R_DrawSkyBox( const skydome_t *skydome, const visSkySide_t *visSides
 
 /*
 * R_DrawBlackBottom
-* 
+*
 * Draw dummy skybox side to prevent the HOM effect
 */
 static void R_DrawBlackBottom( const skydome_t *skydome, const visSkySide_t *visSides, const mfog_t *fog )

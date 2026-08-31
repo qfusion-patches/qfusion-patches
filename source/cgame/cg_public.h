@@ -32,7 +32,7 @@ struct model_s;
 struct cmodel_s;
 struct qfontface_s;
 
-typedef size_t (*cg_async_stream_read_cb_t)(const void *buf, size_t numb, float percentage, 
+typedef size_t (*cg_async_stream_read_cb_t)(const void *buf, size_t numb, float percentage,
 	int status, const char *contentType, void *privatep);
 typedef void (*cg_async_stream_done_cb_t)(int status, const char *contentType, void *privatep);
 
@@ -224,7 +224,7 @@ typedef struct
 	void ( *S_StartBackgroundTrack )( const char *intro, const char *loop, int mode );
 	void ( *S_StopBackgroundTrack )( void );
 	void ( *S_RawSamples )( unsigned int samples, unsigned int rate, unsigned short width, unsigned short channels, const uint8_t *data );
-	void ( *S_PositionedRawSamples )( int entnum, float fvol, float attenuation, 
+	void ( *S_PositionedRawSamples )( int entnum, float fvol, float attenuation,
 		unsigned int samples, unsigned int rate, unsigned short width, unsigned short channels, const uint8_t *data );
 	unsigned int ( *S_GetRawSamplesLength )( void );
 	unsigned int ( *S_GetPositionedRawSamplesLength )( int entnum );
@@ -262,7 +262,7 @@ typedef struct
 	const char *( *L10n_TranslateString )( const char *string );
 
 	// cinematics
-	bool ( *CIN_AddRawSamplesListener )( struct cinematics_s *cin, void *listener, 
+	bool ( *CIN_AddRawSamplesListener )( struct cinematics_s *cin, void *listener,
 		cg_raw_samples_cb_t rs, cg_get_raw_samples_cb_t grs );
 
 	// input
@@ -283,7 +283,7 @@ typedef struct
 	// the init function will be called at each restart
 	void ( *Init )( const char *serverName, unsigned int playerNum,
 		int vidWidth, int vidHeight, float pixelRatio,
-		bool demoplaying, const char *demoName, bool pure, unsigned int snapFrameTime, 
+		bool demoplaying, const char *demoName, bool pure, unsigned int snapFrameTime,
 		int protocol, const char *demoExtension, int sharedSeed, bool gameStart );
 
 	// "soft restarts" at demo jumps

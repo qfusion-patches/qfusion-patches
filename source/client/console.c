@@ -239,7 +239,7 @@ static size_t Con_BufferText( char *buffer, const char *delim )
 
 /*
 * Con_Dump_f
-* 
+*
 * Save the console contents out to a file
 */
 static void Con_Dump_f( void )
@@ -313,7 +313,7 @@ void Con_ClearNotify( void )
 
 /*
 * Con_SetMessageMode
-* 
+*
 * Called from CL_SetKeyDest
 */
 void Con_SetMessageMode( void )
@@ -356,7 +356,7 @@ static void Con_MessageMode2_f( void )
 
 /*
 * Con_CheckResize
-* 
+*
 * If the line width has changed, reformat the buffer.
 */
 void Con_CheckResize( void )
@@ -499,7 +499,7 @@ static void Con_Linefeed( bool notify )
 
 /*
 * Con_Print
-* 
+*
 * Handles cursor positioning, line wrapping, etc
 * All console printing must go through this in order to be logged to disk
 * If no console is visible, the text will appear at the top of the game window
@@ -687,7 +687,7 @@ int Q_ColorCharOffset( const char *s, int charcount )
 
 /*
 * Con_DrawInput
-* 
+*
 * The input line scrolls horizontally if typing goes beyond the right edge
 */
 static void Con_DrawInput( int vislines )
@@ -770,7 +770,7 @@ static const char *Con_ChatPrompt( void )
 
 /*
 * Con_DrawNotify
-* 
+*
 * Draws the last few lines of output transparently over the game top
 */
 void Con_DrawNotify( void )
@@ -873,7 +873,7 @@ void Con_DrawChat( int x, int y, int width, struct qfontface_s *font )
 	s = chat_buffer;
 	swidth = SCR_strWidth( s, font, 0, 0 );
 
-	complen = IN_IME_GetComposition( comp, sizeof( comp ), &imecursor, &convstart, &convlen );		
+	complen = IN_IME_GetComposition( comp, sizeof( comp ), &imecursor, &convstart, &convlen );
 
 	if( complen )
 	{
@@ -1039,7 +1039,7 @@ static bool Con_GetMessageArea( int *x1, int *y1, int *x2, int *y2, int *promptw
 
 /*
 * Con_DrawConsole
-* 
+*
 * Draws the console with the solid background
 */
 void Con_DrawConsole( void )
@@ -1086,7 +1086,7 @@ void Con_DrawConsole( void )
 
 	scaled = 4 * pixelRatio;
 	SCR_DrawString( viddef.width-SCR_strWidth( version, cls.consoleFont, 0, 0 ) - scaled,
-		lines - SCR_FontHeight( cls.consoleFont ) - scaled, 
+		lines - SCR_FontHeight( cls.consoleFont ) - scaled,
 		ALIGN_LEFT_TOP, version, cls.consoleFont, colorOrange, 0 );
 
 	// prepare to draw the text
@@ -1386,7 +1386,7 @@ LINE TYPING INTO THE CONSOLE
 
 /*
 * Con_Key_Copy
-* 
+*
 * Copies console text to clipboard
 * Should be Con_Copy prolly
 */
@@ -1417,7 +1417,7 @@ static void Con_Key_Copy( void )
 
 /*
 * Con_Key_Paste
-* 
+*
 * Inserts stuff from clipboard to console
 * Should be Con_Paste prolly
 */
@@ -1480,7 +1480,7 @@ static void Con_Key_Paste( bool primary )
 
 /*
 * Con_CharEvent
-* 
+*
 * Interactive line editing and console scrollback only for (Unicode) chars
 */
 void Con_CharEvent( wchar_t key )
@@ -1749,7 +1749,7 @@ static void Con_HistoryDown( void )
 
 /*
 * Con_KeyDown
-* 
+*
 * Interactive line editing and console scrollback except for ascii char
 */
 void Con_KeyDown( int key )
@@ -1867,7 +1867,7 @@ void Con_KeyDown( int key )
 		Con_HistoryDown();
 		return;
 	}
-	
+
 	if( ( key == K_PGUP ) || ( key == KP_PGUP ) || ( key == K_MWHEELUP ) || ( key == K_DPAD_UP ) ) // wsw : pb : support mwheel in console
 	{
 		if( ( key == K_MWHEELUP ) && ctrl_is_down )

@@ -556,7 +556,7 @@ static void HandleEvents( void )
 		XGenericEventCookie *cookie = &event.xcookie;
 		XNextEvent( x11display.dpy, &event );
 
-		if( cookie->type == GenericEvent && cookie->extension == xi_opcode 
+		if( cookie->type == GenericEvent && cookie->extension == xi_opcode
 			&& XGetEventData( x11display.dpy, cookie ) ) {
 				handle_cookie( cookie );
 				XFreeEventData( x11display.dpy, cookie );

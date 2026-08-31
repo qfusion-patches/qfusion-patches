@@ -370,7 +370,7 @@ static void Cmd_ListLocations_f( void )
 
 	for( i = 0; i < MAX_LOCATIONS; i++ ) {
 		const char *cs = trap_GetConfigString(CS_LOCATIONS + i);
-		if( !cs[0] ) { 
+		if( !cs[0] ) {
 			break;
 		}
 		G_Printf( "%2d %s\n", i, cs );

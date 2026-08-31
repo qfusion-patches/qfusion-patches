@@ -129,7 +129,7 @@ void S_IssueLoadSfxCmd( sndCmdPipe_t *queue, int sfx )
 /*
 * S_IssueSetAttenuationCmd
 */
-void S_IssueSetAttenuationCmd( sndCmdPipe_t *queue, int model, 
+void S_IssueSetAttenuationCmd( sndCmdPipe_t *queue, int model,
 	float maxdistance, float refdistance )
 {
 	sndCmdSetAttenuationModel_t cmd;
@@ -161,7 +161,7 @@ void S_IssueSetEntitySpatializationCmd( sndCmdPipe_t *queue, const smdCmdSpatial
 /*
 * S_IssueSetListenerCmd
 */
-void S_IssueSetListenerCmd( sndCmdPipe_t *queue, const vec3_t origin, 
+void S_IssueSetListenerCmd( sndCmdPipe_t *queue, const vec3_t origin,
 	const vec3_t velocity, const mat3_t axis, bool avidump )
 {
 	unsigned i;
@@ -215,7 +215,7 @@ void S_IssueStartFixedSoundCmd( sndCmdPipe_t *queue, int sfx, const vec3_t origi
 /*
 * S_IssueStartGlobalSoundCmd
 */
-void S_IssueStartGlobalSoundCmd( sndCmdPipe_t *queue, int sfx, int channel, 
+void S_IssueStartGlobalSoundCmd( sndCmdPipe_t *queue, int sfx, int channel,
 	float fvol )
 {
 	sndCmdStartGlobalSound_t cmd;
@@ -229,7 +229,7 @@ void S_IssueStartGlobalSoundCmd( sndCmdPipe_t *queue, int sfx, int channel,
 /*
 * S_IssueStartRelativeSoundCmd
 */
-void S_IssueStartRelativeSoundCmd( sndCmdPipe_t *queue, int sfx, int entnum, 
+void S_IssueStartRelativeSoundCmd( sndCmdPipe_t *queue, int sfx, int entnum,
 	int channel, float fvol, float attenuation )
 {
 	sndCmdStartRelativeSound_t cmd;
@@ -249,7 +249,7 @@ void S_IssueStartBackgroundTrackCmd( sndCmdPipe_t *queue, const char *intro,
 	const char *loop, int mode )
 {
 	sndCmdStartBackgroundTrack_t cmd;
-	
+
 	cmd.id = SND_CMD_START_BACKGROUND_TRACK;
 	Q_strncpyz( cmd.intro, intro ? intro : "", sizeof( cmd.intro ) );
 	Q_strncpyz( cmd.loop, loop ? loop : "", sizeof( cmd.loop ) );
@@ -340,8 +340,8 @@ void S_IssueAviDemoCmd( sndCmdPipe_t *queue, bool begin )
 /*
 * S_IssueRawSamplesCmd
 */
-void S_IssueRawSamplesCmd( sndCmdPipe_t *queue, unsigned int samples, 
-	unsigned int rate, unsigned short width, unsigned short channels, 
+void S_IssueRawSamplesCmd( sndCmdPipe_t *queue, unsigned int samples,
+	unsigned int rate, unsigned short width, unsigned short channels,
 	uint8_t *data, bool music )
 {
 	sndRawSamplesCmd_t cmd;
@@ -358,8 +358,8 @@ void S_IssueRawSamplesCmd( sndCmdPipe_t *queue, unsigned int samples,
 /*
 * S_IssuePositionedRawSamplesCmd
 */
-void S_IssuePositionedRawSamplesCmd( sndCmdPipe_t *queue, int entnum, 
-	float fvol, float attenuation, unsigned int samples, unsigned int rate, 
+void S_IssuePositionedRawSamplesCmd( sndCmdPipe_t *queue, int entnum,
+	float fvol, float attenuation, unsigned int samples, unsigned int rate,
 	unsigned short width, unsigned short channels, uint8_t *data )
 {
 	sndPositionedRawSamplesCmd_t cmd;
@@ -428,7 +428,7 @@ int S_ReadEnqueuedCmds( sndCmdPipe_t *queue, pipeCmdHandler_t *cmdHandlers )
 /*
 * S_WaitEnqueuedCmds
 */
-void S_WaitEnqueuedCmds( sndCmdPipe_t *queue, int (*read)( sndCmdPipe_t *, unsigned( ** )(const void *), bool ), 
+void S_WaitEnqueuedCmds( sndCmdPipe_t *queue, int (*read)( sndCmdPipe_t *, unsigned( ** )(const void *), bool ),
 	unsigned (**cmdHandlers)( const void * ), unsigned timeout_msec )
 {
 	trap_BufPipe_Wait( queue, read, cmdHandlers, timeout_msec );

@@ -1248,4 +1248,3 @@ void AI_InitNavigationData( bool silent )
 		G_Printf( "       : loaded links:%i.\n", linkscount );
 	}
 }
-

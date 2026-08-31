@@ -66,7 +66,7 @@ static void TVM_SnapClients( tvm_relay_t *relay )
 
 /*
 * TVM_GetGameState
-* 
+*
 * The server asks for the match state data
 */
 game_state_t *TVM_GetGameState( tvm_relay_t *relay )

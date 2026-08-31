@@ -25,7 +25,7 @@ static void R_DrawSkyportal( const entity_t *e, skyportal_t *skyportal );
 /*
 * R_AddPortalSurface
 */
-portalSurface_t *R_AddPortalSurface( const entity_t *ent, const mesh_t *mesh, 
+portalSurface_t *R_AddPortalSurface( const entity_t *ent, const mesh_t *mesh,
 	const vec3_t mins, const vec3_t maxs, const shader_t *shader, void *drawSurf )
 {
 	unsigned int i;
@@ -83,7 +83,7 @@ portalSurface_t *R_AddPortalSurface( const entity_t *ent, const mesh_t *mesh,
 
 			for( i = 0; i < 3; i++ ) {
 				VectorCopy( v[i], temp );
-				Matrix3_TransformVector( entity_rotation, temp, v[i] ); 
+				Matrix3_TransformVector( entity_rotation, temp, v[i] );
 				VectorMA( ent->origin, ent->scale, v[i], v[i] );
 			}
 
@@ -152,7 +152,7 @@ addsurface:
 
 /*
 * R_DrawPortalSurface
-* 
+*
 * Renders the portal view and captures the results from framebuffer if
 * we need to do a $portalmap stage. Note that for $portalmaps we must
 * use a different viewport.
@@ -476,7 +476,7 @@ void R_DrawPortals( void )
 			portalSurface_t *ps = rn.skyportalSurface;
 			R_DrawSkyportal( ps->entity, ps->skyPortal );
 		}
-		
+
 		// render regular portals
 		for( i = 0; i < rn.numPortalSurfaces; i++ ) {
 			portalSurface_t ps = rn.portalSurfaces[i];
@@ -510,7 +510,7 @@ portalSurface_t *R_AddSkyportalSurface( const entity_t *ent, const shader_t *sha
 	}
 
 	R_AddSurfToDrawList( rn.portalmasklist, ent, NULL, rsh.skyShader, 0, 0, NULL, drawSurf );
-	
+
 	portalSurface->entity = ent;
 	portalSurface->shader = shader;
 	portalSurface->skyPortal = &rn.refdef.skyportal;

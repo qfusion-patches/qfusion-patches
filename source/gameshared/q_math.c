@@ -436,7 +436,7 @@ int Q_bitcount( int v )
 
 /*
 * LerpAngle
-* 
+*
 */
 float LerpAngle( float a2, float a1, const float frac )
 {
@@ -449,7 +449,7 @@ float LerpAngle( float a2, float a1, const float frac )
 
 /*
 * AngleSubtract
-* 
+*
 * Always returns a value from -180 to 180
 */
 float AngleSubtract( float a1, float a2 )
@@ -470,7 +470,7 @@ float AngleSubtract( float a1, float a2 )
 
 /*
 * AnglesSubtract
-* 
+*
 * Always returns a value from -180 to 180
 */
 void AnglesSubtract( vec3_t v1, vec3_t v2, vec3_t v3 )
@@ -482,7 +482,7 @@ void AnglesSubtract( vec3_t v1, vec3_t v2, vec3_t v3 )
 
 /*
 * AngleNormalize360
-* 
+*
 * returns angle normalized to the range [0 <= angle < 360]
 */
 float AngleNormalize360( float angle )
@@ -492,7 +492,7 @@ float AngleNormalize360( float angle )
 
 /*
 * AngleNormalize180
-* 
+*
 * returns angle normalized to the range [-180 < angle <= 180]
 */
 float AngleNormalize180( float angle )
@@ -507,7 +507,7 @@ float AngleNormalize180( float angle )
 
 /*
 * AngleDelta
-* 
+*
 * returns the normalized delta from angle1 to angle2
 */
 float AngleDelta( float angle1, float angle2 )
@@ -570,7 +570,7 @@ void AdjustFov( float *fov_x, float *fov_y, float width, float height, bool lock
 
 /*
 * BoxOnPlaneSide
-* 
+*
 * Returns 1, 2, or 1 + 2
 */
 int BoxOnPlaneSide( const vec3_t emins, const vec3_t emaxs, const struct cplane_s *p )
@@ -668,7 +668,7 @@ int PlaneTypeForNormal( const vec3_t normal )
 
 /*
 * CategorizePlane
-* 
+*
 * A slightly more complex version of SignbitsForPlane and PlaneTypeForNormal,
 * which also tries to fix possible floating point glitches (like -0.00000 cases)
 */
@@ -950,7 +950,7 @@ int Q_log2( int val )
 void VectorReflect( const vec3_t v, const vec3_t n, const vec_t dist, vec3_t out )
 {
 	vec_t d;
-	
+
 	d = -2 * ( DotProduct( v, n ) - dist );
 	VectorMA( v, d, n, out );
 }
@@ -1339,7 +1339,7 @@ void Quat_TransformVector( const quat_t q, const vec3_t v, vec3_t out )
 
 	CrossProduct( &q[0], v, t ); // 6 muls, 3 subs
 	VectorScale( t, 2, t );		 // 3 muls
-	CrossProduct( &q[0], t, out );// 6 muls, 3 subs 
+	CrossProduct( &q[0], t, out );// 6 muls, 3 subs
 	VectorMA( out, q[3], t, out );// 3 muls, 3 adds
 #endif
 }
@@ -1486,7 +1486,7 @@ void DualQuat_Lerp( const dualquat_t dq1, const dualquat_t dq2, vec_t t, dualqua
 {
 	int i, j;
 	vec_t k;
-	
+
 	k = dq1[0] * dq2[0] + dq1[1] * dq2[1] + dq1[2] * dq2[2] + dq1[3] * dq2[3];
 	k = k < 0 ? -t : t;
 	t = 1.0 - t;

@@ -36,7 +36,7 @@ void DoRespawn( edict_t *ent )
 		int choice;
 
 		master = ent->teammaster;
-		
+
 		assert( master != NULL );
 
 		if( master ) {
@@ -993,9 +993,9 @@ void G_Items_FinishSpawningItems( void )
 
 /*
 * SpawnItem
-* 
+*
 * Sets the clipping size and plants the object on the floor.
-* 
+*
 * Items can't be immediately dropped to floor, because they might
 * be on an entity that hasn't spawned yet.
 */
@@ -1011,7 +1011,7 @@ void SpawnItem( edict_t *ent, const gsitem_t *item )
 
 /*
 * PrecacheItem
-* 
+*
 * Precaches all data needed for a given item.
 * This will be called for each item spawned in a level,
 * and for each item in each client's inventory.
@@ -1087,7 +1087,7 @@ void PrecacheItem( const gsitem_t *it )
 
 /*
 * SetItemNames
-* 
+*
 * Called by worldspawn
 */
 void G_PrecacheItems( void )
@@ -1129,4 +1129,3 @@ void G_PrecacheItems( void )
 		PrecacheItem( item );
 	}
 }
-

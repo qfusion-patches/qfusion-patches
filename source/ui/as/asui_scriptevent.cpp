@@ -82,7 +82,7 @@ class ScriptEventListener : public EventListener
 			asIScriptFunction *scriptFunc = NULL;
 
 			if( !asmodule->addFunction( module, funcName.CString(), funcCode.CString(), &scriptFunc ) ) {
-				Com_Printf( S_COLOR_YELLOW "WARNING: ScriptEventListener addFunction failed with %s %s\n", 
+				Com_Printf( S_COLOR_YELLOW "WARNING: ScriptEventListener addFunction failed with %s %s\n",
 					funcName.CString(), funcCode.CString() );
 			} else if( scriptFunc ) {
 				// I think we only hit this scenario when we do smth like
@@ -104,7 +104,7 @@ class ScriptEventListener : public EventListener
 
 public:
 
-	ScriptEventListener( const String &s, int uniqueId, Element *target ) : script( s ), 
+	ScriptEventListener( const String &s, int uniqueId, Element *target ) : script( s ),
 		loaded( false ), released( false ),  uniqueId( uniqueId ), target( target )
 	{
 		asmodule = UI_Main::Get()->getAS();
@@ -224,7 +224,7 @@ public:
 		}
 	}
 
-	virtual ~ScriptEventCaller() 
+	virtual ~ScriptEventCaller()
 	{
 		funcPtr.release();
 	}

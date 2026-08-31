@@ -508,7 +508,7 @@ void S_StartBackgroundTrack( const char *intro, const char *loop, int mode )
 		// 2 - loop the selected track
 		// 4 - stream (even if muted)
 
-		firstTrack = S_ReadPlaylistFile( intro, 
+		firstTrack = S_ReadPlaylistFile( intro,
 			mode & 1 ? true : false, mode & 2 ? true : false );
 		if( firstTrack )
 		{
@@ -760,10 +760,10 @@ void S_UpdateBackgroundTrack( void )
 			total += read;
 		}
 
-		byteSwapRawSamples( samples, s_bgTrack->info.width, 
+		byteSwapRawSamples( samples, s_bgTrack->info.width,
 			s_bgTrack->info.channels, data );
 
-		S_RawSamples2( samples, s_bgTrack->info.rate, s_bgTrack->info.width, 
+		S_RawSamples2( samples, s_bgTrack->info.rate, s_bgTrack->info.width,
 			s_bgTrack->info.channels, data, s_bgTrackMuted ? 0 : s_musicvolume->value * 255 );
 	}
 }

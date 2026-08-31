@@ -479,7 +479,7 @@ void TV_Upstream_NextDemo( const char *demoname, const char *curdemo, bool rando
 				if( !*pattern )
 				{
 					extension = COM_FileExtension( match[j] );
-					if( FS_FOpenFile( va( "demos/%s%s", match[j], 
+					if( FS_FOpenFile( va( "demos/%s%s", match[j],
 							(extension ? "" : APP_DEMO_EXTENSION_STR) ), NULL, FS_READ ) == -1 )
 						continue;
 				}

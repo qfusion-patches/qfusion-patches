@@ -154,7 +154,7 @@ static void TV_Relay_Multiview_f( relay_t *relay )
 
 /*
 * TV_Relay_ServerReconnect_f
-* 
+*
 * The server is changing levels
 */
 static void TV_Relay_ServerReconnect_f( relay_t *relay )
@@ -164,7 +164,7 @@ static void TV_Relay_ServerReconnect_f( relay_t *relay )
 
 /*
 * TV_Relay_ServerDisconnect_f
-* 
+*
 * The server is changing levels
 */
 static void TV_Relay_ServerDisconnect_f( relay_t *relay )

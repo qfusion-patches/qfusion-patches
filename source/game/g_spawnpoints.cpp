@@ -50,7 +50,7 @@ void SP_info_player_intermission( edict_t *ent )
 
 /*
 * PlayersRangeFromSpot
-* 
+*
 * Returns the distance to the nearest player from the given spot
 */
 float PlayersRangeFromSpot( edict_t *spot, int ignore_team )
@@ -118,7 +118,7 @@ edict_t *G_SelectIntermissionSpawnPoint( void )
 
 /*
 * SelectRandomDeathmatchSpawnPoint
-* 
+*
 * go to a random point, but NOT the two points closest
 * to other players
 */
@@ -318,7 +318,7 @@ bool G_OffsetSpawnPoint( vec3_t origin, vec3_t box_mins, vec3_t box_maxs, float 
 
 /*
 * SelectSpawnPoint
-* 
+*
 * Chooses a player start, deathmatch start, etc
 */
 void SelectSpawnPoint( edict_t *ent, edict_t **spawnpoint, vec3_t origin, vec3_t angles )
@@ -329,7 +329,7 @@ void SelectSpawnPoint( edict_t *ent, edict_t **spawnpoint, vec3_t origin, vec3_t
 	{
 		spot = G_SelectIntermissionSpawnPoint();
 	}
-	else 
+	else
 	{
 		if( game.asEngine != NULL )
 			spot = GT_asCallSelectSpawnPoint( ent );
@@ -375,7 +375,7 @@ void SelectSpawnPoint( edict_t *ent, edict_t **spawnpoint, vec3_t origin, vec3_t
 
 	// SPAWN TELEFRAGGING PROTECTION.
 	if( ent->r.solid == SOLID_YES && ( level.gametype.spawnpointRadius > ( playerbox_stand_maxs[0] - playerbox_stand_mins[0] ) ) )
-		G_OffsetSpawnPoint( origin, playerbox_stand_mins, playerbox_stand_maxs, level.gametype.spawnpointRadius, 
+		G_OffsetSpawnPoint( origin, playerbox_stand_mins, playerbox_stand_maxs, level.gametype.spawnpointRadius,
 			!( spot->spawnflags & 1 ) ? true : false );
 }
 

@@ -397,7 +397,7 @@ static void SNAP_WritePlayerstateToClient( player_state_t *ops, player_state_t *
 	if( pflags & PS_PMOVESTATS )
 	{
 		int pmstatbits;
-		
+
 		pmstatbits = 0;
 		for( i = 0; i < PM_STAT_SIZE; i++ )
 		{

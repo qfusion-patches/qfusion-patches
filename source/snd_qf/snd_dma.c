@@ -133,7 +133,7 @@ static bool S_Init( void *hwnd, int maxEntities, bool verbose )
 {
 	if( !SNDDMA_Init( hwnd, verbose ) )
 		return false;
-	
+
 	s_active = true;
 	s_last_update_time = 0;
 
@@ -172,7 +172,7 @@ static void S_Shutdown( bool verbose )
 	S_LockBackgroundTrack( false );
 
 	S_StopBackgroundTrack( );
-	
+
 	S_FreeRawSounds();
 
 	SNDDMA_Shutdown( verbose );
@@ -323,7 +323,7 @@ static void S_SpatializeOrigin( const vec3_t origin, float master_vol, float dis
 /*
 * S_SpatializeOriginHF
 */
-static void S_SpatializeOriginHQ( const vec3_t origin, float master_vol, float dist_mult, 
+static void S_SpatializeOriginHQ( const vec3_t origin, float master_vol, float dist_mult,
 	int *left_vol, int *right_vol, int *lcoeff, int *rcoeff, unsigned int *ldelay, unsigned int *rdelay )
 {
 	vec_t dot;
@@ -714,7 +714,7 @@ void S_AddLoopSound( sfx_t *sfx, int entnum, float fvol, float attenuation )
 static const vec_t *S_LoopSoundOrigin( loopsfx_t *loopsfx )
 {
 	int entnum = loopsfx->entnum;
-	return entnum < 0 || entnum >= MAX_EDICTS ? listenerOrigin : 
+	return entnum < 0 || entnum >= MAX_EDICTS ? listenerOrigin :
 		s_ent_spatialization[entnum].origin;
 }
 
@@ -728,7 +728,7 @@ static void S_AddLoopSounds( void )
 	channel_t *ch;
 	sfx_t *sfx;
 	sfxcache_t *sc;
-	
+
 	for( i = 0; i < num_loopsfx; i++ )
 	{
 		if( !loop_sfx[i].sfx )
@@ -757,7 +757,7 @@ static void S_AddLoopSounds( void )
 
 				loop_sfx[j].sfx = NULL; // don't check this again later
 
-				S_SpatializeOrigin( S_LoopSoundOrigin( &loop_sfx[j] ), 
+				S_SpatializeOrigin( S_LoopSoundOrigin( &loop_sfx[j] ),
 					loop_sfx[i].volume, loop_sfx[i].attenuation, &left, &right );
 				left_total += left;
 				right_total += right;
@@ -834,7 +834,7 @@ static rawsound_t *S_FindRawSound( int entnum, bool addNew )
 				// exact match
 				return rawsound;
 			}
-			
+
 			time = rawsound->rawend - paintedtime;
 			if( time < best_time ) {
 				best = i;
@@ -856,7 +856,7 @@ static rawsound_t *S_FindRawSound( int entnum, bool addNew )
 	}
 
 	if( !raw_sounds[best] ) {
-		raw_sounds[best] = S_Malloc( sizeof( *rawsound ) 
+		raw_sounds[best] = S_Malloc( sizeof( *rawsound )
 			+ sizeof( portable_samplepair_t ) * MAX_RAW_SAMPLES );
 	}
 
@@ -871,7 +871,7 @@ static rawsound_t *S_FindRawSound( int entnum, bool addNew )
 * S_RawSamplesStereo
 */
 static unsigned int S_RawSamplesStereo( portable_samplepair_t *rawsamples, unsigned int rawend,
-	unsigned int samples, unsigned int rate, unsigned short width, 
+	unsigned int samples, unsigned int rate, unsigned short width,
 	unsigned short channels, const uint8_t *data )
 {
 	unsigned src, dst;
@@ -936,7 +936,7 @@ static unsigned int S_RawSamplesStereo( portable_samplepair_t *rawsamples, unsig
 /*
 * S_RawEntSamples
 */
-static void S_RawEntSamples( int entnum, unsigned int samples, unsigned int rate, unsigned short width, 
+static void S_RawEntSamples( int entnum, unsigned int samples, unsigned int rate, unsigned short width,
 	unsigned short channels, const uint8_t *data, int snd_vol )
 {
 	rawsound_t *rawsound;
@@ -951,7 +951,7 @@ static void S_RawEntSamples( int entnum, unsigned int samples, unsigned int rate
 
 	rawsound->volume = snd_vol;
 	rawsound->attenuation = ATTN_NONE;
-	rawsound->rawend = S_RawSamplesStereo( rawsound->rawsamples, rawsound->rawend, 
+	rawsound->rawend = S_RawSamplesStereo( rawsound->rawsamples, rawsound->rawend,
 		samples, rate, width, channels, data );
 	rawsound->left_volume = rawsound->right_volume = snd_vol;
 }
@@ -959,7 +959,7 @@ static void S_RawEntSamples( int entnum, unsigned int samples, unsigned int rate
 /*
 * S_RawSamples2
 */
-void S_RawSamples2( unsigned int samples, unsigned int rate, unsigned short width, 
+void S_RawSamples2( unsigned int samples, unsigned int rate, unsigned short width,
 	unsigned short channels, const uint8_t *data, int snd_vol )
 {
 	S_RawEntSamples( S_RAW_SOUND_BGTRACK, samples, rate, width, channels, data, snd_vol );
@@ -968,7 +968,7 @@ void S_RawSamples2( unsigned int samples, unsigned int rate, unsigned short widt
 /*
 * S_RawSamples
 */
-void S_RawSamples( unsigned int samples, unsigned int rate, unsigned short width, 
+void S_RawSamples( unsigned int samples, unsigned int rate, unsigned short width,
 	unsigned short channels, const uint8_t *data, bool music )
 {
 	int snd_vol;
@@ -989,12 +989,12 @@ void S_RawSamples( unsigned int samples, unsigned int rate, unsigned short width
 /*
 * S_PositionedRawSamples
 */
-static void S_PositionedRawSamples( int entnum, float fvol, float attenuation, 
-		unsigned int samples, unsigned int rate, 
+static void S_PositionedRawSamples( int entnum, float fvol, float attenuation,
+		unsigned int samples, unsigned int rate,
 		unsigned short width, unsigned short channels, const uint8_t *data )
 {
 	rawsound_t *rawsound;
-	
+
 	if( entnum < 0 || entnum >= MAX_EDICTS )
 		return;
 
@@ -1005,34 +1005,34 @@ static void S_PositionedRawSamples( int entnum, float fvol, float attenuation,
 
 	rawsound->volume = s_volume->value * fvol * 255;
 	rawsound->attenuation = attenuation;
-	rawsound->rawend = S_RawSamplesStereo( rawsound->rawsamples, rawsound->rawend, 
+	rawsound->rawend = S_RawSamplesStereo( rawsound->rawsamples, rawsound->rawend,
 		samples, rate, width, channels, data );
 }
 
 /*
 * S_GetRawSamplesLength
 */
-unsigned int S_GetRawSamplesLength( void ) 
+unsigned int S_GetRawSamplesLength( void )
 {
 	rawsound_t *rawsound;
-	
+
 	rawsound = S_FindRawSound( S_RAW_SOUND_BGTRACK, false );
 	if( !rawsound ) {
 		return 0;
 	}
 
-	return rawsound->rawend <= paintedtime 
-		? 0 
+	return rawsound->rawend <= paintedtime
+		? 0
 		: (float)(rawsound->rawend - paintedtime) * dma.msec_per_sample;
 }
 
 /*
 * S_GetPositionedRawSamplesLength
 */
-unsigned int S_GetPositionedRawSamplesLength( int entnum ) 
+unsigned int S_GetPositionedRawSamplesLength( int entnum )
 {
 	rawsound_t *rawsound;
-	
+
 	if( entnum < 0 )
 		entnum = 0;
 
@@ -1041,8 +1041,8 @@ unsigned int S_GetPositionedRawSamplesLength( int entnum )
 		return 0;
 	}
 
-	return rawsound->rawend <= paintedtime 
-		? 0 
+	return rawsound->rawend <= paintedtime
+		? 0
 		: (float)(rawsound->rawend - paintedtime) * dma.msec_per_sample;
 }
 
@@ -1095,7 +1095,7 @@ static void S_ClearRawSounds( void )
 static void S_SpatializeRawSounds( void )
 {
 	int i;
-	
+
 	for( i = 0; i < MAX_RAW_SOUNDS; i++ ) {
 		int left, right;
 		rawsound_t *rawsound = raw_sounds[i];
@@ -1111,7 +1111,7 @@ static void S_SpatializeRawSounds( void )
 
 		// spatialization
 		if( rawsound->attenuation && rawsound->entnum >= 0 && rawsound->entnum < MAX_EDICTS ) {
-			S_SpatializeOrigin( s_ent_spatialization[rawsound->entnum].origin, 
+			S_SpatializeOrigin( s_ent_spatialization[rawsound->entnum].origin,
 				rawsound->volume, rawsound->attenuation, &left, &right );
 		}
 		else {

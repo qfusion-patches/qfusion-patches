@@ -46,7 +46,7 @@ public:
 			String line, text = "";
 			StringList list;
 
-			// add IRC history lines one by one, converting 
+			// add IRC history lines one by one, converting
 			// warsow color codes and HTML special chars to RML code
 			const struct irc_chat_history_node_s *n = trap::Irc_GetHistoryHeadNode();
 			while( n ) {

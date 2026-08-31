@@ -343,7 +343,7 @@ typedef struct entity_state_s
 		// for client side prediction, 8*(bits 0-4) is x/y radius
 		// 8*(bits 5-9) is z down distance, 8(bits10-15) is z up
 		// GClip_LinkEntity sets this properly
-		int solid;	
+		int solid;
 		int eventCount;					// ET_EVENT specific
 	};
 
@@ -515,4 +515,3 @@ typedef struct
 #endif
 
 #endif // GAME_QCOMREF_H
-

@@ -47,10 +47,10 @@ void R_TakeScreenShot( const char *path, const char *name, const char *fmtString
 	char *checkname = NULL;
 	size_t checkname_size = 0;
 	int quality;
-	
+
 	if( !R_IsRenderingToScreen() )
 		return;
-	
+
 	if( r_screenshot_jpeg->integer ) {
 		extension = ".jpg";
 		quality = r_screenshot_jpeg_quality->integer;
@@ -59,7 +59,7 @@ void R_TakeScreenShot( const char *path, const char *name, const char *fmtString
 		extension = ".tga";
 		quality = 100;
 	}
-	
+
 	if( name && name[0] && Q_stricmp(name, "*") )
 	{
 		if( !COM_ValidateRelativeFilename( name ) )
@@ -67,13 +67,13 @@ void R_TakeScreenShot( const char *path, const char *name, const char *fmtString
 			Com_Printf( "Invalid filename\n" );
 			return;
 		}
-		
+
 		checkname_size = ( path_size - 1 ) + strlen( name ) + strlen( extension ) + 1;
 		checkname = alloca( checkname_size );
 		Q_snprintfz( checkname, checkname_size, "%s%s", path, name );
 		COM_DefaultExtension( checkname, extension, checkname_size );
 	}
-	
+
 	//
 	// find a file name to save it to
 	//
@@ -85,18 +85,18 @@ void R_TakeScreenShot( const char *path, const char *name, const char *fmtString
 		char timestampString[MAX_QPATH];
 		static char lastFmtString[MAX_QPATH];
 		struct tm newtime;
-		
+
 		R_Localtime( time( NULL ), &newtime );
 		strftime( timestampString, sizeof( timestampString ), fmtString, &newtime );
 
 		checkname_size = ( path_size - 1 ) + strlen( timestampString ) + 5 + 1 + strlen( extension );
 		checkname = alloca( checkname_size );
-		
+
 		// if the string format is a constant or file already exists then iterate
 		if( !*fmtString || !strcmp( timestampString, fmtString ) )
 		{
 			addIndex = true;
-			
+
 			// force a rescan in case some vars have changed..
 			if( strcmp( lastFmtString, fmtString ) )
 			{
@@ -119,27 +119,27 @@ void R_TakeScreenShot( const char *path, const char *name, const char *fmtString
 				addIndex = true;
 			}
 		}
-		
+
 		for( ; addIndex && lastIndex < maxFiles; lastIndex++ )
 		{
 			Q_snprintfz( checkname, checkname_size, "%s%s%05i%s", path, timestampString, lastIndex, extension );
 			if( ri.FS_FOpenAbsoluteFile( checkname, NULL, FS_READ ) == -1 )
 				break; // file doesn't exist
 		}
-		
+
 		if( lastIndex == maxFiles )
 		{
 			Com_Printf( "Couldn't create a file\n" );
 			return;
 		}
-		
+
 		lastIndex++;
 	}
-	
-	R_ScreenShot( checkname, 
+
+	R_ScreenShot( checkname,
 				 x, y, w, h, quality,
 				 false, false, false, silent );
-	
+
 	if( media ) {
 		ri.FS_AddFileToMedia( checkname );
 	}
@@ -157,7 +157,7 @@ void R_ScreenShot_f( void )
 	char *path;
 	char timestamp_str[MAX_QPATH];
 	struct tm newtime;
-	
+
 	R_Localtime( time( NULL ), &newtime );
 
 	name = ri.Cmd_Argv( 1 );
@@ -175,7 +175,7 @@ void R_ScreenShot_f( void )
 		path = alloca( path_size );
 		Q_snprintfz( path, path_size, "%s/%s/screenshots/", ri.FS_WriteDirectory(), ri.FS_GameDirectory() );
 	}
-	
+
 	// validate timestamp string
 	for( i = 0; i < 2; i++ )
 	{
@@ -185,7 +185,7 @@ void R_ScreenShot_f( void )
 		else
 			break;
 	}
-	
+
 	// hm... shouldn't really happen, but check anyway
 	if( i == 2 )
 		ri.Cvar_ForceSet( r_screenshot_fmtstr->name, glConfig.screenshotPrefix );
@@ -215,54 +215,54 @@ void R_TakeEnvShot( const char *path, const char *name, unsigned maxPixels )
 		{ "pz", { -90, 180, 0 }, IT_FLIPDIAGONAL },
 		{ "nz", { 90, 180, 0 }, IT_FLIPDIAGONAL }
 	};
-	
+
 	if( !R_IsRenderingToScreen() || !rsh.worldModel )
 		return;
-	
+
 	maxSize = min( min( glConfig.width, glConfig.height ), glConfig.maxTextureSize );
 	if( maxSize > maxPixels )
 		maxSize = maxPixels;
-	
+
 	for( size = 1; size < maxSize; size <<= 1 ) ;
 	if( size > maxSize )
 		size >>= 1;
-	
+
 	checkname_size = strlen( path ) + strlen( name ) + 1 + strlen( cubemapShots[0].suf ) + 4 + 1;
 	checkname = alloca( checkname_size );
-	
+
 	fd = rsc.refdef;
 	fd.time = 0;
 	//fd.x = fd.y = 0;
 	fd.width = fd.height = size;
 	fd.fov_x = fd.fov_y = 90;
-	
+
 	rn.farClip = R_DefaultFarClip();
-	
+
 	// do not render non-bmodel entities
 	rn.renderFlags |= RF_CUBEMAPVIEW;
 	rn.clipFlags = 15;
 	rn.shadowGroup = NULL;
 	rn.fbColorAttachment = rn.fbDepthAttachment = NULL;
-	
+
 	Vector4Set( rn.viewport, fd.x, glConfig.height - size - fd.y, size, size );
 	Vector4Set( rn.scissor, fd.x, glConfig.height - size - fd.y, size, size );
-	
+
 	for( i = 0; i < 6; i++ )
 	{
 		AnglesToAxis( cubemapShots[i].angles, fd.viewaxis );
-		
+
 		R_RenderView( &fd );
-		
+
 		Q_snprintfz( checkname, checkname_size, "%s%s_%s", path, name, cubemapShots[i].suf );
 		COM_DefaultExtension( checkname, ".tga", checkname_size );
-		
+
 		R_ScreenShot( checkname, 0, 0, size, size, 100,
-					 ( cubemapShots[i].flags & IT_FLIPX ) ? true : false, 
-					 ( cubemapShots[i].flags & IT_FLIPY ) ? true : false, 
+					 ( cubemapShots[i].flags & IT_FLIPX ) ? true : false,
+					 ( cubemapShots[i].flags & IT_FLIPY ) ? true : false,
 					 ( cubemapShots[i].flags & IT_FLIPDIAGONAL ) ? true : false,
 					 false );
 	}
-	
+
 	// render non-bmodel entities again
 	rn.renderFlags &= ~RF_CUBEMAPVIEW;
 }
@@ -328,7 +328,7 @@ void R_ShaderDump_f( void )
 {
 	const char *name;
 	const msurface_t *debugSurface;
-	
+
 	debugSurface = R_GetDebugSurface();
 
 	if( (ri.Cmd_Argc() < 2) && !debugSurface )

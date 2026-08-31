@@ -8,7 +8,7 @@ of the License, or (at your option) any later version.
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 See the GNU General Public License for more details.
 
@@ -58,7 +58,7 @@ void RFB_Init( void )
 
 /*
 * RFB_DeleteObject
-* 
+*
 * Delete framebuffer object along with attached render buffer
 */
 static void RFB_DeleteObject( r_fbo_t *fbo )
@@ -152,7 +152,7 @@ found:
 		if( stencilRB )
 			qglFramebufferRenderbufferEXT( GL_FRAMEBUFFER_EXT, GL_STENCIL_ATTACHMENT_EXT, GL_RENDERBUFFER_EXT, rbID );
 
-		qglBindRenderbufferEXT( GL_RENDERBUFFER_EXT, 0 );	
+		qglBindRenderbufferEXT( GL_RENDERBUFFER_EXT, 0 );
 	}
 
 	if( r_bound_framebuffer_objectID )
@@ -306,7 +306,7 @@ void RFB_BlitObject( int dest, int bitMask, int mode )
 {
 	int bits;
 	int dx, dy, dw, dh;
-	r_fbo_t *fbo = r_bound_framebuffer_object, 
+	r_fbo_t *fbo = r_bound_framebuffer_object,
 		*destfbo = r_framebuffer_objects + dest - 1;
 
 	if( !r_bound_framebuffer_object ) {
@@ -362,7 +362,7 @@ void RFB_BlitObject( int dest, int bitMask, int mode )
 
 /*
 * RFB_CheckObjectStatus
-* 
+*
 * Boolean, returns false in case of error
 */
 bool RFB_CheckObjectStatus( void )
@@ -383,7 +383,7 @@ bool RFB_CheckObjectStatus( void )
 			// programming error; will fail on all hardware
 			assert( 0 );
 	}
-	
+
 	return false;
 }
 
@@ -433,7 +433,7 @@ void RFB_FreeUnusedObjects( void )
 
 /*
 * RFB_Shutdown
-* 
+*
 * Delete all registered framebuffer and render buffer objects, clear memory
 */
 void RFB_Shutdown( void )

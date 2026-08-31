@@ -77,7 +77,7 @@ public:
 class DynTable: public Table
 {
 public:
-	DynTable( const std::string &name, unsigned int updateTime, const std::string &baseURL ) 
+	DynTable( const std::string &name, unsigned int updateTime, const std::string &baseURL )
 		: Table( name ), updateTime( updateTime ), baseURL( baseURL )
 	{
 	}
@@ -130,7 +130,7 @@ int GameAjaxDataSource::GetNumRows( const String &tableName )
 
 	if( t_it != tableList.end() ) {
 		oldTable = t_it->second->table;
-		
+
 		// return cached counter
 		if( oldTable->GetBaseURL() == baseURL ) {
 			if( oldTable->GetUpdateTime() + UPDATE_INTERVAL > now ) {
@@ -140,7 +140,7 @@ int GameAjaxDataSource::GetNumRows( const String &tableName )
 
 		//tableList.erase( t_it );
 	}
-	
+
 	// trigger AJAX-style query to server
 
 	std::string stdTableName = tableName.CString();
@@ -151,7 +151,7 @@ int GameAjaxDataSource::GetNumRows( const String &tableName )
 
 	trap::AsyncStream_PerformRequest(
 		url.c_str(), "GET", "", 10,
-		&GameAjaxDataSource::StreamRead, &GameAjaxDataSource::StreamDone, 
+		&GameAjaxDataSource::StreamRead, &GameAjaxDataSource::StreamDone,
 		static_cast<void *>(__new__(SourceFetcherPair)(this, __new__(DynTableFetcher)(table)))
 	);
 
@@ -163,7 +163,7 @@ void GameAjaxDataSource::FlushCache( void )
 	// do nothing
 }
 
-size_t GameAjaxDataSource::StreamRead( const void *buf, size_t numb, float percentage, 
+size_t GameAjaxDataSource::StreamRead( const void *buf, size_t numb, float percentage,
 	int status, const char *contentType, void *privatep )
 {
 	if( status < 0 || status >= 300 ) {
@@ -224,7 +224,7 @@ void GameAjaxDataSource::StreamDone( int status, const char *contentType, void *
 
 		table->AddRow( row );
 	}
-	
+
 	if( oldTable != NULL ) {
 		ds->tableList[tableName] = fetcher;
 

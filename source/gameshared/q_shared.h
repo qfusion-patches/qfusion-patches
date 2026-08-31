@@ -218,7 +218,7 @@ char *Q_chrreplace( char *s, const char subj, const char repl );
  */
 void Q_urlencode_unsafechars( const char *src, char *dst, size_t dst_size );
 /**
- * Converts the given URL-encoded string to a null-terminated plain string. Returns 
+ * Converts the given URL-encoded string to a null-terminated plain string. Returns
  * total (untruncated) length of the resulting string.
  */
 size_t Q_urldecode( const char *src, char *dst, size_t dst_size );
@@ -467,4 +467,3 @@ typedef enum
 #endif
 
 #endif
-

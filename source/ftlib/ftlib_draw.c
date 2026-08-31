@@ -263,7 +263,7 @@ fdrawchar_t FTLIB_SetDrawIntercept( fdrawchar_t intercept )
 
 /*
 * FTLIB_DrawRawChar
-* 
+*
 * Draws one graphics character with 0 being transparent.
 * It can be clipped to the top of the screen to allow the console to be
 * smoothly scrolled off.
@@ -292,7 +292,7 @@ void FTLIB_DrawRawChar( int x, int y, wchar_t num, qfontface_t *font, vec4_t col
 	if( drawCharIntercept )
 		draw = drawCharIntercept;
 
-	draw( x + glyph->x_offset, y + font->glyphYOffset + glyph->y_offset, 
+	draw( x + glyph->x_offset, y + font->glyphYOffset + glyph->y_offset,
 		glyph->width, glyph->height,
 		glyph->s1, glyph->t1, glyph->s2, glyph->t2,
 		color, glyph->shader );
@@ -300,7 +300,7 @@ void FTLIB_DrawRawChar( int x, int y, wchar_t num, qfontface_t *font, vec4_t col
 
 /*
 * FTLIB_DrawClampChar
-* 
+*
 * Draws one graphics character with 0 being transparent.
 * Clipped to [xmin, ymin; xmax, ymax].
 */

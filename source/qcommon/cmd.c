@@ -58,7 +58,7 @@ static int Cmd_PatternMatchesAlias( void *alias, void *pattern )
 
 /*
 * Cmd_Wait_f
-* 
+*
 * Causes execution of the remainder of the command buffer to be delayed until
 * next frame.  This allows commands like:
 * bind g "impulse 5 ; +attack ; wait ; -attack ; impulse 2"
@@ -132,7 +132,7 @@ void Cbuf_Shutdown( void )
 
 /*
 * Cbuf_FreeSpace
-* 
+*
 * Frees some space, if we have too big buffer in use
 */
 static void Cbuf_FreeSpace( void )
@@ -206,7 +206,7 @@ static void Cbuf_EnsureSpace( size_t size )
 
 /*
 * Cbuf_AddText
-* 
+*
 * Adds command text at the end of the buffer
 */
 void Cbuf_AddText( const char *text )
@@ -234,7 +234,7 @@ void Cbuf_AddText( const char *text )
 
 /*
 * Cbuf_InsertText
-* 
+*
 * When a command wants to issue other commands immediately, the text is
 * inserted at the beginning of the buffer, before any remaining unexecuted
 * commands.
@@ -345,19 +345,19 @@ void Cbuf_Execute( void )
 
 /*
 * Cbuf_AddEarlyCommands
-* 
+*
 * Adds all the +set commands from the command line:
-* 
+*
 * Adds command line parameters as script statements
 * Commands lead with a +, and continue until another +
-* 
+*
 * Set and exec commands are added early, so they are guaranteed to be set before
 * the client and server initialize for the first time.
-* 
+*
 * This command is first run before autoexec.cfg and config.cfg to allow changing
 * fs_basepath etc. The second run is after those files has been execed in order
 * to allow overwriting values set in them.
-* 
+*
 * Other commands are added late, after all initialization is complete.
 */
 void Cbuf_AddEarlyCommands( bool second_run )
@@ -394,11 +394,11 @@ void Cbuf_AddEarlyCommands( bool second_run )
 
 /*
 * Cbuf_AddLateCommands
-* 
+*
 * Adds command line parameters as script statements
 * Commands lead with a + and continue until another + or -
 * quake +map amlev1
-* 
+*
 * Returns true if any late commands were added, which
 * will keep the demoloop from immediately starting
 */
@@ -523,7 +523,7 @@ static char **CL_CompleteExecBuildList( const char *partial )
 
 /*
 * Cmd_Echo_f
-* 
+*
 * Just prints the rest of the line to the console
 */
 static void Cmd_Echo_f( void )
@@ -571,7 +571,7 @@ static void Cmd_AliasList_f( void )
 
 /*
 * Cmd_Alias_f
-* 
+*
 * Creates a new command that executes a command string (possibly ; separated)
 */
 static void Cmd_Alias_f_( bool archive )
@@ -651,7 +651,7 @@ static void Cmd_Aliasa_f( void )
 
 /*
 * Cmd_Unalias_f
-* 
+*
 * Removes an alias command
 */
 static void Cmd_Unalias_f( void )
@@ -686,7 +686,7 @@ static void Cmd_Unalias_f( void )
 
 /*
 * Cmd_UnaliasAll_f
-* 
+*
 * Removes an alias command
 */
 static void Cmd_UnaliasAll_f( void )
@@ -708,7 +708,7 @@ static void Cmd_UnaliasAll_f( void )
 
 /*
 * Cmd_WriteAliases
-* 
+*
 * Write lines containing "aliasa alias value" for all aliases
 * with the archive flag set to true
 */
@@ -786,7 +786,7 @@ char *Cmd_Argv( int arg )
 
 /*
 * Cmd_Args
-* 
+*
 * Returns a single string containing argv(1) to argv(argc()-1)
 */
 char *Cmd_Args( void )
@@ -796,7 +796,7 @@ char *Cmd_Args( void )
 
 /*
 * Cmd_TokenizeString
-* 
+*
 * Parses the given string into command line tokens.
 * $Cvars will be expanded unless they are in a quoted token
 * Takes a null terminated string.  Does not need to be /n terminated.
@@ -1015,7 +1015,7 @@ char **Cmd_CompleteBuildList( const char *partial )
 
 /*
 * Cmd_CompleteBuildArgListExt
-* 
+*
 * Find a possible single matching command
 */
 char **Cmd_CompleteBuildArgListExt( const char *command, const char *arguments )
@@ -1031,7 +1031,7 @@ char **Cmd_CompleteBuildArgListExt( const char *command, const char *arguments )
 
 /*
 * Cmd_CompleteBuildArgList
-* 
+*
 * Find a possible single matching command
 */
 char **Cmd_CompleteBuildArgList( const char *partial )
@@ -1130,7 +1130,7 @@ char **Cmd_CompleteFileList( const char *partial, const char *basedir, const cha
 	buf_size = 	( total + 1 ) * sizeof( char * )	// resulting pointer list with NULL ending
 				+ total_size						// actual strings
 				+ total * subdir_length;			// extra space to prepend subdirs
-	buf = ( char ** )Mem_TempMalloc( buf_size );							
+	buf = ( char ** )Mem_TempMalloc( buf_size );
 	list = ( char * )buf + ( total + 1 ) * sizeof( char * );
 
 	// get all files in the directory
@@ -1264,7 +1264,7 @@ char **Cmd_CompleteAliasBuildList( const char *partial )
 
 /*
 * Cmd_CheckForCommand
-* 
+*
 * Used by console code to check if text typed is a command/cvar/alias or chat
 */
 bool Cmd_CheckForCommand( char *text )

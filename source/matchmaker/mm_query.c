@@ -414,7 +414,7 @@ static void StatQuery_Send( stat_query_t *query )
 		StatQuery_DestroyQuery( query );
 		return;
 	}
-	
+
 	wswcurl_stream_callbacks ( query->req, NULL, StatQuery_CallbackGeneric, NULL, (void*)query );
 	wswcurl_start( query->req );
 }

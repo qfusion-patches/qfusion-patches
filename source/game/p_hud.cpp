@@ -32,7 +32,7 @@ static const char *G_PlayerStatsMessage( edict_t *ent );
 
 /*
 * G_ClientUpdateScoreBoardMessage
-* 
+*
 * Show the scoreboard messages if the scoreboards are active
 */
 void G_UpdateScoreBoardMessages( void )
@@ -164,7 +164,7 @@ void G_ScoreboardMessage_AddSpectators( void )
 			continue;
 
 		if( !e->r.client->queueTimeStamp )
-		{	
+		{
 			// not in challenger queue
 			Q_snprintfz( entry, sizeof( entry ), "%i %i ",
 				PLAYERNUM( e ),
@@ -501,7 +501,7 @@ void G_SetClientStats( edict_t *ent )
 	if( client->teamstate.last_killer )
 	{
 		edict_t *targ = ent, *attacker = client->teamstate.last_killer;
-		client->ps.stats[STAT_LAST_KILLER] = (attacker->r.client && !GS_IsTeamDamage( &targ->s, &attacker->s ) ? 
+		client->ps.stats[STAT_LAST_KILLER] = (attacker->r.client && !GS_IsTeamDamage( &targ->s, &attacker->s ) ?
 			ENTNUM( attacker ) : 0);
 	}
 	else

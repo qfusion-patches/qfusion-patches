@@ -186,7 +186,7 @@ void G_ClientAddDamageIndicatorImpact( gclient_t *client, int damage, const vec3
 
 /*
 * G_ClientDamageFeedback
-* 
+*
 * Adds color blends, hitsounds, etc
 */
 void G_ClientDamageFeedback( edict_t *ent )
@@ -381,14 +381,14 @@ static void G_SetClientEffects( edict_t *ent )
 	{
 		ent->s.effects |= EF_SHELL;
 		if( client->ps.inventory[POWERUP_SHELL] < 6 )
-			ent->s.effects |= EF_EXPIRING_SHELL;			
+			ent->s.effects |= EF_EXPIRING_SHELL;
 	}
 
 	if( client->ps.inventory[POWERUP_REGEN] > 0 )
 	{
 		ent->s.effects |= EF_REGEN;
 		if( client->ps.inventory[POWERUP_REGEN] < 6 )
-			ent->s.effects |= EF_EXPIRING_REGEN;			
+			ent->s.effects |= EF_EXPIRING_REGEN;
 	}
 
 	if( ent->s.weapon )
@@ -443,7 +443,7 @@ void G_SetClientFrame( edict_t *ent )
 
 /*
 * G_ClientEndSnapFrame
-* 
+*
 * Called for each player at the end of the server frame
 * and right after spawning
 */

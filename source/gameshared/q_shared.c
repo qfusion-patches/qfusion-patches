@@ -34,7 +34,7 @@ const size_t NUM_IMAGE_EXTENSIONS = sizeof( IMAGE_EXTENSIONS ) / sizeof( IMAGE_E
 
 /*
 * COM_SanitizeFilePath
-* 
+*
 * Changes \ character to / characters in the string
 * Does NOT validate the string at all
 * Must be used before other functions are aplied to the string (or those functions might function improperly)
@@ -178,7 +178,7 @@ const char *COM_FileBase( const char *in )
 
 /*
 * COM_StripFilename
-* 
+*
 * Cuts the string of, at the last / or erases the whole string if not found
 */
 void COM_StripFilename( char *filename )
@@ -194,7 +194,7 @@ void COM_StripFilename( char *filename )
 
 /*
 * COM_FilePathLength
-* 
+*
 * Returns the length from start of string to the character before last /
 */
 int COM_FilePathLength( const char *in )
@@ -324,7 +324,7 @@ float ( *LittleFloat )(float l) = &LittleFloatDetectSwap;
 
 /*
 * TempVector
-* 
+*
 * This is just a convenience function
 * for making temporary vectors for function calls
 */
@@ -348,7 +348,7 @@ float *tv( float x, float y, float z )
 
 /*
 * VectorToString
-* 
+*
 * This is just a convenience function for printing vectors
 */
 char *vtos( float v[3] )
@@ -368,7 +368,7 @@ char *vtos( float v[3] )
 
 /*
 * va_r
-* 
+*
 * does a varargs printf into a temp buffer, so I don't need to have
 * varargs versions of all text functions.
 */
@@ -383,7 +383,7 @@ char *va_r( char *dest, size_t size, const char *format, ... )
 
 /*
 * va
-* 
+*
 * does a varargs printf into a temp buffer, so I don't need to have
 * varargs versions of all text functions.
 */
@@ -403,7 +403,7 @@ char *va( const char *format, ... )
 
 /*
 * COM_Compress
-* 
+*
 * Parse a token out of a string
 */
 int COM_Compress( char *data_p )
@@ -500,7 +500,7 @@ int COM_Compress( char *data_p )
 
 /*
 * COM_ParseExt2_r
-* 
+*
 * Parse a token out of a string
 */
 char *COM_ParseExt2_r( char *token, size_t token_size, const char **data_p, bool nl, bool sq )
@@ -645,7 +645,7 @@ char *COM_ParseExt2( const char **data_p, bool nl, bool sq )
 
 /*
 * Q_GrabCharFromColorString
-* 
+*
 * Parses a char or color escape sequence and advances (*pstr)
 * "c" receives the character
 * "colorindex", if not NULL, receives color indexes (0..10)
@@ -725,7 +725,7 @@ int Q_GrabWCharFromColorString( const char **pstr, wchar_t *wc, int *colorindex 
 
 /*
 * COM_RemoveColorTokensExt
-* 
+*
 * Remove color tokens from a string
 * If "draw" is set, all printable ^^ and ^ will be become ^^ (e.g. ^a --> ^^a),
 * so the result string may end up up to 1.5 times longer
@@ -770,7 +770,7 @@ const char *COM_RemoveColorTokensExt( const char *str, bool draw )
 
 /*
 * COM_SanitizeColorString
-* 
+*
 * Redundant color codes are removed: "^1^2text" ==> "^2text", "a^7" --> "a"
 * Color codes preceding whitespace are moved to before the first non-whitespace
 * char: "^1  a" ==> "  ^1a" (makes trimming spaces from the resulting string easier)
@@ -842,7 +842,7 @@ int COM_SanitizeColorString( const char *str, char *buf, int bufsize, int maxpri
 
 /*
 * Q_ColorStringTerminator
-* 
+*
 * Returns a color sequence to append to input string so that subsequent
 * characters have desired color (we can't just append ^7 because the string
 * may end in a ^, that would make the ^7 printable chars and color would stay)
@@ -930,7 +930,7 @@ int Q_ColorStrLastColor( int previous, const char *s, int maxlen )
 
 /*
 * COM_RemoveJunkChars
-* 
+*
 * Remove junk chars from a string (created for autoaction filenames)
 */
 const char *COM_RemoveJunkChars( const char *in )
@@ -1121,7 +1121,7 @@ int Q_snprintfz( char *dest, size_t size, const char *format, ... )
 	va_start( argptr, format );
 	len = Q_vsnprintfz( dest, size, format, argptr );
 	va_end( argptr );
-	
+
 	return len;
 }
 
@@ -1347,7 +1347,7 @@ size_t Q_WCharToUtf8String( const wchar_t *ws, char *dest, size_t bufsize )
 {
 	size_t len = 0, utflen;
 
-	if( !bufsize ) 
+	if( !bufsize )
 		return 0;
 
 	dest[0] = '\0';
@@ -1368,7 +1368,7 @@ size_t Q_WCharToUtf8String( const wchar_t *ws, char *dest, size_t bufsize )
 
 /*
 * Q_Utf8SyncPos
-* 
+*
 * For line editing: if we're in the middle of a UTF-8 sequence,
 * skip left or right to the start of a UTF-8 sequence (or end of string)
 * 'dir' should be UTF8SYNC_LEFT or UTF8SYNC_RIGHT
@@ -1556,9 +1556,9 @@ void Q_urlencode_unsafechars( const char *src, char *dst, size_t dst_size )
 	for( i = 0; i < len && n < dst_size - 1; i++ ) {
 		char c = src[i];
 
-		if( c == ' ' || c == '#' || c == '%' || 
-			c == '<' || c == '>' || c == '{' || c == '}' || 
-			c == '|' || c == '\\' || c == '^' || c == '~' || 
+		if( c == ' ' || c == '#' || c == '%' ||
+			c == '<' || c == '>' || c == '{' || c == '}' ||
+			c == '|' || c == '\\' || c == '^' || c == '~' ||
 			c == '[' || c == ']' ) {
 			// urlencode
 			if( n + 3 >= dst_size ) {
@@ -1708,7 +1708,7 @@ static bool Info_ValidateKey( const char *key )
 
 /*
 * Info_Validate
-* 
+*
 * Some characters are illegal in info strings because they
 * can mess up the server's parsing
 */
@@ -1793,7 +1793,7 @@ void Info_CleanValue( const char *in, char *out, size_t outsize )
 
 /*
 * Info_FindKey
-* 
+*
 * Returns the pointer to the \ character if key is found
 * Otherwise returns NULL
 */
@@ -1832,7 +1832,7 @@ static char *Info_FindKey( const char *info, const char *key )
 
 /*
 * Info_ValueForKey
-* 
+*
 * Searches the string for the given
 * key and returns the associated value, or NULL
 */

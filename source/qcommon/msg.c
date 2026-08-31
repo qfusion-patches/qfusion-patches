@@ -286,7 +286,7 @@ char *MSG_ReadStringLine( msg_t *msg )
 
 /*
 * MSG_WriteDeltaEntity
-* 
+*
 * Writes part of a packetentities message.
 * Can delta from either a baseline or a previous packet_entity
 */
@@ -383,7 +383,7 @@ void MSG_WriteDeltaEntity( entity_state_t *from, entity_state_t *to, msg_t *msg,
 
 	if( updateOtherOrigin )
 	{
-		if( to->origin2[0] != from->origin2[0] || to->origin2[1] != from->origin2[1] || to->origin2[2] != from->origin2[2] 
+		if( to->origin2[0] != from->origin2[0] || to->origin2[1] != from->origin2[1] || to->origin2[2] != from->origin2[2]
 			|| to->teleported || to->linearMovement != from->linearMovement || to->linearMovementTimeStamp != from->linearMovementTimeStamp )
 			bits |= U_OTHERORIGIN;
 	}
@@ -579,7 +579,7 @@ void MSG_WriteDeltaEntity( entity_state_t *from, entity_state_t *to, msg_t *msg,
 
 /*
 * MSG_ReadEntityBits
-* 
+*
 * Returns the entity number and the header bits
 */
 int MSG_ReadEntityBits( msg_t *msg, unsigned *bits )
@@ -616,7 +616,7 @@ int MSG_ReadEntityBits( msg_t *msg, unsigned *bits )
 
 /*
 * MSG_ReadDeltaEntity
-* 
+*
 * Can go from either a baseline or a previous packet_entity
 */
 void MSG_ReadDeltaEntity( msg_t *msg, entity_state_t *from, entity_state_t *to, int number, unsigned bits )

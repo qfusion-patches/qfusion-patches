@@ -137,14 +137,14 @@ static void CG_ParseTagMask( struct model_s *model, int bonenum, char *name, flo
 
 /*
 * CG_ParseAnimationScript
-* 
+*
 * Reads the animation config file.
-* 
+*
 * 0 = first frame
 * 1 = lastframe
 * 2 = looping frames
 * 3 = fps
-* 
+*
 * Note: The animations count begins at 1, not 0. I preserve zero for "no animation change"
 * ---------------
 * keyword:

@@ -204,7 +204,7 @@ void R_AddLightStyleToScene( int style, float r, float g, float b )
 /*
 * R_BlitTextureToScrFbo
 */
-static void R_BlitTextureToScrFbo( const refdef_t *fd, image_t *image, int dstFbo, 
+static void R_BlitTextureToScrFbo( const refdef_t *fd, image_t *image, int dstFbo,
 	int program_type, const vec4_t color, int blendMask, int numShaderImages, image_t **shaderImages )
 {
 	int x, y;
@@ -339,7 +339,7 @@ void R_RenderScene( const refdef_t *fd )
 
 	fbFlags = 0;
 	rn.fbColorAttachment = rn.fbDepthAttachment = NULL;
-	
+
 	if( !( fd->rdflags & RDF_NOWORLDMODEL ) ) {
 		if( r_soft_particles->integer && ( rsh.screenTexture != NULL ) ) {
 			rn.fbColorAttachment = rsh.screenTexture;

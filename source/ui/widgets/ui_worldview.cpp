@@ -49,7 +49,7 @@ private:
 
 public:
 	UI_WorldviewWidget( const String &tag )
-		: Element( tag ), 
+		: Element( tag ),
 		mapName( "" ), colorCorrection( "" ), colorCorrectionShader( NULL ),
 		Initialized( false )
 	{
@@ -103,7 +103,7 @@ public:
 
 		vec3_t viewAngles;
 		for( int i = 0; i < 3; i++ ) {
-			viewAngles[i] = baseAngles[i] + aWaveAmplitude[i] * 
+			viewAngles[i] = baseAngles[i] + aWaveAmplitude[i] *
 				sin( aWavePhase[i] + refdef.time * 0.001 * aWaveFrequency[i] * M_TWOPI );
 		}
 		AnglesToAxis( viewAngles, refdef.viewaxis );
@@ -127,7 +127,7 @@ public:
 
 		trap::R_Scissor( scissor_x, scissor_y, scissor_w, scissor_h );
 
-		if( firstRender ) {			
+		if( firstRender ) {
 			this->DispatchEvent( "firstrender", parameters, false );
 		}
 	}

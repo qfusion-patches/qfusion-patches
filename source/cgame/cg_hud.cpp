@@ -847,7 +847,7 @@ void CG_SC_PrintObituary( const char *format, ... )
 	va_end( argptr );
 
 	trap_Print( msg );
-	
+
 	CG_StackChatString( &cg.chat, msg );
 }
 
@@ -1189,8 +1189,8 @@ static void CG_DrawAwards( int x, int y, int align, struct qfontface_s *font, ve
 		yoffset = trap_SCR_FontHeight( font ) * ( MAX_AWARD_LINES - i );
 		moveTime = ( cg.time - cg.award_times[ current ] ) / 1000.0f;
 
-		m_x = LinearMovementWithOvershoot( s_x, e_x, 
-			AWARDS_OVERSHOOT_DURATION, AWARDS_OVERSHOOT_FREQUENCY, AWARDS_OVERSHOOT_DECAY, 
+		m_x = LinearMovementWithOvershoot( s_x, e_x,
+			AWARDS_OVERSHOOT_DURATION, AWARDS_OVERSHOOT_FREQUENCY, AWARDS_OVERSHOOT_DECAY,
 			moveTime );
 
 		trap_SCR_DrawStringWidth( m_x, y + yoffset, align, str, 0, font, color );
@@ -2314,8 +2314,8 @@ static bool CG_LFuncDrawHelpMessage( struct cg_layoutnode_s *commandnode, struct
 							s_x = CG_HorizontalMovementForAlign( layout_cursor_align ) < 0 ? cgs.vidWidth : 0;
 							e_x = x;
 
-							x = LinearMovementWithOvershoot( s_x, e_x, 
-								HELPMESSAGE_OVERSHOOT_DURATION, HELPMESSAGE_OVERSHOOT_FREQUENCY, HELPMESSAGE_OVERSHOOT_DECAY, 
+							x = LinearMovementWithOvershoot( s_x, e_x,
+								HELPMESSAGE_OVERSHOOT_DURATION, HELPMESSAGE_OVERSHOOT_FREQUENCY, HELPMESSAGE_OVERSHOOT_DECAY,
 								moveTime );
 
 							helpmessage = cg.helpmessage;
@@ -2363,10 +2363,10 @@ static bool CG_LFuncDrawPointed( struct cg_layoutnode_s *commandnode, struct cg_
 static bool CG_LFuncDrawString( struct cg_layoutnode_s *commandnode, struct cg_layoutnode_s *argumentnode, int numArguments )
 {
 	const char *string = CG_GetStringArg( &argumentnode );
-	
+
 	if( !string || !string[0] )
 		return false;
-	trap_SCR_DrawString( layout_cursor_x, layout_cursor_y, layout_cursor_align, 
+	trap_SCR_DrawString( layout_cursor_x, layout_cursor_y, layout_cursor_align,
 		CG_TranslateString( string ), CG_GetLayoutCursorFont(), layout_cursor_color );
 	return true;
 }
@@ -2430,7 +2430,7 @@ static bool CG_LFuncDrawItemNameFromIndex( struct cg_layoutnode_s *commandnode, 
 	item = GS_FindItemByTag( itemindex );
 	if( !item || !item->name )
 		return false;
-	trap_SCR_DrawString( layout_cursor_x, layout_cursor_y, layout_cursor_align, 
+	trap_SCR_DrawString( layout_cursor_x, layout_cursor_y, layout_cursor_align,
 		CG_TranslateString( item->name ), CG_GetLayoutCursorFont(), layout_cursor_color );
 	return true;
 }
@@ -3240,7 +3240,7 @@ static const cg_layoutcommand_t cg_LayoutCommands[] =
 		"Draws indicators where team mates are",
 		false
 	},
-	
+
 	{
 		"drawStatString",
 		CG_LFuncDrawConfigstring,
@@ -3285,7 +3285,7 @@ static const cg_layoutcommand_t cg_LayoutCommands[] =
 		"Draws numbers as text",
 		false
 	},
-	
+
 	{
 		"drawStringRepeat",
 		CG_LFuncDrawStringRepeat,
@@ -3294,7 +3294,7 @@ static const cg_layoutcommand_t cg_LayoutCommands[] =
 		"Draws argument string multiple times",
 		false
 	},
-	
+
 	{
 		"drawStringRepeatConfigString",
 		CG_LFuncDrawStringRepeatConfigString,
@@ -3886,7 +3886,7 @@ static cg_layoutnode_t *CG_LayoutParseArgumentNode( const char *token )
 
 		// replace constants names by values
 		if( !strncmp( valuetok, "ITEM_", strlen( "ITEM_" ) ) )
-		{			
+		{
 			Q_strncpyz( tokcopy, valuetok, sizeof( tokcopy ) );
 			valuetok = tokcopy;
 
@@ -4312,7 +4312,7 @@ static void CG_ParseLayoutScript( char *string, cg_layoutnode_t *rootnode )
 * we keep a pointer to the command and run the tree counting arguments until we reach the next command,
 * then we call the command function sending the pointer to first argument and the pointer to the command.
 * At return we advance one node (we stopped at last argument node) so it starts again from the next command (if any).
-* 
+*
 * When finding an "if" command with a subtree, we execute the "if" command. In the case it
 * returns any value, we recurse execute the subtree
 */

@@ -146,7 +146,7 @@ void CM_InitOctagonHull( cmodel_state_t *cms )
 
 /*
 * CM_ModelForBBox
-* 
+*
 * To keep everything totally uniform, bounding boxes are turned into inline models
 */
 cmodel_t *CM_ModelForBBox( cmodel_state_t *cms, vec3_t mins, vec3_t maxs )
@@ -166,7 +166,7 @@ cmodel_t *CM_ModelForBBox( cmodel_state_t *cms, vec3_t mins, vec3_t maxs )
 
 /*
 * CM_OctagonModelForBBox
-* 
+*
 * Same as CM_ModelForBBox with 4 additional planes at corners.
 * Internally offset to be symmetric on all sides.
 */
@@ -456,8 +456,8 @@ int CM_TransformedPointContents( cmodel_state_t *cms, vec3_t p, cmodel_t *cmodel
 	VectorSubtract( p, origin, p_l );
 
 	// rotate start and end into the models frame of reference
-	if( ( angles[0] || angles[1] || angles[2] ) 
-		&& !cmodel->builtin	
+	if( ( angles[0] || angles[1] || angles[2] )
+		&& !cmodel->builtin
 		)
 	{
 		vec3_t temp;
@@ -1129,7 +1129,7 @@ void CM_TransformedBoxTrace( cmodel_state_t *cms, trace_t *tr, vec3_t start, vec
 	// in this case, the orientation of vector would be ( normalize(origin-start), cross(x,z), up )
 
 	// rotate start and end into the models frame of reference
-	if( ( angles[0] || angles[1] || angles[2] ) 
+	if( ( angles[0] || angles[1] || angles[2] )
 #ifndef CM_ALLOW_ROTATED_BBOXES
 		&& !cmodel->builtin
 #endif

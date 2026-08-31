@@ -111,12 +111,12 @@ static int rd_buffersize;
 static void ( *rd_flush )( int target, const char *buffer, const void *extra );
 static const void *rd_extra;
 
-void Com_BeginRedirect( int target, char *buffer, int buffersize, 
+void Com_BeginRedirect( int target, char *buffer, int buffersize,
 	void ( *flush )(int, const char*, const void*), const void *extra )
 {
 	if( !target || !buffer || !buffersize || !flush )
 		return;
-	
+
 	QMutex_Lock( com_print_mutex );
 
 	rd_target = target;
@@ -206,7 +206,7 @@ static void Com_ReopenConsoleLog( void )
 
 /*
 * Com_Printf
-* 
+*
 * Both client and server can use this, and it will output
 * to the apropriate place.
 */
@@ -261,7 +261,7 @@ void Com_Printf( const char *format, ... )
 
 /*
 * Com_DPrintf
-* 
+*
 * A Com_Printf that only shows up if the "developer" cvar is set
 */
 void Com_DPrintf( const char *format, ... )
@@ -282,7 +282,7 @@ void Com_DPrintf( const char *format, ... )
 
 /*
 * Com_Error
-* 
+*
 * Both client and server can use this, and it will
 * do the apropriate things.
 */
@@ -339,7 +339,7 @@ void Com_DeferQuit( void )
 
 /*
 * Com_Quit
-* 
+*
 * Both client and server can use this, and it will
 * do the apropriate things.
 */
@@ -434,7 +434,7 @@ unsigned int Com_DaysSince1900( void )
 
 /*
 * COM_CheckParm
-* 
+*
 * Returns the position (1 to argc-1) in the program's argument list
 * where the given parameter apears, or 0 if not present
 */
@@ -492,7 +492,7 @@ void COM_InitArgv( int argc, char **argv )
 
 /*
 * COM_AddParm
-* 
+*
 * Adds the given string at the end of the current argument list
 */
 void COM_AddParm( char *parm )
@@ -750,7 +750,7 @@ void SCR_EndLoadingPlaque( void );
 
 /*
 * Com_Error_f
-* 
+*
 * Just throw a fatal error to
 * test error shutdown procedures
 */
@@ -782,7 +782,7 @@ static void Com_Lag_f( void )
 
 /*
 * Q_malloc
-* 
+*
 * Just like malloc(), but die if allocation fails
 */
 void *Q_malloc( size_t size )
@@ -797,7 +797,7 @@ void *Q_malloc( size_t size )
 
 /*
 * Q_realloc
-* 
+*
 * Just like realloc(), but die if reallocation fails
 */
 void *Q_realloc( void *buf, size_t newsize )
@@ -1188,7 +1188,7 @@ void Qcommon_Shutdown( void )
 	Cmd_Shutdown();
 	Cbuf_Shutdown();
 	Memory_Shutdown();
-	
+
 	QMutex_Destroy( &com_print_mutex );
 
 	QThreads_Shutdown();

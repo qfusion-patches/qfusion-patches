@@ -512,7 +512,7 @@ void CL_ParseGetServersResponse( const socket_t *socket, const netadr_t *address
 	server = masterList;
 	while( server )
 	{
-		if( server->masterServerUpdateSeq == masterServerUpdateSeq 
+		if( server->masterServerUpdateSeq == masterServerUpdateSeq
 			&& !(server->isLocal && Com_ServerState())
 			&& NET_StringToAddress( server->address, &adr ) )
 			CL_UIModule_AddToServerList( server->address, "\\\\EOT" );

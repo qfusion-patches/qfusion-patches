@@ -45,7 +45,7 @@ static int max_ents;
 /*
 * source_setup
 */
-static void source_setup( src_t *src, sfx_t *sfx, int priority, int entNum, 
+static void source_setup( src_t *src, sfx_t *sfx, int priority, int entNum,
 	int channel, float fvol, float attenuation )
 {
 	ALuint buffer = 0;

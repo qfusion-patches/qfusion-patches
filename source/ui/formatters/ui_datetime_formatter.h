@@ -46,7 +46,7 @@ public:
 
 		if( nt ) {
 			formatted_data = Rocket::Core::String( 32,
-				"%02d/%02d/%02d %02d:%02d", 
+				"%02d/%02d/%02d %02d:%02d",
 				nt->tm_year+1900, nt->tm_mon + 1, nt->tm_mday, nt->tm_hour, nt->tm_min
 			);
 		}

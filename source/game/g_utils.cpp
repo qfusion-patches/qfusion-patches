@@ -238,7 +238,7 @@ void G_LevelFreePool( void )
 	}
 }
 
-/* 
+/*
 * G_LevelMalloc
 */
 void *_G_LevelMalloc( size_t size, const char *filename, int fileline )
@@ -439,7 +439,7 @@ char *G_AllocCreateNamesList( const char *path, const char *extension, const cha
 	if( extension[0] != '.' || strlen( extension ) < 2 )
 		return NULL;
 
-	if( ( numfiles = trap_FS_GetFileList( path, extension, NULL, 0, 0, 0 ) ) == 0 ) 
+	if( ( numfiles = trap_FS_GetFileList( path, extension, NULL, 0, 0, 0 ) ) == 0 )
 		return NULL;
 
 	separators[0] = separator;
@@ -453,9 +453,9 @@ char *G_AllocCreateNamesList( const char *path, const char *extension, const cha
 	found = 0;
 	length = 0;
 	fulllength = 0;
-	do 
+	do
 	{
-		if( ( j = trap_FS_GetFileList( path, extension, buffer, sizeof( buffer ), i, numfiles ) ) == 0 ) 
+		if( ( j = trap_FS_GetFileList( path, extension, buffer, sizeof( buffer ), i, numfiles ) ) == 0 )
 		{
 			// can happen if the filename is too long to fit into the buffer or we're done
 			i++;
@@ -463,11 +463,11 @@ char *G_AllocCreateNamesList( const char *path, const char *extension, const cha
 		}
 
 		i += j;
-		for( s = buffer; j > 0; j--, s += length + 1 ) 
+		for( s = buffer; j > 0; j--, s += length + 1 )
 		{
 			length = strlen( s );
 
-			if( strlen( path ) + 1 + length >= MAX_CONFIGSTRING_CHARS ) 
+			if( strlen( path ) + 1 + length >= MAX_CONFIGSTRING_CHARS )
 			{
 				Com_Printf( "Warning: G_AllocCreateNamesList :file name too long: %s\n", s );
 				continue;
@@ -493,9 +493,9 @@ char *G_AllocCreateNamesList( const char *path, const char *extension, const cha
 
 	i = 0;
 	length = 0;
-	do 
+	do
 	{
-		if( ( j = trap_FS_GetFileList( path, extension, buffer, sizeof( buffer ), i, numfiles ) ) == 0 ) 
+		if( ( j = trap_FS_GetFileList( path, extension, buffer, sizeof( buffer ), i, numfiles ) ) == 0 )
 		{
 			// can happen if the filename is too long to fit into the buffer or we're done
 			i++;
@@ -503,11 +503,11 @@ char *G_AllocCreateNamesList( const char *path, const char *extension, const cha
 		}
 
 		i += j;
-		for( s = buffer; j > 0; j--, s += length + 1 ) 
+		for( s = buffer; j > 0; j--, s += length + 1 )
 		{
 			length = strlen( s );
 
-			if( strlen( path ) + 1 + length >= MAX_CONFIGSTRING_CHARS ) 
+			if( strlen( path ) + 1 + length >= MAX_CONFIGSTRING_CHARS )
 				continue;
 
 			Q_strncpyz( name, s, sizeof( name ) );
@@ -531,13 +531,13 @@ void G_ProjectSource( vec3_t point, vec3_t distance, vec3_t forward, vec3_t righ
 
 /*
 * G_Find
-* 
+*
 * Searches all active entities for the next one that holds
 * the matching string at fieldofs (use the FOFS() macro) in the structure.
-* 
+*
 * Searches beginning at the edict after from, or the beginning if NULL
 * NULL will be returned if the end of the list is reached.
-* 
+*
 */
 edict_t *G_Find( edict_t *from, size_t fieldofs, const char *match )
 {
@@ -564,13 +564,13 @@ edict_t *G_Find( edict_t *from, size_t fieldofs, const char *match )
 
 /*
 * G_PickTarget
-* 
+*
 * Searches all active entities for the next one that holds
 * the matching string at fieldofs (use the FOFS() macro) in the structure.
-* 
+*
 * Searches beginning at the edict after from, or the beginning if NULL
 * NULL will be returned if the end of the list is reached.
-* 
+*
 */
 #define MAXCHOICES  8
 
@@ -615,17 +615,17 @@ static void Think_Delay( edict_t *ent )
 
 /*
 * G_UseTargets
-* 
+*
 * the global "activator" should be set to the entity that initiated the firing.
-* 
+*
 * If self.delay is set, a DelayedUse entity will be created that will actually
 * do the SUB_UseTargets after that many seconds have passed.
-* 
+*
 * Centerprints any self.message to the activator.
-* 
+*
 * Search for (string)targetname in all entities that
 * match (string)self.target and call their .use function
-* 
+*
 */
 void G_UseTargets( edict_t *ent, edict_t *activator )
 {
@@ -783,7 +783,7 @@ char *_G_CopyString( const char *in, const char *filename, int fileline )
 
 /*
 * G_FreeEdict
-* 
+*
 * Marks the edict as free
 */
 void G_FreeEdict( edict_t *ed )
@@ -844,7 +844,7 @@ void G_InitEdict( edict_t *e )
 
 /*
 * G_Spawn
-* 
+*
 * Either finds a free edict, or allocates a new one.
 * Try to avoid reusing an entity that was recently freed, because it
 * can cause the client to think the entity morphed into something else
@@ -1118,7 +1118,7 @@ int G_PlayerGender( edict_t *player )
 
 /*
 * G_PrintMsg
-* 
+*
 * NULL sends to all the message to all clients
 */
 void G_PrintMsg( edict_t *ent, const char *format, ... )
@@ -1174,7 +1174,7 @@ void G_PrintChasersf( edict_t *self, const char *format, ... )
 
 /*
 * G_ChatMsg
-* 
+*
 * NULL sends the message to all clients
 */
 void G_ChatMsg( edict_t *ent, edict_t *who, bool teamonly, const char *format, ... )
@@ -1242,7 +1242,7 @@ void G_ChatMsg( edict_t *ent, edict_t *who, bool teamonly, const char *format, .
 
 /*
 * G_CenterPrintMsg
-* 
+*
 * NULL sends to all the message to all clients
 */
 void G_CenterPrintMsg( edict_t *ent, const char *format, ... )
@@ -1283,7 +1283,7 @@ void G_CenterPrintMsg( edict_t *ent, const char *format, ... )
 * G_CenterPrintFormatMsg
 *
 * MUST be passed NULL as the last variadic argument
-* 
+*
 * NULL sends to all the message to all clients
 */
 void G_CenterPrintFormatMsg( edict_t *ent, const char *format, ... )
@@ -1341,13 +1341,13 @@ void G_CenterPrintFormatMsg( edict_t *ent, const char *format, ... )
 	} while( ( arg_p = va_arg( argptr, char * ) ) );
 
 	va_end( argptr );
-	
+
 	if( overflow ) {
 		// couldn't fit it all into the cmd buffer
 		return;
 	}
 	if( num_args < 2 ) {
-		// can't transmit formatted message with no arguments or 
+		// can't transmit formatted message with no arguments or
 		// no strings to replace the placeholders
 		return;
 	}
@@ -1371,7 +1371,7 @@ void G_CenterPrintFormatMsg( edict_t *ent, const char *format, ... )
 
 /*
 * G_Obituary
-* 
+*
 * Prints death message to all clients
 */
 void G_Obituary( edict_t *victim, edict_t *attacker, int mod )
@@ -1382,7 +1382,7 @@ void G_Obituary( edict_t *victim, edict_t *attacker, int mod )
 
 /*
 * G_UpdatePlayerMatchMsg
-* 
+*
 * Sends correct match msg to one client
 * Must be called whenever client's team, ready status or chase mode changes
 */
@@ -1422,7 +1422,7 @@ void G_UpdatePlayerMatchMsg( edict_t *ent, bool force )
 
 /*
 * G_UpdatePlayerMatchMsg
-* 
+*
 * Sends correct match msg to every client
 * Must be called whenever match state changes
 */
@@ -1618,7 +1618,7 @@ void G_LocalSound( edict_t *owner, int channel, int soundindex )
 
 /*
 * KillBox
-* 
+*
 * Kills all entities that would touch the proposed new positioning
 * of ent.  Ent should be unlinked before calling this!
 */
@@ -1953,10 +1953,10 @@ void G_DropSpawnpointToFloor( edict_t *ent )
 
 /*
 * G_CheckBottom
-* 
+*
 * Returns false if any part of the bottom of the entity is off an edge that
 * is not a staircase.
-* 
+*
 */
 int c_yes, c_no;
 bool G_CheckBottom( edict_t *ent )
@@ -2026,7 +2026,7 @@ realcheck:
 /*
 * G_SetBoundsForSpanEntity
 *
-* Set origin and origin2 and then call this before linkEntity 
+* Set origin and origin2 and then call this before linkEntity
 * for laser entities for proper clipping against world leafs/clusters.
 */
 void G_SetBoundsForSpanEntity( edict_t *ent, vec_t size )
@@ -2129,7 +2129,7 @@ edict_t *G_PlayerForText( const char *text )
 		// check if it's a known player name
 		for( i = 0, e = game.edicts+1; i < gs.maxclients; i++, e++ )
 		{
-			if( !e->r.inuse ) 
+			if( !e->r.inuse )
 				continue;
 
 			if( !Q_stricmp( colorless, COM_RemoveColorTokens( e->r.client->netname ) ) )
@@ -2200,7 +2200,7 @@ void G_PureSound( const char *sound )
 	assert( sound && sound[0] && strlen( sound ) < MAX_CONFIGSTRING_CHARS );
 
 	if( sound[0] == '*' )
-	{                  
+	{
 		// sexed sounds
 		// jal : this isn't correct. Sexed sounds don't have the full path because
 		// the path depends on the model, so how can they be pure anyway?
@@ -2233,7 +2233,7 @@ void G_PrecacheWeapondef( int weapon, firedef_t *firedef )
 		return;
 
 	Q_snprintfz( cstring, sizeof(cstring), "%i %i %u %u %u %u %u %i %i %i",
-		firedef->usage_count, 
+		firedef->usage_count,
 		firedef->projectile_count,
 		firedef->weaponup_time,
 		firedef->weapondown_time,

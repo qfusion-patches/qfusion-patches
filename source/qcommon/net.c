@@ -118,7 +118,7 @@ static void GetLocalAddress( void )
 	if( !hostInfo ) {
 		return;
 	}
-	
+
 	Com_Printf( "Hostname: %s\n", hostname );
 
 	numIP = 0;
@@ -244,7 +244,7 @@ static bool BindSocket( socket_handle_t handle, const netadr_t *address )
 
 /*
 * OpenSocket
-* 
+*
 * returns handle or INVALID_SOCKET for error
 */
 static socket_handle_t OpenSocket( socket_type_t type, bool ipv6 )
@@ -979,7 +979,7 @@ PUBLIC FUNCTIONS
 
 /*
 * NET_GetPacket
-* 
+*
 * 1	ok
 * 0	not ready
 * -1	error
@@ -1013,7 +1013,7 @@ int NET_GetPacket( const socket_t *socket, netadr_t *address, msg_t *message )
 
 /*
 * NET_Get
-* 
+*
 * 1	ok
 * 0	no data ready
 * -1	error
@@ -1150,7 +1150,7 @@ char *NET_AddressToString( const netadr_t *a )
 
 /*
 * NET_CompareBaseAddress
-* 
+*
 * Compares without the port
 */
 bool NET_CompareBaseAddress( const netadr_t *a, const netadr_t *b )
@@ -1187,7 +1187,7 @@ bool NET_CompareBaseAddress( const netadr_t *a, const netadr_t *b )
 
 /*
 * NET_GetAddressPort
-* 
+*
 * Return the port of the network address (if relevant), or 0
 */
 unsigned short NET_GetAddressPort( const netadr_t *address )
@@ -1207,7 +1207,7 @@ unsigned short NET_GetAddressPort( const netadr_t *address )
 
 /*
 * NET_SetAddressPort
-* 
+*
 * Set the port of the network address
 */
 void NET_SetAddressPort( netadr_t *address, unsigned short port )
@@ -1229,7 +1229,7 @@ void NET_SetAddressPort( netadr_t *address, unsigned short port )
 
 /*
 * NET_CompareAddress
-* 
+*
 * Compares with the port
 */
 bool NET_CompareAddress( const netadr_t *a, const netadr_t *b )

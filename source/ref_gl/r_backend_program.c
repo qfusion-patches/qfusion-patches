@@ -227,7 +227,7 @@ static float RB_BackendGetNoiseValue( float x, float y, float z, float t )
 /*
 * RB_TransformFogPlanes
 */
-static float RB_TransformFogPlanes( const mfog_t *fog, vec3_t fogNormal, 
+static float RB_TransformFogPlanes( const mfog_t *fog, vec3_t fogNormal,
 	vec_t *fogDist, vec3_t vpnNormal, vec_t *vpnDist )
 {
 	cplane_t *fogPlane;
@@ -275,9 +275,9 @@ static float RB_TransformFogPlanes( const mfog_t *fog, vec3_t fogNormal,
 
 	Matrix3_TransformVector( e->axis, rb.cameraAxis, vpnNormal );
 	VectorScale( vpnNormal, scale, vpnNormal );
-	*vpnDist = ( ( rb.cameraOrigin[0] - viewtofog[0] ) * rb.cameraAxis[AXIS_FORWARD+0] + 
-		( rb.cameraOrigin[1] - viewtofog[1] ) * rb.cameraAxis[AXIS_FORWARD+1] + 
-		( rb.cameraOrigin[2] - viewtofog[2] ) * rb.cameraAxis[AXIS_FORWARD+2] ) + 
+	*vpnDist = ( ( rb.cameraOrigin[0] - viewtofog[0] ) * rb.cameraAxis[AXIS_FORWARD+0] +
+		( rb.cameraOrigin[1] - viewtofog[1] ) * rb.cameraAxis[AXIS_FORWARD+1] +
+		( rb.cameraOrigin[2] - viewtofog[2] ) * rb.cameraAxis[AXIS_FORWARD+2] ) +
 		fogShader->fog_clearDist;
 
 	return dist;
@@ -337,8 +337,8 @@ void RB_ApplyTCMods( const shaderpass_t *pass, mat4_t result )
 		case TC_MOD_TURB:
 			t1 = ( 1.0 / 4.0 );
 			t2 = tcmod->args[2] + rb.currentShaderTime * tcmod->args[3];
-			Matrix4_Scale2D( result, 
-				1 + ( tcmod->args[1] * RB_FastSin( t2 ) + tcmod->args[0] ) * t1, 
+			Matrix4_Scale2D( result,
+				1 + ( tcmod->args[1] * RB_FastSin( t2 ) + tcmod->args[0] ) * t1,
 				1 + ( tcmod->args[1] * RB_FastSin( t2 + 0.25 ) + tcmod->args[0] ) * t1 );
 			break;
 		case TC_MOD_STRETCH:
@@ -398,7 +398,7 @@ void RB_GetShaderpassColor( const shaderpass_t *pass, byte_vec4_t rgba_ )
 	case RGB_GEN_ENTITYWAVE:
 	case RGB_GEN_WAVE:
 	case RGB_GEN_CUSTOMWAVE:
-		
+
 		if( rgbgenfunc->type == SHADER_FUNC_NONE )
 		{
 			temp = 1;
@@ -425,7 +425,7 @@ void RB_GetShaderpassColor( const shaderpass_t *pass, byte_vec4_t rgba_ )
 			}
 			temp = temp * rgbgenfunc->args[1] + rgbgenfunc->args[0];
 		}
-	
+
 		if( pass->rgbgen.type == RGB_GEN_ENTITYWAVE )
 		{
 			VectorSet( v,
@@ -534,7 +534,7 @@ static inline const image_t *RB_ShaderpassTex( const shaderpass_t *pass )
 	}
 
 	if( pass->flags & SHADERPASS_PORTALMAP ) {
-		return rb.currentPortalSurface && rb.currentPortalSurface->texures[0] ? 
+		return rb.currentPortalSurface && rb.currentPortalSurface->texures[0] ?
 			rb.currentPortalSurface->texures[0] : rsh.blackTexture;
 	}
 
@@ -646,7 +646,7 @@ static r_glslfeat_t RB_DlightbitsToProgramFeatures( unsigned int dlightBits )
 	if( !dlightBits ) {
 		return 0;
 	}
-	
+
 	numDlights = Q_bitcount( dlightBits );
 	if( r_lighting_maxglsldlights->integer && numDlights > r_lighting_maxglsldlights->integer ) {
 		numDlights = r_lighting_maxglsldlights->integer;
@@ -768,7 +768,7 @@ static void RB_UpdateCommonUniforms( int program, const shaderpass_t *pass, mat4
 
 	RP_UpdateViewUniforms( program,
 		rb.modelviewMatrix, rb.modelviewProjectionMatrix,
-		rb.cameraOrigin, rb.cameraAxis, 
+		rb.cameraOrigin, rb.cameraAxis,
 		rb.renderFlags & RF_MIRRORVIEW ? -1 : 1,
 		rb.gl.viewport,
 		rb.zNear, rb.zFar
@@ -786,11 +786,11 @@ static void RB_UpdateCommonUniforms( int program, const shaderpass_t *pass, mat4
 		}
 	}
 
-	RP_UpdateShaderUniforms( program, 
-		rb.currentShaderTime, 
+	RP_UpdateShaderUniforms( program,
+		rb.currentShaderTime,
 		entOrigin, entDist, rb.entityColor,
-		constColor, 
-		pass->rgbgen.func.type != SHADER_FUNC_NONE ? pass->rgbgen.func.args : pass->rgbgen.args, 
+		constColor,
+		pass->rgbgen.func.type != SHADER_FUNC_NONE ? pass->rgbgen.func.args : pass->rgbgen.args,
 		pass->alphagen.func.type != SHADER_FUNC_NONE ? pass->alphagen.func.args : pass->alphagen.args,
 		texMatrix );
 
@@ -968,7 +968,7 @@ static void RB_RenderMeshGLSL_Material( const shaderpass_t *pass, r_glslfeat_t p
 	}
 
 	if( offsetmappingScale > 0 )
-		programFeatures |= r_offsetmapping_reliefmapping->integer ? 
+		programFeatures |= r_offsetmapping_reliefmapping->integer ?
 			GLSL_SHADER_MATERIAL_RELIEFMAPPING : GLSL_SHADER_MATERIAL_OFFSETMAPPING;
 
 	if( rb.currentModelType == mod_brush )
@@ -1009,7 +1009,7 @@ static void RB_RenderMeshGLSL_Material( const shaderpass_t *pass, r_glslfeat_t p
 			VectorSet( lightDir, 0.1f, 0.2f, 0.7f );
 			VectorSet( ambient, rb.minLight, rb.minLight, rb.minLight );
 			VectorSet( diffuse, rb.minLight, rb.minLight, rb.minLight );
-			
+
 			programFeatures |= GLSL_SHADER_MATERIAL_DIRECTIONAL_LIGHT|GLSL_SHADER_MATERIAL_DIRECTIONAL_LIGHT_MIX;
 		}
 	}
@@ -1041,7 +1041,7 @@ static void RB_RenderMeshGLSL_Material( const shaderpass_t *pass, r_glslfeat_t p
 				if( e->model && e != rsc.worldent )
 				{
 					// get weighted incoming direction of world and dynamic lights
-					R_LightForOrigin( e->lightingOrigin, temp, ambient, diffuse, 
+					R_LightForOrigin( e->lightingOrigin, temp, ambient, diffuse,
 						e->model->radius * e->scale, rb.noWorldLight );
 				}
 				else
@@ -1084,7 +1084,7 @@ static void RB_RenderMeshGLSL_Material( const shaderpass_t *pass, r_glslfeat_t p
 		}
 
 		// dynamic lights
-		RP_UpdateDynamicLightsUniforms( program, lightStyle, rb.currentEntity->origin, rb.currentEntity->axis, 
+		RP_UpdateDynamicLightsUniforms( program, lightStyle, rb.currentEntity->origin, rb.currentEntity->axis,
 			rb.currentDlightBits );
 
 		// r_drawflat
@@ -1144,7 +1144,7 @@ static void RB_RenderMeshGLSL_Distortion( const shaderpass_t *pass, r_glslfeat_t
 	Matrix4_Identity( texMatrix );
 
 	RB_BindImage( 0, dudvmap );
-	
+
 	// convert rgbgen and alphagen to GLSL feature defines
 	programFeatures |= RB_RGBAlphaGenToProgramFeatures( &pass->rgbgen, &pass->alphagen );
 
@@ -1184,7 +1184,7 @@ static void RB_RenderMeshGLSL_Distortion( const shaderpass_t *pass, r_glslfeat_t
 *
 * Renders a batch of shadowmap groups in one pass
 */
-static void RB_RenderMeshGLSL_ShadowmapArray( const shaderpass_t *pass, r_glslfeat_t programFeatures, 
+static void RB_RenderMeshGLSL_ShadowmapArray( const shaderpass_t *pass, r_glslfeat_t programFeatures,
 		int numShadows, const shadowGroup_t **shadowGroups, int *scissor )
 {
 	int i;
@@ -1216,7 +1216,7 @@ static void RB_RenderMeshGLSL_ShadowmapArray( const shaderpass_t *pass, r_glslfe
 
 	// update uniforms
 	program = RB_RegisterProgram( GLSL_PROGRAM_TYPE_SHADOWMAP, NULL,
-		rb.currentShader->deformsKey, rb.currentShader->deforms, 
+		rb.currentShader->deformsKey, rb.currentShader->deforms,
 		rb.currentShader->numdeforms, programFeatures );
 	if( !RB_BindProgram( program ) )
 		return;
@@ -1282,7 +1282,7 @@ static void RB_RenderMeshGLSL_RGBShadow( const shaderpass_t *pass, r_glslfeat_t 
 /*
 * RB_RenderMeshGLSL_Shadowmap
 *
-* Batch shadow groups so we can render up to 4 in one pass. 
+* Batch shadow groups so we can render up to 4 in one pass.
 * The downside of this approach is that scissoring won't be as useful.
 */
 static void RB_RenderMeshGLSL_Shadowmap( const shaderpass_t *pass, r_glslfeat_t programFeatures )
@@ -1330,7 +1330,7 @@ static void RB_RenderMeshGLSL_Shadowmap( const shaderpass_t *pass, r_glslfeat_t 
 			corner[2] = ( ( j & 4 ) ? visMins[2] : visMaxs[2] );
 		}
 
-		if( !RB_ScissorForBounds( bbox, 
+		if( !RB_ScissorForBounds( bbox,
 			&groupScissor[0], &groupScissor[1], &groupScissor[2], &groupScissor[3] ) )
 			continue;
 
@@ -1349,14 +1349,14 @@ static void RB_RenderMeshGLSL_Shadowmap( const shaderpass_t *pass, r_glslfeat_t 
 
 		shadowGroups[numShadows++] = group;
 		if( numShadows >= maxShadows ) {
-			RB_RenderMeshGLSL_ShadowmapArray( pass, programFeatures, numShadows, 
+			RB_RenderMeshGLSL_ShadowmapArray( pass, programFeatures, numShadows,
 				(const shadowGroup_t **)shadowGroups, scissor );
 			numShadows = 0;
 		}
 	}
 
 	if( numShadows > 0 ) {
-		RB_RenderMeshGLSL_ShadowmapArray( pass, programFeatures, numShadows, 
+		RB_RenderMeshGLSL_ShadowmapArray( pass, programFeatures, numShadows,
 			(const shadowGroup_t **)shadowGroups, scissor );
 	}
 
@@ -1471,17 +1471,17 @@ static void RB_RenderMeshGLSL_Q3AShader( const shaderpass_t *pass, r_glslfeat_t 
 	mat4_t texMatrix, genVectors;
 
 	// lightmapped surface pass
-	if( isWorldSurface && 
-		rb.superLightStyle && 
-		rb.superLightStyle->lightmapNum[0] >= 0	&& 
-		(rgbgen == RGB_GEN_IDENTITY 
-			|| rgbgen == RGB_GEN_CONST 
-			|| rgbgen == RGB_GEN_WAVE 
+	if( isWorldSurface &&
+		rb.superLightStyle &&
+		rb.superLightStyle->lightmapNum[0] >= 0	&&
+		(rgbgen == RGB_GEN_IDENTITY
+			|| rgbgen == RGB_GEN_CONST
+			|| rgbgen == RGB_GEN_WAVE
 			|| rgbgen == RGB_GEN_CUSTOMWAVE
 			|| rgbgen == RGB_GEN_VERTEX
 			|| rgbgen == RGB_GEN_ONE_MINUS_VERTEX
-			|| rgbgen == RGB_GEN_EXACT_VERTEX) && 
-		(rb.currentShader->flags & SHADER_LIGHTMAP) && 
+			|| rgbgen == RGB_GEN_EXACT_VERTEX) &&
+		(rb.currentShader->flags & SHADER_LIGHTMAP) &&
 		(pass->flags & GLSTATE_BLEND_ADD) != GLSTATE_BLEND_ADD ) {
 		lightStyle = rb.superLightStyle;
 		isLightmapped = true;
@@ -1625,7 +1625,7 @@ static void RB_RenderMeshGLSL_Q3AShader( const shaderpass_t *pass, r_glslfeat_t 
 		}
 
 		if( programFeatures & GLSL_SHADER_COMMON_SOFT_PARTICLE ) {
-			RP_UpdateTextureUniforms( program, 
+			RP_UpdateTextureUniforms( program,
 				rsh.screenDepthTexture->upload_width, rsh.screenDepthTexture->upload_height );
 		}
 
@@ -1786,7 +1786,7 @@ static void RB_RenderMeshGLSL_FXAA( const shaderpass_t *pass, r_glslfeat_t progr
 
 	// update uniforms
 	program = RB_RegisterProgram( GLSL_PROGRAM_TYPE_FXAA, NULL,
-		rb.currentShader->deformsKey, rb.currentShader->deforms, 
+		rb.currentShader->deformsKey, rb.currentShader->deforms,
 		rb.currentShader->numdeforms, programFeatures );
 	if( RB_BindProgram( program ) )
 	{
@@ -1872,8 +1872,8 @@ void RB_RenderMeshGLSLProgrammed( const shaderpass_t *pass, int programType )
 	features |= RB_InstancedArraysProgramFeatures();
 	features |= RB_AlphatestProgramFeatures( pass );
 	features |= RB_TcModsProgramFeatures( pass );
-	
-	if( ( rb.currentShader->flags & SHADER_SOFT_PARTICLE ) 
+
+	if( ( rb.currentShader->flags & SHADER_SOFT_PARTICLE )
 		&& rsh.screenDepthTextureCopy
 		&& ( rb.renderFlags & RF_SOFT_PARTICLES ) ) {
 		features |= GLSL_SHADER_COMMON_SOFT_PARTICLE;
@@ -2129,7 +2129,7 @@ void RB_SetLightParams( float minLight, bool noWorldLight )
 /*
 * RB_RegisterProgram
 */
-int RB_RegisterProgram( int type, const char *name, const char *deformsKey, 
+int RB_RegisterProgram( int type, const char *name, const char *deformsKey,
 	const deformv_t *deforms, int numDeforms, r_glslfeat_t features )
 {
 	int program;

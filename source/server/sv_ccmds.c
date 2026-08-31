@@ -142,7 +142,7 @@ static void SV_AutoUpdateCheck_f( void )
 
 /*
 * SV_Map_f
-* 
+*
 * User command to change the map
 * map: restart game, and start map
 * devmap: restart game, enable cheats, and start map

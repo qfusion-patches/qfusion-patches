@@ -42,7 +42,7 @@ static void RF_AdapterFrame( ref_frontendAdapter_t *adapter )
 	else
 		minMsec = 1;
 	frameTime = (int)(time - lastTime);
-	
+
 	bias += frameTime - minMsec;
 	if( bias > (int)minMsec )
 		bias = (int)minMsec;
@@ -63,7 +63,7 @@ static void RF_AdapterFrame( ref_frontendAdapter_t *adapter )
 			ri.Sys_Sleep( wait - 1 );
 		wait = ri.Sys_Milliseconds() - lastTime;
 	} while( wait < minMsec );
-	
+
 	lastTime = ri.Sys_Milliseconds();
 
 	frame = RF_GetNextAdapterFrame( adapter );
@@ -138,7 +138,7 @@ static bool RF_AdapterInit( ref_frontendAdapter_t *adapter )
 		if( !GLimp_SharedContext_Create( &adapter->GLcontext, NULL ) ) {
 			return false;
 		}
-		
+
 		adapter->shutdown = false;
 		adapter->thread = ri.Thread_Create( RF_AdapterThreadProc, adapter );
 		if( !adapter->thread ) {
@@ -166,7 +166,7 @@ static void RF_AdapterWait( ref_frontendAdapter_t *adapter )
 	while( adapter->frameId != adapter->readFrameId ) {
 		ri.Sys_Sleep( 0 );
 	}
-	
+
 	adapter->cmdPipe->FinishCmds( adapter->cmdPipe );
 }
 
@@ -190,7 +190,7 @@ static ref_cmdbuf_t *RF_GetNextAdapterFrame( ref_frontendAdapter_t *adapter )
 
 rserr_t RF_Init( const char *applicationName, const char *screenshotPrefix, int startupColor,
 	int iconResource, const int *iconXPM,
-	void *hinstance, void *wndproc, void *parenthWnd, 
+	void *hinstance, void *wndproc, void *parenthWnd,
 	bool verbose )
 {
 	rserr_t err;
@@ -246,7 +246,7 @@ rserr_t RF_SetMode( int x, int y, int width, int height, int displayFrequency, b
 		return rserr_unknown;
 	}
 
-	return rserr_ok;	
+	return rserr_ok;
 }
 
 rserr_t RF_SetWindow( void *hinstance, void *wndproc, void *parenthWnd )
@@ -301,7 +301,7 @@ static void RF_CheckCvars( void )
 		r_gamma->modified = false;
 		rrf.adapter.cmdPipe->SetGamma( rrf.adapter.cmdPipe, r_gamma->value );
 	}
-	
+
 	if( r_texturefilter->modified )
 	{
 		r_texturefilter->modified = false;
@@ -310,13 +310,13 @@ static void RF_CheckCvars( void )
 
 	if( r_wallcolor->modified || r_floorcolor->modified ) {
 		vec3_t wallColor, floorColor;
-		
+
 		sscanf( r_wallcolor->string,  "%3f %3f %3f", &wallColor[0], &wallColor[1], &wallColor[2] );
 		sscanf( r_floorcolor->string, "%3f %3f %3f", &floorColor[0], &floorColor[1], &floorColor[2] );
-		
+
 		r_wallcolor->modified = r_floorcolor->modified = false;
 
-		rrf.adapter.cmdPipe->SetWallFloorColors( rrf.adapter.cmdPipe, wallColor, floorColor );		
+		rrf.adapter.cmdPipe->SetWallFloorColors( rrf.adapter.cmdPipe, wallColor, floorColor );
 	}
 
 	if( gl_drawbuffer->modified )
@@ -324,14 +324,14 @@ static void RF_CheckCvars( void )
 		gl_drawbuffer->modified = false;
 		rrf.adapter.cmdPipe->SetDrawBuffer( rrf.adapter.cmdPipe, gl_drawbuffer->string );
 	}
-	
+
 	// texturemode stuff
 	if( r_texturemode->modified )
 	{
 		r_texturemode->modified = false;
 		rrf.adapter.cmdPipe->SetTextureMode( rrf.adapter.cmdPipe, r_texturemode->string );
 	}
-	
+
 	// keep r_outlines_cutoff value in sane bounds to prevent wallhacking
 	if( r_outlines_scale->modified ) {
 		if( r_outlines_scale->value < 0 ) {
@@ -380,7 +380,7 @@ void RF_EndFrame( void )
 	R_DataSync();
 
 	rrf.frame->EndFrame( rrf.frame );
-	
+
 	if( glConfig.multithreading ) {
 		ri.Mutex_Lock( rrf.adapter.frameLock );
 		rrf.lastFrameNum = rrf.frameNum;
@@ -443,19 +443,19 @@ void RF_RenderScene( const refdef_t *fd )
 	rrf.frame->RenderScene( rrf.frame, fd );
 }
 
-void RF_DrawStretchPic( int x, int y, int w, int h, float s1, float t1, float s2, float t2, 
+void RF_DrawStretchPic( int x, int y, int w, int h, float s1, float t1, float s2, float t2,
 	const vec4_t color, const shader_t *shader )
 {
 	rrf.frame->DrawRotatedStretchPic( rrf.frame, x, y, w, h, s1, t1, s2, t2, 0, color, shader );
 }
 
-void RF_DrawRotatedStretchPic( int x, int y, int w, int h, float s1, float t1, float s2, float t2, float angle, 
+void RF_DrawRotatedStretchPic( int x, int y, int w, int h, float s1, float t1, float s2, float t2, float angle,
 	const vec4_t color, const shader_t *shader )
 {
 	rrf.frame->DrawRotatedStretchPic( rrf.frame, x, y, w, h, s1, t1, s2, t2, angle, color, shader );
 }
 
-void RF_DrawStretchRaw( int x, int y, int w, int h, int cols, int rows, 
+void RF_DrawStretchRaw( int x, int y, int w, int h, int cols, int rows,
 	float s1, float t1, float s2, float t2, uint8_t *data )
 {
 	if( !cols || !rows )
@@ -467,7 +467,7 @@ void RF_DrawStretchRaw( int x, int y, int w, int h, int cols, int rows,
 	rrf.frame->DrawStretchRaw( rrf.frame, x, y, w, h, s1, t1, s2, t2 );
 }
 
-void RF_DrawStretchRawYUV( int x, int y, int w, int h, 
+void RF_DrawStretchRawYUV( int x, int y, int w, int h,
 	float s1, float t1, float s2, float t2, ref_img_plane_t *yuv )
 {
 	if( yuv )
@@ -510,7 +510,7 @@ void RF_SetCustomColor( int num, int r, int g, int b )
 	byte_vec4_t rgba;
 
 	Vector4Set( rgba, r, g, b, 255 );
-	
+
 	if( *(int *)rgba != *(int *)rrf.customColors[num] ) {
 		rrf.adapter.cmdPipe->SetCustomColor( rrf.adapter.cmdPipe, num, r, g, b );
 		*(int *)rrf.customColors[num] = *(int *)rgba;
@@ -564,7 +564,7 @@ void RF_WriteAviFrame( int frame, bool scissor )
 	size_t path_size;
 	char *path;
 	char name[32];
-	
+
 	if( !R_IsRenderingToScreen() )
 		return;
 
@@ -582,16 +582,16 @@ void RF_WriteAviFrame( int frame, bool scissor )
 		w = glConfig.width;
 		h = glConfig.height;
 	}
-	
+
 	writedir = ri.FS_WriteDirectory();
 	gamedir = ri.FS_GameDirectory();
 	path_size = strlen( writedir ) + 1 + strlen( gamedir ) + strlen( "/avi/" ) + 1;
 	path = alloca( path_size );
 	Q_snprintfz( path, path_size, "%s/%s/avi/", writedir, gamedir );
 	Q_snprintfz( name, sizeof( name ), "%06i", frame );
-	
+
 	RF_AdapterWait( &rrf.adapter );
-	
+
 	rrf.adapter.cmdPipe->AviShot( rrf.adapter.cmdPipe, path, name, x, y, w, h );
 }
 
@@ -604,15 +604,15 @@ void RF_TransformVectorToScreen( const refdef_t *rd, const vec3_t in, vec2_t out
 {
 	mat4_t p, m;
 	vec4_t temp, temp2;
- 	
+
 	if( !rd || !in || !out )
 		return;
- 	
+
 	temp[0] = in[0];
 	temp[1] = in[1];
 	temp[2] = in[2];
 	temp[3] = 1.0f;
- 	
+
 	if( rd->rdflags & RDF_USEORTHO ) {
 		Matrix4_OrthogonalProjection( rd->ortho_x, rd->ortho_x, rd->ortho_y, rd->ortho_y,
 			-4096.0f, 4096.0f, p );
@@ -621,19 +621,19 @@ void RF_TransformVectorToScreen( const refdef_t *rd, const vec3_t in, vec2_t out
 		Matrix4_InfinitePerspectiveProjection( rd->fov_x, rd->fov_y, Z_NEAR, rrf.cameraSeparation,
 			p, glConfig.depthEpsilon );
 	}
- 	
+
 	if( rd->rdflags & RDF_FLIPPED ) {
 		p[0] = -p[0];
 	}
- 	
+
 	Matrix4_Modelview( rd->vieworg, rd->viewaxis, m );
- 	
+
 	Matrix4_Multiply_Vector( m, temp, temp2 );
 	Matrix4_Multiply_Vector( p, temp2, temp );
- 	
+
 	if( !temp[3] )
  		return;
- 	
+
 	out[0] = rd->x + ( temp[0] / temp[3] + 1.0f ) * rd->width * 0.5f;
 	out[1] = glConfig.height - (rd->y + ( temp[1] / temp[3] + 1.0f ) * rd->height * 0.5f);
 }
@@ -642,16 +642,16 @@ bool RF_LerpTag( orientation_t *orient, const model_t *mod, int oldframe, int fr
 {
 	if( !orient )
 		return false;
- 	
+
 	VectorClear( orient->origin );
 	Matrix3_Identity( orient->axis );
- 	
+
 	if( !name )
 		return false;
- 	
+
 	if( mod->type == mod_alias )
 		return R_AliasModelLerpTag( orient, (const maliasmodel_t *)mod->extradata, oldframe, frame, lerpfrac, name );
- 	
+
 	return false;
 }
 

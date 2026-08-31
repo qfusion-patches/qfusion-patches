@@ -25,7 +25,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 * W_Fire_Lead
 * the seed is important to be as pointer for cgame prediction accuracy
 */
-static void W_Fire_Lead( edict_t *self, vec3_t start, vec3_t aimdir, vec3_t axis[3], int damage, 
+static void W_Fire_Lead( edict_t *self, vec3_t start, vec3_t aimdir, vec3_t axis[3], int damage,
 						int knockback, int stun, int hspread, int vspread, int *seed, int dflags,
 						int mod, int timeDelta )
 {
@@ -124,7 +124,7 @@ enum {
 };
 
 /*
-* 
+*
 * - We will consider direct impacts as splash when the player is on the ground and the hit very close to the ground
 */
 int G_Projectile_HitStyle( edict_t *projectile, edict_t *target )
@@ -246,7 +246,7 @@ static void W_Touch_Projectile( edict_t *ent, edict_t *other, cplane_t *plane, i
 		VectorSet( normal, 0, 0, 1 );
 	else
 		VectorCopy( plane->normal, normal );
-	
+
 	G_Gametype_ScoreEvent( NULL, "projectilehit", va( "%i %i %f %f %f", ent->s.number, surfFlags, normal[0], normal[1], normal[2] ) );
 }
 
@@ -533,8 +533,8 @@ void W_Fire_Bullet( edict_t *self, vec3_t start, vec3_t angles, int seed, int ra
 	}
 }
 
-//Sunflower spiral with Fibonacci numbers 
-static void G_Fire_SunflowerPattern( edict_t *self, vec3_t start, vec3_t dir, int *seed, int count, 
+//Sunflower spiral with Fibonacci numbers
+static void G_Fire_SunflowerPattern( edict_t *self, vec3_t start, vec3_t dir, int *seed, int count,
 	int hspread, int vspread, int range, float damage, int kick, int stun, int dflags, int mod, int timeDelta )
 {
 	int i;
@@ -547,7 +547,7 @@ static void G_Fire_SunflowerPattern( edict_t *self, vec3_t start, vec3_t dir, in
 	{
 		fi = i * 2.4; //magic value creating Fibonacci numbers
 		r = cos( (float)*seed + fi ) * hspread * sqrt(fi);
-		u = sin( (float)*seed + fi ) * vspread * sqrt(fi); 
+		u = sin( (float)*seed + fi ) * vspread * sqrt(fi);
 
 		GS_TraceBullet( &trace, start, dir, r, u, range, ENTNUM( self ), timeDelta );
 		if( trace.ent != -1 )
@@ -567,7 +567,7 @@ static void G_Fire_SunflowerPattern( edict_t *self, vec3_t start, vec3_t dir, in
 }
 
 #if 0
-static void G_Fire_RandomPattern( edict_t *self, vec3_t start, vec3_t dir, int *seed, int count, 
+static void G_Fire_RandomPattern( edict_t *self, vec3_t start, vec3_t dir, int *seed, int count,
 	int hspread, int vspread, int range, float damage, int kick, int stun, int dflags, int mod, int timeDelta )
 {
 	int i;
@@ -781,7 +781,7 @@ static void W_Touch_Rocket( edict_t *ent, edict_t *other, cplane_t *plane, int s
 
 		if( hitType == PROJECTILE_TOUCH_DIRECTSPLASH ) // use hybrid direction from splash and projectile
 		{
-			
+
 			G_SplashFrac4D( ENTNUM( other ), ent->s.origin, ent->projectileInfo.radius, dir, NULL, NULL, ent->timeDelta );
 		}
 		else
@@ -1042,7 +1042,7 @@ static void W_Touch_Bolt( edict_t *self, edict_t *other, cplane_t *plane, int su
 		if( other->r.client ) missed = false;
 	}
 	else if( !( surfFlags & SURF_NOIMPACT ) )
-	{   
+	{
 		// add explosion event
 		event = G_SpawnEvent( EV_BOLT_EXPLOSION, DirToByte( plane ? plane->normal : NULL ), self->s.origin );
 		event->s.firemode = FIRE_MODE_WEAK;
@@ -1123,7 +1123,7 @@ void W_Fire_Electrobolt_Combined( edict_t *self, vec3_t start, vec3_t angles, fl
 			knockback = maxknockback - ( ( maxknockback - minknockback ) * frac );
 
 			G_Damage( hit, self, self, dir, dir, tr.endpos, damage, knockback, stun, dmgflags, mod );
-			
+
 			// spawn a impact event on each damaged ent
 			event = G_SpawnEvent( EV_BOLT_EXPLOSION, DirToByte( tr.plane.normal ), tr.endpos );
 			event->s.firemode = fireMode;
@@ -1234,7 +1234,7 @@ void W_Fire_Electrobolt_FullInstant( edict_t *self, vec3_t start, vec3_t angles,
 			knockback = maxknockback - ( ( maxknockback - minknockback ) * frac );
 
 			G_Damage( hit, self, self, dir, dir, tr.endpos, damage, knockback, stun, dmgflags, mod );
-			
+
 			// spawn a impact event on each damaged ent
 			event = G_SpawnEvent( EV_BOLT_EXPLOSION, DirToByte( tr.plane.normal ), tr.endpos );
 			event->s.firemode = FIRE_MODE_STRONG;
@@ -1320,7 +1320,7 @@ void W_Fire_Instagun( edict_t *self, vec3_t start, vec3_t angles, float damage, 
 
 		if( !ISBRUSHMODEL( hit->s.modelindex ) )
 			ignore = hit;
-	
+
 		if( ( hit != self ) && ( hit->takedamage ) )
 		{
 			G_Damage( hit, self, self, dir, dir, tr.endpos, damage, knockback, stun, dmgflags, mod );

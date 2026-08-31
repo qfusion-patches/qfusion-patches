@@ -76,13 +76,13 @@ void RF_AddLightToScene( const vec3_t org, float intensity, float r, float g, fl
 void RF_AddPolyToScene( const poly_t *poly );
 void RF_AddLightStyleToScene( int style, float r, float g, float b );
 void RF_RenderScene( const refdef_t *fd );
-void RF_DrawStretchPic( int x, int y, int w, int h, float s1, float t1, float s2, float t2, 
+void RF_DrawStretchPic( int x, int y, int w, int h, float s1, float t1, float s2, float t2,
 	const vec4_t color, const shader_t *shader );
-void RF_DrawRotatedStretchPic( int x, int y, int w, int h, float s1, float t1, float s2, float t2, float angle, 
+void RF_DrawRotatedStretchPic( int x, int y, int w, int h, float s1, float t1, float s2, float t2, float angle,
 	const vec4_t color, const shader_t *shader );
-void RF_DrawStretchRaw( int x, int y, int w, int h, int cols, int rows, 
+void RF_DrawStretchRaw( int x, int y, int w, int h, int cols, int rows,
 	float s1, float t1, float s2, float t2, uint8_t *data );
-void RF_DrawStretchRawYUV( int x, int y, int w, int h, 
+void RF_DrawStretchRawYUV( int x, int y, int w, int h,
 	float s1, float t1, float s2, float t2, ref_img_plane_t *yuv );
 void RF_DrawStretchPoly( const poly_t *poly, float x_offset, float y_offset );
 void RF_SetScissor( int x, int y, int w, int h );

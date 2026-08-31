@@ -132,7 +132,7 @@ namespace WSWUI
 
 			int edge_indices[8] = { 0, 0, 1, 1, 2, 2, 3, 3 }; // Indices of the vertices on edges.
 			int centre_indices[4] = { 0, 1, 2, 3 }; // Indices of the edges of the centre.
-			
+
 			Colourb colour( 255, 255, 255 );
 
 			// Generate the corners.

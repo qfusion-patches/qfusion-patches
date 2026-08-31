@@ -41,13 +41,13 @@ static const char *wmPartSufix[] = { "", "_expansion", "_barrel", "_flash", "_ha
 
 /*
 * CG_vWeap_ParseAnimationScript
-* 
+*
 * script:
 * 0 = first frame
 * 1 = lastframe/number of frames
 * 2 = looping frames
 * 3 = frame time
-* 
+*
 * keywords:
 * "islastframe":Will read the second value of each animation as lastframe (usually means numframes)
 * "rotationscale": value witch will scale the barrel rotation speed
@@ -419,7 +419,7 @@ static bool CG_WeaponModelUpdateRegistration( weaponinfo_t *weaponinfo, char *fi
 
 /*
 * CG_FindWeaponModelSpot
-* 
+*
 * Stored names format is without extension, like this: "rocketl/rocketl"
 */
 static struct weaponinfo_s *CG_FindWeaponModelSpot( char *filename )
@@ -501,7 +501,7 @@ struct weaponinfo_s *CG_RegisterWeaponModel( char *cgs_name, int weaponTag )
 
 /*
 * CG_CreateWeaponZeroModel
-* 
+*
 * we can't allow NULL weaponmodels to be passed to the viewweapon.
 * They will produce crashes because the lack of animation script.
 * We need to have at least one weaponinfo with a script to be used

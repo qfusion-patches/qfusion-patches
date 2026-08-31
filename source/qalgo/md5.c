@@ -326,7 +326,7 @@ unsigned int
 md5_digest32( const void *data, int nbytes )
 {
 	md5_byte_t digest[16];
-	
+
 	md5_digest( data, nbytes, digest );
 	return md5_reduce( digest );
 }

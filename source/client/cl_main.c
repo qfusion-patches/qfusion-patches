@@ -105,7 +105,7 @@ CLIENT RELIABLE COMMAND COMMUNICATION
 
 /*
 * CL_AddReliableCommand
-* 
+*
 * The given command will be transmitted to the server, and is gauranteed to
 * not have future usercmd_t executed before it is executed
 */
@@ -130,7 +130,7 @@ void CL_AddReliableCommand( /*const*/ char *cmd )
 
 /*
 * CL_UpdateClientCommandsToServer
-* 
+*
 * Add the pending commands to the message
 */
 void CL_UpdateClientCommandsToServer( msg_t *msg )
@@ -194,7 +194,7 @@ void CL_ServerDisconnect_f( void )
 
 	Com_Printf( "Connection was closed by server: %s\n", reason );
 
-	Q_snprintfz( menuparms, sizeof( menuparms ), "menu_open connfailed dropreason %i servername \"%s\" droptype %i rejectmessage \"%s\"", 
+	Q_snprintfz( menuparms, sizeof( menuparms ), "menu_open connfailed dropreason %i servername \"%s\" droptype %i rejectmessage \"%s\"",
 		DROP_REASON_CONNTERMINATED, cls.servername, type, reason );
 
 	Cbuf_ExecuteText( EXEC_NOW, menuparms );
@@ -219,7 +219,7 @@ static void CL_Quit_f( void )
 
 /*
 * CL_SendConnectPacket
-* 
+*
 * We have gotten a challenge from the server, so try and
 * connect.
 */
@@ -238,7 +238,7 @@ static void CL_SendConnectPacket( void )
 
 /*
 * CL_CheckForResend
-* 
+*
 * Resend a connect message if the last one has timed out
 */
 static void CL_CheckForResend( void )
@@ -437,7 +437,7 @@ static void CL_Connect_Cmd_f( socket_type_t socket )
 	connectstring_base = TempCopyString( Cmd_Argv( 1 ) );
 	connectstring = connectstring_base;
 	serverchain = Cmd_Argc() >= 3 ? Cmd_Argv( 2 ) : "";
-	
+
 	if( !Q_strnicmp( connectstring, proto_scheme, strlen( proto_scheme ) ) )
 		connectstring += strlen( proto_scheme );
 	else if( !Q_strnicmp( connectstring, scheme, strlen( scheme ) ) )
@@ -493,7 +493,7 @@ static void CL_Connect_Cmd_f( socket_type_t socket )
 	CL_MM_WaitForLogin();
 
 	servername = TempCopyString( connectstring );
-	CL_Connect( servername, ( serveraddress.type == NA_LOOPBACK ? SOCKET_LOOPBACK : socket ), 
+	CL_Connect( servername, ( serveraddress.type == NA_LOOPBACK ? SOCKET_LOOPBACK : socket ),
 		&serveraddress, serverchain );
 
 	Mem_TempFree( servername );
@@ -521,7 +521,7 @@ static void CL_TCPConnect_f( void )
 
 /*
 * CL_Rcon_f
-* 
+*
 * Send the rest of the command line over as
 * an unconnected command.
 */
@@ -800,7 +800,7 @@ void CL_ClearState( void )
 
 /*
 * CL_SetNext_f
-* 
+*
 * Next is used to set an action which is executed at disconnecting.
 */
 static void CL_SetNext_f( void )
@@ -832,7 +832,7 @@ static void CL_ExecuteNext( void )
 
 /*
 * CL_Disconnect_SendCommand
-* 
+*
 * Sends a disconnect message to the server
 */
 static void CL_Disconnect_SendCommand( void )
@@ -848,7 +848,7 @@ static void CL_Disconnect_SendCommand( void )
 
 /*
 * CL_Disconnect
-* 
+*
 * Goes from a connected state to full screen console state
 * Sends a disconnect message to the server
 * This is also called on Com_Error, so it shouldn't cause any errors
@@ -994,7 +994,7 @@ void CL_Disconnect_f( void )
 
 /*
 * CL_Changing_f
-* 
+*
 * Just sent as a hint to the client that they should
 * drop to full console
 */
@@ -1020,7 +1020,7 @@ void CL_Changing_f( void )
 
 /*
 * CL_ServerReconnect_f
-* 
+*
 * The server is changing levels
 */
 void CL_ServerReconnect_f( void )
@@ -1065,7 +1065,7 @@ void CL_ServerReconnect_f( void )
 
 /*
 * CL_Reconnect_f
-* 
+*
 * User reconnect command.
 */
 void CL_Reconnect_f( void )
@@ -1093,7 +1093,7 @@ void CL_Reconnect_f( void )
 
 /*
 * CL_ConnectionlessPacket
-* 
+*
 * Responses to broadcasts, etc
 */
 static void CL_ConnectionlessPacket( const socket_t *socket, const netadr_t *address, msg_t *msg )
@@ -1736,7 +1736,7 @@ void CL_RequestNextDownload( void )
 
 /*
 * CL_Precache_f
-* 
+*
 * The server will send this command right
 * before allowing the client into the server
 */
@@ -1772,7 +1772,7 @@ void CL_Precache_f( void )
 
 /*
 * CL_WriteConfiguration
-* 
+*
 * Writes key bindings, archived cvars and aliases to a config file
 */
 static void CL_WriteConfiguration( const char *name, bool warn )
@@ -1947,7 +1947,7 @@ void CL_ShutdownMedia( void )
 		return;
 
 	cls.mediaInitialized = false;
-	
+
 	CL_SoundModule_StopAllSounds( true, true );
 
 	// shutdown cgame
@@ -2003,7 +2003,7 @@ void CL_RestartMedia( void )
 
 /*
 * CL_S_Restart
-* 
+*
 * Restart the sound subsystem so it can pick up new parameters and flush all sounds
 */
 void CL_S_Restart( bool noVideo )
@@ -2026,7 +2026,7 @@ void CL_S_Restart( bool noVideo )
 
 /*
 * CL_S_Restart_f
-* 
+*
 * Restart the sound subsystem so it can pick up new parameters and flush all sounds
 */
 static void CL_S_Restart_f( void )
@@ -2629,7 +2629,7 @@ void CL_Frame( int realmsec, int gamemsec )
 	CL_UserInputFrame();
 	CL_NetFrame( realmsec, gamemsec );
 	CL_MM_Frame();
-	
+
 	if( cls.state == CA_CINEMATIC )
 	{
 #if 1
@@ -2638,13 +2638,13 @@ void CL_Frame( int realmsec, int gamemsec )
 		roundingMsec = 0;
 #else
 		maxFps = SCR_CinematicFramerate() * 2;
-		if( maxFps < 24 ) 
+		if( maxFps < 24 )
 			maxFps = 24.0f;
 		minMsec = max( ( 1000.0f / maxFps ), 1 );
 		roundingMsec += max( ( 1000.0f / maxFps ), 1.0f ) - minMsec;
 #endif
 	}
-	else if( cl_maxfps->integer > 0 && !cl_timedemo->integer 
+	else if( cl_maxfps->integer > 0 && !cl_timedemo->integer
 		&& !( cls.demo.avi_video && cls.state == CA_ACTIVE ) )
 	{
 		const int absMinFps = 24;
@@ -2671,7 +2671,7 @@ void CL_Frame( int realmsec, int gamemsec )
 
 	if( allRealMsec + extraMsec < minMsec )
 	{
-		// let CPU sleep while playing fullscreen video, while minimized 
+		// let CPU sleep while playing fullscreen video, while minimized
 		// or when cl_sleep is enabled
 		bool sleep = cl_sleep->integer != 0;
 
@@ -2811,7 +2811,7 @@ done:
 /*
 * CL_CheckForUpdateReadCb
 */
-static size_t CL_CheckForUpdateReadCb( const void *buf, size_t numb, float percentage, 
+static size_t CL_CheckForUpdateReadCb( const void *buf, size_t numb, float percentage,
 	int status, const char *contentType, void *privatep )
 {
 	char *newbuf;
@@ -2858,8 +2858,8 @@ static void CL_CheckForUpdateHeaderCb( const char *buf, void *privatep )
 		val_size = str - val;
 
 		if( val_size > 0 ) {
-			int filenum; 
-			
+			int filenum;
+
 			if( FS_FOpenFile( TRACKING_PROFILE_ID, &filenum, FS_WRITE ) < 0 ) {
 				return;
 			}
@@ -2872,7 +2872,7 @@ static void CL_CheckForUpdateHeaderCb( const char *buf, void *privatep )
 
 /*
 * CL_CheckForUpdate
-* 
+*
 * retrieve a file with the last version umber on a web server, compare with current version
 * display a message box in case the user need to update
 */
@@ -2888,13 +2888,13 @@ static void CL_CheckForUpdate( void )
 	char *profileId;
 	int profileIdSize;
 	int headerNum = 0;
-	const char *headers[] = { 
-		NULL, NULL, 
-		NULL, NULL, 
-		NULL, NULL, 
-		NULL, NULL, 
-		NULL, NULL, 
-		NULL, NULL, 
+	const char *headers[] = {
+		NULL, NULL,
+		NULL, NULL,
+		NULL, NULL,
+		NULL, NULL,
+		NULL, NULL,
+		NULL, NULL,
 		NULL };
 
 	if( !cl_checkForUpdate->integer )
@@ -2942,7 +2942,7 @@ static void CL_CheckForUpdate( void )
 
 	headerNum += CL_AddSessionHttpRequestHeaders( url, &headers[headerNum] );
 
-	CL_AsyncStreamRequest( url, headers, 15, 0, CL_CheckForUpdateReadCb, CL_CheckForUpdateDoneCb, 
+	CL_AsyncStreamRequest( url, headers, 15, 0, CL_CheckForUpdateReadCb, CL_CheckForUpdateDoneCb,
 		CL_CheckForUpdateHeaderCb, NULL, false );
 
 	Mem_TempFree( resolution );
@@ -3020,8 +3020,8 @@ int CL_AddSessionHttpRequestHeaders( const char *url, const char **headers )
 * CL_AsyncStreamRequest
 */
 void CL_AsyncStreamRequest( const char *url, const char **headers, int timeout, int resumeFrom,
-	size_t (*read_cb)(const void *, size_t, float, int, const char *, void *), 
-	void (*done_cb)(int, const char *, void *), 
+	size_t (*read_cb)(const void *, size_t, float, int, const char *, void *),
+	void (*done_cb)(int, const char *, void *),
 	void (*header_cb)(const char *, void *), void *privatep, bool urlencodeUnsafe )
 {
 	char *tmpUrl = NULL;
@@ -3039,7 +3039,7 @@ void CL_AsyncStreamRequest( const char *url, const char **headers, int timeout, 
 		safeUrl = url;
 	}
 
-	AsyncStream_PerformRequestExt( cl_async_stream, safeUrl, "GET", NULL, headers, timeout, 
+	AsyncStream_PerformRequestExt( cl_async_stream, safeUrl, "GET", NULL, headers, timeout,
 		resumeFrom, read_cb, done_cb, (async_stream_header_cb_t)header_cb, NULL );
 
 	if( urlencodeUnsafe ) {
@@ -3130,7 +3130,7 @@ void CL_InitDynvars( void )
 
 /*
 * CL_Shutdown
-* 
+*
 * FIXME: this is a callback from Sys_Quit and Com_Error.  It would be better
 * to run quit through here before the final handoff to the sys code.
 */

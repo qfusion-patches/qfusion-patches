@@ -42,7 +42,7 @@ public:
 	{
 		DetachFromOwnerDocument();
 	}
-	
+
 	// Called when attributes on the element are changed.
 	void OnAttributeChange( const Rocket::Core::AttributeNameList& changed_attributes )
 	{

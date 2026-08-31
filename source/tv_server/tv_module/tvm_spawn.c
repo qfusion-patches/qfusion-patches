@@ -27,7 +27,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 /*
 * TVM_SpawnEntities
-* 
+*
 * Creates a server's entity / program execution context by
 * parsing textual entity definitions out of an ent file.
 */

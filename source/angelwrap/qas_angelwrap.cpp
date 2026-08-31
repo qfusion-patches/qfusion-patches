@@ -175,9 +175,9 @@ static asIScriptContext *qasCreateContext( asIScriptEngine *engine )
 
 	// We don't want to allow the script to hang the application, e.g. with an
 	// infinite loop, so we'll use the line callback function to set a timeout
-	// that will abort the script after a certain time. Before executing the 
-	// script the timeOut variable will be set to the time when the script must 
-	// stop executing. 
+	// that will abort the script after a certain time. Before executing the
+	// script the timeOut variable will be set to the time when the script must
+	// stop executing.
 
 	error = ctx->SetExceptionCallback( asFUNCTION(qasExceptionCallback), NULL, asCALL_CDECL );
 	if( error < 0 )
