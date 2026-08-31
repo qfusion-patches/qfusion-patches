@@ -221,7 +221,7 @@ void CIN_UnloadLibrary( bool verbose )
 	}
 }
 
-struct cinematics_s *CIN_Open( const char *name, unsigned int start_time, 
+struct cinematics_s *CIN_Open( const char *name, unsigned int start_time,
 	int flags, bool *yuv, float *framerate )
 {
 	if( cin_export ) {
@@ -254,28 +254,28 @@ bool CIN_NeedNextFrame( struct cinematics_s *cin, unsigned int curtime )
 	return false;
 }
 
-uint8_t *CIN_ReadNextFrame( struct cinematics_s *cin, int *width, 
+uint8_t *CIN_ReadNextFrame( struct cinematics_s *cin, int *width,
 	int *height, int *aspect_numerator, int *aspect_denominator, bool *redraw )
 {
 	if( cin_export ) {
-		return cin_export->ReadNextFrame( cin, width, height, 
+		return cin_export->ReadNextFrame( cin, width, height,
 			aspect_numerator, aspect_denominator, redraw );
 	}
 	return NULL;
 }
 
-ref_yuv_t *CIN_ReadNextFrameYUV( struct cinematics_s *cin, 
-	int *width, int *height, int *aspect_numerator, int *aspect_denominator, 
+ref_yuv_t *CIN_ReadNextFrameYUV( struct cinematics_s *cin,
+	int *width, int *height, int *aspect_numerator, int *aspect_denominator,
 	bool *redraw )
 {
 	if( cin_export ) {
-		return ( ref_yuv_t * )cin_export->ReadNextFrameYUV( cin, width, height, 
+		return ( ref_yuv_t * )cin_export->ReadNextFrameYUV( cin, width, height,
 			aspect_numerator, aspect_denominator, redraw );
 	}
 	return NULL;
 }
 
-bool CIN_AddRawSamplesListener( struct cinematics_s *cin, void *listener, 
+bool CIN_AddRawSamplesListener( struct cinematics_s *cin, void *listener,
 	cin_raw_samples_cb_t rs, cin_get_raw_samples_cb_t grs ) {
 	if( cin_export ) {
 		return cin_export->AddRawSamplesListener( cin, listener, rs, grs );

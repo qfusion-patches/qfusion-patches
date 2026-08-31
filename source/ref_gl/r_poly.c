@@ -136,7 +136,7 @@ static int r_fragmentframecount;
 
 /*
 * R_WindingClipFragment
-* 
+*
 * This function operates on windings (convex polygons without
 * any points inside) like triangles, quads, etc. The output is
 * a convex fragment (polygon, trifan) which the result of clipping
@@ -274,7 +274,7 @@ static bool R_WindingClipFragment( vec3_t *wVerts, int numVerts, msurface_t *sur
 
 /*
 * R_PlanarSurfClipFragment
-* 
+*
 * NOTE: one might want to combine this function with
 * R_WindingClipFragment for special cases like trifans (q1 and
 * q2 polys) or tristrips for ultra-fast clipping, providing there's
@@ -396,8 +396,8 @@ bool R_SurfPotentiallyFragmented( const msurface_t *surf )
 {
 	if( surf->flags & ( SURF_NOMARKS|SURF_NOIMPACT|SURF_NODRAW ) )
 		return false;
-	return ( ( surf->facetype == FACETYPE_PLANAR ) 
-		|| ( surf->facetype == FACETYPE_PATCH ) 
+	return ( ( surf->facetype == FACETYPE_PLANAR )
+		|| ( surf->facetype == FACETYPE_PATCH )
 		/* || (surf->facetype == FACETYPE_TRISURF)*/ );
 }
 
@@ -473,7 +473,7 @@ nextNodeOnStack:
 /*
 * R_GetClippedFragments
 */
-int R_GetClippedFragments( const vec3_t origin, float radius, vec3_t axis[3], 
+int R_GetClippedFragments( const vec3_t origin, float radius, vec3_t axis[3],
 	int maxfverts, vec4_t *fverts, int maxfragments, fragment_t *fragments )
 {
 	int i;

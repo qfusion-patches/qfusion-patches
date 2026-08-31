@@ -93,9 +93,9 @@ typedef struct
 
 	struct cinematics_s *( *CIN_Open )( const char *name, unsigned int start_time, bool *yuv, float *framerate );
 	bool ( *CIN_NeedNextFrame )( struct cinematics_s *cin, unsigned int curtime );
-	uint8_t *( *CIN_ReadNextFrame )( struct cinematics_s *cin, int *width, int *height, 
+	uint8_t *( *CIN_ReadNextFrame )( struct cinematics_s *cin, int *width, int *height,
 		int *aspect_numerator, int *aspect_denominator, bool *redraw );
-	ref_yuv_t *( *CIN_ReadNextFrameYUV )( struct cinematics_s *cin, int *width, int *height, 
+	ref_yuv_t *( *CIN_ReadNextFrameYUV )( struct cinematics_s *cin, int *width, int *height,
 		int *aspect_numerator, int *aspect_denominator, bool *redraw );
 	void ( *CIN_Reset )( struct cinematics_s *cin, unsigned int cur_time );
 	void ( *CIN_Close )( struct cinematics_s *cin );
@@ -122,7 +122,7 @@ typedef struct
 	void ( *BufPipe_Finish )( qbufPipe_t *queue );
 	void ( *BufPipe_WriteCmd )( qbufPipe_t *queue, const void *cmd, unsigned cmd_size );
 	int ( *BufPipe_ReadCmds )( qbufPipe_t *queue, unsigned (**cmdHandlers)( const void * ) );
-	void ( *BufPipe_Wait )( qbufPipe_t *queue, int (*read)( qbufPipe_t *, unsigned( ** )(const void *), bool ), 
+	void ( *BufPipe_Wait )( qbufPipe_t *queue, int (*read)( qbufPipe_t *, unsigned( ** )(const void *), bool ),
 		unsigned (**cmdHandlers)( const void * ), unsigned timeout_msec );
 } ref_import_t;
 
@@ -144,7 +144,7 @@ typedef struct
 	// if necessary.
 	//
 	// EndRegistration will free any remaining data that wasn't registered.
-	// Any model_s, shader_s and skinfile_s pointers from before 
+	// Any model_s, shader_s and skinfile_s pointers from before
 	// the BeginRegistration are no longer valid after EndRegistration.
 	void		( *BeginRegistration )( void );
 	void		( *EndRegistration )( void );
@@ -174,17 +174,17 @@ typedef struct
 	void		( *AddLightStyleToScene )( int style, float r, float g, float b );
 	void		( *RenderScene )( const refdef_t *fd );
 
-	void		( *DrawStretchPic )( int x, int y, int w, int h, float s1, float t1, float s2, float t2, 
+	void		( *DrawStretchPic )( int x, int y, int w, int h, float s1, float t1, float s2, float t2,
 								 const float *color, const struct shader_s *shader );
-	void		( *DrawRotatedStretchPic )( int x, int y, int w, int h, float s1, float t1, float s2, float t2, 
+	void		( *DrawRotatedStretchPic )( int x, int y, int w, int h, float s1, float t1, float s2, float t2,
 								 float angle, const vec4_t color, const struct shader_s *shader );
 
 	// Passing NULL for data redraws last uploaded frame
-	void		( *DrawStretchRaw )( int x, int y, int w, int h, int cols, int rows, 
+	void		( *DrawStretchRaw )( int x, int y, int w, int h, int cols, int rows,
 									float s1, float t1, float s2, float t2, uint8_t *data );
 
 	// Passing NULL for yuv redraws last uploaded frame
-	void		( *DrawStretchRawYUV )( int x, int y, int w, int h, 
+	void		( *DrawStretchRawYUV )( int x, int y, int w, int h,
 										float s1, float t1, float s2, float t2, ref_img_plane_t *yuv );
 
 	void		( *DrawStretchPoly )( const poly_t *poly, float x_offset, float y_offset );
@@ -202,7 +202,7 @@ typedef struct
 	int			( *SkeletalGetBoneInfo )( const struct model_s *mod, int bone, char *name, size_t name_size, int *flags );
 	void		( *SkeletalGetBonePose )( const struct model_s *mod, int bone, int frame, bonepose_t *bonepose );
 
-	int			( *GetClippedFragments )( const vec3_t origin, float radius, vec3_t axis[3], int maxfverts, vec4_t *fverts, 
+	int			( *GetClippedFragments )( const vec3_t origin, float radius, vec3_t axis[3], int maxfverts, vec4_t *fverts,
 									  int maxfragments, fragment_t *fragments );
 
 	struct shader_s * ( *GetShaderForOrigin )( const vec3_t origin );

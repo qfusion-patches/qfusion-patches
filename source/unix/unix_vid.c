@@ -32,7 +32,7 @@ static int VID_WndProc( x11display_t *wnd, int ev, int p1, int p2 )
 /*
 * VID_Sys_Init
 */
-rserr_t VID_Sys_Init( const char *applicationName, const char *screenshotsPrefix, int startupColor, 
+rserr_t VID_Sys_Init( const char *applicationName, const char *screenshotsPrefix, int startupColor,
 	const int *iconXPM, void *parentWindow, bool verbose )
 {
 	x11display.dpy = NULL;

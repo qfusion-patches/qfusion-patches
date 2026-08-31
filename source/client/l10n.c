@@ -284,7 +284,7 @@ parse_cmd:
 		if( !str_length ) {
 			have_msgid = have_msgstr = false;
 			if( error ) {
-				Com_Printf( S_COLOR_YELLOW "Error parsing line %i of %s: syntax error near '%s'\n", 
+				Com_Printf( S_COLOR_YELLOW "Error parsing line %i of %s: syntax error near '%s'\n",
 					linenum, filepath, instr );
 			}
 		}
@@ -425,7 +425,7 @@ static podomain_t *L10n_CreatePODomain( const char *name )
 static void L10n_ClearPODomain( podomain_t *podomain )
 {
 	pofile_t *pofile, *next;
-	
+
 	for( pofile = podomain->pofiles_head; pofile; pofile = next )
 	{
 		next = pofile->next;
@@ -596,7 +596,7 @@ const char *L10n_TranslateString( const char *domainname, const char *string )
 {
 	const podomain_t *podomain;
 	const char *result;
-	
+
 	if( !string || !*string ) {
 		return string;
 	}

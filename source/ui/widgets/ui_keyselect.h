@@ -112,7 +112,7 @@ private:
 
 
 /*
-	Used to initialize instances of UI_KeySelect and 
+	Used to initialize instances of UI_KeySelect and
 	provides to manage the list of all the keybinds, removing
 	binds conflicts.
  */

@@ -125,9 +125,9 @@ typedef struct glsl_program_s
 					ShadowAlpha[( GLSL_SHADOWMAP_LIMIT + 3 ) / 4],
 					ShadowDir[GLSL_SHADOWMAP_LIMIT],
 					ShadowEntityDist[GLSL_SHADOWMAP_LIMIT],
-					
+
 					BlendMix,
-					
+
 					SoftParticlesScale;
 
 		// builtin uniforms
@@ -155,8 +155,8 @@ static void RP_GetUniformLocations( glsl_program_t *program );
 static void RP_BindAttrbibutesLocations( glsl_program_t *program );
 
 static void *RP_GetProgramBinary( int elem, int *format, unsigned *length );
-static int RP_RegisterProgramBinary( int type, const char *name, const char *deformsKey, 
-	const deformv_t *deforms, int numDeforms, r_glslfeat_t features, 
+static int RP_RegisterProgramBinary( int type, const char *name, const char *deformsKey,
+	const deformv_t *deforms, int numDeforms, r_glslfeat_t features,
 	int binaryFormat, unsigned binaryLength, void *binary );
 
 /*
@@ -254,7 +254,7 @@ void RP_PrecachePrograms( void )
 
 			ri.FS_Read( &version, sizeof( version ), handleBin );
 			ri.FS_Read( &hash, sizeof( hash ), handleBin );
-			
+
 			if( binaryCacheSize < 8 || version != GLSL_BITS_VERSION || hash != glConfig.versionHash ) {
 				CLOSE_AND_DROP_BINARY_CACHE();
 			}
@@ -266,7 +266,7 @@ void RP_PrecachePrograms( void )
 
 	token = COM_Parse_r( tempbuf, sizeof( tempbuf ), ptr );
 	if( strcmp( token, glConfig.applicationName ) ) {
-		ri.Com_DPrintf( "Ignoring %s: unknown application name \"%s\", expected \"%s\"\n", 
+		ri.Com_DPrintf( "Ignoring %s: unknown application name \"%s\", expected \"%s\"\n",
 			token, glConfig.applicationName );
 		return;
 	}
@@ -334,7 +334,7 @@ void RP_PrecachePrograms( void )
 				binaryPos = atoi( token );
 				if( binaryPos ) {
 					bool err = false;
-					
+
 					err = !err && ri.FS_Seek( handleBin, binaryPos, FS_SEEK_SET ) < 0;
 					err = !err && ri.FS_Read( &binaryFormat, sizeof( binaryFormat ), handleBin ) != sizeof( binaryFormat );
 					err = !err && ri.FS_Read( &binaryLength, sizeof( binaryLength ), handleBin ) != sizeof( binaryLength );
@@ -359,7 +359,7 @@ void RP_PrecachePrograms( void )
 
 				ri.Com_DPrintf( "Loading binary program %s...\n", name );
 
-				elem = RP_RegisterProgramBinary( type, name, NULL, NULL, 0, features, 
+				elem = RP_RegisterProgramBinary( type, name, NULL, NULL, 0, features,
 					binaryFormat, binaryLength, binary );
 
 				if( RP_GetProgramObject( elem ) == 0 ) {
@@ -384,7 +384,7 @@ void RP_PrecachePrograms( void )
 				}
 				// fallthrough to regular registration
 			}
-			
+
 			ri.Com_DPrintf( "Loading program %s...\n", name );
 
 			RP_RegisterProgram( type, name, NULL, NULL, 0, features );
@@ -413,7 +413,7 @@ void RP_StorePrecacheList( void )
 	int handle, handleBin;
 	glsl_program_t *program;
 	unsigned dummy;
-	
+
 	if( !r_glslprograms_initialized ) {
 		return;
 	}
@@ -462,7 +462,7 @@ void RP_StorePrecacheList( void )
 				// this program is already cached
 				binaryPos = program->binaryCachePos;
 			}
-			else {		
+			else {
 				binary = RP_GetProgramBinary( i + 1, &binaryFormat, &binaryLength );
 				if( binary ) {
 					binaryPos = ri.FS_Tell( handleBin );
@@ -470,12 +470,12 @@ void RP_StorePrecacheList( void )
 			}
 		}
 
-		ri.FS_Printf( handle, "%i %i %i \"%s\" %u\n", 
-			program->type, 
-			(int)(program->features & ULONG_MAX), 
-			(int)((program->features>>32) & ULONG_MAX), 
+		ri.FS_Printf( handle, "%i %i %i \"%s\" %u\n",
+			program->type,
+			(int)(program->features & ULONG_MAX),
+			(int)((program->features>>32) & ULONG_MAX),
 			program->name, binaryPos );
-		
+
 		if( binary ) {
 			ri.FS_Write( &binaryFormat, sizeof( binaryFormat ), handleBin );
 			ri.FS_Write( &binaryLength, sizeof( binaryLength ), handleBin );
@@ -531,7 +531,7 @@ static void RF_DeleteProgram( glsl_program_t *program )
 /*
 * RF_CompileShader
 */
-static int RF_CompileShader( int program, const char *programName, const char *shaderName, 
+static int RF_CompileShader( int program, const char *programName, const char *shaderName,
 	int shaderType, const char **strings, int numStrings )
 {
 	GLhandleARB shader;
@@ -561,7 +561,7 @@ static int RF_CompileShader( int program, const char *programName, const char *s
 				Com_Printf( "\n" );
 			}
 
-			Com_Printf( S_COLOR_YELLOW "Failed to compile %s shader for program %s\n", 
+			Com_Printf( S_COLOR_YELLOW "Failed to compile %s shader for program %s\n",
 				shaderName, programName );
 			Com_Printf( "%s", log );
 			Com_Printf( "\n" );
@@ -628,7 +628,7 @@ static const glsl_feature_t glsl_features_material[] =
 	{ GLSL_SHADER_COMMON_INSTANCED_TRANSFORMS, "#define APPLY_INSTANCED_TRANSFORMS\n", "_instanced" },
 	{ GLSL_SHADER_COMMON_INSTANCED_ATTRIB_TRANSFORMS, "#define APPLY_INSTANCED_TRANSFORMS\n"
 		"#define APPLY_INSTANCED_ATTRIB_TRANSFORMS\n", "_instanced_va" },
-	
+
 	{ GLSL_SHADER_COMMON_AFUNC_GE128, "#define QF_ALPHATEST(a) { if ((a) < 0.5) discard; }\n", "_afunc_ge128" },
 	{ GLSL_SHADER_COMMON_AFUNC_LT128, "#define QF_ALPHATEST(a) { if ((a) >= 0.5) discard; }\n", "_afunc_lt128" },
 	{ GLSL_SHADER_COMMON_AFUNC_GT0, "#define QF_ALPHATEST(a) { if ((a) <= 0.0) discard; }\n", "_afunc_gt0" },
@@ -792,7 +792,7 @@ static const glsl_feature_t glsl_features_q3a[] =
 	{ GLSL_SHADER_COMMON_INSTANCED_ATTRIB_TRANSFORMS, "#define APPLY_INSTANCED_TRANSFORMS\n#define APPLY_INSTANCED_ATTRIB_TRANSFORMS\n", "_instanced_va" },
 
 	{ GLSL_SHADER_COMMON_SOFT_PARTICLE, "#define APPLY_SOFT_PARTICLE\n", "_sp" },
-	
+
 	{ GLSL_SHADER_COMMON_AFUNC_GE128, "#define QF_ALPHATEST(a) { if ((a) < 0.5) discard; }\n", "_afunc_ge128" },
 	{ GLSL_SHADER_COMMON_AFUNC_LT128, "#define QF_ALPHATEST(a) { if ((a) >= 0.5) discard; }\n", "_afunc_lt128" },
 	{ GLSL_SHADER_COMMON_AFUNC_GT0, "#define QF_ALPHATEST(a) { if ((a) <= 0.0) discard; }\n", "_afunc_gt0" },
@@ -846,7 +846,7 @@ static const glsl_feature_t glsl_features_celshade[] =
 
 	{ GLSL_SHADER_COMMON_INSTANCED_TRANSFORMS, "#define APPLY_INSTANCED_TRANSFORMS\n", "_instanced" },
 	{ GLSL_SHADER_COMMON_INSTANCED_ATTRIB_TRANSFORMS, "#define APPLY_INSTANCED_TRANSFORMS\n#define APPLY_INSTANCED_ATTRIB_TRANSFORMS\n", "_instanced_va" },
-	
+
 	{ GLSL_SHADER_COMMON_AFUNC_GE128, "#define QF_ALPHATEST(a) { if ((a) < 0.5) discard; }\n", "_afunc_ge128" },
 	{ GLSL_SHADER_COMMON_AFUNC_LT128, "#define QF_ALPHATEST(a) { if ((a) >= 0.5) discard; }\n", "_afunc_lt128" },
 	{ GLSL_SHADER_COMMON_AFUNC_GT0, "#define QF_ALPHATEST(a) { if ((a) <= 0.0) discard; }\n", "_afunc_gt0" },
@@ -1241,8 +1241,8 @@ QF_GLSL_PI \
 
 /*
 * R_GLSLBuildDeformv
-* 
-* Converts some of the Q3A vertex deforms to a GLSL vertex shader. 
+*
+* Converts some of the Q3A vertex deforms to a GLSL vertex shader.
 * Supported deforms are: wave, move, bulge.
 * NOTE: Autosprite deforms can only be performed in a geometry shader.
 * NULL is returned in case an unsupported deform is passed.
@@ -1294,8 +1294,8 @@ static const char *R_GLSLBuildDeformv( const deformv_t *deformv, int numDeforms 
 					return NULL;
 				}
 
-				Q_strncatz( program, va_r( tmp, sizeof( tmp ), "Position.xyz += %s(u_QF_ShaderTime,%f,%f,%f+%f*(Position.x+Position.y+Position.z),%f) * Normal.xyz;\n", 
-					funcs[funcType], deformv->func.args[0], deformv->func.args[1], deformv->func.args[2], deformv->func.args[3] ? deformv->args[0] : 0.0, deformv->func.args[3] ), 
+				Q_strncatz( program, va_r( tmp, sizeof( tmp ), "Position.xyz += %s(u_QF_ShaderTime,%f,%f,%f+%f*(Position.x+Position.y+Position.z),%f) * Normal.xyz;\n",
+					funcs[funcType], deformv->func.args[0], deformv->func.args[1], deformv->func.args[2], deformv->func.args[3] ? deformv->args[0] : 0.0, deformv->func.args[3] ),
 					sizeof( program ) );
 				break;
 			case DEFORMV_MOVE:
@@ -1304,16 +1304,16 @@ static const char *R_GLSLBuildDeformv( const deformv_t *deformv, int numDeforms 
 					return NULL;
 				}
 
-				Q_strncatz( program, va_r( tmp, sizeof( tmp ), "Position.xyz += %s(u_QF_ShaderTime,%f,%f,%f,%f) * vec3(%f, %f, %f);\n", 
+				Q_strncatz( program, va_r( tmp, sizeof( tmp ), "Position.xyz += %s(u_QF_ShaderTime,%f,%f,%f,%f) * vec3(%f, %f, %f);\n",
 					funcs[funcType], deformv->func.args[0], deformv->func.args[1], deformv->func.args[2], deformv->func.args[3],
-						deformv->args[0], deformv->args[1], deformv->args[2] ), 
+						deformv->args[0], deformv->args[1], deformv->args[2] ),
 					sizeof( program ) );
 				break;
 			case DEFORMV_BULGE:
-				Q_strncatz( program, va_r( tmp, sizeof( tmp ), 
+				Q_strncatz( program, va_r( tmp, sizeof( tmp ),
 						"t = sin(TexCoord.s * %f + u_QF_ShaderTime * %f);\n"
-						"Position.xyz += max (-1.0 + %f, t) * %f * Normal.xyz;\n", 
-						deformv->args[0], deformv->args[2], deformv->args[3], deformv->args[1] ), 
+						"Position.xyz += max (-1.0 + %f, t) * %f * Normal.xyz;\n",
+						deformv->args[0], deformv->args[2], deformv->args[3], deformv->args[1] ),
 					sizeof( program ) );
 				break;
 			case DEFORMV_AUTOSPRITE:
@@ -1356,7 +1356,7 @@ static const char *R_GLSLBuildDeformv( const deformv_t *deformv, int numDeforms 
 					// rotate the quad vertex around the up axis vector
 					"t = dot(right, Position.xyz - a_SpritePoint.xyz);\n"
 					"Position.xyz += t * (newright - right);\n"
-					"Normal.xyz = forward;\n", 
+					"Normal.xyz = forward;\n",
 					sizeof( program ) );
 				break;
 			default:
@@ -1364,7 +1364,7 @@ static const char *R_GLSLBuildDeformv( const deformv_t *deformv, int numDeforms 
 		}
 	}
 
-	Q_strncatz( program, 
+	Q_strncatz( program,
 		"#endif\n"
 		"}\n"
 		"\n"
@@ -1472,7 +1472,7 @@ static bool RF_LoadShaderFromFile_r( glslParser_t *parser, const char *fileName,
 				( (programType == GLSL_PROGRAM_TYPE_MATERIAL) && !Q_stricmp( token, "NUM_LIGHTMAPS)" )
 					&& (features & GLSL_SHADER_MATERIAL_LIGHTSTYLE) ) ||
 
-				( (programType == GLSL_PROGRAM_TYPE_MATERIAL) && !Q_stricmp( token, "APPLY_OFFSETMAPPING)" ) 
+				( (programType == GLSL_PROGRAM_TYPE_MATERIAL) && !Q_stricmp( token, "APPLY_OFFSETMAPPING)" )
 					&& (features & (GLSL_SHADER_MATERIAL_OFFSETMAPPING|GLSL_SHADER_MATERIAL_RELIEFMAPPING)) ) ||
 
 				( (programType == GLSL_PROGRAM_TYPE_MATERIAL) && !Q_stricmp( token, "APPLY_CELSHADING)" )
@@ -1487,7 +1487,7 @@ static bool RF_LoadShaderFromFile_r( glslParser_t *parser, const char *fileName,
 		}
 
 		line = token;
-		if( !include || ignore_include ) { 
+		if( !include || ignore_include ) {
 			if( !ignore_include ) {
 				if( !startBuf ) {
 					startBuf = prevPtr;
@@ -1574,7 +1574,7 @@ static bool RF_LoadShaderFromFile_r( glslParser_t *parser, const char *fileName,
 
 /*
 * R_ProgramFeatures2Defines
-* 
+*
 * Return an array of strings for bitflags
 */
 static const char **R_ProgramFeatures2Defines( const glsl_feature_t *type_features, r_glslfeat_t features, char *name, size_t size )
@@ -1624,8 +1624,8 @@ static int R_Features2HashKey( r_glslfeat_t features )
 /*
 * RP_RegisterProgramBinary
 */
-static int RP_RegisterProgramBinary( int type, const char *name, const char *deformsKey, 
-	const deformv_t *deforms, int numDeforms, r_glslfeat_t features, 
+static int RP_RegisterProgramBinary( int type, const char *name, const char *deformsKey,
+	const deformv_t *deforms, int numDeforms, r_glslfeat_t features,
 	int binaryFormat, unsigned binaryLength, void *binary )
 {
 	unsigned int i;
@@ -1724,7 +1724,7 @@ static int RP_RegisterProgramBinary( int type, const char *name, const char *def
 	Q_strncpyz( fullName, name, sizeof( fullName ) );
 	header = R_ProgramFeatures2Defines( glsl_programtypes_features[type], features, fullName, sizeof( fullName ) );
 
-	Q_snprintfz( shaderVersion, sizeof( shaderVersion ), 
+	Q_snprintfz( shaderVersion, sizeof( shaderVersion ),
 		"#define QF_GLSL_VERSION %i\n", glConfig.shadingLanguageVersion );
 
 	// load
@@ -1848,7 +1848,7 @@ static int RP_RegisterProgramBinary( int type, const char *name, const char *def
 	parser.maxBuffers = sizeof( shaderBuffers ) / sizeof( shaderBuffers[0] );
 	parser.strings = &shaderStrings[num_init_strings];
 	parser.maxStrings = sizeof( shaderStrings ) / sizeof( shaderStrings[0] ) - num_init_strings;
-	
+
 	// compile
 	//
 
@@ -1861,7 +1861,7 @@ static int RP_RegisterProgramBinary( int type, const char *name, const char *def
 	parser.numBuffers = 0;
 	parser.numStrings = 0;
 	RF_LoadShaderFromFile_r( &parser, parser.topFile, 1, type, features );
-	program->vertexShader = RF_CompileShader( program->object, fullName, "vertex", GL_VERTEX_SHADER_ARB, 
+	program->vertexShader = RF_CompileShader( program->object, fullName, "vertex", GL_VERTEX_SHADER_ARB,
 		shaderStrings, num_init_strings + parser.numStrings );
 	for( i = 0; i < parser.numBuffers; i++ )
 		R_Free( parser.buffers[i] );
@@ -1899,7 +1899,7 @@ static int RP_RegisterProgramBinary( int type, const char *name, const char *def
 	parser.numBuffers = 0;
 	parser.numStrings = 0;
 	RF_LoadShaderFromFile_r( &parser, parser.topFile, 1, type, features );
-	program->fragmentShader = RF_CompileShader( program->object, fullName, "fragment", GL_FRAGMENT_SHADER_ARB, 
+	program->fragmentShader = RF_CompileShader( program->object, fullName, "fragment", GL_FRAGMENT_SHADER_ARB,
 		shaderStrings, num_init_strings + parser.numStrings );
 	for( i = 0; i < parser.numBuffers; i++ )
 		R_Free( parser.buffers[i] );
@@ -1958,10 +1958,10 @@ done:
 /*
 * RP_RegisterProgram
 */
-int RP_RegisterProgram( int type, const char *name, const char *deformsKey, 
+int RP_RegisterProgram( int type, const char *name, const char *deformsKey,
 	const deformv_t *deforms, int numDeforms, r_glslfeat_t features )
 {
-	return RP_RegisterProgramBinary( type, name, deformsKey, deforms, numDeforms, 
+	return RP_RegisterProgramBinary( type, name, deformsKey, deforms, numDeforms,
 		features, 0, 0, NULL );
 }
 
@@ -2047,9 +2047,9 @@ void RP_ProgramList_f( void )
 /*
 * RP_UpdateShaderUniforms
 */
-void RP_UpdateShaderUniforms( int elem, 
-	float shaderTime, 
-	const vec3_t entOrigin, const vec3_t entDist, const uint8_t *entityColor, 
+void RP_UpdateShaderUniforms( int elem,
+	float shaderTime,
+	const vec3_t entOrigin, const vec3_t entDist, const uint8_t *entityColor,
 	const uint8_t *constColor, const float *rgbGenFuncArgs, const float *alphaGenFuncArgs,
 	const mat4_t texMatrix )
 {
@@ -2093,10 +2093,10 @@ void RP_UpdateShaderUniforms( int elem,
 /*
 * RP_UpdateViewUniforms
 */
-void RP_UpdateViewUniforms( int elem, 
+void RP_UpdateViewUniforms( int elem,
 	const mat4_t modelviewMatrix, const mat4_t modelviewProjectionMatrix,
-	const vec3_t viewOrigin, const mat3_t viewAxis, 
-	const float mirrorSide, 
+	const vec3_t viewOrigin, const mat3_t viewAxis,
+	const float mirrorSide,
 	int viewport[4],
 	float zNear, float zFar )
 {
@@ -2215,7 +2215,7 @@ void RP_UpdateTextureUniforms( int elem, int TexWidth, int TexHeight )
 	glsl_program_t *program = r_glslprograms + elem - 1;
 
 	if( program->loc.TextureParams >= 0 )
-		qglUniform4fARB( program->loc.TextureParams, TexWidth, TexHeight, 
+		qglUniform4fARB( program->loc.TextureParams, TexWidth, TexHeight,
 		TexWidth ? 1.0 / TexWidth : 1.0, TexHeight ? 1.0 / TexHeight : 1.0 );
 }
 
@@ -2243,7 +2243,7 @@ void RP_UpdateFogUniforms( int elem, byte_vec4_t color, float clearDist, float o
 	VectorScale( color, (1.0/255.0), fog_color );
 
 	if( program->loc.Fog.Color >= 0 )
-		qglUniform3fvARB( program->loc.Fog.Color, 1, fog_color ); 
+		qglUniform3fvARB( program->loc.Fog.Color, 1, fog_color );
 	if( program->loc.Fog.ScaleAndEyeDist >= 0 )
 		qglUniform2fARB( program->loc.Fog.ScaleAndEyeDist, 1.0 / (opaqueDist - clearDist), eyeDist );
 	if( program->loc.Fog.Plane >= 0 )
@@ -2255,7 +2255,7 @@ void RP_UpdateFogUniforms( int elem, byte_vec4_t color, float clearDist, float o
 /*
 * RP_UpdateDynamicLightsUniforms
 */
-unsigned int RP_UpdateDynamicLightsUniforms( int elem, const superLightStyle_t *superLightStyle, 
+unsigned int RP_UpdateDynamicLightsUniforms( int elem, const superLightStyle_t *superLightStyle,
 	const vec3_t entOrigin, const mat3_t entAxis, unsigned int dlightbits )
 {
 	int i, n, c;
@@ -2276,7 +2276,7 @@ unsigned int RP_UpdateDynamicLightsUniforms( int elem, const superLightStyle_t *
 			if( mapConfig.lightingIntensity )
 				VectorScale( rgb, mapConfig.lightingIntensity, rgb );
 
-			if( program->loc.LightstyleColor[i] >= 0 )	
+			if( program->loc.LightstyleColor[i] >= 0 )
 				qglUniform3fvARB( program->loc.LightstyleColor[i], 1, rgb );
 			if( program->loc.DeluxemapOffset >= 0 )
 				deluxemapOffset[i] = superLightStyle->stOffset[i][0];
@@ -2346,7 +2346,7 @@ unsigned int RP_UpdateDynamicLightsUniforms( int elem, const superLightStyle_t *
 			qglUniform4fvARB( program->loc.DynamicLightsDiffuseAndInvRadius[n >> 2], 4, shaderColor[0] );
 		}
 	}
-	
+
 	return 0;
 }
 
@@ -2372,7 +2372,7 @@ void RP_UpdateTexGenUniforms( int elem, const mat4_t reflectionMatrix, const mat
 /*
 * RP_UpdateShadowsUniforms
 */
-void RP_UpdateShadowsUniforms( int elem, int numShadows, const shadowGroup_t **groups, const mat4_t objectMatrix, 
+void RP_UpdateShadowsUniforms( int elem, int numShadows, const shadowGroup_t **groups, const mat4_t objectMatrix,
 	const vec3_t objectOrigin, const mat3_t objectAxis )
 {
 	int i;
@@ -2392,8 +2392,8 @@ void RP_UpdateShadowsUniforms( int elem, int numShadows, const shadowGroup_t **g
 		group = groups[i];
 
 		if( program->loc.ShadowmapTextureParams[i] >= 0 ) {
-			qglUniform4fARB( program->loc.ShadowmapTextureParams[i], 
-				group->viewportSize[0], group->viewportSize[1], 
+			qglUniform4fARB( program->loc.ShadowmapTextureParams[i],
+				group->viewportSize[0], group->viewportSize[1],
 				1.0f / group->textureSize[0], 1.0 / group->textureSize[1] );
 		}
 
@@ -2431,7 +2431,7 @@ void RP_UpdateShadowsUniforms( int elem, int numShadows, const shadowGroup_t **g
 
 /*
 * RP_UpdateBonesUniforms
-* 
+*
 * Set uniform values for animation dual quaternions
 */
 void RP_UpdateBonesUniforms( int elem, unsigned int numBones, dualquat_t *animDualQuat )
@@ -2449,7 +2449,7 @@ void RP_UpdateBonesUniforms( int elem, unsigned int numBones, dualquat_t *animDu
 
 /*
 * RP_UpdateInstancesUniforms
-* 
+*
 * Set uniform values for instance points (quaternion + xyz + scale)
 */
 void RP_UpdateInstancesUniforms( int elem, unsigned int numInstances, instancePoint_t *instances )
@@ -2526,7 +2526,7 @@ static void RP_GetUniformLocations( glsl_program_t *program )
 	program->loc.LightDiffuse = qglGetUniformLocationARB( program->object, "u_LightDiffuse" );
 
 	program->loc.TextureMatrix = qglGetUniformLocationARB( program->object, "u_TextureMatrix" );
-	
+
 	locBaseTexture = qglGetUniformLocationARB( program->object, "u_BaseTexture" );
 	locNormalmapTexture = qglGetUniformLocationARB( program->object, "u_NormalmapTexture" );
 	locGlossTexture = qglGetUniformLocationARB( program->object, "u_GlossTexture" );
@@ -2538,7 +2538,7 @@ static void RP_GetUniformLocations( glsl_program_t *program )
 	locRefractionTexture = qglGetUniformLocationARB( program->object, "u_RefractionTexture" );
 
 	for( i = 0; i < GLSL_SHADOWMAP_LIMIT; i++ ) {
-		locShadowmapTexture[i] = qglGetUniformLocationARB( program->object, 
+		locShadowmapTexture[i] = qglGetUniformLocationARB( program->object,
 			va_r( tmp, sizeof( tmp ), "u_ShadowmapTexture%i", i ) );
 		if( locShadowmapTexture[i] < 0 )
 			break;
@@ -2561,13 +2561,13 @@ static void RP_GetUniformLocations( glsl_program_t *program )
 
 	for( i = 0; i < MAX_LIGHTMAPS; i++ ) {
 		// arrays of samplers are broken on ARM Mali so get u_LightmapTexture%i instead of u_LightmapTexture[%i]
-		locLightmapTexture[i] = qglGetUniformLocationARB( program->object, 
+		locLightmapTexture[i] = qglGetUniformLocationARB( program->object,
 			va_r( tmp, sizeof( tmp ), "u_LightmapTexture%i", i ) );
 
 		if( locLightmapTexture[i] < 0 )
 			break;
 
-		program->loc.LightstyleColor[i] = qglGetUniformLocationARB( program->object, 
+		program->loc.LightstyleColor[i] = qglGetUniformLocationARB( program->object,
 			va_r( tmp, sizeof( tmp ), "u_LightstyleColor[%i]", i ) );
 	}
 
@@ -2607,7 +2607,7 @@ static void RP_GetUniformLocations( glsl_program_t *program )
 
 	// dynamic lights
 	for( i = 0; i < MAX_DLIGHTS; i++ ) {
-		program->loc.DynamicLightsPosition[i] = qglGetUniformLocationARB( program->object, 
+		program->loc.DynamicLightsPosition[i] = qglGetUniformLocationARB( program->object,
 			va_r( tmp, sizeof( tmp ), "u_DlightPosition[%i]", i ) );
 
 		if( !( i & 3 ) ) {
@@ -2620,12 +2620,12 @@ static void RP_GetUniformLocations( glsl_program_t *program )
 
 	// shadowmaps
 	for( i = 0; i < GLSL_SHADOWMAP_LIMIT; i++ ) {
-		program->loc.ShadowmapTextureParams[i] = 
+		program->loc.ShadowmapTextureParams[i] =
 			qglGetUniformLocationARB( program->object, va_r( tmp, sizeof( tmp ), "u_ShadowmapTextureParams[%i]", i ) );
 		if( program->loc.ShadowmapTextureParams[i] < 0 )
 			break;
 
-		program->loc.ShadowmapMatrix[i] = 
+		program->loc.ShadowmapMatrix[i] =
 			qglGetUniformLocationARB( program->object, va_r( tmp, sizeof( tmp ), "u_ShadowmapMatrix%i", i ) );
 
 		program->loc.ShadowDir[i] =
@@ -2647,7 +2647,7 @@ static void RP_GetUniformLocations( glsl_program_t *program )
 	program->loc.DualQuats = qglGetUniformLocationARB( program->object, "u_DualQuats" );
 
 	program->loc.InstancePoints = qglGetUniformLocationARB( program->object, "u_InstancePoints" );
-	
+
 	program->loc.WallColor = qglGetUniformLocationARB( program->object, "u_WallColor" );
 	program->loc.FloorColor = qglGetUniformLocationARB( program->object, "u_FloorColor" );
 
@@ -2710,9 +2710,9 @@ static void RP_GetUniformLocations( glsl_program_t *program )
 */
 static void RP_BindAttrbibutesLocations( glsl_program_t *program )
 {
-	qglBindAttribLocationARB( program->object, VATTRIB_POSITION, "a_Position" ); 
-	qglBindAttribLocationARB( program->object, VATTRIB_SVECTOR, "a_SVector" ); 
-	qglBindAttribLocationARB( program->object, VATTRIB_NORMAL, "a_Normal" ); 
+	qglBindAttribLocationARB( program->object, VATTRIB_POSITION, "a_Position" );
+	qglBindAttribLocationARB( program->object, VATTRIB_SVECTOR, "a_SVector" );
+	qglBindAttribLocationARB( program->object, VATTRIB_NORMAL, "a_Normal" );
 	qglBindAttribLocationARB( program->object, VATTRIB_COLOR0, "a_Color" );
 	qglBindAttribLocationARB( program->object, VATTRIB_TEXCOORDS, "a_TexCoord" );
 
@@ -2754,7 +2754,7 @@ void RP_Shutdown( void )
 	for( i = 0, program = r_glslprograms; i < r_numglslprograms; i++, program++ ) {
 		RF_DeleteProgram( program );
 	}
-	
+
 	Trie_Destroy( glsl_cache_trie );
 	glsl_cache_trie = NULL;
 

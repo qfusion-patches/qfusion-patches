@@ -48,8 +48,8 @@ static void TV_Upstream_ParseFrame( upstream_t *upstream, msg_t *msg )
 			upstream->demo.meta_data_realsize = SNAP_ClearDemoMeta( upstream->demo.meta_data, sizeof( upstream->demo.meta_data ) );
 
 			// write out messages to hold the startup information
-			SNAP_BeginDemoRecording( upstream->demo.filehandle, 0x10000 + upstream->servercount, 
-				upstream->snapFrameTime, upstream->levelname, upstream->reliable ? SV_BITFLAGS_RELIABLE : 0, 
+			SNAP_BeginDemoRecording( upstream->demo.filehandle, 0x10000 + upstream->servercount,
+				upstream->snapFrameTime, upstream->levelname, upstream->reliable ? SV_BITFLAGS_RELIABLE : 0,
 				upstream->purelist, upstream->configstrings[0], upstream->baselines );
 		}
 
@@ -107,7 +107,7 @@ static void TV_Upstream_ParseServerData( upstream_t *upstream, msg_t *msg )
 			MSG_ReadShort( msg );
 		}
 	}
-	
+
 	// pure list
 
 	// clean old, if necessary

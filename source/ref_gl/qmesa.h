@@ -104,7 +104,7 @@ _mesa_float_to_half(float val)
    const int flt_s = (fi.i >> 31) & 0x1;
    int s, e, m = 0;
    GLhalfARB result;
-   
+
    /* sign bit */
    s = flt_s;
 

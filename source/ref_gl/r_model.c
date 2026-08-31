@@ -617,7 +617,7 @@ merge:
 			break;
 		}
 
-		if( vbo->index == 0 ) {		
+		if( vbo->index == 0 ) {
 			for( j = i + 1; j < numTempVBOs; j++ ) {
 				mesh_vbo_t *vbo2 = &tempVBOs[j];
 
@@ -674,7 +674,7 @@ merge:
 		drawSurf = &loadbmodel->drawSurfaces[startDrawSurface + i];
 
 		// don't use half-floats for XYZ due to precision issues
-		vbo->owner = R_CreateMeshVBO( drawSurf, vbo->numVerts, vbo->numElems, drawSurf->numInstances, 
+		vbo->owner = R_CreateMeshVBO( drawSurf, vbo->numVerts, vbo->numElems, drawSurf->numInstances,
 			vbo->vertexAttribs, VBO_TAG_WORLD, vbo->vertexAttribs & ~floatVattribs );
 		drawSurf->vbo = vbo->owner;
 
@@ -707,7 +707,7 @@ merge:
 		surf = surfaces[i];
 		drawSurf = surf->drawSurf;
 		vbo = drawSurf->vbo;
-		
+
 		vertsOffset = drawSurf->firstVboVert + surf->firstDrawSurfVert;
 		elemsOffset = drawSurf->firstVboElem + surf->firstDrawSurfElem;
 
@@ -1021,7 +1021,7 @@ model_t *Mod_ForHandle( unsigned int elem )
 
 /*
 * Mod_ForName
-* 
+*
 * Loads in a model for the given name
 */
 model_t *Mod_ForName( const char *name, bool crash )
@@ -1262,7 +1262,7 @@ static void R_FinishMapConfig( const model_t *mod )
 
 /*
 * R_RegisterWorldModel
-* 
+*
 * Specifies the model that will be used as the world
 */
 void R_RegisterWorldModel( const char *model, const dvis_t *pvsData )

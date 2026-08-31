@@ -415,8 +415,8 @@ size_t CL_GetBaseServerURL( char *buffer, size_t buffer_size );
 
 int CL_AddSessionHttpRequestHeaders( const char *url, const char **headers );
 void CL_AsyncStreamRequest( const char *url, const char **headers, int timeout, int resumeFrom,
-	size_t (*read_cb)(const void *, size_t, float, int, const char *, void *), 
-	void (*done_cb)(int, const char *, void *), 
+	size_t (*read_cb)(const void *, size_t, float, int, const char *, void *),
+	void (*done_cb)(int, const char *, void *),
 	void (*header_cb)(const char *, void *), void *privatep, bool urlencodeUnsafe );
 
 //
@@ -458,10 +458,10 @@ void CL_SoundModule_StartRelativeSound( struct sfx_s *sfx, int entnum, int chann
 void CL_SoundModule_StartGlobalSound( struct sfx_s *sfx, int channel, float fvol );
 void CL_SoundModule_StartLocalSound( const char *s );
 void CL_SoundModule_AddLoopSound( struct sfx_s *sfx, int entnum, float fvol, float attenuation );
-void CL_SoundModule_RawSamples( unsigned int samples, unsigned int rate, 
+void CL_SoundModule_RawSamples( unsigned int samples, unsigned int rate,
 	unsigned short width, unsigned short channels, const uint8_t *data, bool music );
-void CL_SoundModule_PositionedRawSamples( int entnum, float fvol, float attenuation, 
-	unsigned int samples, unsigned int rate, 
+void CL_SoundModule_PositionedRawSamples( int entnum, float fvol, float attenuation,
+	unsigned int samples, unsigned int rate,
 	unsigned short width, unsigned short channels, const uint8_t *data );
 unsigned int CL_SoundModule_GetRawSamplesLength( void );
 unsigned int CL_SoundModule_GetPositionedRawSamplesLength( int entnum );

@@ -93,16 +93,16 @@ static void CG_SC_CenterPrint( void )
 static void CG_SC_CenterPrintFormat( void )
 {
 	if( trap_Cmd_Argc() == 8 ) {
-		CG_CenterPrint( va( CG_TranslateString( trap_Cmd_Argv( 1 ) ), trap_Cmd_Argv( 2 ), trap_Cmd_Argv( 3 ), 
+		CG_CenterPrint( va( CG_TranslateString( trap_Cmd_Argv( 1 ) ), trap_Cmd_Argv( 2 ), trap_Cmd_Argv( 3 ),
 			trap_Cmd_Argv( 4 ), trap_Cmd_Argv( 5 ), trap_Cmd_Argv( 6 ), trap_Cmd_Argv( 7 ) ) );
 	} else if( trap_Cmd_Argc() == 7 ) {
-		CG_CenterPrint( va( CG_TranslateString( trap_Cmd_Argv( 1 ) ), trap_Cmd_Argv( 2 ), trap_Cmd_Argv( 3 ), 
+		CG_CenterPrint( va( CG_TranslateString( trap_Cmd_Argv( 1 ) ), trap_Cmd_Argv( 2 ), trap_Cmd_Argv( 3 ),
 			trap_Cmd_Argv( 4 ), trap_Cmd_Argv( 5 ), trap_Cmd_Argv( 6 ) ) );
 	} else if( trap_Cmd_Argc() == 6 ) {
-		CG_CenterPrint( va( CG_TranslateString( trap_Cmd_Argv( 1 ) ), trap_Cmd_Argv( 2 ), trap_Cmd_Argv( 3 ), 
+		CG_CenterPrint( va( CG_TranslateString( trap_Cmd_Argv( 1 ) ), trap_Cmd_Argv( 2 ), trap_Cmd_Argv( 3 ),
 			trap_Cmd_Argv( 4 ), trap_Cmd_Argv( 5 ) ) );
 	} else if( trap_Cmd_Argc() == 5 ) {
-		CG_CenterPrint( va( CG_TranslateString( trap_Cmd_Argv( 1 ) ), trap_Cmd_Argv( 2 ), trap_Cmd_Argv( 3 ), 
+		CG_CenterPrint( va( CG_TranslateString( trap_Cmd_Argv( 1 ) ), trap_Cmd_Argv( 2 ), trap_Cmd_Argv( 3 ),
 			trap_Cmd_Argv( 4 ) ) );
 	} else if( trap_Cmd_Argc() == 4 ) {
 		CG_CenterPrint( va( CG_TranslateString( trap_Cmd_Argv( 1 ) ), trap_Cmd_Argv( 2 ), trap_Cmd_Argv( 3 ) ) );
@@ -110,7 +110,7 @@ static void CG_SC_CenterPrintFormat( void )
 		CG_CenterPrint( va( CG_TranslateString( trap_Cmd_Argv( 1 ) ), trap_Cmd_Argv( 2 ) ) );
 	} else if( trap_Cmd_Argc() == 2 ) {
 		CG_CenterPrint( CG_TranslateString( trap_Cmd_Argv( 1 ) ) ); // theoretically, shouldn't happen
-	} 
+	}
 }
 
 /*
@@ -129,7 +129,7 @@ void CG_ConfigString( int i, const char *s )
 		CG_Error( "configstring > MAX_CONFIGSTRINGS" );
 
 	Q_strncpyz( cgs.configStrings[i], s, sizeof( cgs.configStrings[i] ) );
-			
+
 	// do something apropriate
 	if( i == CS_MAPNAME )
 	{
@@ -190,7 +190,7 @@ void CG_ConfigString( int i, const char *s )
 			if( !Q_stricmp( cgs.configStrings[i], "gametypemenu" ) ) {
 				cgs.hasGametypeMenu = true;
 			}
-		}				
+		}
 	}
 	else if( i >= CS_WEAPONDEFS && i < CS_WEAPONDEFS + MAX_WEAPONDEFS )
 	{
@@ -776,7 +776,7 @@ static void CG_SC_MenuCustom( void )
 		return;
 
 	Q_strncpyz( request, va( "menu_open custom title \"%s\" ", trap_Cmd_Argv( 1 ) ), sizeof( request ) );
-	
+
 	for( i = 2, c = 1; i < trap_Cmd_Argc() - 1; i += 2, c++ )
 	{
 		const char *label = trap_Cmd_Argv( i );

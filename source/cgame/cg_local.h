@@ -203,7 +203,7 @@ typedef struct
 	cgs_media_handle_t *sfxLasergunStrongQuadHum;
 	cgs_media_handle_t *sfxLasergunStrongStop;
 	cgs_media_handle_t *sfxLasergunHit[3];
-	
+
 	cgs_media_handle_t *sfxElectroboltHit;
 
 	cgs_media_handle_t *sfxQuadFireSound;

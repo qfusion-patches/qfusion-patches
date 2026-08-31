@@ -322,7 +322,7 @@ void CG_DrawMiniMap( int x, int y, int iw, int ih, bool draw_playernames, bool d
 		cent = &cg_entities[entnum];
 		isSelf = ( (unsigned)entnum == cg.predictedPlayerState.POVnum );
 
-		if( ( cent->current.type != ET_PLAYER ) 
+		if( ( cent->current.type != ET_PLAYER )
 			&& ( cent->current.type != ET_MINIMAP_ICON )
 			&& !( cent->item ) )
 			continue;

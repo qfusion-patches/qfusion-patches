@@ -179,7 +179,7 @@ MAP LOADING
 /*
 * CM_LoadMap
 * Loads in the map and all submodels
-* 
+*
 *  for spawning a server with no map at all, call like this:
 *  CM_LoadMap( "", false, &checksum );	// no real map
 */

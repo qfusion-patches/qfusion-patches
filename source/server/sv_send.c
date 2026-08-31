@@ -72,7 +72,7 @@ void SV_AddGameCommand( client_t *client, const char *cmd )
 
 /*
 * SV_AddServerCommand
-* 
+*
 * The given command will be transmitted to the client, and is guaranteed to
 * not have future snapshot_t executed before it is executed
 */
@@ -138,7 +138,7 @@ void SV_AddServerCommand( client_t *client, const char *cmd )
 
 /*
 * SV_SendServerCommand
-* 
+*
 * Sends a reliable command string to be interpreted by
 * the client: "cs", "changing", "disconnect", etc
 * A NULL client will broadcast to all clients
@@ -177,7 +177,7 @@ void SV_SendServerCommand( client_t *cl, const char *format, ... )
 
 /*
 * SV_AddReliableCommandsToMessage
-* 
+*
 * (re)send all server commands the client hasn't acknowledged yet
 */
 void SV_AddReliableCommandsToMessage( client_t *client, msg_t *msg )
@@ -221,7 +221,7 @@ void SV_AddReliableCommandsToMessage( client_t *client, msg_t *msg )
 
 /*
 * SV_BroadcastCommand
-* 
+*
 * Sends a command to all connected clients. Ignores client->state < CS_SPAWNED check
 */
 void SV_BroadcastCommand( const char *format, ... )
@@ -394,7 +394,7 @@ void SV_BuildClientFrameSnap( client_t *client )
 
 	svs.fatvis.skyorg = skyorg;		// HACK HACK HACK
 	SNAP_BuildClientFrameSnap( svs.cms, &sv.gi, sv.framenum, svs.gametime,
-		&svs.fatvis, client, ge->GetGameState(), 
+		&svs.fatvis, client, ge->GetGameState(),
 		&svs.client_entities,
 		false, sv_mempool );
 	svs.fatvis.skyorg = NULL;

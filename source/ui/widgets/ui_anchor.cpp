@@ -75,7 +75,7 @@ public:
 			}
 
 			// check for warsow:// and warsow{protocol}:// href's
-			String 
+			String
 				gameProtocol (trap::Cvar_String( "gamename" )),
 				gameProtocolSchema( 32,  "%s%i", trap::Cvar_String( "gamename" ), UI_Main::Get()->getGameProtocol() );
 

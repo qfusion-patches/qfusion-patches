@@ -403,7 +403,7 @@ static int SNDOGG_FSeek( bgTrack_t *track, int pos )
 	if( !track->vorbisFile )
 		return OV_ENOSEEK;
 
-	// can't use ov_pcm_seek on .ogv files because of 
+	// can't use ov_pcm_seek on .ogv files because of
 	// https://trac.xiph.org/ticket/1486
 	// so just seek to the beginning of the file
 	if( pos == 0 )

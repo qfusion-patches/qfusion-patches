@@ -133,7 +133,7 @@ typedef	struct angelwrap_api_s
 	asstring_t *( *asStringFactoryBuffer )( const char *buffer, unsigned int length );
 	void( *asStringRelease )( asstring_t *str );
 	asstring_t *( *asStringAssignString )( asstring_t *self, const char *string, unsigned int strlen );
-	
+
 	// array
 	CScriptArrayInterface *( *asCreateArrayCpp )( unsigned int length, void *ot );
 	void ( *asReleaseArrayCpp )( CScriptArrayInterface *arr );

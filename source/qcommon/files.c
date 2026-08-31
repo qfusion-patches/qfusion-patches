@@ -221,7 +221,7 @@ static inline unsigned short LittleShortRaw( const uint8_t *raw )
 
 /*
 * FS_PK3CheckFileCoherency
-* 
+*
 * Read the local header of the current zipfile
 * Check the coherency of the local header and info in the end of central directory about this file
 */
@@ -426,7 +426,7 @@ static int FS_FileLength( FILE *f, bool close )
 
 /*
 * FS_SearchPathForFile
-* 
+*
 * Gives the searchpath element where this file exists, or NULL if it doesn't
 */
 static searchpath_t *FS_SearchPathForFile( const char *filename, packfile_t **pout, char *path, size_t path_size, void **vfsHandle, int mode )
@@ -520,7 +520,7 @@ return_result:
 
 /*
 * FS_SearchPathForBaseFile
-* 
+*
 * Gives the searchpath element where this file exists, or NULL if it doesn't
 */
 static searchpath_t *FS_SearchPathForBaseFile( const char *filename, char *path, size_t path_size, void **vfsHandle )
@@ -883,7 +883,7 @@ const char *FS_FirstExtension( const char *filename, const char *extensions[], i
 			search = search->next;
 		}
 	}
-	
+
 return_result:
 	QMutex_Unlock( fs_searchpaths_mutex );
 
@@ -971,14 +971,14 @@ bool FS_PakFileExists( const char *packfilename )
 static void FS_FileModeStr( int mode, char *modestr, size_t size )
 {
 	int rwa = mode & FS_RWA_MASK;
-	Q_snprintfz( modestr, size, "%sb%s", 
+	Q_snprintfz( modestr, size, "%sb%s",
 		rwa == FS_WRITE ? "w" : (rwa == FS_APPEND ? "a" : "r"),
 		mode & FS_UPDATE ? "+" : "" );
 }
 
 /*
 * FS_FOpenAbsoluteFile
-* 
+*
 * Same for absolute files, won't look inside paks.
 */
 int FS_FOpenAbsoluteFile( const char *filename, int *filenum, int mode )
@@ -1066,7 +1066,7 @@ bool FS_IsUrl( const char *url )
 
 /*
 * FS_StreamDoneSimpleCb
-* 
+*
 * Callback for wswcurl
 */
 static void FS_StreamDoneSimpleCb( wswcurl_req *req, int status, void *customp )
@@ -1140,7 +1140,7 @@ static int _FS_FOpenPakFile( packfile_t *pakFile, int *filenum )
 
 /*
 * _FS_FOpenFile
-* 
+*
 * Finds the file in the search path. Returns filesize and an open handle
 * Used for streaming data out of either a pak file or a separate file.
 */
@@ -1202,7 +1202,7 @@ static int _FS_FOpenFile( const char *filename, int *filenum, int mode, bool bas
 		file->customp = file;
 
 		file->streamHandle = wswcurl_create( NULL, "%s", filename );
- 
+
 		if( !file->streamHandle )
 		{
 			FS_FCloseFile( *filenum );
@@ -1377,7 +1377,7 @@ error:
 
 /*
 * FS_FOpenFile
-* 
+*
 * Used for streaming data out of either a pak file or a separate file.
 */
 int FS_FOpenFile( const char *filename, int *filenum, int mode )
@@ -1387,7 +1387,7 @@ int FS_FOpenFile( const char *filename, int *filenum, int mode )
 
 /*
 * FS_FOpenBaseFile
-* 
+*
 * Same for base files, won't look inside paks.
 */
 int FS_FOpenBaseFile( const char *filename, int *filenum, int mode )
@@ -1449,7 +1449,7 @@ void FS_FCloseFile( int file )
 static int FS_ReadStream( uint8_t *buf, size_t len, filehandle_t *fh )
 {
 	size_t numb;
-	
+
 	numb = wswcurl_read( fh->streamHandle, buf, len );
 	if( numb < len )
 		fh->streamDone = true;
@@ -1459,7 +1459,7 @@ static int FS_ReadStream( uint8_t *buf, size_t len, filehandle_t *fh )
 
 /*
 * FS_ReadPK3File
-* 
+*
 * Properly handles partial reads, used by FS_Read and FS_Seek
 */
 static int FS_ReadPK3File( uint8_t *buf, size_t len, filehandle_t *fh )
@@ -1474,7 +1474,7 @@ static int FS_ReadPK3File( uint8_t *buf, size_t len, filehandle_t *fh )
 	zipEntry->zstream.avail_out = (uInt)len;
 
 	totalOutBefore = zipEntry->zstream.total_out;
-	flush = ((len == fh->uncompressedSize) 
+	flush = ((len == fh->uncompressedSize)
 		&& (zipEntry->restReadCompressed <= FS_ZIP_BUFSIZE) && !zipEntry->zstream.avail_in ? Z_FINISH : Z_SYNC_FLUSH);
 
 	do
@@ -1507,7 +1507,7 @@ static int FS_ReadPK3File( uint8_t *buf, size_t len, filehandle_t *fh )
 
 /*
 * FS_ReadFile
-* 
+*
 * Properly handles partial reads
 */
 static int FS_ReadFile( uint8_t *buf, size_t len, filehandle_t *fh )
@@ -1517,7 +1517,7 @@ static int FS_ReadFile( uint8_t *buf, size_t len, filehandle_t *fh )
 
 /*
 * FS_Read
-* 
+*
 * Properly handles partial reads
 */
 int FS_Read( void *buffer, size_t len, int file )
@@ -1585,7 +1585,7 @@ int FS_Printf( int file, const char *format, ... )
 
 /*
 * FS_Write
-* 
+*
 * Properly handles partial writes
 */
 int FS_Write( const void *buffer, size_t len, int file )
@@ -1649,9 +1649,9 @@ int FS_Seek( int file, int offset, int whence )
 	fh = FS_FileHandleForNum( file );
 
 	if( fh->gzstream ) {
-		return qgzseek( fh->gzstream, offset, 
-			 whence == FS_SEEK_CUR ? SEEK_CUR : 
-			(whence == FS_SEEK_END ? SEEK_END : 
+		return qgzseek( fh->gzstream, offset,
+			 whence == FS_SEEK_CUR ? SEEK_CUR :
+			(whence == FS_SEEK_END ? SEEK_END :
 			(whence == FS_SEEK_SET ? SEEK_SET : -1)) );
 	}
 
@@ -1895,7 +1895,7 @@ int FS_LoadFileExt( const char *path, int flags, void **buffer, void *stack, siz
 
 /*
 * FS_LoadBaseFileExt
-* 
+*
 * a NULL buffer will just return the file length without loading
 */
 int FS_LoadBaseFileExt( const char *path, int flags, void **buffer, void *stack, size_t stackSize, const char *filename, int fileline )
@@ -1915,7 +1915,7 @@ void *FS_MMapBaseFile( int file, size_t size, size_t offset )
 {
 	void *data;
 	filehandle_t *fh;
-	
+
 	if( !size )
 		return NULL;
 
@@ -1934,7 +1934,7 @@ void *FS_MMapBaseFile( int file, size_t size, size_t offset )
 void FS_UnMMapBaseFile( int file, void *data )
 {
 	filehandle_t *fh;
-	
+
 	fh = FS_FileHandleForNum( file );
 	if( !fh->mapping )
 		return;
@@ -2157,7 +2157,7 @@ bool FS_RemoveAbsoluteFile( const char *filename )
 static bool _FS_RemoveFile( const char *filename, bool base )
 {
 	const char *fullname;
-	
+
 	if( base )
 		fullname = FS_AbsoluteNameForBaseFile( filename );
 	else
@@ -2421,7 +2421,7 @@ static void FS_ReadPackManifest( pack_t *pack )
 
 /*
 * FS_PK3SearchCentralDir
-* 
+*
 * Locate the central directory of a zipfile (at the end, just before the global comment)
 */
 static unsigned FS_PK3SearchCentralDir( FILE *fin, void *vfsHandle )
@@ -2480,7 +2480,7 @@ static unsigned FS_PK3SearchCentralDir( FILE *fin, void *vfsHandle )
 
 /*
 * FS_DosTimeToUnixtime
-* 
+*
 * Converts DOS time to tm struct
 */
 static time_t FS_DosTimeToUnixtime( unsigned dosDateTime )
@@ -2505,10 +2505,10 @@ static time_t FS_DosTimeToUnixtime( unsigned dosDateTime )
 
 /*
 * FS_PK3GetFileInfo
-* 
+*
 * Get Info about the current file in the zipfile, with internal only info
 */
-static unsigned FS_PK3GetFileInfo( FILE *f, void *vfsHandle, unsigned pos, unsigned byteBeforeTheZipFile, 
+static unsigned FS_PK3GetFileInfo( FILE *f, void *vfsHandle, unsigned pos, unsigned byteBeforeTheZipFile,
 	packfile_t *file, size_t *fileNameLen, int *crc )
 {
 	size_t sizeRead;
@@ -2566,9 +2566,9 @@ static unsigned FS_PK3GetFileInfo( FILE *f, void *vfsHandle, unsigned pos, unsig
 
 /*
 * FS_LoadPK3File
-* 
+*
 * Takes an explicit (not game tree related) path to a pak file.
-* 
+*
 * Loads the header and directory, adding the files at the beginning
 * of the list so they override previous pack files.
 */
@@ -2800,7 +2800,7 @@ static pack_t *FS_LoadPackFile( const char *packfilename, bool silent )
 
 /*
 * FS_FindPackFilePos
-* 
+*
 * Find the right position for a newly added pak file
 */
 static bool FS_FindPackFilePos( const char *filename, searchpath_t **psearch, searchpath_t **pprev, searchpath_t **pnext )
@@ -3088,13 +3088,13 @@ static int FS_PathGetFileListExt( searchpath_t *search, const char *dir, const c
 		trie_error_t trie_err;
 		char *pattern;
 
-		Q_snprintfz( tempname, sizeof( tempname ), "%s%s*%s", 
-			dirlen ? dir : "", 
+		Q_snprintfz( tempname, sizeof( tempname ), "%s%s*%s",
+			dirlen ? dir : "",
 			dirlen ? "/" : "",
 			extension ? extension : "" );
 
 		pattern = tempname;
-		trie_err = Trie_DumpIf( search->pack->trie, dirlen ? dir : "", TRIE_DUMP_VALUES, 
+		trie_err = Trie_DumpIf( search->pack->trie, dirlen ? dir : "", TRIE_DUMP_VALUES,
 			FS_PatternMatchesPackfile, pattern, &trie_dump );
 
 		if( trie_err == TRIE_OK ) {
@@ -3230,7 +3230,7 @@ static int FS_GetFileListExt_( const char *dir, const char *extension, char *buf
 				}
 				continue;
 			}
-			
+
 			allfound += found;
 			search = search->next;
 		}
@@ -3240,7 +3240,7 @@ static int FS_GetFileListExt_( const char *dir, const char *extension, char *buf
 		qsort( files, allfound, sizeof( searchfile_t ), ( int ( * )( const void *, const void * ) )FS_SortFilesCmp );
 
 		// remove all duplicates
-		for( i = 1; i < allfound; ) 
+		for( i = 1; i < allfound; )
 		{
 			if( FS_SortFilesCmp( &files[i-1], &files[i] ) )
 			{
@@ -3319,7 +3319,7 @@ int FS_GetFileList( const char *dir, const char *extension, char *buf, size_t bu
 
 /*
 * FS_GameDirectory
-* 
+*
 * Returns the current game directory, without the path
 */
 const char *FS_GameDirectory( void )
@@ -3330,7 +3330,7 @@ const char *FS_GameDirectory( void )
 
 /*
 * FS_BaseGameDirectory
-* 
+*
 * Returns the current base game directory, without the path
 */
 const char *FS_BaseGameDirectory( void )
@@ -3341,7 +3341,7 @@ const char *FS_BaseGameDirectory( void )
 
 /*
 * FS_WriteDirectory
-* 
+*
 * Returns directory where we can write, no gamedir attached
 */
 const char *FS_WriteDirectory( void )
@@ -3383,7 +3383,7 @@ const char *FS_MediaDirectory( fs_mediatype_t type )
 
 /*
 * FS_DownloadsDirectory
-* 
+*
 * Returns directory where we can store downloads to, no gamedir attached.
 * Returns NULL if downloads are disabled.
 */
@@ -3396,7 +3396,7 @@ const char *FS_DownloadsDirectory( void )
 
 /*
 * FS_RuntimeDirectory
-* 
+*
 * Returns directory where we can write non-essential runtime files to, no gamedir attached
 */
 const char *FS_RuntimeDirectory( void )
@@ -3436,7 +3436,7 @@ static void FS_Path_f( void )
 
 /*
 * FS_CreateAbsolutePath
-* 
+*
 * Creates any directories needed to store the given filename
 */
 void FS_CreateAbsolutePath( const char *path )
@@ -3457,7 +3457,7 @@ void FS_CreateAbsolutePath( const char *path )
 
 /*
 * FS_AbsoluteNameForFile
-* 
+*
 * Gives absolute name for a game file
 * NULL if not found, or file is in pak
 */
@@ -3475,7 +3475,7 @@ const char *FS_AbsoluteNameForFile( const char *filename )
 
 /*
 * FS_AbsoluteNameForBaseFile
-* 
+*
 * Gives absolute name for a base file
 * NULL if not found
 */
@@ -3787,7 +3787,7 @@ static void FS_ReplaceDeferredPaks( void )
 	prev = NULL;
 	for( search = fs_searchpaths; search != NULL;  ) {
 		pack_t *pak = search->pack;
-		
+
 		if( pak && pak->deferred_load ) {
 			if( !pak->deferred_pack ) {
 				// failed to load this one, remove
@@ -3948,7 +3948,7 @@ static int FS_TouchGameDirectory( const char *gamedir, bool initial )
 
 	// add for every basepath, in reverse order
 	QMutex_Lock( fs_searchpaths_mutex );
-	
+
 	old = fs_searchpaths;
 	prev = NULL;
 	newpaks = 0;
@@ -3996,7 +3996,7 @@ static int FS_UpdateGameDirectory( const char *gamedir )
 
 /*
 * FS_SetGameDirectory
-* 
+*
 * Sets the gamedir and path to a different directory.
 */
 bool FS_SetGameDirectory( const char *dir, bool force )
@@ -4062,7 +4062,7 @@ bool FS_SetGameDirectory( const char *dir, bool force )
 	}
 
 	// if game directory is present but we haven't initialized filesystem yet,
-	// that means fs_game was set via early commands and autoexec.cfg (and confi.cfg in the 
+	// that means fs_game was set via early commands and autoexec.cfg (and confi.cfg in the
 	// case of client) will be executed in Qcommon_Init, so prevent double execution
 	if( fs_initialized )
 	{
@@ -4183,7 +4183,7 @@ static void Cmd_FS_Search_f( void )
 		if( !pack )
 			continue;
 
-		trie_err = Trie_DumpIf( pack->trie, "", TRIE_DUMP_VALUES, 
+		trie_err = Trie_DumpIf( pack->trie, "", TRIE_DUMP_VALUES,
 			FS_PatternMatchesPackfile, pattern, &trie_dump );
 
 		if( trie_err == TRIE_OK ) {
@@ -4191,7 +4191,7 @@ static void Cmd_FS_Search_f( void )
 
 			for( i = 0; i < trie_dump->size; i++ ) {
 				pakfile = ( (packfile_t *) ( trie_dump->key_value_vector[i].value ) );
-				
+
 				if( first )
 				{
 					Com_Printf( "\n" S_COLOR_YELLOW "%s%s\n", pack->filename, pack->pure ? " (P)" : "" );
@@ -4281,9 +4281,9 @@ static void Cmd_FileMTime_f( void )
 		return;
 	}
 
-	Com_Printf( 
+	Com_Printf(
 		"%s was last modified on: "
-		"%04d-%02d-%02d %02d:%02d:%02d\n", 
+		"%04d-%02d-%02d %02d:%02d:%02d\n",
 		filename,
 		newtime->tm_year + 1900, newtime->tm_mon+1, newtime->tm_mday, newtime->tm_hour, newtime->tm_min, newtime->tm_sec
 	);
@@ -4305,7 +4305,7 @@ void FS_Init( void )
 	fs_searchpaths_mutex = QMutex_Create();
 
 	fs_mempool = Mem_AllocPool( NULL, "Filesystem" );
-	
+
 	Cmd_AddCommand( "fs_path", FS_Path_f );
 	Cmd_AddCommand( "fs_pakfile", Cmd_PakFile_f );
 	Cmd_AddCommand( "fs_search", Cmd_FS_Search_f );
@@ -4445,7 +4445,7 @@ void FS_Shutdown( void )
 	fs_numsearchfiles = 0;
 
 	QMutex_Lock( fs_searchpaths_mutex );
-	
+
 	while( fs_searchpaths )
 	{
 		search = fs_searchpaths;

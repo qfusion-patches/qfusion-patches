@@ -24,7 +24,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 /*
 * Mod_AliasBuildStaticVBOForMesh
-* 
+*
 * Builds a static vertex buffer object for given alias model mesh
 */
 static void Mod_AliasBuildStaticVBOForMesh( maliasmesh_t *mesh )
@@ -32,7 +32,7 @@ static void Mod_AliasBuildStaticVBOForMesh( maliasmesh_t *mesh )
 	int i;
 	mesh_t aliasmesh;
 	vattribmask_t vattribs;
-	
+
 	vattribs = VATTRIB_POSITION_BIT | VATTRIB_TEXCOORDS_BIT | VATTRIB_NORMAL_BIT | VATTRIB_SVECTOR_BIT;
 	for( i = 0; i < mesh->numskins; i++ ) {
 		if( mesh->skins[i].shader ) {
@@ -40,7 +40,7 @@ static void Mod_AliasBuildStaticVBOForMesh( maliasmesh_t *mesh )
 		}
 	}
 
-	mesh->vbo = R_CreateMeshVBO( ( void * )mesh, 
+	mesh->vbo = R_CreateMeshVBO( ( void * )mesh,
 		mesh->numverts, mesh->numtris * 3, 0, vattribs, VBO_TAG_MODEL, vattribs );
 
 	if( !mesh->vbo ) {
@@ -205,7 +205,7 @@ void Mod_LoadAliasMD3Model( model_t *mod, model_t *parent, void *buffer, bspForm
 	//		ri.Com_Error( ERR_DROP, "model %s has too many meshes", mod->name );
 
 	bufsize = poutmodel->numframes * ( sizeof( maliasframe_t ) + sizeof( maliastag_t ) * poutmodel->numtags ) +
-		poutmodel->nummeshes * sizeof( maliasmesh_t ) + 
+		poutmodel->nummeshes * sizeof( maliasmesh_t ) +
 		poutmodel->nummeshes * sizeof( drawSurfaceAlias_t );
 	buf = ( uint8_t * )Mod_Malloc( mod, bufsize );
 
@@ -361,7 +361,7 @@ void Mod_LoadAliasMD3Model( model_t *mod, model_t *parent, void *buffer, bspForm
 				AddPointToBounds( v, poutframe->mins, poutframe->maxs );
 			}
 		}
-		
+
 		//
 		// load the elems
 		//
@@ -477,9 +477,9 @@ static float R_AliasModelLerpBBox( const entity_t *e, const model_t *mod, vec3_t
 	else
 	{
 		const float
-			*thismins = pframe->mins, 
-			*oldmins = poldframe->mins, 
-			*thismaxs = pframe->maxs, 
+			*thismins = pframe->mins,
+			*oldmins = poldframe->mins,
+			*thismaxs = pframe->maxs,
 			*oldmaxs = poldframe->maxs;
 
 		for( i = 0; i < 3; i++ )
@@ -548,7 +548,7 @@ bool R_AliasModelLerpTag( orientation_t *orient, const maliasmodel_t *aliasmodel
 
 /*
 * R_DrawAliasSurf
-* 
+*
 * Interpolates between two frames and origins
 */
 void R_DrawAliasSurf( const entity_t *e, const shader_t *shader, const mfog_t *fog, const portalSurface_t *portalSurface, unsigned int shadowBits, drawSurfaceAlias_t *drawSurf )
@@ -588,7 +588,7 @@ void R_DrawAliasSurf( const entity_t *e, const shader_t *shader, const mfog_t *f
 	{
 		RB_BindVBO( aliasmesh->vbo->index, GL_TRIANGLES );
 
-		RB_DrawElements( 0, aliasmesh->numverts, 0, aliasmesh->numtris * 3, 
+		RB_DrawElements( 0, aliasmesh->numverts, 0, aliasmesh->numtris * 3,
 			0, aliasmesh->numverts, 0, aliasmesh->numtris * 3 );
 	}
 	else

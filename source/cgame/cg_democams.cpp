@@ -984,7 +984,7 @@ int CG_DemoCam_FreeFly( void )
 
 		for( i = 0; i < 3; i++ )
 			moveangles[i] = SHORT2ANGLE( cmd.angles[i] ) + SHORT2ANGLE( freecam_delta_angles[i] );
-		
+
 		AngleVectors( moveangles, forward, right, up );
 		VectorCopy( moveangles, cam_angles );
 
@@ -1005,7 +1005,7 @@ int CG_DemoCam_FreeFly( void )
 			VectorScale( wishvel, wishspeed, wishvel );
 			wishspeed = maxspeed;
 		}
-		
+
 		VectorMA( cam_origin, cg.realFrameTime, wishvel, cam_origin );
 
 		cam_POVent = 0;
@@ -1233,7 +1233,7 @@ static int CG_Democam_CalcView( void )
 				}
 
 				if( !cam_orbital_radius )
-				{ 
+				{
 					// cam is just started, find distance from cam to trackEnt and keep it as radius
 					VectorSubtract( currentcam->origin, center, forward );
 					cam_orbital_radius = VectorNormalize( forward );

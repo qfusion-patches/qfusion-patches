@@ -160,7 +160,7 @@ void Irc_Proto_RemoveListener(irc_command_t cmd, irc_listener_f listener) {
 		n->cmd = cmd;
 		n->listener = listener;
 		n->next = removed_listeners;
-		removed_listeners = n;	
+		removed_listeners = n;
 	}
 }
 

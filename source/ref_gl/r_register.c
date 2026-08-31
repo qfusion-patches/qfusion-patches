@@ -550,7 +550,7 @@ static bool R_RegisterGLExtensions( void )
 			continue;
 
 		// required extension is not available, ignore
-		if( extension->depOffset != GLINF_EXMRK() && !GLINF_FROM( &glConfig.ext, extension->depOffset ) ) 
+		if( extension->depOffset != GLINF_EXMRK() && !GLINF_FROM( &glConfig.ext, extension->depOffset ) )
 			continue;
 
 		// let's see what the driver's got to say about this...
@@ -582,7 +582,7 @@ static bool R_RegisterGLExtensions( void )
 
 				// whine about buggy driver
 				if( *extension->prefix ) {
-					Com_Printf( "R_RegisterGLExtensions: broken %s support, contact your video card vendor\n", 
+					Com_Printf( "R_RegisterGLExtensions: broken %s support, contact your video card vendor\n",
 						cvar->name );
 				}
 
@@ -605,11 +605,11 @@ static bool R_RegisterGLExtensions( void )
 		if( !extension->mandatory ) {
 			continue;
 		}
-		
+
 		var = &(GLINF_FROM( &glConfig.ext, extension->offset ));
 
 		if( !*var ) {
-			Sys_Error( "R_RegisterGLExtensions: '%s_%s' is not available, aborting\n", 
+			Sys_Error( "R_RegisterGLExtensions: '%s_%s' is not available, aborting\n",
 				extension->prefix, extension->name );
 			return false;
 		}
@@ -655,7 +655,7 @@ static void R_PrintGLExtensionsString( const char *name, const char *str )
 
 			Q_snprintfz( chunk, sizeof( chunk ), "%s", str + p );
 			p += strlen( chunk );
-			
+
 			Com_Printf( "%s", chunk );
 		}
 	}
@@ -712,7 +712,7 @@ static void R_PrintMemoryInfo( void )
 
 /*
 * R_FinalizeGLExtensions
-* 
+*
 * Verify correctness of values provided by the driver, init some variables
 */
 static void R_FinalizeGLExtensions( void )
@@ -961,7 +961,7 @@ static void R_FinalizeGLExtensions( void )
 	}
 
 	cvar = ri.Cvar_Get( "gl_ext_vertex_buffer_object_hack", "0", CVAR_ARCHIVE|CVAR_NOSET );
-	if( cvar && !cvar->integer ) 
+	if( cvar && !cvar->integer )
 	{
 		ri.Cvar_ForceSet( cvar->name, "1" );
 		ri.Cvar_ForceSet( "gl_ext_vertex_buffer_object", "1" );
@@ -1195,7 +1195,7 @@ static void R_GfxInfo_f( void )
 /*
 * R_GLVersionHash
 */
-static unsigned R_GLVersionHash( const char *vendorString, 
+static unsigned R_GLVersionHash( const char *vendorString,
 	const char *rendererString, const char *versionString )
 {
 	uint8_t *tmp;
@@ -1238,7 +1238,7 @@ static unsigned R_GLVersionHash( const char *vendorString,
 */
 rserr_t R_Init( const char *applicationName, const char *screenshotPrefix, int startupColor,
 	int iconResource, const int *iconXPM,
-	void *hinstance, void *wndproc, void *parenthWnd, 
+	void *hinstance, void *wndproc, void *parenthWnd,
 	bool verbose )
 {
 	const qgl_driverinfo_t *driver;
@@ -1394,7 +1394,7 @@ static rserr_t R_PostInit( void )
 rserr_t R_SetMode( int x, int y, int width, int height, int displayFrequency, bool fullScreen, bool stereo )
 {
 	rserr_t err;
-	
+
 	err = GLimp_SetMode( x, y, width, height, displayFrequency, fullScreen, stereo );
 	if( err != rserr_ok )
 	{
@@ -1465,7 +1465,7 @@ void R_BeginRegistration( void )
 	if( !rsh.registrationSequence ) {
 		// make sure assumption that an asset is free it its registrationSequence is 0
 		// since rsh.registrationSequence never equals 0
-		rsh.registrationSequence = 1; 
+		rsh.registrationSequence = 1;
 	}
 	rsh.registrationOpen = true;
 

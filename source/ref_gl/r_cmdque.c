@@ -38,20 +38,20 @@ enum
 {
 	REF_CMD_BEGIN_FRAME,
 	REF_CMD_END_FRAME,
-	
+
 	REF_CMD_DRAW_STRETCH_PIC,
 	REF_CMD_DRAW_STRETCH_POLY,
-	
+
 	REF_CMD_CLEAR_SCENE,
 	REF_CMD_ADD_ENTITY_TO_SCENE,
 	REF_CMD_ADD_LIGHT_TO_SCENE,
 	REF_CMD_ADD_POLY_TO_SCENE,
 	REF_CMD_ADD_LIGHT_STYLE_TO_SCENE,
 	REF_CMD_RENDER_SCENE,
-	
+
 	REF_CMD_SET_SCISSOR,
 	REF_CMD_RESET_SCISSOR,
-	
+
 	REF_CMD_DRAW_STRETCH_RAW,
 	REF_CMD_DRAW_STRETCH_RAW_YUV,
 
@@ -608,15 +608,15 @@ static void RF_RunCmdBufProc( ref_cmdbuf_t *cmdbuf )
 	for( t = 0; t < e; ) {
 		uint8_t *cmd = cmdbuf->buf + t;
 		int id = *(int *)cmd;
-			
+
 		if( id < 0 || id >= NUM_REF_CMDS )
 			break;
-			
+
 		size_t len = refCmdHandlers[id]( cmd );
-		
+
 		if( len == 0 )
 			break;
-			
+
 		t += len;
 	}
 }
@@ -705,10 +705,10 @@ enum
 
 	REF_PIPE_CMD_BEGIN_REGISTRATION,
 	REF_PIPE_CMD_END_REGISTRATION,
-	
+
 	REF_PIPE_CMD_SET_CUSTOM_COLOR,
 	REF_PIPE_CMD_SET_WALL_FLOOR_COLORS,
-	
+
 	REF_PIPE_CMD_SET_DRAWBUFFER,
 	REF_PIPE_CMD_SET_TEXTURE_MODE,
 	REF_PIPE_CMD_SET_TEXTURE_FILTER,
@@ -901,16 +901,16 @@ static unsigned R_HandleSetCustomColorReliableCmd( void *pcmd )
 static unsigned R_HandleSetWallFloorColorsReliableCmd( void *pcmd )
 {
 	refReliableCmdSetWallFloorColors_t *cmd = pcmd;
-	
+
 	R_SetWallFloorColors( cmd->wall, cmd->floor );
-	
+
 	return sizeof( *cmd );
 }
 
 static unsigned R_HandleSetDrawBufferReliableCmd( void *pcmd )
 {
 	refReliableCmdSetDrawBuffer_t *cmd = pcmd;
-	
+
 	R_SetDrawBuffer( cmd->drawbuffer );
 
 	return sizeof( *cmd );
@@ -919,9 +919,9 @@ static unsigned R_HandleSetDrawBufferReliableCmd( void *pcmd )
 static unsigned R_HandleSetTextureModeReliableCmd( void *pcmd )
 {
 	refReliableCmdSetTextureMode_t *cmd = pcmd;
-	
+
 	R_TextureMode( cmd->texturemode );
-	
+
 	return sizeof( *cmd );
 }
 
@@ -1032,20 +1032,20 @@ static void RF_IssueEndRegistrationReliableCmd( ref_cmdpipe_t *cmdpipe )
 static void RF_IssueSetCustomColorReliableCmd( ref_cmdpipe_t *cmdpipe, int num, int r, int g, int b )
 {
 	refReliableCmdSetCustomColor_t cmd;
-	
+
 	cmd.id = REF_PIPE_CMD_SET_CUSTOM_COLOR;
 	cmd.num = num;
 	cmd.r = r;
 	cmd.g = g;
 	cmd.b = b;
-	
+
 	RF_IssueAbstractReliableCmd( cmdpipe, &cmd, sizeof( cmd ) );
 }
 
 static void RF_IssueSetWallFloorColorsReliableCmd( ref_cmdpipe_t *cmdpipe, const vec3_t wallColor, const vec3_t floorColor )
 {
 	refReliableCmdSetWallFloorColors_t cmd;
-	
+
 	cmd.id = REF_PIPE_CMD_SET_WALL_FLOOR_COLORS;
 	VectorCopy( wallColor, cmd.wall );
 	VectorCopy( floorColor, cmd.floor );
@@ -1056,7 +1056,7 @@ static void RF_IssueSetWallFloorColorsReliableCmd( ref_cmdpipe_t *cmdpipe, const
 static void RF_IssueSetDrawBufferReliableCmd( ref_cmdpipe_t *cmdpipe, const char *drawbuffer )
 {
 	refReliableCmdSetDrawBuffer_t cmd;
-	
+
 	cmd.id = REF_PIPE_CMD_SET_DRAWBUFFER;
 	Q_strncpyz( cmd.drawbuffer, drawbuffer, sizeof( cmd.drawbuffer ) );
 
@@ -1066,7 +1066,7 @@ static void RF_IssueSetDrawBufferReliableCmd( ref_cmdpipe_t *cmdpipe, const char
 static void RF_IssueSetTextureModeReliableCmd( ref_cmdpipe_t *cmdpipe, const char *texturemode )
 {
 	refReliableCmdSetTextureMode_t cmd;
-	
+
 	cmd.id = REF_PIPE_CMD_SET_TEXTURE_MODE;
 	Q_strncpyz( cmd.texturemode, texturemode, sizeof( cmd.texturemode ) );
 
@@ -1076,7 +1076,7 @@ static void RF_IssueSetTextureModeReliableCmd( ref_cmdpipe_t *cmdpipe, const cha
 static void RF_IssueSetTextureFilterReliableCmd( ref_cmdpipe_t *cmdpipe, int filter )
 {
 	refReliableCmdSetTextureFilter_t cmd;
-	
+
 	cmd.id = REF_PIPE_CMD_SET_TEXTURE_FILTER;
 	cmd.filter = filter;
 
@@ -1086,7 +1086,7 @@ static void RF_IssueSetTextureFilterReliableCmd( ref_cmdpipe_t *cmdpipe, int fil
 static void RF_IssueSetGammaReliableCmd( ref_cmdpipe_t *cmdpipe, float gamma )
 {
 	refReliableCmdSetGamma_t cmd;
-	
+
 	cmd.id = REF_PIPE_CMD_SET_GAMMA;
 	cmd.gamma = gamma;
 

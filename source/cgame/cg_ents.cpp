@@ -134,7 +134,7 @@ static void CG_NewPacketEntityState( entity_state_t *state )
 	}
 	else if( state->linearMovement )
 	{
-		if( cent->serverFrame != cg.oldFrame.serverFrame || state->teleported || 
+		if( cent->serverFrame != cg.oldFrame.serverFrame || state->teleported ||
 			state->linearMovement != cent->current.linearMovement || state->linearMovementTimeStamp != cent->current.linearMovementTimeStamp )
 			cent->prev = *state;
 		else
@@ -333,7 +333,7 @@ static void CG_UpdatePlayerState( void )
 		index = -1;
 		for( i = 0; i < cg.frame.numplayers; i++ )
 		{
-			if( cg.frame.playerStates[i].playerNum < (unsigned)gs.maxclients 
+			if( cg.frame.playerStates[i].playerNum < (unsigned)gs.maxclients
 				&& cg.frame.playerStates[i].playerNum == cg.multiviewPlayerNum )
 			{
 				index = i;
@@ -405,7 +405,7 @@ bool CG_NewFrameSnap( snapshot_t *frame, snapshot_t *lerpframe )
 		cg.oldAreabits = true;
 	else
 		cg.oldAreabits = false;
-	
+
 	if( !cgs.precacheDone || !cg.frame.valid ) {
 		return false;
 	}
@@ -636,7 +636,7 @@ static void CG_AddLinkedModel( centity_t *cent )
 			CG_PlaceModelOnTag( &ent, &cent->ent, &tag );
 	}
 
-	CG_AddColoredOutLineEffect( &ent, cent->effects, 
+	CG_AddColoredOutLineEffect( &ent, cent->effects,
 		cent->outlineColor[0], cent->outlineColor[1], cent->outlineColor[2], cent->outlineColor[3] );
 	CG_AddEntityToScene( &ent );
 	CG_AddShellEffects( &ent, cent->effects );
@@ -647,7 +647,7 @@ static void CG_AddLinkedModel( centity_t *cent )
 */
 void CG_AddCentityOutLineEffect( centity_t *cent )
 {
-	CG_AddColoredOutLineEffect( &cent->ent, cent->effects, 
+	CG_AddColoredOutLineEffect( &cent->ent, cent->effects,
 		cent->outlineColor[0], cent->outlineColor[1], cent->outlineColor[2], cent->outlineColor[3] );
 }
 
@@ -1591,7 +1591,7 @@ static void CG_AddPortalSurfaceEnt( centity_t *cent )
 			float speed = cent->current.modelindex2 ? cent->current.modelindex2 : 50;
 
 			Matrix3_Identity( cent->ent.axis );
-			Matrix3_Rotate( cent->ent.axis, 5 * sin( ( phase + cg.time * 0.001 * speed * 0.01 ) * M_TWOPI ), 
+			Matrix3_Rotate( cent->ent.axis, 5 * sin( ( phase + cg.time * 0.001 * speed * 0.01 ) * M_TWOPI ),
 				1, 0, 0, cent->ent.axis );
 		}
 	}
@@ -1607,7 +1607,7 @@ static void CG_AddPortalSurfaceEnt( centity_t *cent )
 * CG_VideoSpeakerEntRawSamples
 */
 static void CG_UpdateVideoSpeakerEnt( void *centp,
-	unsigned int samples, unsigned int rate, 
+	unsigned int samples, unsigned int rate,
 	unsigned short width, unsigned short channels, const uint8_t *data )
 {
 	centity_t *cent = ( centity_t * )centp;
@@ -1652,7 +1652,7 @@ static void CG_UpdateVideoSpeakerEnt( centity_t *cent )
 static void CG_AddVideoSpeakerEnt( centity_t *cent )
 {
 	if( cent->cin ) {
-		trap_CIN_AddRawSamplesListener( cent->cin, cent, 
+		trap_CIN_AddRawSamplesListener( cent->cin, cent,
 			CG_UpdateVideoSpeakerEnt, CG_VideoSpeakerEntGetRawSamples );
 	}
 
@@ -2051,7 +2051,7 @@ void CG_LerpEntities( void )
 	{
 		int number;
 		bool spatialize;
-		
+
 		state = &cg.frame.parsedEntities[pnum & ( MAX_PARSE_ENTITIES-1 )];
 		number = state->number;
 		cent = &cg_entities[number];
@@ -2257,7 +2257,7 @@ void CG_UpdateEntities( void )
 
 /*
 * CG_GetEntitySpatilization
-* 
+*
 * Called to get the sound spatialization origin and velocity
 */
 void CG_GetEntitySpatilization( int entNum, vec3_t origin, vec3_t velocity )

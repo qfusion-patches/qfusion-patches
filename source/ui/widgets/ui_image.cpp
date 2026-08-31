@@ -14,7 +14,7 @@
  *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -286,8 +286,8 @@ bool ElementImage::LoadTexture()
 			// (passed as the void * pointer below)
 			AddReference();
 
-			UI_Main::Get()->getStreamCache()->PerformRequest( 
-				source.CString(), "GET", NULL, 
+			UI_Main::Get()->getStreamCache()->PerformRequest(
+				source.CString(), "GET", NULL,
 				NULL, NULL, &CacheRead, (void *)this,
 				WSW_UI_STREAMCACHE_TIMEOUT, nocache ? 0 : WSW_UI_IMAGES_CACHE_TTL
 			);
@@ -297,7 +297,7 @@ bool ElementImage::LoadTexture()
 	}
 
 	bool res = LoadDiskTexture();
-	
+
 	SetPseudoClass( "loading", false );
 
 	return res;

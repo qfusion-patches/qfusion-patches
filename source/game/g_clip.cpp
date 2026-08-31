@@ -43,7 +43,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #define AREA_GRID		128
 #define AREA_GRIDNODES	(AREA_GRID * AREA_GRID)
-#define AREA_GRIDMINSIZE 64.0f	// minimum areagrid cell size, smaller values 
+#define AREA_GRIDMINSIZE 64.0f	// minimum areagrid cell size, smaller values
 								// work better for lots of small objects, higher
 								// values for large objects
 
@@ -114,7 +114,7 @@ void GClip_BackUpCollisionFrame( void )
 
 		cframe->clipEdicts[i].r.inuse = svedict->r.inuse;
 		cframe->clipEdicts[i].r.solid = svedict->r.solid;
-		if( !svedict->r.inuse || svedict->r.solid == SOLID_NOT 
+		if( !svedict->r.inuse || svedict->r.solid == SOLID_NOT
 			|| ( svedict->r.solid == SOLID_TRIGGER && !(i >= 1 && i <= gs.maxclients) ) )
 			continue;
 
@@ -145,7 +145,7 @@ static c4clipedict_t *GClip_GetClipEdictForDeltaTime( int entNum, int deltaTime 
 		return clipent;
 	}
 
-	if( !ent->r.inuse || ent->r.solid == SOLID_NOT 
+	if( !ent->r.inuse || ent->r.solid == SOLID_NOT
 		|| ( ent->r.solid == SOLID_TRIGGER && !(entNum >= 1 && entNum <= gs.maxclients) ) )
 	{
 		clipent->r = ent->r;
@@ -170,7 +170,7 @@ static c4clipedict_t *GClip_GetClipEdictForDeltaTime( int entNum, int deltaTime 
 		cframe = &sv_collisionframes[( cframenum-bf ) & CFRAME_UPDATE_MASK];
 
 		// if solid has changed, we can't keep moving backwards
-		if( ent->r.solid != cframe->clipEdicts[entNum].r.solid 
+		if( ent->r.solid != cframe->clipEdicts[entNum].r.solid
 			|| ent->r.inuse != cframe->clipEdicts[entNum].r.inuse )
 		{
 			bf--;
@@ -209,7 +209,7 @@ static c4clipedict_t *GClip_GetClipEdictForDeltaTime( int entNum, int deltaTime 
 		if( bf == 1 )
 		{
 			// interpolate from 1st backed up to current
-			lerpFrac = (float)( ( game.serverTime - backTime ) - cframe->timestamp ) 
+			lerpFrac = (float)( ( game.serverTime - backTime ) - cframe->timestamp )
 				/ (float)( game.serverTime - cframe->timestamp );
 			clipentNewer.r = ent->r;
 			clipentNewer.s = ent->s;
@@ -218,7 +218,7 @@ static c4clipedict_t *GClip_GetClipEdictForDeltaTime( int entNum, int deltaTime 
 		{
 			// interpolate between 2 backed up
 			c4frame_t *cframeNewer = &sv_collisionframes[( cframenum-( bf-1 ) ) & CFRAME_UPDATE_MASK];
-			lerpFrac = (float)( ( game.serverTime - backTime ) - cframe->timestamp ) 
+			lerpFrac = (float)( ( game.serverTime - backTime ) - cframe->timestamp )
 				/ (float)( cframeNewer->timestamp - cframe->timestamp );
 			clipentNewer = cframeNewer->clipEdicts[entNum];
 		}
@@ -308,12 +308,12 @@ static void GClip_Init_AreaGrid( areagrid_t *areagrid, const vec3_t world_mins, 
 
 	if( developer->integer ) {
 		Com_Printf( "areagrid settings: divisions %ix%ix1 : box %f %f %f "
-			": %f %f %f size %f %f %f grid %f %f %f (mingrid %f)\n", 
-			AREA_GRID, AREA_GRID, 
+			": %f %f %f size %f %f %f grid %f %f %f (mingrid %f)\n",
+			AREA_GRID, AREA_GRID,
 			areagrid->mins[0], areagrid->mins[1], areagrid->mins[2],
-			areagrid->maxs[0], areagrid->maxs[1], areagrid->maxs[2], 
-			areagrid->size[0], areagrid->size[1], areagrid->size[2], 
-			1.0f / areagrid->scale[0], 1.0f / areagrid->scale[1], 1.0f / areagrid->scale[2], 
+			areagrid->maxs[0], areagrid->maxs[1], areagrid->maxs[2],
+			areagrid->size[0], areagrid->size[1], areagrid->size[2],
+			1.0f / areagrid->scale[0], 1.0f / areagrid->scale[1], 1.0f / areagrid->scale[2],
 			AREA_GRIDMINSIZE );
 	}
 }
@@ -339,12 +339,12 @@ static void GClip_LinkEntity_AreaGrid( areagrid_t *areagrid, edict_t *ent )
 {
 	link_t *grid;
 	int igrid[3], igridmins[3], igridmaxs[3], gridnum, entitynumber;
-	
+
 	entitynumber = NUM_FOR_EDICT( ent );
 	if( entitynumber <= 0 || entitynumber >= game.maxentities || EDICT_NUM( entitynumber ) != ent )
 	{
 		Com_Printf( "GClip_LinkEntity_AreaGrid: invalid edict %p "
-			"(edicts is %p, edict compared to prog->edicts is %i)\n", 
+			"(edicts is %p, edict compared to prog->edicts is %i)\n",
 			(void *)ent, game.edicts, entitynumber );
 		return;
 	}
@@ -355,8 +355,8 @@ static void GClip_LinkEntity_AreaGrid( areagrid_t *areagrid, edict_t *ent )
 	igridmaxs[0] = (int) floor( (ent->r.absmax[0] + areagrid->bias[0]) * areagrid->scale[0] ) + 1;
 	igridmaxs[1] = (int) floor( (ent->r.absmax[1] + areagrid->bias[1]) * areagrid->scale[1] ) + 1;
 	//igridmaxs[2] = (int) floor( (ent->r.absmax[2] + areagrid->bias[2]) * areagrid->scale[2] ) + 1;
-	if( igridmins[0] < 0 || igridmaxs[0] > AREA_GRID 
-		|| igridmins[1] < 0 || igridmaxs[1] > AREA_GRID 
+	if( igridmins[0] < 0 || igridmaxs[0] > AREA_GRID
+		|| igridmins[1] < 0 || igridmaxs[1] > AREA_GRID
 		|| ((igridmaxs[0] - igridmins[0]) * (igridmaxs[1] - igridmins[1])) > MAX_ENT_AREAS )
 	{
 		// wow, something outside the grid, store it as such
@@ -375,7 +375,7 @@ static void GClip_LinkEntity_AreaGrid( areagrid_t *areagrid, edict_t *ent )
 /*
 * GClip_EntitiesInBox_AreaGrid
 */
-static int GClip_EntitiesInBox_AreaGrid( areagrid_t *areagrid, const vec3_t mins, const vec3_t maxs, 
+static int GClip_EntitiesInBox_AreaGrid( areagrid_t *areagrid, const vec3_t mins, const vec3_t maxs,
 	int *list, int maxcount, int areatype, int timeDelta )
 {
 	int numlist;
@@ -385,7 +385,7 @@ static int GClip_EntitiesInBox_AreaGrid( areagrid_t *areagrid, const vec3_t mins
 	vec3_t paddedmins, paddedmaxs;
 	int igrid[3], igridmins[3], igridmaxs[3];
 
-	// LordHavoc: discovered this actually causes its own bugs (dm6 teleporters 
+	// LordHavoc: discovered this actually causes its own bugs (dm6 teleporters
 	// being too close to info_teleport_destination)
 	//VectorSet( paddedmins, mins[0] - 1.0f, mins[1] - 1.0f, mins[2] - 1.0f );
 	//VectorSet( paddedmaxs, maxs[0] + 1.0f, maxs[1] + 1.0f, maxs[2] + 1.0f );
@@ -433,7 +433,7 @@ static int GClip_EntitiesInBox_AreaGrid( areagrid_t *areagrid, const vec3_t mins
 			if( areatype == AREA_TRIGGERS && clipEnt->r.solid != SOLID_TRIGGER ) {
 				continue;
 			}
-			if( areatype == AREA_SOLID && 
+			if( areatype == AREA_SOLID &&
 				( clipEnt->r.solid == SOLID_TRIGGER || clipEnt->r.solid == SOLID_NOT ) ) {
 				continue;
 			}
@@ -470,7 +470,7 @@ static int GClip_EntitiesInBox_AreaGrid( areagrid_t *areagrid, const vec3_t mins
 				if( areatype == AREA_TRIGGERS && clipEnt->r.solid != SOLID_TRIGGER ) {
 					continue;
 				}
-				if( areatype == AREA_SOLID && 
+				if( areatype == AREA_SOLID &&
 					( clipEnt->r.solid == SOLID_TRIGGER || clipEnt->r.solid == SOLID_NOT ) ) {
 					continue;
 				}
@@ -585,7 +585,7 @@ void GClip_LinkEntity( edict_t *ent )
 	// set the abs box
 	if( ISBRUSHMODEL( ent->s.modelindex ) &&
 		( ent->s.angles[0] || ent->s.angles[1] || ent->s.angles[2] ) )
-	{ 
+	{
 		// expand for rotation
 		float radius;
 
@@ -598,7 +598,7 @@ void GClip_LinkEntity( edict_t *ent )
 		}
 	}
 	else // axis aligned
-	{ 
+	{
 		VectorAdd( ent->s.origin, ent->r.mins, ent->r.absmin );
 		VectorAdd( ent->s.origin, ent->r.maxs, ent->r.absmax );
 	}
@@ -689,7 +689,7 @@ void GClip_LinkEntity( edict_t *ent )
 
 /*
 * GClip_SetAreaPortalState
-* 
+*
 * Finds an areaportal leaf entity is connected with,
 * and also finds two leafs from different areas connected
 * with the same entity.
@@ -714,12 +714,12 @@ void GClip_SetAreaPortalState( edict_t *ent, bool open )
 * returns the number of pointers filled in
 * ??? does this always return the world?
 */
-static int GClip_AreaEdicts( const vec3_t mins, const vec3_t maxs, 
+static int GClip_AreaEdicts( const vec3_t mins, const vec3_t maxs,
 	int *list, int maxcount, int areatype, int timeDelta )
 {
 	int count;
 
-	count = GClip_EntitiesInBox_AreaGrid( &g_areagrid, mins, maxs, 
+	count = GClip_EntitiesInBox_AreaGrid( &g_areagrid, mins, maxs,
 		list, maxcount, areatype, timeDelta );
 
 	return min( count, maxcount );
@@ -727,7 +727,7 @@ static int GClip_AreaEdicts( const vec3_t mins, const vec3_t maxs,
 
 /*
 * GClip_CollisionModelForEntity
-* 
+*
 * Returns a collision model that can be used for testing or clipping an
 * object of mins/maxs size.
 */
@@ -736,7 +736,7 @@ static struct cmodel_s *GClip_CollisionModelForEntity( entity_state_t *s, entity
 	struct cmodel_s	*model;
 
 	if( ISBRUSHMODEL( s->modelindex ) )
-	{ 
+	{
 		// explicit hulls in the BSP model
 		model = trap_CM_InlineModel( s->modelindex );
 		if( !model )
@@ -835,7 +835,7 @@ typedef struct
 				continue;
 			if( touch->r.owner && ( touch->r.owner->s.number == clip->passent ) )
 				continue;
-			if( game.edicts[clip->passent].r.owner 
+			if( game.edicts[clip->passent].r.owner
 				&& ( game.edicts[clip->passent].r.owner->s.number == touch->s.number ) )
 				continue;
 
@@ -875,7 +875,7 @@ typedef struct
 /*
 * GClip_TraceBounds
 */
-static void GClip_TraceBounds( vec3_t start, vec3_t mins, vec3_t maxs, 
+static void GClip_TraceBounds( vec3_t start, vec3_t mins, vec3_t maxs,
 	vec3_t end, vec3_t boxmins, vec3_t boxmaxs )
 {
 	int i;
@@ -897,9 +897,9 @@ static void GClip_TraceBounds( vec3_t start, vec3_t mins, vec3_t maxs,
 
 /*
 * G_Trace
-* 
+*
 * Moves the given mins/maxs volume through the world from start to end.
-* 
+*
 * Passedict and edicts owned by passedict are explicitly not checked.
 * ------------------------------------------------------------------
 * mins and maxs are relative
@@ -912,7 +912,7 @@ static void GClip_TraceBounds( vec3_t start, vec3_t mins, vec3_t maxs,
 
 * passedict is explicitly excluded from clipping checks (normally NULL)
 */
-static void GClip_Trace( trace_t *tr, vec3_t start, vec3_t mins, vec3_t maxs, 
+static void GClip_Trace( trace_t *tr, vec3_t start, vec3_t mins, vec3_t maxs,
 	vec3_t end, edict_t *passedict, int contentmask, int timeDelta )
 {
 	moveclip_t clip;
@@ -959,13 +959,13 @@ static void GClip_Trace( trace_t *tr, vec3_t start, vec3_t mins, vec3_t maxs,
 	GClip_ClipMoveToEntities( &clip, timeDelta );
 }
 
-void G_Trace( trace_t *tr, vec3_t start, vec3_t mins, vec3_t maxs, 
+void G_Trace( trace_t *tr, vec3_t start, vec3_t mins, vec3_t maxs,
 	vec3_t end, edict_t *passedict, int contentmask )
 {
 	GClip_Trace( tr, start, mins, maxs, end, passedict, contentmask, 0 );
 }
 
-void G_Trace4D( trace_t *tr, vec3_t start, vec3_t mins, vec3_t maxs, 
+void G_Trace4D( trace_t *tr, vec3_t start, vec3_t mins, vec3_t maxs,
 	vec3_t end, edict_t *passedict, int contentmask, int timeDelta )
 {
 	GClip_Trace( tr, start, mins, maxs, end, passedict, contentmask, timeDelta );
@@ -975,7 +975,7 @@ void G_Trace4D( trace_t *tr, vec3_t start, vec3_t mins, vec3_t maxs,
 
 /*
 * GClip_SetBrushModel
-* 
+*
 * Also sets mins and maxs for inline bmodels
 */
 void GClip_SetBrushModel( edict_t *ent, const char *name )
@@ -983,7 +983,7 @@ void GClip_SetBrushModel( edict_t *ent, const char *name )
 	struct cmodel_s *cmodel;
 
 	if( !name )
-		G_Error( "GClip_SetBrushModel: NULL model in '%s'", 
+		G_Error( "GClip_SetBrushModel: NULL model in '%s'",
 		ent->classname ? ent->classname : "no classname" );
 
 	if( !name[0] )
@@ -1036,7 +1036,7 @@ static bool GClip_EntityContact( vec3_t mins, vec3_t maxs, edict_t *ent )
 		if( !model )
 			G_Error( "MOVETYPE_PUSH with a non bsp model" );
 
-		trap_CM_TransformedBoxTrace( &tr, vec3_origin, vec3_origin, mins, maxs, model, 
+		trap_CM_TransformedBoxTrace( &tr, vec3_origin, vec3_origin, mins, maxs, model,
 			MASK_ALL, ent->s.origin, ent->s.angles );
 
 		return tr.startsolid || tr.allsolid ? true : false;
@@ -1206,7 +1206,7 @@ int GClip_FindBoxInRadius4D( vec3_t org, float rad, int *list, int maxcount, int
 
 /*
 * GClip_FindRadius
-* 
+*
 * Returns entities that have origins within a spherical area
 */
 int GClip_FindRadius( vec3_t org, float rad, int *list, int maxcount )
@@ -1214,13 +1214,13 @@ int GClip_FindRadius( vec3_t org, float rad, int *list, int maxcount )
 	return GClip_FindBoxInRadius4D( org, rad, list, maxcount, 0 );
 }
 
-void G_SplashFrac4D( int entNum, vec3_t hitpoint, float maxradius, vec3_t pushdir, 
+void G_SplashFrac4D( int entNum, vec3_t hitpoint, float maxradius, vec3_t pushdir,
 	float *kickFrac, float *dmgFrac, int timeDelta )
 {
 	c4clipedict_t *clipEnt;
 
 	clipEnt = GClip_GetClipEdictForDeltaTime( entNum, timeDelta );
-	G_SplashFrac( clipEnt->s.origin, clipEnt->r.mins, clipEnt->r.maxs, hitpoint, 
+	G_SplashFrac( clipEnt->s.origin, clipEnt->r.mins, clipEnt->r.maxs, hitpoint,
 		maxradius, pushdir, kickFrac, dmgFrac );
 }
 
@@ -1237,4 +1237,3 @@ entity_state_t *G_GetEntityStateForDeltaTime( int entNum, int deltaTime )
 
 	return &clipEnt->s;
 }
-

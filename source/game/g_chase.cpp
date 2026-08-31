@@ -205,7 +205,7 @@ static int G_Chase_FindFollowPOV( edict_t *ent )
 				newpoweruppov = warshell;
 			else if( poweruppov == warshell )
 				newpoweruppov = quad;
-			else 
+			else
 				newpoweruppov = ( rand() & 1 ) ? quad : warshell;
 		}
 
@@ -572,7 +572,7 @@ void Cmd_ChaseCam_f( edict_t *ent )
 
 	if( ent->r.client->teamstate.is_coach && GS_TeamBasedGametype() )
 		team_only = true;
-	else 
+	else
 		team_only = false;
 
 	arg1 = trap_Cmd_Argv( 1 );

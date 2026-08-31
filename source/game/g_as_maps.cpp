@@ -93,7 +93,7 @@ static void G_asCallMapFunction( void *func )
 	ctx = angelExport->asAcquireContext( GAME_AS_ENGINE() );
 
 	error = ctx->Prepare( static_cast<asIScriptFunction *>(func) );
-	if( error < 0 ) 
+	if( error < 0 )
 		return;
 
 	error = ctx->Execute();
@@ -150,7 +150,7 @@ const char *G_asCallMapGametype( void )
 	ctx = angelExport->asAcquireContext( GAME_AS_ENGINE() );
 
 	error = ctx->Prepare( static_cast<asIScriptFunction *>(level.mapscript.gametypeFunc) );
-	if( error < 0 ) 
+	if( error < 0 )
 		return "";
 
 	s = angelExport->asStringFactoryBuffer( g_gametype->string, strlen( g_gametype->string ) );

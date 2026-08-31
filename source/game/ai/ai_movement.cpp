@@ -438,4 +438,3 @@ bool AI_MoveToShortRangeGoalEntity( edict_t *self, usercmd_t *ucmd )
 
 	return true;
 }
-

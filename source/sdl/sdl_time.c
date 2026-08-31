@@ -18,7 +18,7 @@ unsigned int Sys_Milliseconds( void )
 
 uint64_t Sys_Microseconds( void )
 {
-	static Uint64 base = 0;	
+	static Uint64 base = 0;
 	if( !base )
 		base = SDL_GetPerformanceCounter();
 	return 1000000ULL * ( SDL_GetPerformanceCounter() - base ) / freq;

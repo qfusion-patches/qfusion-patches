@@ -46,7 +46,7 @@ void TV_Downstream_SendChannelList( client_t *client )
 
 /*
 * TV_Downstream_DelayNew
-* 
+*
 * new command is delayed, because of a connect attempt while relay
 * wasn't ready
 */
@@ -61,7 +61,7 @@ static void TV_Relay_DelayNew( client_t *client )
 
 /*
 * TV_Downstream_New_f
-* 
+*
 * Sends the first message from the server to a connected client.
 * This will be sent on the initial upstream and upon each server load.
 */

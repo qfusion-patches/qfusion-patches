@@ -23,7 +23,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 /*
 * SV_MOTD_SetMOTD
-* 
+*
 * Helper to set svs.motd
 */
 void SV_MOTD_SetMOTD( char *motd )
@@ -55,7 +55,7 @@ void SV_MOTD_SetMOTD( char *motd )
 
 /*
 * SV_MOTD_LoadFromFile
-* 
+*
 * Attempts to load the MOTD from sv_MOTDFile, on success sets
 * sv_MOTDString.
 */
@@ -88,7 +88,7 @@ void SV_MOTD_LoadFromFile( void )
 
 /*
 * SV_MOTD_Update
-* 
+*
 * set the motd to the correct value depending on sv_MOTDString and sv_MOTDFile
 */
 void SV_MOTD_Update( void )
@@ -112,7 +112,7 @@ void SV_MOTD_Update( void )
 
 /*
 * SV_MOTD_Get_f
-* 
+*
 * Comand to return MOTD
 */
 void SV_MOTD_Get_f( client_t *client )

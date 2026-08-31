@@ -34,8 +34,8 @@ typedef WSWUI::RefreshState RefreshState;
 class ASWindow : public EventListener
 {
 public:
-	ASWindow( ASInterface *asmodule ) : 
-		EventListener(), 
+	ASWindow( ASInterface *asmodule ) :
+		EventListener(),
 		suspendedContext( NULL ),
 		attachedModalDocument( NULL ),
 		modalValue( 0 ),
@@ -87,7 +87,7 @@ public:
 		WSWUI::Document *ui_document = new_stack->pushDocument( location.buffer );
 		if( !ui_document ) {
 			return NULL;
-		
+
 		}
 		ui_document->addReference();
 		return ui_document->getRocketDocument();
@@ -119,7 +119,7 @@ public:
 			return;
 		}
 
-		// suspend active context, we're going to resume it when 
+		// suspend active context, we're going to resume it when
 		// the modal dialog is closed
 		suspendActiveContext();
 
@@ -433,7 +433,7 @@ private:
 	}
 
 	// context we've suspended to popup the modal document
-	// we're going to resume it as soon as the document 
+	// we're going to resume it as soon as the document
 	// is closed with document.close call in the script
 	asIScriptContext *suspendedContext;
 

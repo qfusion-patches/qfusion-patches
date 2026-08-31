@@ -478,7 +478,7 @@ gs_weapon_definition_t gs_weaponDefs[] =
 			0								// low ammo threshold
 		},
 	},
-			
+
 	{
 		"Plasmagun",
 		WEAP_PLASMAGUN,

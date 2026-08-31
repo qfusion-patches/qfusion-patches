@@ -22,7 +22,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 /*
 * G_TriggerWait
-* 
+*
 * Called always when using a trigger that supports wait flag
 * Returns true if the trigger shouldn't be activated
 */
@@ -358,7 +358,7 @@ static void trigger_push_touch( edict_t *self, edict_t *other, cplane_t *plane, 
 		GS_TouchPushTrigger( &other->r.client->ps, &self->s );
 	}
 	else
-	{  
+	{
 		// pushing of non-clients
 		if( other->movetype != MOVETYPE_BOUNCEGRENADE )
 			return;
@@ -591,7 +591,7 @@ void SP_trigger_hurt( edict_t *self )
 		self->spawnflags |= 32;
 
 	if( self->spawnflags & 4 ) // SILENT
-	{   
+	{
 		self->noise_index = 0;
 	}
 	else if( st.noise )

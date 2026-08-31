@@ -60,11 +60,11 @@ void SCR_FinishCinematic( void )
 /*
 * SCR_CinematicRawSamples
 */
-static void SCR_CinematicRawSamples( void *unused, unsigned int samples, 
+static void SCR_CinematicRawSamples( void *unused, unsigned int samples,
 	unsigned int rate, unsigned short width, unsigned short channels, const uint8_t *data )
 {
 	(void)unused;
-	
+
 	CL_SoundModule_RawSamples( samples, rate, width, channels, data, true );
 }
 
@@ -84,8 +84,8 @@ static unsigned int SCR_CinematicGetRawSamplesLength( void *unused )
 static void SCR_ReadNextCinematicFrame( void )
 {
 	if( cl.cin.yuv ) {
-		cl.cin.cyuv = CIN_ReadNextFrameYUV( cl.cin.h, 
-			&cl.cin.width, &cl.cin.height, 
+		cl.cin.cyuv = CIN_ReadNextFrameYUV( cl.cin.h,
+			&cl.cin.width, &cl.cin.height,
 			&cl.cin.aspect_numerator, &cl.cin.aspect_denominator,
 			&cl.cin.redraw );
 
@@ -93,8 +93,8 @@ static void SCR_ReadNextCinematicFrame( void )
 		cl.cin.pic = ( uint8_t * )cl.cin.cyuv;
 	}
 	else {
-		cl.cin.pic = CIN_ReadNextFrame( cl.cin.h, 
-			&cl.cin.width, &cl.cin.height, 
+		cl.cin.pic = CIN_ReadNextFrame( cl.cin.h,
+			&cl.cin.width, &cl.cin.height,
 			&cl.cin.aspect_numerator, &cl.cin.aspect_denominator,
 			&cl.cin.redraw );
 	}
@@ -137,7 +137,7 @@ void SCR_RunCinematic( void )
 	}
 
 	// CIN_NeedNextFrame is going to query us for raw samples length
-	CIN_AddRawSamplesListener( cl.cin.h, NULL, 
+	CIN_AddRawSamplesListener( cl.cin.h, NULL,
 		&SCR_CinematicRawSamples, &SCR_CinematicGetRawSamplesLength );
 
 	if( !CIN_NeedNextFrame( cl.cin.h, SCR_CinematicTime() - cl.cin.startTime ) ) {
@@ -219,7 +219,7 @@ bool SCR_DrawCinematic( void )
 	if( cl.cin.yuv ) {
 		ref_yuv_t *cyuv = cl.cin.cyuv;
 
-		re.DrawStretchRawYUV( x, y, w, h, 		
+		re.DrawStretchRawYUV( x, y, w, h,
 			(float)(cyuv->x_offset) / cyuv->image_width,
 			(float)(cyuv->y_offset) / cyuv->image_height,
 			(float)(cyuv->x_offset + cyuv->width) / cyuv->image_width,
@@ -227,7 +227,7 @@ bool SCR_DrawCinematic( void )
 			cl.cin.redraw ? cyuv->yuv : NULL );
 	}
 	else {
-		re.DrawStretchRaw( x, y, w, h, cl.cin.width, cl.cin.height, 
+		re.DrawStretchRaw( x, y, w, h, cl.cin.width, cl.cin.height,
 			0, 0, 1, 1, cl.cin.redraw ? cl.cin.pic : NULL );
 	}
 

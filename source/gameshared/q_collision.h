@@ -111,4 +111,3 @@ typedef struct
 #endif
 
 #endif // GAME_QCOLLISION_H
-

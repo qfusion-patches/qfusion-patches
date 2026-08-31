@@ -154,7 +154,7 @@ static void SCR_CheckSystemFontsModified( void )
 	}
 
 	if( con_fontSystemMonoFamily->modified
-		|| con_fontSystemConsoleSize->modified 
+		|| con_fontSystemConsoleSize->modified
 		) {
 		SCR_RegisterConsoleFont();
 		con_fontSystemMonoFamily->modified = false;
@@ -360,7 +360,7 @@ void SCR_DrawStretchPic( int x, int y, int w, int h, float s1, float t1, float s
 
 /*
 * SCR_DrawFillRect
-* 
+*
 * Fills a box of pixels with a single color
 */
 void SCR_DrawFillRect( int x, int y, int w, int h, vec4_t color )
@@ -370,7 +370,7 @@ void SCR_DrawFillRect( int x, int y, int w, int h, vec4_t color )
 
 /*
 * SCR_DrawClampFillRect
-* 
+*
 * Fills a scissored box of pixels with a single color
 */
 void SCR_DrawClampFillRect( int x, int y, int w, int h, int xmin, int ymin, int xmax, int ymax, vec4_t color )
@@ -404,7 +404,7 @@ BAR GRAPHS
 
 /*
 * CL_AddNetgraph
-* 
+*
 * A new packet was just parsed
 */
 void CL_AddNetgraph( void )
@@ -560,7 +560,7 @@ void SCR_DrawChat( int x, int y, int width, struct qfontface_s *font )
 
 /*
 * SCR_RunConsole
-* 
+*
 * Scroll it up or down
 */
 void SCR_RunConsole( int msec )
@@ -681,7 +681,7 @@ static void SCR_RenderView( float stereo_separation )
 
 /*
 * SCR_UpdateScreen
-* 
+*
 * This is called every frame, and can also be called explicitly to flush
 * text to the screen.
 */
@@ -747,7 +747,7 @@ void SCR_UpdateScreen( void )
 		re.BeginFrame( separation[i], forceclear, forcevsync );
 
 		if( scr_draw_loading == 2 )
-		{ 
+		{
 			// loading plaque over APP_STARTUP_COLOR screen
 			scr_draw_loading = 0;
 			CL_UIModule_UpdateConnectScreen( true );

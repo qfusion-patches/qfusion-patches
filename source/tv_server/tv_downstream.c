@@ -89,7 +89,7 @@ void TV_Downstream_AddGameCommand( relay_t *relay, client_t *client, const char 
 
 /*
 * TV_Downstream_Msg
-* 
+*
 * NULL sends to all the message to all clients
 */
 void TV_Downstream_Msg( client_t *client, relay_t *relay, client_t *who, bool chat, const char *format, ... )
@@ -149,7 +149,7 @@ static void strip_highchars( char *in )
 
 /*
 * TV_Downstream_FixName
-* 
+*
 * Make name valid, so it's not used by anyone else or so. See G_SetName
 * Client can be given, so conflict with that client's name won't matter
 * The returned value will be overwritten by the next call to this function
@@ -253,7 +253,7 @@ char *TV_Downstream_FixName( const char *original_name, client_t *client )
 
 /*
 * TV_Downstream_UserinfoChanged
-* 
+*
 * Pull specific info from a newly changed userinfo string
 * into a more C friendly form.
 */
@@ -321,7 +321,7 @@ static bool TV_Downstream_Netchan_Transmit( netchan_t *netchan, msg_t *msg )
 
 /*
 * TV_Downstream_AddServerCommand
-* 
+*
 * The given command will be transmitted to the client, and is guaranteed to
 * not have future snapshot_t executed before it is executed
 */
@@ -385,7 +385,7 @@ void TV_Downstream_AddServerCommand( client_t *client, const char *cmd )
 
 /*
 * TV_Downstream_SendServerCommand
-* 
+*
 * Sends a reliable command string to be interpreted by
 * the client: "cs", "changing", "disconnect", etc
 * A NULL client will broadcast to all clients
@@ -420,7 +420,7 @@ void TV_Downstream_SendServerCommand( client_t *cl, const char *format, ... )
 
 /*
 * TV_Downstream_AddReliableCommandsToMessage
-* 
+*
 * (re)send all server commands the client hasn't acknowledged yet
 */
 void TV_Downstream_AddReliableCommandsToMessage( client_t *client, msg_t *msg )

@@ -65,7 +65,7 @@ cvar_t *tv_floodprotection_penalty;
 
 /*
 * TV_Init
-* 
+*
 * Only called at plat.exe startup, not for each game
 */
 void TV_Init( void )
@@ -271,7 +271,7 @@ void TV_Shutdown( const char *finalmsg )
 
 /*
 * TV_ShutdownGame
-* 
+*
 * ERR_DROP thrown, we will upgrade it to ERR_FATAL
 */
 void TV_ShutdownGame( const char *finalmsg, bool reconnect )

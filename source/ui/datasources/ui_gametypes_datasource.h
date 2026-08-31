@@ -12,16 +12,16 @@ namespace WSWUI
 	{
 	public:
 		/// Reads the available game types from /progs/gametypes
-		GameTypesDataSource();	
-		
+		GameTypesDataSource();
+
 		/// Retrieve a "row".
 		/// If row_index is negative or too big, the function will silently
 		/// return.
 		/// For each element in @param cols, the following strings will be
 		/// added to @param row:
-		///  - the id of the gametype corresponding to row_index if the 
+		///  - the id of the gametype corresponding to row_index if the
 		///    value of the element is "val"
-		///  - the name of the gametype corresponding to row_index if the 
+		///  - the name of the gametype corresponding to row_index if the
 		///    value of the element is "name"
 		///  - an empty string in all the other cases
 		virtual void GetRow (Rocket::Core::StringList &row, const Rocket::Core::String&, int row_index, const Rocket::Core::StringList& cols);
@@ -53,7 +53,7 @@ namespace WSWUI
 		};
 
 		typedef std::vector<gametype> GameTypeList;
-		GameTypeList gameTypes; /// Contains all accessible gametypes 
+		GameTypeList gameTypes; /// Contains all accessible gametypes
 	};
 }
 

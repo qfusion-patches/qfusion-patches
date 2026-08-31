@@ -12,7 +12,7 @@ namespace WSWUI
 	public:
 		/// Initializes the video element
 		explicit Video(const Rocket::Core::String&);
-	
+
 		virtual void OnAttributeChange(const Rocket::Core::AttributeNameList&);
 	private:
 	};

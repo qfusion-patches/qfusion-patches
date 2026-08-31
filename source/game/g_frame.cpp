@@ -43,7 +43,7 @@ void G_Timeout_Reset( void )
 
 /*
 * G_Timeout_Update
-* 
+*
 * Updates the timeout struct and informs clients about the status of the pause
 */
 static void G_Timeout_Update( unsigned int msec )
@@ -630,7 +630,7 @@ void G_SnapFrame( void )
 			ent->r.svflags |= SVF_NOCLIENT;
 			continue;
 		}
-		else if( !( ent->r.svflags & SVF_NOCLIENT ) && !ent->s.modelindex && !ent->s.effects 
+		else if( !( ent->r.svflags & SVF_NOCLIENT ) && !ent->s.modelindex && !ent->s.effects
 			&& !ent->s.sound && !ISEVENTENTITY( &ent->s ) && !ent->s.light && !ent->r.client )
 		{
 			if( developer->integer )

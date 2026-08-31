@@ -20,7 +20,7 @@
 
 namespace ASUI {
 
-// dummy class since ASBIND only can only bind unique classes 
+// dummy class since ASBIND only can only bind unique classes
 // and AngelScript arrays are more like composite classes
 class ASElementsArray : public CScriptArrayInterface {};
 static asIObjectType *elementsArrayType;
@@ -636,13 +636,13 @@ static ASURL ElementDocument_GetURL( ElementDocument *self )
 }
 
 /// Returns title of the current document.
-static asstring_t *ElementDocument_GetTitle( ElementDocument *self ) 
+static asstring_t *ElementDocument_GetTitle( ElementDocument *self )
 {
 	return ASSTR( self->GetTitle() );
 }
 
 /// Returns the BODY node of the current document.
-static Element *ElementDocument_GetBody( ElementDocument *self ) 
+static Element *ElementDocument_GetBody( ElementDocument *self )
 {
 	Element *e = dynamic_cast<Element *>( self );
 	_RETREF(e);

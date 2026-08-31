@@ -593,7 +593,7 @@ static void _NETWM_SET_FULLSCREEN( bool fullscreen )
 	xev.xclient.data.l[0] = fullscreen ? 1 : 0;
 	xev.xclient.data.l[1] = NET_WM_STATE_FULLSCREEN;
 	xev.xclient.data.l[2] = 0;
- 
+
 	XMapWindow( x11display.dpy, x11display.win );
 
 	XSendEvent( x11display.dpy, DefaultRootWindow( x11display.dpy ), False,
@@ -930,7 +930,7 @@ int GLimp_Init( const char *applicationName, void *hinstance, void *wndproc, voi
 		glw_state.applicationIcon = malloc( icon_memsize );
 		memcpy( glw_state.applicationIcon, iconXPM, icon_memsize );
 	}
-	
+
 	hinstance = NULL;
 	x11wndproc = (x11wndproc_t )wndproc;
 
@@ -1008,7 +1008,7 @@ int GLimp_Init( const char *applicationName, void *hinstance, void *wndproc, voi
 	qglXMakeCurrent( x11display.dpy, x11display.gl_win, x11display.ctx );
 
 	XSync( x11display.dpy, False );
-	
+
 	if( x11wndproc ) {
 		x11wndproc( &x11display, 0, 0, 0 );
 	}
@@ -1037,7 +1037,7 @@ void GLimp_EndFrame( void )
 	if( glConfig.fullScreen )
 	{
 		cvar_t *vid_multiscreen_head = ri.Cvar_Get( "vid_multiscreen_head", "0", CVAR_ARCHIVE );
-		
+
 		if( vid_multiscreen_head->modified ) {
 			GLimp_SetMode_Real( glConfig.width, glConfig.height, _vid_display_refresh_rate, true, true, true );
 			vid_multiscreen_head->modified = false;

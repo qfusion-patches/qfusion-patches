@@ -486,4 +486,3 @@ typedef int socket_handle_t;
 #endif
 
 #endif // GAME_QARCH_H
-

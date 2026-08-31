@@ -167,7 +167,7 @@ static unsigned int R_SurfaceShadowBits( const msurface_t *surf, unsigned int ch
 			checkShadowBits &= ~bit;
 		}
 	}
-	
+
 	return surfShadowBits;
 }
 
@@ -236,12 +236,12 @@ void R_DrawBSPSurf( const entity_t *e, const shader_t *shader, const mfog_t *fog
 	RB_SetLightstyle( drawSurf->superLightStyle );
 
 	if( drawSurf->numInstances ) {
-		RB_DrawElementsInstanced( firstVert, numVerts, firstElem, numElems, 
+		RB_DrawElementsInstanced( firstVert, numVerts, firstElem, numElems,
 			firstShadowVert, numShadowVerts, firstShadowElem, numShadowElems,
 			drawSurf->numInstances, drawSurf->instances );
 	}
 	else {
-		RB_DrawElements( firstVert, numVerts, firstElem, numElems, 
+		RB_DrawElements( firstVert, numVerts, firstElem, numElems,
 			firstShadowVert, numShadowVerts, firstShadowElem, numShadowElems );
 	}
 }
@@ -252,7 +252,7 @@ void R_DrawBSPSurf( const entity_t *e, const shader_t *shader, const mfog_t *fog
 static void R_AddSurfaceVBOSlice( const msurface_t *surf, int offset )
 {
 	drawSurfaceBSP_t *drawSurf = surf->drawSurf;
-	R_AddVBOSlice( offset + drawSurf - rsh.worldBrushModel->drawSurfaces, 
+	R_AddVBOSlice( offset + drawSurf - rsh.worldBrushModel->drawSurfaces,
 		surf->numVerts, surf->numElems,
 		surf->firstDrawSurfVert, surf->firstDrawSurfElem );
 }
@@ -306,14 +306,14 @@ static void R_AddSurfaceToDrawList( const entity_t *e, const msurface_t *surf, c
 			return;
 		}
 	}
-	
+
 	lightmapped = surf->superLightStyle != NULL && surf->superLightStyle->lightmapNum[0] >= 0;
 	drawOrder = R_PackOpaqueOrder( e, shader, lightmapped, dlightBits != 0 );
 
 	if( drawSurf->visFrame != rf.frameCount ) {
 		if( shader->flags & SHADER_PORTAL ) {
 			// draw portals in front-to-back order
-			dist = 1024 - dist / 100.0f; 
+			dist = 1024 - dist / 100.0f;
 			if( dist < 1 ) dist = 1;
 
 			portalSurface = R_AddPortalSurface( e, surf->mesh, surf->mins, surf->maxs, shader, drawSurf );
@@ -520,7 +520,7 @@ WORLD MODEL
 /*
 * R_MarkLeafSurfaces
 */
-static void R_MarkLeafSurfaces( msurface_t **mark, unsigned int clipFlags, 
+static void R_MarkLeafSurfaces( msurface_t **mark, unsigned int clipFlags,
 	unsigned int dlightBits, unsigned int shadowBits )
 {
 	msurface_t *surf;
@@ -555,7 +555,7 @@ static void R_MarkLeafSurfaces( msurface_t **mark, unsigned int clipFlags,
 			VectorScale( centre, 0.5, centre );
 			distance = Distance( rn.refdef.vieworg, centre );
 
-			R_AddSurfaceToDrawList( rsc.worldent, surf, surf->fog, 
+			R_AddSurfaceToDrawList( rsc.worldent, surf, surf->fog,
 				newDlightBits, newShadowBits, distance );
 		}
 
@@ -566,7 +566,7 @@ static void R_MarkLeafSurfaces( msurface_t **mark, unsigned int clipFlags,
 /*
 * R_RecursiveWorldNode
 */
-static void R_RecursiveWorldNode( mnode_t *node, unsigned int clipFlags, 
+static void R_RecursiveWorldNode( mnode_t *node, unsigned int clipFlags,
 	unsigned int dlightBits, unsigned int shadowBits )
 {
 	unsigned int i;
@@ -753,7 +753,7 @@ void R_DrawWorld( void )
 
 /*
 * R_MarkLeaves
-* 
+*
 * Mark the leaves and nodes that are in the PVS for the current cluster
 */
 void R_MarkLeaves( void )

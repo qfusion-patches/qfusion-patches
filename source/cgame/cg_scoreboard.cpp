@@ -190,7 +190,7 @@ static int SCB_DrawPlayerStats( int x, int y, struct qfontface_s *font )
 		yoffset = trap_SCR_FontHeight( font );
 
 		// header
-		trap_SCR_DrawStringWidth( x + xoffset, y + yoffset, ALIGN_LEFT_TOP, 
+		trap_SCR_DrawStringWidth( x + xoffset, y + yoffset, ALIGN_LEFT_TOP,
 			CG_TranslateString( "Weapon stats" ), width, font, colorMdGrey );
 		yoffset += trap_SCR_FontHeight( font );
 

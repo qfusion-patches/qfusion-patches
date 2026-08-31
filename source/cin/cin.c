@@ -52,7 +52,7 @@ typedef struct
 	cin_yuv_t *( *read_next_frame_yuv )( cinematics_t *cin, bool *redraw );
 } cin_type_t;
 
-static const cin_type_t cin_types[] = 
+static const cin_type_t cin_types[] =
 {
 	// Ogg Theora
 	{
@@ -100,7 +100,7 @@ static const cin_type_t cin_types[] =
 /*
 * CIN_Open
 */
-cinematics_t *CIN_Open( const char *name, unsigned int start_time, 
+cinematics_t *CIN_Open( const char *name, unsigned int start_time,
 	int flags, bool *yuv, float *framerate )
 {
 	int i;
@@ -250,7 +250,7 @@ bool CIN_NeedNextFrame( cinematics_t *cin, unsigned int curtime )
 /*
 * CIN_ReadNextFrame_
 */
-static uint8_t *CIN_ReadNextFrame_( cinematics_t *cin, int *width, int *height, 
+static uint8_t *CIN_ReadNextFrame_( cinematics_t *cin, int *width, int *height,
 	int *aspect_numerator, int *aspect_denominator, bool *redraw, bool yuv )
 {
 	int i;
@@ -305,17 +305,17 @@ static uint8_t *CIN_ReadNextFrame_( cinematics_t *cin, int *width, int *height,
 /*
 * CIN_ReadNextFrame
 */
-uint8_t *CIN_ReadNextFrame( cinematics_t *cin, int *width, int *height, 
+uint8_t *CIN_ReadNextFrame( cinematics_t *cin, int *width, int *height,
 	int *aspect_numerator, int *aspect_denominator, bool *redraw )
 {
-	return CIN_ReadNextFrame_( cin, width, height, 
+	return CIN_ReadNextFrame_( cin, width, height,
 		aspect_numerator, aspect_denominator, redraw, false );
 }
 
 /*
 * CIN_ReadNextFrameYUV
 */
-cin_yuv_t *CIN_ReadNextFrameYUV( cinematics_t *cin, int *width, int *height, 
+cin_yuv_t *CIN_ReadNextFrameYUV( cinematics_t *cin, int *width, int *height,
 	int *aspect_numerator, int *aspect_denominator, bool *redraw )
 {
 	return ( cin_yuv_t * )CIN_ReadNextFrame_( cin, width, height, aspect_numerator, aspect_denominator, redraw, true );
@@ -332,7 +332,7 @@ void CIN_ClearRawSamplesListeners( cinematics_t *cin )
 /*
 * CIN_AddRawSamplesListener
 */
-bool CIN_AddRawSamplesListener( cinematics_t *cin, void *listener, 
+bool CIN_AddRawSamplesListener( cinematics_t *cin, void *listener,
 	cin_raw_samples_cb_t raw_samples, cin_get_raw_samples_cb_t get_raw_samples )
 {
 	int i;
@@ -352,7 +352,7 @@ bool CIN_AddRawSamplesListener( cinematics_t *cin, void *listener,
 	}
 
 	for( i = 0; i < cin->num_listeners; i++ ) {
-		if( cin->listeners[i].listener == listener 
+		if( cin->listeners[i].listener == listener
 			&& cin->listeners[i].raw_samples == raw_samples )
 			return true;
 	}
@@ -368,7 +368,7 @@ bool CIN_AddRawSamplesListener( cinematics_t *cin, void *listener,
 /*
 * CIN_RawSamplesToListeners
 */
-void CIN_RawSamplesToListeners( cinematics_t *cin, unsigned int samples, unsigned int rate, 
+void CIN_RawSamplesToListeners( cinematics_t *cin, unsigned int samples, unsigned int rate,
 		unsigned short width, unsigned short channels, const uint8_t *data )
 {
 	int i;
@@ -397,7 +397,7 @@ unsigned int CIN_GetRawSamplesLengthFromListeners( cinematics_t *cin )
 	unsigned int length = 0;
 
 	for( i = 0; i < cin->num_listeners; i++ ) {
-		unsigned int l = cin->listeners[i].get_raw_samples ? 
+		unsigned int l = cin->listeners[i].get_raw_samples ?
 			cin->listeners[i].get_raw_samples( cin->listeners[i].listener ) : 0;
 		length = max( length, l );
 	}

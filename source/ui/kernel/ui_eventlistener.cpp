@@ -89,7 +89,7 @@ public:
 				event.GetPhase() );
 		}
 
-		if( event.GetType() == "keydown" && 
+		if( event.GetType() == "keydown" &&
 			( event.GetPhase() == Rocket::Core::Event::PHASE_TARGET || event.GetPhase() == Rocket::Core::Event::PHASE_BUBBLE ) )
 		{
 			int key = event.GetParameter<int>( "key_identifier", 0 );

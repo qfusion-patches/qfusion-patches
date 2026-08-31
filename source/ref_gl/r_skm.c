@@ -41,14 +41,14 @@ IQM MODELS
 
 /*
 * Mod_SkeletalBuildStaticVBOForMesh
-* 
+*
 * Builds a static vertex buffer object for given skeletal model mesh
 */
 static void Mod_SkeletalBuildStaticVBOForMesh( mskmesh_t *mesh )
 {
 	mesh_t skmmesh;
 	vattribmask_t vattribs;
-	
+
 	vattribs = VATTRIB_POSITION_BIT | VATTRIB_TEXCOORDS_BIT | VATTRIB_NORMAL_BIT | VATTRIB_SVECTOR_BIT;
 	if( glConfig.maxGLSLBones > 0 ) {
 		vattribs |= VATTRIB_BONES_BITS;
@@ -57,7 +57,7 @@ static void Mod_SkeletalBuildStaticVBOForMesh( mskmesh_t *mesh )
 		vattribs |= mesh->skin.shader->vattribs;
 	}
 
-	mesh->vbo = R_CreateMeshVBO( ( void * )mesh, 
+	mesh->vbo = R_CreateMeshVBO( ( void * )mesh,
 		mesh->numverts, mesh->numtris * 3, 0, vattribs, VBO_TAG_MODEL, vattribs );
 
 	if( !mesh->vbo ) {
@@ -78,7 +78,7 @@ static void Mod_SkeletalBuildStaticVBOForMesh( mskmesh_t *mesh )
 	skmmesh.blendIndices = mesh->blendIndices;
 	skmmesh.blendWeights = mesh->blendWeights;
 
-	R_UploadVBOVertexData( mesh->vbo, 0, vattribs, &skmmesh ); 
+	R_UploadVBOVertexData( mesh->vbo, 0, vattribs, &skmmesh );
 	R_UploadVBOElemData( mesh->vbo, 0, 0, &skmmesh );
 }
 
@@ -108,7 +108,7 @@ static void Mod_TouchSkeletalModel( model_t *mod )
 
 /*
 * Mod_SkeletalModel_AddBlend
-* 
+*
 * If there's only one influencing bone, return its index early.
 * Otherwise lookup identical blending combination.
 */
@@ -120,7 +120,7 @@ static int Mod_SkeletalModel_AddBlend( mskmodel_t *model, const mskblend_t *newb
 
 	t = *newblend;
 
-	// sort influences in descending order	
+	// sort influences in descending order
 	for( i = 0; i < SKM_MAX_WEIGHTS; i++ ) {
 		for( j = i + 1; j < SKM_MAX_WEIGHTS; j++ ) {
 			if( t.weights[i] < t.weights[j] ) {
@@ -295,7 +295,7 @@ void Mod_LoadSkeletalModel( model_t *mod, const model_t *parent, void *buffer, b
 		va.offset = LittleLong( va.offset );
 
 		vsize = header->num_vertexes*va.size;
-		switch( va.format ) { 
+		switch( va.format ) {
 			case IQM_FLOAT:
 				vsize *= sizeof( float );
 				break;
@@ -361,8 +361,8 @@ void Mod_LoadSkeletalModel( model_t *mod, const model_t *parent, void *buffer, b
 		}
 	}
 
-	if( !vposition || !vtexcoord 
-		|| !(vblendindices_byte || vblendindexes_int) 
+	if( !vposition || !vtexcoord
+		|| !(vblendindices_byte || vblendindexes_int)
 		|| !(vblendweights_byte || vblendweights_float) ) {
 		ri.Com_Printf( S_COLOR_RED "ERROR: %s is missing vertex array data\n", mod->name );
 		goto error;
@@ -576,7 +576,7 @@ void Mod_LoadSkeletalModel( model_t *mod, const model_t *parent, void *buffer, b
 
 	if( !vtangent ) {
 		// if the loaded file is missing precomputed S-vectors, compute them now
-		R_BuildTangentVectors( poutmodel->numverts, poutmodel->xyzArray, poutmodel->normalsArray, poutmodel->stArray, 
+		R_BuildTangentVectors( poutmodel->numverts, poutmodel->xyzArray, poutmodel->normalsArray, poutmodel->stArray,
 			poutmodel->numtris, poutmodel->elems, poutmodel->sVectorsArray );
 	}
 
@@ -933,7 +933,7 @@ void R_InitSkeletalCache( void )
 static uint8_t *R_GetSkeletalCache( int entNum, int lodNum )
 {
 	skmcacheentry_t *cache;
-	
+
 	cache = r_skmcachekeys[entNum*(MOD_MAX_LODS+1) + lodNum];
 	if( !cache ) {
 		return NULL;
@@ -943,10 +943,10 @@ static uint8_t *R_GetSkeletalCache( int entNum, int lodNum )
 
 /*
 * R_AllocSkeletalDataCache
-* 
+*
 * Allocates or reuses a memory chunk and links it to entity+LOD num pair. The chunk
 * is then linked to other chunks allocated in the same frame. At the end of the frame
-* all of the entries in the "allocation" list are moved to the "free" list, to be reused in the 
+* all of the entries in the "allocation" list are moved to the "free" list, to be reused in the
 * later function calls.
 */
 static uint8_t *R_AllocSkeletalDataCache( int entNum, int lodNum, size_t size )
@@ -1011,7 +1011,7 @@ static uint8_t *R_AllocSkeletalDataCache( int entNum, int lodNum, size_t size )
 
 /*
 * R_ClearSkeletalCache
-* 
+*
 * Remove entries from the "allocation" list to the "free" list.
 * FIXME: this can probably be optimized a bit better.
 */
@@ -1222,7 +1222,7 @@ void R_DrawSkeletalSurf( const entity_t *e, const shader_t *shader, const mfog_t
 		// fastpath: render static frame 0 as is
 		RB_BindVBO( skmesh->vbo->index, GL_TRIANGLES );
 
-		RB_DrawElements( 0, skmesh->numverts, 0, skmesh->numtris * 3, 
+		RB_DrawElements( 0, skmesh->numverts, 0, skmesh->numtris * 3,
 			0, skmesh->numverts, 0, skmesh->numtris * 3 );
 
 		return;
@@ -1300,7 +1300,7 @@ void R_DrawSkeletalSurf( const entity_t *e, const shader_t *shader, const mfog_t
 			}
 		}
 
-		bonePoseRelativeDQ = ( dualquat_t * )R_AllocSkeletalDataCache( R_ENT2NUM( e ), mod->lodnum, 
+		bonePoseRelativeDQ = ( dualquat_t * )R_AllocSkeletalDataCache( R_ENT2NUM( e ), mod->lodnum,
 			bonePoseRelativeDQSize + bonePoseRelativeMatSize );
 
 		// generate dual quaternions for all bones
@@ -1327,7 +1327,7 @@ void R_DrawSkeletalSurf( const entity_t *e, const shader_t *shader, const mfog_t
 	{
 		RB_BindVBO( skmesh->vbo->index, GL_TRIANGLES );
 		RB_SetBonesData( skmodel->numbones, bonePoseRelativeDQ, skmesh->maxWeights );
-		RB_DrawElements( 0, skmesh->numverts, 0, skmesh->numtris * 3, 
+		RB_DrawElements( 0, skmesh->numverts, 0, skmesh->numtris * 3,
 			0, skmesh->numverts, 0, skmesh->numtris * 3 );
 	}
 	else

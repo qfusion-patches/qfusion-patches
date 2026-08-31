@@ -191,7 +191,7 @@ static int consolebinded = 0;
 
 /*
 * Key_StringToKeynum
-* 
+*
 * Returns a key number to be used to index keybindings[] by looking at
 * the given string.  Single ascii characters return themselves, while
 * the K_* names are matched up.
@@ -215,7 +215,7 @@ int Key_StringToKeynum( const char *str )
 
 /*
 * Key_KeynumToString
-* 
+*
 * Returns a string (either a single ascii char, or a K_* name) for the
 * given keynum.
 * FIXME: handle quote special (general escape sequence?)
@@ -350,7 +350,7 @@ static void Key_Bind_f( void )
 
 /*
 * Key_WriteBindings
-* 
+*
 * Writes lines containing "bind key value"
 */
 void Key_WriteBindings( int file )
@@ -379,7 +379,7 @@ static void Key_Bindlist_f( void )
 
 /*
 * Key_IsToggleConsole
-* 
+*
 * If nothing is bound to toggleconsole, we use default key for it
 * Also toggleconsole is specially handled, so it's never outputed to the console or so
 */
@@ -406,7 +406,7 @@ static bool Key_IsToggleConsole( int key )
 
 /*
 * Key_IsNonPrintable
-* 
+*
 * Called by sys code to avoid garbage if the toggleconsole
 * key happens to be a dead key (like in the German layout)
 */
@@ -524,7 +524,7 @@ void Key_Shutdown( void )
 
 /*
 * Key_CharEvent
-* 
+*
 * Called by the system between frames for key down events for standard characters
 * Should NOT be called during an interrupt!
 */
@@ -558,7 +558,7 @@ void Key_CharEvent( int key, wchar_t charkey )
 
 /*
 * Key_MouseEvent
-* 
+*
 * A wrapper around Key_Event to generate double click events
 * A typical sequence of events will look like this:
 * +MOUSE1 - user pressed button
@@ -567,7 +567,7 @@ void Key_CharEvent( int key, wchar_t charkey )
 * +MOUSE1DBLCLK - inserted by Key_MouseEvent
 * -MOUSE1DBLCLK - inserted by Key_MouseEvent
 * -MOUSE1 - user released button
-* (This order is not final! We might want to suppress the second pair of 
+* (This order is not final! We might want to suppress the second pair of
 * mouse1 down/up events, or make +MOUSE1DBLCLK come before +MOUSE1)
 */
 void Key_MouseEvent( int key, bool down, unsigned time )
@@ -641,7 +641,7 @@ static int Key_NumPadKeyValue( int key )
 
 /*
 * Key_Event
-* 
+*
 * Called by the system between frames for both key up and key down events
 * Should NOT be called during an interrupt!
 */

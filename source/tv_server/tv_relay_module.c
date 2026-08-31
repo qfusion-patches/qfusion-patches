@@ -227,7 +227,7 @@ static int TV_Module_GetClientState( relay_t *relay, int numClient )
 
 /*
 * TV_Module_GameCmd
-* 
+*
 * Sends the server command to clients.
 * if numClient is -1 the command will be sent to all connected clients
 */
@@ -273,7 +273,7 @@ static void TV_Module_GameCmd( relay_t *relay, int numClient, const char *cmd )
 
 /*
 * TV_Module_Print
-* 
+*
 * Debug print to server console
 */
 static void TV_Module_Print( const char *msg )
@@ -589,7 +589,7 @@ tv_module_t *TV_GetModule( const char *game )
 		iter->export = builtinAPIfunc( &iter->import );
 	}
 	else {
-		iter->export = (tv_module_export_t *)Com_LoadGameLibrary( "tv", "GetTVModuleAPI", &iter->handle, 
+		iter->export = (tv_module_export_t *)Com_LoadGameLibrary( "tv", "GetTVModuleAPI", &iter->handle,
 			&iter->import, false, NULL );
 	}
 	if( !iter->export )
@@ -625,7 +625,7 @@ static void TV_Relay_FreeModule( relay_t *relay )
 
 /*
 * TV_Relay_ShutdownModule
-* 
+*
 * Called when either the entire server is being killed, or
 * it is changing to a different game directory.
 */
@@ -644,7 +644,7 @@ void TV_Relay_ShutdownModule( relay_t *relay )
 
 /*
 * TV_Relay_InitModule
-* 
+*
 * Init the game subsystem for a new map
 */
 void TV_Relay_InitModule( relay_t *relay )

@@ -80,7 +80,7 @@ public:
 	/// @return The value of the form control.
 	String GetValue( void ) const
 	{
-		if(items.empty() || formatted_items.empty() || 
+		if(items.empty() || formatted_items.empty() ||
 		   items.size() != formatted_items.size() ||
 		   currentItem < 0 || (size_t)currentItem >= items.size())
 			return "";
@@ -252,7 +252,7 @@ private:
 			currentItem = 0;
 
 		this->SetInnerRML( formatted_items[currentItem].CString() );
-		
+
 		SetValue( items[currentItem].CString() );
 	}
 
@@ -272,7 +272,7 @@ private:
 			currentItem = formatted_items.size() - 1;
 
 		this->SetInnerRML( formatted_items[currentItem].CString() );
-		
+
 		SetValue( items[currentItem].CString() );
 	}
 

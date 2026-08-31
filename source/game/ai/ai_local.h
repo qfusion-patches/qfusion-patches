@@ -228,7 +228,7 @@ typedef struct
 {
 	const char *name;
 	float default_yaw_speed;
-	float reaction_time;		
+	float reaction_time;
 	float combatmove_timeout;
 	float yaw_accel;
 	float offensiveness;

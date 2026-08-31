@@ -196,8 +196,8 @@ bool R_CompletelyFogged( const mfog_t *fog, vec3_t origin, float radius )
 	// globalfog is not NULL and we're inside the world boundaries
 	if( fog && fog->shader && fog == rn.fog_eye )
 	{
-		float vpnDist = ( ( rn.viewOrigin[0] - origin[0] ) * rn.viewAxis[AXIS_FORWARD+0] + 
-			( rn.viewOrigin[1] - origin[1] ) * rn.viewAxis[AXIS_FORWARD+1] + 
+		float vpnDist = ( ( rn.viewOrigin[0] - origin[0] ) * rn.viewAxis[AXIS_FORWARD+0] +
+			( rn.viewOrigin[1] - origin[1] ) * rn.viewAxis[AXIS_FORWARD+1] +
 			( rn.viewOrigin[2] - origin[2] ) * rn.viewAxis[AXIS_FORWARD+2] );
 		return ( ( vpnDist + radius ) / fog->shader->fog_dist ) < -1;
 	}
@@ -363,7 +363,7 @@ static bool R_AddSpriteToDrawList( const entity_t *e )
 	if( dist <= 0 )
 		return false; // cull it because we don't want to sort unneeded things
 
-	if( !R_AddSurfToDrawList( rn.meshlist, e, R_FogForSphere( e->origin, e->radius ), 
+	if( !R_AddSurfToDrawList( rn.meshlist, e, R_FogForSphere( e->origin, e->radius ),
 		e->customShader, dist, 0, NULL, &spriteDrawSurf ) ) {
 		return false;
 	}
@@ -389,7 +389,7 @@ mesh_vbo_t *R_InitNullModelVBO( void )
 	mesh_t mesh;
 	vattribmask_t vattribs = VATTRIB_POSITION_BIT | VATTRIB_TEXCOORDS_BIT | VATTRIB_COLOR0_BIT;
 	mesh_vbo_t *vbo;
-	
+
 	vbo = R_CreateMeshVBO( &rf, 6, 6, 0, vattribs, VBO_TAG_NONE, vattribs );
 	if( !vbo ) {
 		return NULL;
@@ -445,7 +445,7 @@ void R_DrawNullSurf( const entity_t *e, const shader_t *shader, const mfog_t *fo
 */
 static bool R_AddNullSurfToDrawList( const entity_t *e )
 {
-	if( !R_AddSurfToDrawList( rn.meshlist, e, R_FogForSphere( e->origin, 0.1f ), 
+	if( !R_AddSurfToDrawList( rn.meshlist, e, R_FogForSphere( e->origin, 0.1f ),
 		rsh.whiteShader, 0, 0, NULL, &nullDrawSurf ) ) {
 		return false;
 	}
@@ -515,7 +515,7 @@ void R_Set2DMode( bool enable )
 /*
 * R_DrawRotatedStretchPic
 */
-void R_DrawRotatedStretchPic( int x, int y, int w, int h, float s1, float t1, float s2, float t2, float angle, 
+void R_DrawRotatedStretchPic( int x, int y, int w, int h, float s1, float t1, float s2, float t2, float angle,
 	const vec4_t color, const shader_t *shader )
 {
 	int bcolor;
@@ -531,10 +531,10 @@ void R_DrawRotatedStretchPic( int x, int y, int w, int h, float s1, float t1, fl
 	// lower-left
 	Vector2Set( pic_xyz[0], x, y );
 	Vector2Set( pic_st[0], s1, t1 );
-	Vector4Set( pic_colors[0], 
-		bound( 0, ( int )( color[0] * 255.0f ), 255 ), 
+	Vector4Set( pic_colors[0],
+		bound( 0, ( int )( color[0] * 255.0f ), 255 ),
 		bound( 0, ( int )( color[1] * 255.0f ), 255 ),
-		bound( 0, ( int )( color[2] * 255.0f ), 255 ), 
+		bound( 0, ( int )( color[2] * 255.0f ), 255 ),
 		bound( 0, ( int )( color[3] * 255.0f ), 255 ) );
 	bcolor = *(int *)pic_colors[0];
 
@@ -578,7 +578,7 @@ void R_DrawRotatedStretchPic( int x, int y, int w, int h, float s1, float t1, fl
 /*
 * R_DrawStretchPic
 */
-void R_DrawStretchPic( int x, int y, int w, int h, float s1, float t1, float s2, float t2, 
+void R_DrawStretchPic( int x, int y, int w, int h, float s1, float t1, float s2, float t2,
 	const vec4_t color, const shader_t *shader )
 {
 	R_DrawRotatedStretchPic( x, y, w, h, s1, t1, s2, t2, 0, color, shader );
@@ -620,7 +620,7 @@ void R_UploadRawYUVPic( image_t **yuvTextures, ref_img_plane_t *yuv )
 			uint8_t *nodata[1] = { NULL };
 			R_ReplaceImage( yuvTextures[i], nodata, stride, height, flags, 1, 1 );
 		}
-		R_ReplaceSubImage( yuvTextures[i], 0, 0, 0, &data, stride, height );		
+		R_ReplaceSubImage( yuvTextures[i], 0, 0, 0, &data, stride, height );
 	}
 }
 
@@ -647,7 +647,7 @@ void R_DrawStretchRaw( int x, int y, int w, int h, float s1, float t1, float s2,
 * Set bit 0 in 'flip' to flip the image horizontally
 * Set bit 1 in 'flip' to flip the image vertically
 */
-void R_DrawStretchRawYUVBuiltin( int x, int y, int w, int h, 
+void R_DrawStretchRawYUVBuiltin( int x, int y, int w, int h,
 	float s1, float t1, float s2, float t2, image_t **yuvTextures, int flip )
 {
 	static char *s_name = "$builtinyuv";
@@ -719,7 +719,7 @@ void R_DrawStretchRawYUV( int x, int y, int w, int h, float s1, float t1, float 
 /*
 * R_DrawStretchQuick
 */
-void R_DrawStretchQuick( int x, int y, int w, int h, float s1, float t1, float s2, float t2, 
+void R_DrawStretchQuick( int x, int y, int w, int h, float s1, float t1, float s2, float t2,
 	const vec4_t color, int program_type, image_t *image, int blendMask )
 {
 	static char *s_name = "$builtinimage";
@@ -840,7 +840,7 @@ mesh_vbo_t *R_InitPostProcessingVBO( void )
 	mesh_t mesh;
 	vattribmask_t vattribs = VATTRIB_POSITION_BIT|VATTRIB_TEXCOORDS_BIT;
 	mesh_vbo_t *vbo;
-	
+
 	vbo = R_CreateMeshVBO( &rf, 4, 6, 0, vattribs, VBO_TAG_NONE, vattribs );
 	if( !vbo ) {
 		return NULL;
@@ -997,11 +997,11 @@ static void R_SetupViewMatrices( void )
 	Matrix4_Modelview( rd->vieworg, rd->viewaxis, rn.cameraMatrix );
 
 	if( rd->rdflags & RDF_USEORTHO ) {
-		Matrix4_OrthogonalProjection( -rd->ortho_x, rd->ortho_x, -rd->ortho_y, rd->ortho_y, 
+		Matrix4_OrthogonalProjection( -rd->ortho_x, rd->ortho_x, -rd->ortho_y, rd->ortho_y,
 			-rn.farClip, rn.farClip, rn.projectionMatrix );
 	}
 	else {
-		Matrix4_PerspectiveProjection( rd->fov_x, rd->fov_y, 
+		Matrix4_PerspectiveProjection( rd->fov_x, rd->fov_y,
 			Z_NEAR, rn.farClip, rf.cameraSeparation, rn.projectionMatrix );
 	}
 
@@ -1209,7 +1209,7 @@ void R_RenderView( const refdef_t *fd )
 
 	rn.shadowBits = 0;
 	rn.dlightBits = 0;
-	
+
 	rn.numPortalSurfaces = 0;
 	rn.numDepthPortalSurfaces = 0;
 	rn.skyportalSurface = NULL;
@@ -1580,10 +1580,10 @@ void R_RenderDebugSurface( const refdef_t *fd )
 	vec3_t forward;
 	vec3_t start, end;
 	msurface_t *debugSurf = NULL;
-	
+
 	if( fd->rdflags & RDF_NOWORLDMODEL )
 		return;
-	
+
 	if( r_speeds->integer == 4 || r_speeds->integer == 5 )
 	{
 		msurface_t *surf = NULL;
@@ -1591,18 +1591,18 @@ void R_RenderDebugSurface( const refdef_t *fd )
 		VectorCopy( &fd->viewaxis[AXIS_FORWARD], forward );
 		VectorCopy( fd->vieworg, start );
 		VectorMA( start, 4096, forward, end );
-		
+
 		surf = R_TraceLine( &tr, start, end, 0 );
 		if( surf && surf->drawSurf && !r_showtris->integer )
 		{
 			R_ClearDrawList( rn.meshlist );
-			
+
 			R_ClearDrawList( rn.portalmasklist );
-			
+
 			if( R_AddSurfToDrawList( rn.meshlist, R_NUM2ENT(tr.ent), NULL, surf->shader, 0, 0, NULL, surf->drawSurf ) ) {
 				if( rn.refdef.rdflags & RDF_FLIPPED )
 					RB_FlipFrontFace();
-				
+
 				if( r_speeds->integer == 5 ) {
 					// VBO debug mode
 					R_AddVBOSlice( surf->drawSurf - rsh.worldBrushModel->drawSurfaces,
@@ -1615,17 +1615,17 @@ void R_RenderDebugSurface( const refdef_t *fd )
 								  surf->mesh->numVerts, surf->mesh->numElems,
 								  surf->firstDrawSurfVert, surf->firstDrawSurfElem );
 				}
-				
+
 				R_DrawOutlinedSurfaces( rn.meshlist );
-				
+
 				if( rn.refdef.rdflags & RDF_FLIPPED )
 					RB_FlipFrontFace();
-				
+
 				debugSurf = surf;
 			}
 		}
 	}
-	
+
 	ri.Mutex_Lock( rf.debugSurfaceLock );
 	rf.debugSurface = debugSurf;
 	ri.Mutex_Unlock( rf.debugSurfaceLock );
@@ -1706,10 +1706,10 @@ void R_EndFrame( void )
 	RB_FlushDynamicMeshes();
 
 	R_PolyBlend();
-	
+
 	R_ApplyBrightness();
 
-	// reset the 2D state so that the mode will be 
+	// reset the 2D state so that the mode will be
 	// properly set back again in R_BeginFrame
 	R_Set2DMode( false );
 

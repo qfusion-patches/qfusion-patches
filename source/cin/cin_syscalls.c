@@ -24,7 +24,7 @@ cin_import_t CIN_IMPORT;
 
 /*
 * GetCinematicsAPI
-* 
+*
 * Returns a pointer to the structure with all entry points
 */
 QF_DLL_EXPORT cin_export_t *GetCinematicsAPI( cin_import_t *import )

@@ -142,11 +142,11 @@ void CG_AddShellEffects( entity_t *ent, int effects );
 bool CG_GrabTag( orientation_t *tag, entity_t *ent, const char *tagname );
 void CG_PlaceModelOnTag( entity_t *ent, entity_t *dest, orientation_t *tag );
 void CG_PlaceRotatedModelOnTag( entity_t *ent, entity_t *dest, orientation_t *tag );
-void CG_MoveToTag( vec3_t move_origin, 
-	mat3_t move_axis, 
-	const vec3_t space_origin, 
-	const mat3_t space_axis, 
-	const vec3_t tag_origin, 
+void CG_MoveToTag( vec3_t move_origin,
+	mat3_t move_axis,
+	const vec3_t space_origin,
+	const mat3_t space_axis,
+	const vec3_t tag_origin,
 	const mat3_t tag_axis );
 
 //pmodels
@@ -189,4 +189,3 @@ typedef struct
 	// other effects
 	orientation_t projectionSource;
 } cg_viewweapon_t;
-

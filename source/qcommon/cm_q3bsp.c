@@ -206,7 +206,7 @@ static void CM_CreatePatch( cmodel_state_t *cms, cface_t *patch, cshaderref_t *s
 	Patch_Evaluate( vec_t, 3, verts[0], patch_cp, step, patchpoints[0], 0 );
 	Patch_RemoveLinearColumnsRows( patchpoints[0], 3, &size[0], &size[1], 0, NULL, NULL );
 
-	data = Mem_Alloc( cms->mempool, size[0] * size[1] * sizeof( vec3_t ) + 
+	data = Mem_Alloc( cms->mempool, size[0] * size[1] * sizeof( vec3_t ) +
 		( size[0]-1 ) * ( size[1]-1 ) * 2 * ( sizeof( cbrush_t ) + 32 * sizeof( cplane_t ) ) );
 
 	points = ( vec3_t * )data; data += size[0] * size[1] * sizeof( vec3_t );

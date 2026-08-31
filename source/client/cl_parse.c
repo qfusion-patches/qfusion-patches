@@ -29,7 +29,7 @@ void CL_StopServerDownload( void );
 
 /*
 * CL_CanDownloadModules
-* 
+*
 * The user has to give permission for modules to be downloaded
 */
 bool CL_CanDownloadModules( void )
@@ -52,7 +52,7 @@ bool CL_CanDownloadModules( void )
 
 /*
 * CL_DownloadRequest
-* 
+*
 * Request file download
 * return false if couldn't request it for some reason
 * Files with .pk3 or .pak extension have to have gamedir attached
@@ -126,7 +126,7 @@ bool CL_DownloadRequest( const char *filename, bool requestpak )
 
 /*
 * CL_CheckOrDownloadFile
-* 
+*
 * Returns true if the file exists or couldn't send download request
 * Files with .pk3 or .pak extension have to have gamedir attached
 * Other files must not have gamedir
@@ -166,7 +166,7 @@ bool CL_CheckOrDownloadFile( const char *filename )
 
 /*
 * CL_DownloadComplete
-* 
+*
 * Checks downloaded file's checksum, renames it and adds to the filesystem.
 */
 static void CL_DownloadComplete( void )
@@ -297,7 +297,7 @@ static void CL_WebDownloadDoneCb( int status, const char *contentType, void *pri
 		CL_Disconnect( NULL ); // this also calls CL_DownloadDone()
 		return;
 	}
-	
+
 	// try a non-official mirror (the builtin HTTP server or a remote mirror)
 	if( !success && !cancelled && try_non_official ) {
 		int size = download.size;
@@ -309,12 +309,12 @@ static void CL_WebDownloadDoneCb( int status, const char *contentType, void *pri
 		cls.download.cancelled = true; // remove the temp file
 		CL_StopServerDownload();
 		CL_InitServerDownload( filename, size, checksum, allow_localhttp, url, false );
-		
+
 		Mem_Free( filename );
 		Mem_Free( url );
 		return;
 	}
-	
+
 	CL_DownloadDone();
 }
 
@@ -347,7 +347,7 @@ static size_t CL_WebDownloadReadCb( const void *buf, size_t numb, float percenta
 
 /*
 * CL_InitDownload
-* 
+*
 * Hanldles server's initdownload message, starts web or server download if possible
 */
 static void CL_InitServerDownload( const char *filename, int size, unsigned checksum, bool allow_localhttpdownload,
@@ -618,7 +618,7 @@ static void CL_InitServerDownload( const char *filename, int size, unsigned chec
 
 		CL_AddSessionHttpRequestHeaders( fullurl, &headers[2] );
 
-		CL_AsyncStreamRequest( fullurl, headers, cl_downloads_from_web_timeout->integer / 100, cls.download.offset, 
+		CL_AsyncStreamRequest( fullurl, headers, cl_downloads_from_web_timeout->integer / 100, cls.download.offset,
 			CL_WebDownloadReadCb, CL_WebDownloadDoneCb, NULL, NULL, false );
 
 		return;
@@ -640,18 +640,18 @@ static void CL_InitDownload_f( void )
 	int size;
 	unsigned checksum;
 	bool allow_localhttpdownload;
-	
+
 	// ignore download commands coming from demo files
 	if( cls.demo.playing )
 		return;
-	
+
 	// read the data
 	filename = Cmd_Argv( 1 );
 	size = atoi( Cmd_Argv( 2 ) );
 	checksum = strtoul( Cmd_Argv( 3 ), NULL, 10 );
 	allow_localhttpdownload = ( atoi( Cmd_Argv( 4 ) ) != 0 ) && cls.httpbaseurl != NULL;
 	url = Cmd_Argv( 5 );
-	
+
 	CL_InitServerDownload( filename, size, checksum, allow_localhttpdownload, url, true );
 }
 
@@ -1063,8 +1063,8 @@ static void CL_ParseFrame( msg_t *msg )
 				cls.demo.meta_data_realsize = SNAP_ClearDemoMeta( cls.demo.meta_data, sizeof( cls.demo.meta_data ) );
 
 				// write out messages to hold the startup information
-				SNAP_BeginDemoRecording( cls.demo.file, 0x10000 + cl.servercount, cl.snapFrameTime, 
-					cl.servermessage, cls.reliable ? SV_BITFLAGS_RELIABLE : 0, cls.purelist, 
+				SNAP_BeginDemoRecording( cls.demo.file, 0x10000 + cl.servercount, cl.snapFrameTime,
+					cl.servermessage, cls.reliable ? SV_BITFLAGS_RELIABLE : 0, cls.purelist,
 					cl.configstrings[0], cl_baselines );
 
 				// the rest of the demo file will be individual frames
@@ -1155,7 +1155,7 @@ static void CL_CvarInfoRequest_f( void )
 			CL_AddReliableCommand( va( "%s\"too long\"", string ) );
 		else
 			CL_AddReliableCommand( "cvarinfo \"invalid\"" );
-			
+
 		return;
 	}
 
@@ -1360,7 +1360,7 @@ void CL_ParseServerMessage( msg_t *msg )
 			}
 			// fall through
 		case svc_servercs: // configstrings from demo files. they don't have acknowledge
-			CL_ParseServerCommand( msg );	
+			CL_ParseServerCommand( msg );
 			break;
 
 		case svc_serverdata:

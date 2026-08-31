@@ -578,7 +578,7 @@ static int Shader_SetImageFlags( shader_t *shader )
 		flags |= IT_NOCOMPRESS;
 	if( r_shaderNoFiltering )
 		flags |= IT_NOFILTERING;
-	if( shader->type == SHADER_TYPE_2D 
+	if( shader->type == SHADER_TYPE_2D
 		|| shader->type == SHADER_TYPE_2D_RAW
 		|| shader->type == SHADER_TYPE_VIDEO )
 		flags |= IT_SYNC;
@@ -689,9 +689,9 @@ static void Shader_DeformVertexes( shader_t *shader, shaderpass_t *pass, const c
 		deformv->type = DEFORMV_WAVE;
 		deformv->args[0] = Shader_ParseFloat( ptr );
 		Shader_ParseFunc( ptr, func );
-		Q_strncatz( r_shaderDeformvKey, 
-			va_r( tmp, sizeof( tmp ), "%g%i%g%g%g%g", 
-			deformv->args[0], func->type, func->args[0], func->args[1], func->args[2], func->args[3] ), 
+		Q_strncatz( r_shaderDeformvKey,
+			va_r( tmp, sizeof( tmp ), "%g%i%g%g%g%g",
+			deformv->args[0], func->type, func->args[0], func->args[1], func->args[2], func->args[3] ),
 			sizeof( r_shaderDeformvKey ) );
 		deformv->args[0] = deformv->args[0] ? 1.0f / deformv->args[0] : 100.0f;
 	}
@@ -699,9 +699,9 @@ static void Shader_DeformVertexes( shader_t *shader, shaderpass_t *pass, const c
 	{
 		deformv->type = DEFORMV_BULGE;
 		Shader_ParseVector( ptr, deformv->args, 4 );
-		Q_strncatz( r_shaderDeformvKey, 
-			va_r( tmp, sizeof( tmp ), "%g%g%g%g", 
-			deformv->args[0], deformv->args[1], deformv->args[2], deformv->args[3] ), 
+		Q_strncatz( r_shaderDeformvKey,
+			va_r( tmp, sizeof( tmp ), "%g%g%g%g",
+			deformv->args[0], deformv->args[1], deformv->args[2], deformv->args[3] ),
 			sizeof( r_shaderDeformvKey ) );
 	}
 	else if( !strcmp( token, "move" ) )
@@ -709,10 +709,10 @@ static void Shader_DeformVertexes( shader_t *shader, shaderpass_t *pass, const c
 		deformv->type = DEFORMV_MOVE;
 		Shader_ParseVector( ptr, deformv->args, 3 );
 		Shader_ParseFunc( ptr, &deformv->func );
-		Q_strncatz( r_shaderDeformvKey, 
-			va_r( tmp, sizeof( tmp ), "%g%g%g%i%g%g%g%g", 
+		Q_strncatz( r_shaderDeformvKey,
+			va_r( tmp, sizeof( tmp ), "%g%g%g%i%g%g%g%g",
 			deformv->args[0], deformv->args[1], deformv->args[2],
-			func->type, func->args[0], func->args[1], func->args[2], func->args[3] ), 
+			func->type, func->args[0], func->args[1], func->args[2], func->args[3] ),
 			sizeof( r_shaderDeformvKey ) );
 	}
 	else if( !strcmp( token, "autosprite" ) )
@@ -1250,7 +1250,7 @@ static void Shaderpass_Material( shader_t *shader, shaderpass_t *pass, const cha
 	pass->flags &= ~( SHADERPASS_LIGHTMAP|SHADERPASS_PORTALMAP );
 	if( pass->rgbgen.type == RGB_GEN_UNKNOWN )
 		pass->rgbgen.type = RGB_GEN_IDENTITY;
-	
+
 	// I assume materials are only applied to lightmapped surfaces
 	r_shaderHasLightmapPass = true;
 
@@ -1772,7 +1772,7 @@ void R_PrintShaderList( const char *pattern, bool (*filter)( const char *filter,
 		if( filter && !filter( pattern, shader->name ) ) {
 			continue;
 		}
-		
+
 		Com_Printf( " %2i %2i: %s\n", shader->numpasses, shader->sort, shader->name );
 		numShaders++;
 	}
@@ -1936,7 +1936,7 @@ static void R_InitShadersCache( void )
 	r_shaderTemplateBuf = NULL;
 
 	memset( shadercache_hash, 0, sizeof( shadercache_t * )*SHADERCACHE_HASH_SIZE );
-	
+
 	Com_Printf( "Initializing Shaders:\n" );
 
 	numfiles_total = 0;
@@ -2417,7 +2417,7 @@ static void Shader_Finish( shader_t *s )
 
 		size += pass->numtcmods * sizeof( tcmod_t );
 	}
-	
+
 	size += strlen( oldname ) + 1;
 
 	buffer = R_Malloc( size );
@@ -2496,7 +2496,7 @@ static void Shader_Finish( shader_t *s )
 			pass->flags |= GLSTATE_DEPTHWRITE;
 		if( pass->cin )
 			s->cin = pass->cin;
-		if( ( pass->flags & SHADERPASS_LIGHTMAP || 
+		if( ( pass->flags & SHADERPASS_LIGHTMAP ||
 			pass->program_type == GLSL_PROGRAM_TYPE_MATERIAL ) && ( s->type >= SHADER_TYPE_DELUXEMAP ) )
 			s->flags |= SHADER_LIGHTMAP;
 		if( pass->flags & GLSTATE_DEPTHWRITE )
@@ -2602,7 +2602,7 @@ static size_t R_ShaderCleanName( const char *name, char *shortname, size_t short
 /*
 * R_LoadShaderReal
 */
-static void R_LoadShaderReal( shader_t *s, const char *shortname, 
+static void R_LoadShaderReal( shader_t *s, const char *shortname,
 	size_t shortname_length, const char *longname, shaderType_e type, bool forceDefault )
 {
 	void *data;

@@ -102,7 +102,7 @@ cvar_t *sv_demodir;
 
 /*
 * SV_CalcPings
-* 
+*
 * Updates the cl->ping variables
 */
 static void SV_CalcPings( void )
@@ -373,11 +373,11 @@ static void SV_ReadPackets( void )
 
 /*
 * SV_CheckTimeouts
-* 
+*
 * If a packet has not been received from a client for timeout->value
 * seconds, drop the conneciton.  Server frames are used instead of
 * realtime to avoid dropping the local client while debugging.
-* 
+*
 * When a client is normally dropped, the client_t goes into a zombie state
 * for a few seconds to make sure any final reliable message gets resent
 * if necessary
@@ -731,8 +731,8 @@ static void SV_CheckMatchUUID_Callback( const char *uuid )
 /*
 * SV_CheckMatchUUID
 *
-* See if the game module or the server itself have reset the 
-* match UUID configstring. If so, and we're connected to the 
+* See if the game module or the server itself have reset the
+* match UUID configstring. If so, and we're connected to the
 * matchmaker, fetch a new UUID.
 */
 static void SV_CheckMatchUUID( void )
@@ -812,7 +812,7 @@ void SV_Frame( int realmsec, int gamemsec )
 
 /*
 * SV_UserinfoChanged
-* 
+*
 * Pull specific info from a newly changed userinfo string
 * into a more C friendly form.
 */
@@ -910,7 +910,7 @@ void SV_UserinfoChanged( client_t *client )
 
 /*
 * SV_Init
-* 
+*
 * Only called at plat.exe startup, not for each game
 */
 void SV_Init( void )
@@ -1076,7 +1076,7 @@ void SV_Init( void )
 
 /*
 * SV_Shutdown
-* 
+*
 * Called once when the program is shutting down
 */
 void SV_Shutdown( const char *finalmsg )

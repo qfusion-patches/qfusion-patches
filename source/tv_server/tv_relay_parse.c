@@ -245,7 +245,7 @@ void TV_Relay_ParseServerMessage( relay_t *relay, msg_t *msg )
 		case svc_demoinfo:
 			{
 				int length;
-				
+
 				length = MSG_ReadLong( msg );
 				MSG_SkipData( msg, length );
 			}

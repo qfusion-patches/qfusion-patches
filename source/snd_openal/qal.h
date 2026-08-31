@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define ALC_NO_PROTOTYPES
 #endif
 
-#if defined ( _WIN32 ) 
+#if defined ( _WIN32 )
 #include <al.h>
 #include <alc.h>
 #elif defined ( __MACOSX__ )

@@ -72,23 +72,23 @@ namespace WSWUI
 		}
 	}
 
-	void Refresh( unsigned int time, int clientState, int serverState, 
-		bool demoPlaying, const char *demoName, bool demoPaused, unsigned int demoTime, 
+	void Refresh( unsigned int time, int clientState, int serverState,
+		bool demoPlaying, const char *demoName, bool demoPaused, unsigned int demoTime,
 		bool backGround, bool showCursor )
 	{
 		if( ui_main ) {
-			ui_main->refreshScreen( time, clientState, serverState, 
+			ui_main->refreshScreen( time, clientState, serverState,
 				demoPlaying == true, demoName ? demoName : "",
 				demoPaused == true, demoTime, backGround == true, showCursor == true );
 		}
 	}
 
-	void UpdateConnectScreen( const char *serverName, const char *rejectmessage, 
-		int downloadType, const char *downloadfilename, float downloadPercent, int downloadSpeed, 
+	void UpdateConnectScreen( const char *serverName, const char *rejectmessage,
+		int downloadType, const char *downloadfilename, float downloadPercent, int downloadSpeed,
 		int connectCount, bool backGround )
 	{
 		if( ui_main )
-			ui_main->drawConnectScreen( serverName, rejectmessage, downloadType, downloadfilename, 
+			ui_main->drawConnectScreen( serverName, rejectmessage, downloadType, downloadfilename,
 				downloadPercent, downloadSpeed, connectCount, (backGround == true) );
 	}
 
@@ -109,7 +109,7 @@ namespace WSWUI
 	void CharEvent( int context, wchar_t key )
 	{
 		// Check if the character is printable.
-		// Emitting textinput events for non-printable chars might cause 
+		// Emitting textinput events for non-printable chars might cause
 		// surprising behavior (e.g. backspace key not working in librocket's
 		// text input fields).
 		if( ui_main ) {

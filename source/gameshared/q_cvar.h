@@ -66,4 +66,3 @@ typedef struct cvar_s
 #endif
 
 #endif // GAME_QCVAR_H
-

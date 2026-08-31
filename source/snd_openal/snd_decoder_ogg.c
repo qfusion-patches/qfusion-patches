@@ -415,7 +415,7 @@ bool decoder_ogg_reset( snd_stream_t *stream )
 
 	ogg_stream = (snd_ogg_stream_t *)stream->ptr;
 
-	// can't use ov_pcm_seek on .ogv files because of 
+	// can't use ov_pcm_seek on .ogv files because of
 	// https://trac.xiph.org/ticket/1486
 	// so just seek to the beginning of the file
 	return trap_FS_Seek( ogg_stream->filenum, 0, FS_SEEK_SET ) == 0 ? true : false;

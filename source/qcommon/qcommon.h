@@ -146,7 +146,7 @@ void SNAP_WriteFrameSnapToClient( struct ginfo_s *gi, struct client_s *client, m
 								 int numcmds, gcommand_t *commands, const char *commandsData );
 
 void SNAP_BuildClientFrameSnap( struct cmodel_state_s *cms, struct ginfo_s *gi, unsigned int frameNum, unsigned int timeStamp,
-							   struct fatvis_s *fatvis, struct client_s *client, 
+							   struct fatvis_s *fatvis, struct client_s *client,
 							   game_state_t *gameState, struct client_entities_s *client_entities,
 							   bool relay, struct mempool_s *mempool );
 
@@ -154,8 +154,8 @@ void SNAP_FreeClientFrames( struct client_s *client );
 
 void SNAP_RecordDemoMessage( int demofile, msg_t *msg, int offset );
 int SNAP_ReadDemoMessage( int demofile, msg_t *msg );
-void SNAP_BeginDemoRecording( int demofile, unsigned int spawncount, unsigned int snapFrameTime, 
-								const char *sv_name, unsigned int sv_bitflags, purelist_t *purelist, 
+void SNAP_BeginDemoRecording( int demofile, unsigned int spawncount, unsigned int snapFrameTime,
+								const char *sv_name, unsigned int sv_bitflags, purelist_t *purelist,
 								char *configstrings, entity_state_t *baselines );
 void SNAP_StopDemoRecording( int demofile );
 void SNAP_WriteDemoMetaData( const char *filename, const char *meta_data, size_t meta_data_realsize );
@@ -635,9 +635,9 @@ int         NET_Send( const socket_t *socket, const void *data, size_t length, c
 int64_t		NET_SendFile( const socket_t *socket, int file, size_t offset, size_t count, const netadr_t *address );
 
 void	    NET_Sleep( int msec, socket_t *sockets[] );
-int         NET_Monitor( int msec, socket_t *sockets[], 
-				void (*read_cb)(socket_t *socket, void*), 
-				void (*write_cb)(socket_t *socket, void*), 
+int         NET_Monitor( int msec, socket_t *sockets[],
+				void (*read_cb)(socket_t *socket, void*),
+				void (*write_cb)(socket_t *socket, void*),
 				void (*exception_cb)(socket_t *socket, void*), void *privatep[] );
 const char *NET_ErrorString( void );
 void	    NET_SetErrorString( const char *format, ... );
@@ -777,7 +777,7 @@ void	FS_FreeBaseFile( void *buffer );
 #define FS_LoadCacheFile(path,buffer,stack,stacksize) FS_LoadFileExt(path,FS_CACHE,buffer,stack,stacksize,__FILE__,__LINE__)
 
 /**
-* Maps an existing file on disk for reading. 
+* Maps an existing file on disk for reading.
 * Does *not* work for compressed virtual files.
 *
 * @return mapped pointer to data on disk or NULL if mapping failed or passed size is 0.
@@ -836,7 +836,7 @@ MISC
 
 #define MAX_PRINTMSG	3072
 
-void	    Com_BeginRedirect( int target, char *buffer, int buffersize, 
+void	    Com_BeginRedirect( int target, char *buffer, int buffersize,
 				void ( *flush )(int, const char*, const void*), const void *extra );
 void	    Com_EndRedirect( void );
 void 	    Com_DeferConsoleLogReopen( void );

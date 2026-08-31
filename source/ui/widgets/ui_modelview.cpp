@@ -42,8 +42,8 @@ private:
 
 public:
 	UI_ModelviewWidget( const String &tag )
-		: Element( tag ), 
-		time( 0 ), AutoRotationCenter( false), Initialized( false ), RecomputePosition( false ), 
+		: Element( tag ),
+		time( 0 ), AutoRotationCenter( false), Initialized( false ), RecomputePosition( false ),
 		BonePoses( NULL ), skel( NULL ), modelName( "" ), skinName( "" ),
 		fov_x( 30.0f ), fov_y( 0.0f )
 	{

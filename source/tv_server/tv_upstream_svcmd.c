@@ -166,7 +166,7 @@ static void TV_Upstream_Changing_f( upstream_t *upstream )
 
 /*
 * TV_Upstream_ServerReconnect_f
-* 
+*
 * The server is changing levels
 */
 static void TV_Upstream_ServerReconnect_f( upstream_t *upstream )
@@ -198,7 +198,7 @@ static void TV_Upstream_ServerReconnect_f( upstream_t *upstream )
 
 /*
 * TV_Upstream_ServerDisconnect_f
-* 
+*
 * The server is changing levels
 */
 static void TV_Upstream_ServerDisconnect_f( upstream_t *upstream )

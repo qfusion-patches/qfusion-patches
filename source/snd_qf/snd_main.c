@@ -296,7 +296,7 @@ bool SF_Init( void *hwnd, int maxEntities, bool verbose )
 	trap_Cmd_AddCommand( "soundinfo", SF_SoundInfo_f );
 
 	num_sfx = 0;
-	
+
 	s_num_ent_spats = 0;
 
 	s_registration_sequence = 1;
@@ -316,7 +316,7 @@ bool SF_Init( void *hwnd, int maxEntities, bool verbose )
 	if( !dma.buffer )
 		return false;
 
-	SF_SetAttenuationModel( S_DEFAULT_ATTENUATION_MODEL, 
+	SF_SetAttenuationModel( S_DEFAULT_ATTENUATION_MODEL,
 		S_DEFAULT_ATTENUATION_MAXDISTANCE, S_DEFAULT_ATTENUATION_REFDISTANCE );
 
 	return true;
@@ -336,7 +336,7 @@ void SF_Shutdown( bool verbose )
 
 	// free all sounds
 	SF_FreeSounds();
-	
+
 	// wake up the mixer
 	SF_Activate( true );
 
@@ -345,7 +345,7 @@ void SF_Shutdown( bool verbose )
 
 	// wait for the queue to be processed
 	S_FinishSoundCmdPipe( s_cmdPipe );
-	
+
 	// wait for the backend thread to die
 	trap_Thread_Join( s_backThread );
 	s_backThread = NULL;
@@ -558,7 +558,7 @@ void SF_Update( const vec3_t origin, const vec3_t velocity, const mat3_t axis, b
 /*
 * SF_RawSamples
 */
-void SF_RawSamples( unsigned int samples, unsigned int rate, unsigned short width, 
+void SF_RawSamples( unsigned int samples, unsigned int rate, unsigned short width,
 	unsigned short channels, const uint8_t *data, bool music )
 {
 	size_t data_size = samples * width * channels;
@@ -572,8 +572,8 @@ void SF_RawSamples( unsigned int samples, unsigned int rate, unsigned short widt
 /*
 * SF_PositionedRawSamples
 */
-void SF_PositionedRawSamples( int entnum, float fvol, float attenuation, 
-	unsigned int samples, unsigned int rate, 
+void SF_PositionedRawSamples( int entnum, float fvol, float attenuation,
+	unsigned int samples, unsigned int rate,
 	unsigned short width, unsigned short channels, const uint8_t *data )
 {
 	size_t data_size = samples * width * channels;
@@ -581,7 +581,7 @@ void SF_PositionedRawSamples( int entnum, float fvol, float attenuation,
 
 	memcpy( data_copy, data, data_size );
 
-	S_IssuePositionedRawSamplesCmd( s_cmdPipe, entnum, fvol, attenuation, 
+	S_IssuePositionedRawSamplesCmd( s_cmdPipe, entnum, fvol, attenuation,
 		samples, rate, width, channels, data_copy );
 }
 

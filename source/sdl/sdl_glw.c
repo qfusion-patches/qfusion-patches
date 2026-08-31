@@ -42,7 +42,7 @@ void GLimp_SetWindowIcon( void )
 			0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000 );
 #else
 			0x000000ff, 0x0000ff00, 0x00ff0000, 0xff000000 );
-#endif 
+#endif
 
 		SDL_SetWindowIcon( glw_state.sdl_window, surface );
 
@@ -74,7 +74,7 @@ rserr_t GLimp_SetFullscreenMode( int displayFrequency, bool fullscreen )
 
 static void GLimp_CreateWindow( int x, int y, int width, int height )
 {
-	glw_state.sdl_window = SDL_CreateWindow( glw_state.applicationName, 
+	glw_state.sdl_window = SDL_CreateWindow( glw_state.applicationName,
 		SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_OPENGL );
 
 	if( !glw_state.sdl_window )
@@ -152,7 +152,7 @@ int GLimp_Init( const char *applicationName, void *hinstance, void *wndproc, voi
 	glw_state.applicationName = strdup( applicationName );
 	glw_state.applicationIcon = NULL;
 	memcpy( glw_state.applicationName, applicationName, strlen( applicationName ) + 1 );
-	
+
 	if( iconXPM )
 	{
 		size_t icon_memsize = iconXPM[0] * iconXPM[1] * sizeof( int );
@@ -331,11 +331,11 @@ void GLimp_UpdatePendingWindowSurface( void )
 bool GLimp_SharedContext_Create( void **context, void **surface )
 {
 	SDL_GL_SetAttribute( SDL_GL_SHARE_WITH_CURRENT_CONTEXT, 1 );
-	
+
 	*context = (void*)SDL_GL_CreateContext( glw_state.sdl_window );
 	if( surface )
 		*surface = NULL;
-	
+
 	// SDL_GL_CreateContext makes the newly created context current
 	// we don't want that, so revert to our main context
 	return SDL_GL_MakeCurrent( glw_state.sdl_window, glw_state.sdl_glcontext ) == 0;

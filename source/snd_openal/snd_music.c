@@ -417,7 +417,7 @@ static bool music_process( void )
 		}
 
 		S_RawSamples2( l / (music_stream->info.width * music_stream->info.channels),
-			music_stream->info.rate, music_stream->info.width, 
+			music_stream->info.rate, music_stream->info.width,
 			music_stream->info.channels, decode_buffer, true,
 			s_bgTrackMuted ? 0 : 1 );
 	}
@@ -474,7 +474,7 @@ void S_StartBackgroundTrack( const char *intro, const char *loop, int mode )
 		if( loop && loop[0] )
 			mode = atoi( loop );
 
-		firstTrack = S_ReadPlaylistFile( intro, 
+		firstTrack = S_ReadPlaylistFile( intro,
 			mode & 1 ? true : false, mode & 2 ? true : false );
 		if( firstTrack )
 			goto start_playback;

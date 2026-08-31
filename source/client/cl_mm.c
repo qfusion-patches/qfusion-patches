@@ -492,7 +492,7 @@ static void cl_mm_login_done( stat_query_t *query, bool success, void *customp )
 
 	/*
 	 * ch : new JSON response looks like
-	 * { 
+	 * {
 	 *		ready:	// reflects the 'state of login protocol'
 	 *			-1, // for initial login - LOGIN_RESPONSE_HANDLE
 	 *			1, // for login not ready yet - LOGIN_RESPONSE_WAIT
@@ -512,7 +512,7 @@ static void cl_mm_login_done( stat_query_t *query, bool success, void *customp )
 	{
 		const char *msg = "MM Login: Failed to parse data at step %d";
 		const char *translated = L10n_TranslateString( "common", msg );
-		
+
 		if( !translated )
 			translated = msg;
 
@@ -746,13 +746,13 @@ static bool CL_MM_LoginSteam( void )
 
 	// wait for GetAuthSessionTicket callback but not for too long
 	start_time = Sys_Milliseconds();
-	while( !cl_mm_login_steam_complete ) { 
+	while( !cl_mm_login_steam_complete ) {
 		if( Sys_Milliseconds() > start_time + MM_STEAM_TICKET_AUTH_TIMEOUT ) {
 			break;
 		}
-		Steam_RunFrame(); 
+		Steam_RunFrame();
 	}
-	
+
 	return cl_mm_login_steam_ok;
 }
 

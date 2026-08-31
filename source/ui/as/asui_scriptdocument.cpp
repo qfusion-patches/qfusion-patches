@@ -24,7 +24,7 @@ asIScriptModule *UI_ScriptDocument::GetModule( void ) const
 {
 	return module;
 }
-	
+
 void UI_ScriptDocument::LoadScript( Stream *stream, const String &source_name )
 {
 	String code;

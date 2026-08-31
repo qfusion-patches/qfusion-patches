@@ -80,7 +80,7 @@ static void AU_FileDoneCb( int status, const char *contentType, void *privatep )
 /*
 * AU_FileReadCb
 */
-static size_t AU_FileReadCb( const void *buf, size_t numb, float percentage, 
+static size_t AU_FileReadCb( const void *buf, size_t numb, float percentage,
 	int status, const char *contentType, void *privatep )
 {
 	filedownload_t *fd = privatep;
@@ -114,7 +114,7 @@ static filedownload_t *AU_AllocDownload( void )
 /*
 * AU_DownloadFile
 */
-static filedownload_t *AU_DownloadFile( const char *baseUrl, const char *filepath, bool silent, 
+static filedownload_t *AU_DownloadFile( const char *baseUrl, const char *filepath, bool silent,
 	unsigned checksum, void (*done_cb)(struct filedownload_s *, int) )
 {
 	int fsize, fnum;
@@ -175,7 +175,7 @@ static filedownload_t *AU_DownloadFile( const char *baseUrl, const char *filepat
 
 	Com_DPrintf( "Downloading %s from %s, pos %i\n", filepath, url, fsize );
 
-	AsyncStream_PerformRequest( au_async_stream, url, 
+	AsyncStream_PerformRequest( au_async_stream, url,
 		"GET", NULL, NULL, 60, fsize, AU_FileReadCb, AU_FileDoneCb, fd );
 
 	return fd;
@@ -424,7 +424,7 @@ skip_line:
 /*
 * AU_ListReadCb
 */
-static size_t AU_ListReadCb( const void *buf, size_t numb, float percentage, 
+static size_t AU_ListReadCb( const void *buf, size_t numb, float percentage,
 	int status, const char *contentType, void *privatep )
 {
 	char *newbuf;
@@ -455,7 +455,7 @@ static void AU_ListDoneCb( int status, const char *contentType, void *privatep )
 
 	if( au_remote_list )
 		AU_ParseUpdateList( au_remote_list, au_check_only );
-	
+
 done:
 	if( au_remote_list )
 	{
@@ -482,7 +482,7 @@ static void AU_FetchUpdateList( bool checkOnly, void (*newfiles_cb)(void) )
 	au_check_only = checkOnly;
 	au_newfiles_callback = newfiles_cb;
 
-	AsyncStream_PerformRequest( au_async_stream, AU_BASE_URL AU_LIST_FILE, 
+	AsyncStream_PerformRequest( au_async_stream, AU_BASE_URL AU_LIST_FILE,
 		"GET", NULL, NULL, 60, 0, AU_ListReadCb, AU_ListDoneCb, false );
 }
 
@@ -499,7 +499,7 @@ void Com_Autoupdate_Init( void )
 		return;
 
 	au_async_stream = AsyncStream_InitModule( "Update", _AU_MemAlloc, _AU_MemFree );
-	
+
 	au_remote_list = NULL;
 	au_remote_list_size = 0;
 

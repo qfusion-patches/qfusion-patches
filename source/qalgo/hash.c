@@ -22,7 +22,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 /*
 * COM_HashKey
-* 
+*
 * Returns hash key for a string
 */
 unsigned int COM_HashKey( const char *name, int hashsize )
@@ -64,7 +64,7 @@ unsigned int COM_HashKey( const char *name, int hashsize )
 
 /*
 * COM_SuperFastHash
-* 
+*
 * Adaptation of Paul Hsieh's incremental SuperFastHash function.
 * Initialize hash to some non-zero value for the first call, like len.
 */
@@ -113,7 +113,7 @@ unsigned int COM_SuperFastHash( const uint8_t * data, size_t len, unsigned int h
 
 /*
 * COM_SuperFastHash64BitInt
-* 
+*
 * Com_SuperFastHash that takes a 64bit integer as an argument
 */
 unsigned int COM_SuperFastHash64BitInt( uint64_t data )

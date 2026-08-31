@@ -99,7 +99,7 @@ void R_FreeUnusedImages( void );
 void R_InitBuiltinScreenImages( void );
 void R_ReleaseBuiltinScreenImages( void );
 void R_ShutdownImages( void );
-void R_InitViewportTexture( image_t **texture, const char *name, int id, 
+void R_InitViewportTexture( image_t **texture, const char *name, int id,
 	int viewportWidth, int viewportHeight, int size, int flags, int tags, int samples );
 image_t *R_GetPortalTexture( int viewportWidth, int viewportHeight, int flags, unsigned frameNum );
 image_t *R_GetShadowmapTexture( int id, int viewportWidth, int viewportHeight, int flags );
@@ -107,7 +107,7 @@ void R_InitDrawFlatTexture( void );
 void R_FreeImageBuffers( void );
 
 void R_PrintImageList( const char *pattern, bool (*filter)( const char *filter, const char *value) );
-void R_ScreenShot( const char *filename, int x, int y, int width, int height, int quality, 
+void R_ScreenShot( const char *filename, int x, int y, int width, int height, int quality,
 	bool flipx, bool flipy, bool flipdiagonal, bool silent );
 
 void R_TextureMode( char *string );

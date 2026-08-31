@@ -216,7 +216,7 @@ typedef struct
 /*
 * CG_AsyncGetRequest_ReadCb
 */
-static size_t CG_AsyncGetRequest_ReadCb( const void *buf, size_t numb, float percentage, 
+static size_t CG_AsyncGetRequest_ReadCb( const void *buf, size_t numb, float percentage,
 	int status, const char *contentType, void *privatep )
 {
 	char *newbuf;
@@ -258,7 +258,7 @@ int CG_AsyncGetRequest( const char *resource, void (*done_cb)(int status, const 
 {
 	char url[1024];
 	cg_asyncrequest_t *req;
-	
+
 	trap_GetBaseServerURL( url, sizeof( url ) );
 	Q_strncatz( url, resource, sizeof( url ) );
 
@@ -268,8 +268,8 @@ int CG_AsyncGetRequest( const char *resource, void (*done_cb)(int status, const 
 	*req->buf = '\0';
 	req->privatep = privatep;
 	req->done_cb = done_cb;
-	
-	return trap_AsyncStream_PerformRequest( url, "GET", "", 10, 
+
+	return trap_AsyncStream_PerformRequest( url, "GET", "", 10,
 		CG_AsyncGetRequest_ReadCb, CG_AsyncGetRequest_DoneCb, (void *)req );
 }
 
@@ -545,7 +545,7 @@ static void CG_RegisterModels( void )
 
 	if( cgs.precacheModelsStart != MAX_MODELS )
 		return;
-	
+
 	CG_RegisterMediaModels();
 	CG_RegisterBasePModel(); // never before registering the weapon models
 	CG_RegisterWeaponModels();
@@ -583,7 +583,7 @@ static void CG_RegisterSounds( void )
 			cgs.precacheSoundsStart = MAX_SOUNDS;
 			break;
 		}
-		
+
 		cgs.precacheSoundsStart = i;
 
 		if( name[0] != '*' )
@@ -664,7 +664,7 @@ static void CG_RegisterSkinFiles( void )
 			break;
 		}
 
-		cgs.precacheSkinsStart = i; 
+		cgs.precacheSkinsStart = i;
 
 		if( !CG_LoadingItemName( name ) )
 			return;
@@ -1132,7 +1132,7 @@ void CG_Reset( void )
 */
 void CG_Init( const char *serverName, unsigned int playerNum,
 			 int vidWidth, int vidHeight, float pixelRatio,
-			 bool demoplaying, const char *demoName, bool pure, 
+			 bool demoplaying, const char *demoName, bool pure,
 			 unsigned int snapFrameTime, int protocol, const char *demoExtension,
 			 int sharedSeed, bool gameStart )
 {

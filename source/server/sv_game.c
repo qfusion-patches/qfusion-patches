@@ -396,11 +396,11 @@ static stat_query_api_t *PF_StatQuery_GetAPI( void )
 {
 	static stat_query_api_t api;
 	stat_query_api_t *p;
-	
+
 	p = StatQuery_GetAPI();
 	api = *p;
 	api.CreateQuery = SV_MM_CreateQuery;
-	
+
 	return &api;
 }
 

@@ -920,7 +920,7 @@ void SP_func_door( edict_t *ent )
 
 	ent->style = -1;
 	door_use_areaportals( ent, ( ent->spawnflags & DOOR_START_OPEN ) != 0 );
-	
+
 	ent->nextThink = level.time + 1;
 	if( ent->targetname )
 		ent->think = Think_CalcMoveSpeed;
@@ -1884,7 +1884,7 @@ void SP_func_timer( edict_t *self )
 	}
 
 	if( self->spawnflags & 1 ) {
-		self->nextThink = level.time + 1000 * 
+		self->nextThink = level.time + 1000 *
 			(1.0 + st.pausetime + self->delay + self->wait + crandom() * self->random);
 		self->activator = self;
 	}

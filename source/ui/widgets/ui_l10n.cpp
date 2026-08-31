@@ -73,7 +73,7 @@ void ElementL10n::OnAttributeChange( const Rocket::Core::AttributeNameList& chan
 		if( l10n ) {
 			format = l10n;
 		}
-		
+
 		String::size_type n = 0;
 		while( true ) {
 			n = format.Find( "%s", n );

@@ -129,7 +129,7 @@ static void RoQ_ReadInfo( cinematics_t *cin )
 
 		roq->width_2 = width_2;
 		roq->height_2 = height_2;
-		roq->yuv_pixels = CIN_Alloc( cin->mempool, 
+		roq->yuv_pixels = CIN_Alloc( cin->mempool,
 			(width * height + width_2 * height_2 * 2) * 2 );
 
 		pixels = roq->yuv_pixels;
@@ -396,8 +396,8 @@ static cin_yuv_t *RoQ_ReadVideo( cinematics_t *cin )
 
 				case RoQ_ID_FCC:
 					RoQ_ReadByte( c );
-					RoQ_ApplyMotion8x8( cin, xp, yp, c, 
-						( char )( ( chunk->argument >> 8 ) & 0xff ), 
+					RoQ_ApplyMotion8x8( cin, xp, yp, c,
+						( char )( ( chunk->argument >> 8 ) & 0xff ),
 						( char )( chunk->argument & 0xff ) );
 					break;
 
@@ -425,8 +425,8 @@ static cin_yuv_t *RoQ_ReadVideo( cinematics_t *cin )
 
 						case RoQ_ID_FCC:
 							RoQ_ReadByte( c );
-							RoQ_ApplyMotion4x4( cin, x, y, c, 
-								( char )( ( chunk->argument >> 8 ) & 0xff ), 
+							RoQ_ApplyMotion4x4( cin, x, y, c,
+								( char )( ( chunk->argument >> 8 ) & 0xff ),
 								( char )( chunk->argument & 0xff ) );
 							break;
 
@@ -579,7 +579,7 @@ cin_yuv_t *RoQ_ReadNextFrameYUV_CIN( cinematics_t *cin, bool *redraw )
 			int i;
 			// init back buffer for inter-frame motion compensation
 			for( i = 0; i < 3; i++ ) {
-				memcpy( roq->cyuv[1].yuv[i].data, roq->cyuv[0].yuv[i].data, 
+				memcpy( roq->cyuv[1].yuv[i].data, roq->cyuv[0].yuv[i].data,
 					roq->cyuv[0].yuv[i].width * roq->cyuv[0].yuv[i].height );
 			}
 		}

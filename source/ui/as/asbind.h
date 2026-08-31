@@ -195,7 +195,7 @@ You can fetch FunctionPtr's directly with the script function pointer (if you kn
 Or by name (note the additional module parameter, needed to resolve the name to id)
 
 	ASBind::FunctionPtr<void()> mainPtr = ASBind::CreateFunctionPtr( "main", asModule, mainPtr );
-	
+
 Note that the FunctionPtr has a matching function prototype as a template argument
 and the instance is also passed as a reference to ASBind::CreateFunctionPtr. This is only a dummy parameter
 used for template deduction.
@@ -1023,7 +1023,7 @@ struct FunctionPtrBase {
 	void release( void ) { if (fptr != NULL) { asIScriptFunction *fptr_ = fptr; fptr = NULL; fptr_->Release(); } }
 	void setContext( asIScriptContext *_ctx ) { ctx = _ctx; }
 	asIScriptModule *getModule( void ) {
-		asIScriptFunction *f = fptr; 
+		asIScriptFunction *f = fptr;
 		while (f && f->GetFuncType() == asFUNC_DELEGATE)
 			f = f->GetDelegateFunction();
 		return f ? f->GetModule() : NULL;

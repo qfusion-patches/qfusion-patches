@@ -16,7 +16,7 @@ namespace WSWUI
 		// notify the changes
 		NotifyRowAdd( TABLE_NAME, 0, mapList.size() );
 	}
-	
+
 	// it returns a list of the maps file
 	template<typename C>
 	void MapsDataSource::getMapsList( C& maps_list )
@@ -40,9 +40,9 @@ namespace WSWUI
 		{
 			if( *it == MAP_TITLE )
 				row.push_back(mapList[row_index].second.empty() ? mapList[row_index].first.c_str() : mapList[row_index].second.c_str());
-			else if( *it == MAP_FILE ) 
+			else if( *it == MAP_FILE )
 				row.push_back(mapList[row_index].first.c_str());
-			else 
+			else
 				row.push_back("");
 		}
 	}

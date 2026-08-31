@@ -34,7 +34,7 @@ static int GetRefAPIVersion( void )
 
 /*
 * GetRefAPI
-* 
+*
 * Returns a pointer to the structure with all entry points
 */
 #ifdef __cplusplus
@@ -77,7 +77,7 @@ QF_DLL_EXPORT ref_export_t *GetRefAPI( ref_import_t *import )
 	globals.ResetScissor = RF_ResetScissor;
 	globals.SetCustomColor = RF_SetCustomColor;
 	globals.ReplaceRawSubPic = RF_ReplaceRawSubPic;
-	
+
 	globals.GetShaderForOrigin = RF_GetShaderForOrigin;
 	globals.GetShaderCinematic = RF_GetShaderCinematic;
 
@@ -91,7 +91,7 @@ QF_DLL_EXPORT ref_export_t *GetRefAPI( ref_import_t *import )
 	globals.BeginAviDemo = RF_BeginAviDemo;
 	globals.WriteAviFrame = RF_WriteAviFrame;
 	globals.StopAviDemo = RF_StopAviDemo;
-	
+
 	globals.RegisterWorldModel = RF_RegisterWorldModel;
 	globals.RegisterModel = R_RegisterModel;
 	globals.RegisterPic = R_RegisterPic;
@@ -101,16 +101,16 @@ QF_DLL_EXPORT ref_export_t *GetRefAPI( ref_import_t *import )
 	globals.RegisterSkin = R_RegisterSkin;
 	globals.RegisterSkinFile = R_RegisterSkinFile;
 	globals.RegisterVideo = R_RegisterVideo;
-	
+
 	globals.RemapShader = R_RemapShader;
 	globals.GetShaderDimensions = R_GetShaderDimensions;
-	
+
 	globals.SkeletalGetBoneInfo = R_SkeletalGetBoneInfo;
 	globals.SkeletalGetBonePose = R_SkeletalGetBonePose;
 	globals.SkeletalGetNumBones = R_SkeletalGetNumBones;
-	
+
 	globals.GetClippedFragments = R_GetClippedFragments;
-	
+
 	globals.ModelBounds = R_ModelBounds;
 	globals.ModelFrameBounds = R_ModelFrameBounds;
 

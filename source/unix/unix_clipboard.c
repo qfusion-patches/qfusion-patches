@@ -76,7 +76,7 @@ bool Sys_SetClipboardData( const char *data )
 	Q_free( clip_data );
 	clip_data = Q_malloc( strlen( data ) - 1 );
 	memcpy( clip_data, data, strlen( data ) - 1 );
-	
+
 	// Requesting clipboard ownership
 	Atom XA_CLIPBOARD = XInternAtom( x11display.dpy, "CLIPBOARD", True );
 	if( XA_CLIPBOARD == None )

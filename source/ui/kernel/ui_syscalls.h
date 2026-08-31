@@ -253,7 +253,7 @@ namespace trap
 		inline void CL_OpenURLInBrowser( const char *url ) {
 			UI_IMPORT.CL_OpenURLInBrowser( url );
 		}
-			
+
 		inline size_t CL_ReadDemoMetaData( const char *demopath, char *meta_data, size_t meta_data_size ) {
 			return UI_IMPORT.CL_ReadDemoMetaData( demopath, meta_data, meta_data_size );
 		}
@@ -480,7 +480,7 @@ namespace trap
 			ui_async_stream_read_cb_t read_cb, ui_async_stream_done_cb_t done_cb, void *privatep ) {
 				return UI_IMPORT.AsyncStream_PerformRequest( url, method, data, timeout, read_cb, done_cb, privatep );
 		}
-		
+
 		inline size_t GetBaseServerURL( char *buffer, size_t buffer_size ) {
 			return UI_IMPORT.GetBaseServerURL( buffer, buffer_size );
 		}

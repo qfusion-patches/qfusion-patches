@@ -141,8 +141,8 @@ static void SNAP_RecordDemoMetaDataMessage( int demofile, msg_t *msg )
 /*
 * SNAP_BeginDemoRecording
 */
-void SNAP_BeginDemoRecording( int demofile, unsigned int spawncount, unsigned int snapFrameTime, 
-	const char *sv_name, unsigned int sv_bitflags, purelist_t *purelist, char *configstrings, 
+void SNAP_BeginDemoRecording( int demofile, unsigned int spawncount, unsigned int snapFrameTime,
+	const char *sv_name, unsigned int sv_bitflags, purelist_t *purelist, char *configstrings,
 	entity_state_t *baselines )
 {
 	unsigned int i;
@@ -267,7 +267,7 @@ size_t SNAP_SetDemoMetaKeyValue( char *meta_data, size_t meta_data_max_size, siz
 			goto done;
 		}
 
-		value_size = strlen( m_val ) + 1; 
+		value_size = strlen( m_val ) + 1;
 		m_pastval = m_val + value_size;
 
 		if( !Q_stricmp( m_key, key ) ) {

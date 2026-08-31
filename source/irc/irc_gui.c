@@ -24,7 +24,7 @@ static int Irc_Client_DrawLine(int lines_avail, int off, int *x, int *y, const c
 static int Irc_Client_LastColor(const char *msg, size_t msg_len);
 
 void Irc_Client_DrawNotify(const char *target, const char *chat_buffer, size_t chat_bufferlen) {
-	
+
 	struct qfontface_s *font;
 	unsigned int font_height = 0;
 	unsigned int charbuffer_width, target_width;
@@ -62,7 +62,7 @@ void Irc_Client_DrawNotify(const char *target, const char *chat_buffer, size_t c
 }
 
 void Irc_Client_DrawIngameWindow() {
-	
+
 	static struct shader_s *shaderBg = NULL;
 	struct qfontface_s *font;
 	const int lines = Cvar_GetIntegerValue(irc_windowLines);
@@ -194,7 +194,7 @@ static int Irc_Client_DrawLine(int lines_avail, int off, int *x, int *y, const c
 		return 0;
 
 	}
-	
+
 }
 
 static int Irc_Client_LastColor(const char *msg, size_t msg_len) {

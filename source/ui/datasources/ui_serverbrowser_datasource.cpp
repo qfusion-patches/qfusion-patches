@@ -448,7 +448,7 @@ ServerBrowserDataSource::~ServerBrowserDataSource()
 // override rocket methods
 void ServerBrowserDataSource::GetRow( StringList &row, const String &table, int row_index, const StringList &columns )
 {
-	if( referenceListMap.find( table ) == referenceListMap.end() ) 
+	if( referenceListMap.find( table ) == referenceListMap.end() )
 		return;
 
 	ReferenceList &list = referenceListMap[table];
@@ -513,7 +513,7 @@ void ServerBrowserDataSource::GetRow( StringList &row, const String &table, int 
 // this should return the number of rows in 'table'
 int ServerBrowserDataSource::GetNumRows( const String &table )
 {
-	if( referenceListMap.find( table ) == referenceListMap.end() ) 
+	if( referenceListMap.find( table ) == referenceListMap.end() )
 		return 0;
 	return referenceListMap[table].size();
 }
@@ -601,7 +601,7 @@ void ServerBrowserDataSource::updateFrame()
 			if( filter.filterServer( serverInfo ) )
 			{
 				String tableName;
-				
+
 				tableNameForServerInfo( serverInfo, tableName );
 				addServerToTable( serverInfo, tableName );
 
@@ -632,7 +632,7 @@ void ServerBrowserDataSource::startFullUpdate( void )
 	// basic prototype:
 	// 		requestservers global dpmaster.deathmask.net Warsow full empty
 	// TODO: implement proper use of filters...
-	
+
 
 	for( ReferenceListMap::iterator it = referenceListMap.begin(); it != referenceListMap.end(); ++it ) {
 		ReferenceList &referenceList = it->second;
@@ -688,7 +688,7 @@ void ServerBrowserDataSource::addToServerList( const char *adr, const char *info
 		if( serverInfo.ping_retries++ >= MAX_RETRIES )
 		{
 			String tableName;
-			
+
 			tableNameForServerInfo( serverInfo, tableName );
 
 			// drop the query
@@ -964,7 +964,7 @@ bool ServerBrowserDataSource::removeFavorite( const char *fav )
 	if( it_f == favorites.end() ) {
 		return false;
 	}
-	
+
 	// that server is the one we don't like any longer
 	favorites.erase( it_f );
 

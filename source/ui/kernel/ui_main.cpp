@@ -48,10 +48,10 @@ UI_Main::UI_Main( int vidWidth, int vidHeight, float pixelRatio,
 	int protocol, const char *demoExtension, const char *basePath )
 	// pointers to zero
 	: asmodule(nullptr), rocketModule(nullptr),
-	levelshot_fmt(0), datetime_fmt(0), duration_fmt(0), filetype_fmt(0), colorcode_fmt(0), 
+	levelshot_fmt(0), datetime_fmt(0), duration_fmt(0), filetype_fmt(0), colorcode_fmt(0),
 	empty_fmt(0), serverflags_fmt(0),
-	serverBrowser(0), gameTypes(0), maps(0), vidProfiles(0), huds(0), videoModes(0), 
-	demos(0), mods(0), 
+	serverBrowser(0), gameTypes(0), maps(0), vidProfiles(0), huds(0), videoModes(0),
+	demos(0), mods(0),
 	playerModels(0), tvchannels(0), ircchannels(0), gameajax(0),
 
 	// other members
@@ -207,7 +207,7 @@ void UI_Main::preloadUI( void )
 
 	// load base UI strings: l10n/ui
 	trap::L10n_LoadLangPOFile( "l10n/ui" );
-	
+
 	// load strings provided by the theme: e.g. ui/l10n/porkui
 
 	// initialize with default document
@@ -488,8 +488,8 @@ bool UI_Main::haveQuickMenu( void )
 	return nav->hasDocuments();
 }
 
-void UI_Main::drawConnectScreen( const char *serverName, const char *rejectMessage, 
-	int downloadType, const char *downloadFilename, float downloadPercent, int downloadSpeed, 
+void UI_Main::drawConnectScreen( const char *serverName, const char *rejectMessage,
+	int downloadType, const char *downloadFilename, float downloadPercent, int downloadSpeed,
 	int connectCount, bool backGround )
 {
 	DownloadInfo dlinfo( downloadFilename, downloadType );
@@ -509,7 +509,7 @@ void UI_Main::drawConnectScreen( const char *serverName, const char *rejectMessa
 	showUI( true );
 }
 
-int UI_Main::getGameProtocol( void ) 
+int UI_Main::getGameProtocol( void )
 {
 	return self != nullptr ? self->gameProtocol : 0;
 }
@@ -699,8 +699,8 @@ bool UI_Main::debugOn( void )
 	return ui_developer->integer != 0;
 }
 
-void UI_Main::refreshScreen( unsigned int time, int clientState, int serverState, 
-	bool demoPlaying, const char *demoName, bool demoPaused, unsigned int demoTime, 
+void UI_Main::refreshScreen( unsigned int time, int clientState, int serverState,
+	bool demoPlaying, const char *demoName, bool demoPaused, unsigned int demoTime,
 	bool backGround, bool showCursor )
 {
 	int i;
@@ -772,7 +772,7 @@ void UI_Main::refreshScreen( unsigned int time, int clientState, int serverState
 			showUI( false );
 		}
 		else {
-			if( showCursor ) { 
+			if( showCursor ) {
 				rocketModule->hideCursor( UI_CONTEXT_MAIN, 0, RocketModule::HIDECURSOR_REFRESH );
 				gamepadCursorMove();
 			}

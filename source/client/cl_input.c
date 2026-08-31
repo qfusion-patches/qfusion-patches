@@ -540,7 +540,7 @@ void CL_TouchEvent( int id, touchevent_t type, int x, int y, unsigned int time )
 			if( id == 0 )
 				Con_TouchEvent( ( type != TOUCH_UP ) ? true : false, x, y );
 			break;
-		
+
 		case key_menu:
 			CL_UIModule_TouchEvent( id, type, x, y );
 			break;

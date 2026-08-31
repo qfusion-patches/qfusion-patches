@@ -117,12 +117,12 @@ void S_StartLocalSound( sfx_t *sfx );
 void S_AddLoopSound( struct sfx_s *sfx, int entnum, float fvol, float attenuation );
 
 // cinema
-void S_RawSamples( unsigned int samples, unsigned int rate, 
+void S_RawSamples( unsigned int samples, unsigned int rate,
 	unsigned short width, unsigned short channels, const uint8_t *data, bool music );
-void S_RawSamples2( unsigned int samples, unsigned int rate, 
+void S_RawSamples2( unsigned int samples, unsigned int rate,
 	unsigned short width, unsigned short channels, const uint8_t *data, bool music, float fvol );
-void S_PositionedRawSamples( int entnum, float fvol, float attenuation, 
-	unsigned int samples, unsigned int rate, 
+void S_PositionedRawSamples( int entnum, float fvol, float attenuation,
+	unsigned int samples, unsigned int rate,
 	unsigned short width, unsigned short channels, const uint8_t *data );
 unsigned int S_GetRawSamplesLength( void );
 unsigned int S_GetPositionedRawSamplesLength( int entnum );
@@ -289,8 +289,8 @@ void SF_StartLocalSound( const char *sound );
 void SF_Clear( void );
 void SF_AddLoopSound( sfx_t *sfx, int entnum, float fvol, float attenuation );
 void SF_Update( const vec3_t origin, const vec3_t velocity, const mat3_t axis, bool avidump );
-void SF_RawSamples( unsigned int samples, unsigned int rate, unsigned short width, 
+void SF_RawSamples( unsigned int samples, unsigned int rate, unsigned short width,
 	unsigned short channels, const uint8_t *data, bool music );
-void SF_PositionedRawSamples( int entnum, float fvol, float attenuation, 
-	unsigned int samples, unsigned int rate, 
+void SF_PositionedRawSamples( int entnum, float fvol, float attenuation,
+	unsigned int samples, unsigned int rate,
 	unsigned short width, unsigned short channels, const uint8_t *data );

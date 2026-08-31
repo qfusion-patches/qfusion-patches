@@ -43,7 +43,7 @@ static void InitClientPersistant( gclient_t *client )
 
 /*
 * TVM_ClientEndSnapFrame
-* 
+*
 * Called for each player at the end of the server frame
 * and right after spawning
 */
@@ -109,7 +109,7 @@ bool TVM_ClientIsZoom( edict_t *ent )
 
 /*
 * TVM_ClientBegin
-* 
+*
 * called when a client has finished connecting, and is ready
 * to be placed into the game. This will happen every level load.
 */
@@ -175,9 +175,9 @@ void TVM_ClientBegin( tvm_relay_t *relay, edict_t *ent )
 
 /*
 * TVM_ClientUserInfoChanged
-* 
+*
 * called whenever the player updates a userinfo variable.
-* 
+*
 * The game can override any of the settings in place
 * (forcing skins or names, etc) before copying it off.
 */
@@ -254,7 +254,7 @@ void TVM_ClientConnect( tvm_relay_t *relay, edict_t *ent, char *userinfo )
 
 /*
 * TVM_ClientDisconnect
-* 
+*
 * Called when a player drops from the server.
 * Will not be called between levels.
 */
@@ -274,7 +274,7 @@ void TVM_ClientDisconnect( tvm_relay_t *relay, edict_t *ent )
 
 /*
 * TVM_ClientMultiviewChanged
-* 
+*
 * This will be called when client tries to change multiview mode
 * Mode change can be disallowed by returning false
 */
@@ -313,7 +313,7 @@ static void TVM_ClientMakePlrkeys( gclient_t *client, usercmd_t *ucmd )
 
 /*
 * TVM_ClientThink
-* 
+*
 * This will be called once for each client frame, which will
 * usually be a couple times for each server frame.
 */

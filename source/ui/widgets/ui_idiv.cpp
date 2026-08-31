@@ -114,8 +114,8 @@ void InlineDiv::LoadSource()
 		// (passed as the void * pointer below)
 		AddReference();
 
-		UI_Main::Get()->getStreamCache()->PerformRequest( 
-			source.CString(), "GET", NULL, 
+		UI_Main::Get()->getStreamCache()->PerformRequest(
+			source.CString(), "GET", NULL,
 			NULL, NULL, &CacheRead, ( void * )this, timeout, nocache ? 0 : expires
 		);
 	}

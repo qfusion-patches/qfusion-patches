@@ -34,7 +34,7 @@ bool AI_NodeReached_PlatformEnd( edict_t *self )
 
 	if( self->groundentity && self->groundentity->use == Use_Plat )
 	{
-		reached = ( self->groundentity->moveinfo.state == STATE_TOP 
+		reached = ( self->groundentity->moveinfo.state == STATE_TOP
 			|| VectorCompare( self->groundentity->s.origin, self->groundentity->moveinfo.dest ) )
 			? true : false;
 	}
@@ -51,7 +51,7 @@ bool AI_NodeReached_PlatformEnd( edict_t *self )
 		v2[2] = 0;
 
 		if( DistanceFast( v1, v2 ) < NODE_REACH_RADIUS )
-			reached = 
+			reached =
 			( fabs( nodes[self->ai->next_node].origin[2] - self->s.origin[2] ) < ( AI_JUMPABLE_HEIGHT * 0.5 ) )
 			? true : false;
 	}
@@ -167,7 +167,7 @@ bool AI_NodeReached_Special( edict_t *self )
 			// see if reached the second
 			if( ( ( nodes[n2].origin[2] - 16 ) < self->s.origin[2] ) &&
 				( nodes[n2].origin[2] + NODE_WIDE_REACH_RADIUS > self->s.origin[2] ) &&
-				( DistanceFast( n2origin, origin ) < NODE_WIDE_REACH_RADIUS ) && 
+				( DistanceFast( n2origin, origin ) < NODE_WIDE_REACH_RADIUS ) &&
 				AI_ReachabilityVisible( self, nodes[n2].origin ) )
 			{
 				AI_NodeReached( self ); // advance the first
@@ -176,7 +176,7 @@ bool AI_NodeReached_Special( edict_t *self )
 			// see if reached the first
 			else if( ( ( nodes[n1].origin[2] - 16 ) < self->s.origin[2] ) &&
 				( nodes[n1].origin[2] + NODE_WIDE_REACH_RADIUS > self->s.origin[2] ) &&
-				( DistanceFast( n1origin, origin ) < NODE_WIDE_REACH_RADIUS ) && 
+				( DistanceFast( n1origin, origin ) < NODE_WIDE_REACH_RADIUS ) &&
 				AI_ReachabilityVisible( self, nodes[n1].origin ) )
 			{
 				reached = true; // return the first as reached
@@ -212,7 +212,7 @@ static bool AI_AttemptWalljump( edict_t *self )
 			n1d = DistanceFast( n1origin, origin );
 			n2d = DistanceFast( n2origin, origin );
 
-			if( dist >= 150.0f && 
+			if( dist >= 150.0f &&
 				n1d >= dist*0.5f &&
 				n2d < dist ) {
 				return true;
@@ -246,7 +246,7 @@ void BOT_DMclass_SpecialMove( edict_t *self, vec3_t lookdir, vec3_t pathdir, use
 	if( !AI_infront2D( lookdir, self->s.origin, nodes[n2].origin, 0.5 ) )
 		bunnyhop = false;
 
-	// do not dash if the next link will be a fall, jump or 
+	// do not dash if the next link will be a fall, jump or
 	// any other kind of special link
 	nextMoveType = AI_PlinkMoveType( n1, n2 );
 #if 0
@@ -275,7 +275,7 @@ void BOT_DMclass_SpecialMove( edict_t *self, vec3_t lookdir, vec3_t pathdir, use
 			}
 		}
 	}
-	else 
+	else
 #endif
 	if( bunnyhop && ( (nextMoveType &LINK_JUMP) || level.gametype.spawnableItemsMask == 0 ) )
 	{
@@ -743,7 +743,7 @@ void BOT_DMclass_CombatMovement( edict_t *self, usercmd_t *ucmd )
 		return;
 	}
 
-	if( self->ai->pers.skillLevel >= 0.25f ) 
+	if( self->ai->pers.skillLevel >= 0.25f )
 		rocket = BOT_DMclass_FindRocket( self, away_from_rocket );
 
 	dist = DistanceFast( self->s.origin, self->enemy->s.origin );
@@ -908,7 +908,7 @@ void BOT_DMclass_FindEnemy( edict_t *self )
 	vec3_t forward, vec;
 	int i;
 
-	if( G_ISGHOSTING( self ) 
+	if( G_ISGHOSTING( self )
 		|| GS_MatchState() == MATCH_STATE_COUNTDOWN
 		|| GS_ShootingDisabled() )
 	{
@@ -972,7 +972,7 @@ void BOT_DMclass_FindEnemy( edict_t *self )
 					close = DotProduct( vec, forward ) > 0.3;
 				}
 
-				if( close )				
+				if( close )
 				{
 					bestWeight = weight;
 					bestTarget = goalEnt->ent;

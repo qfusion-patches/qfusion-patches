@@ -201,7 +201,7 @@ static int cg_numShadeBoxes = 0;   // cleared each frame
 
 /*
 * CG_AddBlobShadow
-* 
+*
 * Ok, to not use decals space we need these arrays to store the
 * polygons info. We do not need the linked list nor registration
 */
@@ -552,7 +552,7 @@ static void CG_ClearParticles( void )
 
 /*
 * CG_ParticleEffect
-* 
+*
 * Wall impact puffs
 */
 void CG_ParticleEffect( const vec3_t org, const vec3_t dir, float r, float g, float b, int count )
@@ -845,7 +845,7 @@ void CG_ElectroIonsTrail2( const vec3_t start, const vec3_t end, const vec4_t co
 	float len;
 	float dec2 = 8.0f;
 	cparticle_t *p;
-	
+
 	if( !cg_particles->integer )
 		return;
 

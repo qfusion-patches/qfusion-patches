@@ -324,7 +324,7 @@ void GS_PModel_AnimToFrame( unsigned int curTime, gs_pmodel_animationset_t *anim
 			// see if there are new animations to be played
 			if( anim->buffer[channel].newanim[i] != ANIM_NONE )
 			{
-				if( channel == EVENT_CHANNEL || 
+				if( channel == EVENT_CHANNEL ||
 					( channel == BASE_CHANNEL && anim->buffer[channel].newanim[i] != thisAnim->anim ) )
 				{
 					thisAnim->anim = anim->buffer[channel].newanim[i];

@@ -361,9 +361,9 @@ static int Ogg_LoadBlockToSync( cinematics_t *cin )
 static void Ogg_LoadPagesToStreams( qtheora_info_t *qth, ogg_page *page )
 {
 	// this can be done blindly; a stream won't accept a page that doesn't belong to it
-	if( qth->a_stream ) 
+	if( qth->a_stream )
 		qogg_stream_pagein( &qth->os_audio, page );
-	if( qth->v_stream ) 
+	if( qth->v_stream )
 		qogg_stream_pagein( &qth->os_video, page );
 }
 
@@ -388,7 +388,7 @@ static bool OggVorbis_NeedAudioData( cinematics_t *cin )
 		return false;
 	}
 
-	qth->s_samples_need = (ogg_int64_t)((double)audio_time * qth->s_rate_msec);	
+	qth->s_samples_need = (ogg_int64_t)((double)audio_time * qth->s_rate_msec);
 
 	// read only as much samples as we need according to the timer
 	if( qth->s_samples_read >= qth->s_samples_need ) {
@@ -464,7 +464,7 @@ read_samples:
 		}
 
 		// tell libvorbis how many samples we actually consumed
-		qvorbis_synthesis_read( &qth->vd, samplesNeeded ); 
+		qvorbis_synthesis_read( &qth->vd, samplesNeeded );
 
 		haveAudio = true;
 		qth->s_samples_read += samplesNeeded;
@@ -526,7 +526,7 @@ static bool OggTheora_LoadVideoFrame( cinematics_t *cin )
 	qtheora_info_t *qth = cin->fdata;
 	th_ycbcr_buffer yuv;
 	unsigned int sync_time = qth->s_sound_time;
-	
+
 	memset( &op, 0, sizeof( op ) );
 
 	while( qogg_stream_packetout( &qth->os_video, &op ) )
@@ -546,13 +546,13 @@ static bool OggTheora_LoadVideoFrame( cinematics_t *cin )
 		}
 
 		// if lagging behind audio, seek forward to max_keyframe_interval before the target,
-		// then skip to nearest keyframe 
-		if( ( op.granulepos >= 0 ) 
+		// then skip to nearest keyframe
+		if( ( op.granulepos >= 0 )
 			&& ( qth->a_stream != false )
 			&& ( qth->a_eos == false )
 			&& ( sync_time > qth->th_granulemsec + VIDEO_LAG_TOLERANCE_MSEC ) ) {
-			qth->th_seek_msec_to = 
-				sync_time <= qth->th_max_keyframe_interval 
+			qth->th_seek_msec_to =
+				sync_time <= qth->th_max_keyframe_interval
 					? qth->th_max_keyframe_interval : sync_time - qth->th_max_keyframe_interval;
 			qth->th_seek_to_keyframe = true;
 		}
@@ -631,7 +631,7 @@ static bool OggTheora_LoadVideoFrame( cinematics_t *cin )
 			cin->vid_buffer = CIN_Alloc( cin->mempool, size );
 			memset( cin->vid_buffer, 0xFF, size );
 		}
-			
+
 		cin->frame = qth_granule_frame( qth->tctx, qth->th_granulepos );
 
 		return true;
@@ -725,19 +725,19 @@ static bool Theora_ReadNextFrame_CIN_( cinematics_t *cin, bool *redraw, bool *eo
 */
 static void Theora_DecodeYCbCr2RGB_420( cin_yuv_t *cyuv, int bytes, uint8_t *out )
 {
-	int 
-		x_offset = cyuv->x_offset, 
-		y_offset = cyuv->y_offset; 
-	unsigned int 
-		width = cyuv->width, 
+	int
+		x_offset = cyuv->x_offset,
+		y_offset = cyuv->y_offset;
+	unsigned int
+		width = cyuv->width,
 		height = cyuv->height;
-	int 
+	int
 		yStride = cyuv->yuv[0].stride,
 		uStride = cyuv->yuv[1].stride,
 		vStride = cyuv->yuv[2].stride,
 		outStride = width * bytes;
-	uint8_t 
-		*yData = cyuv->yuv[0].data + (x_offset     ) + yStride * (y_offset     ), 
+	uint8_t
+		*yData = cyuv->yuv[0].data + (x_offset     ) + yStride * (y_offset     ),
 		*uData = cyuv->yuv[1].data + (x_offset >> 1) + uStride * (y_offset >> 1),
 		*vData = cyuv->yuv[2].data + (x_offset >> 1) + vStride * (y_offset >> 1);
 	uint8_t
@@ -757,7 +757,7 @@ static void Theora_DecodeYCbCr2RGB_420( cin_yuv_t *cyuv, int bytes, uint8_t *out
 	uStride += 0 - (width >> 1);
 	vStride += 0 - (width >> 1);
 	outStride += outStride - width * bytes;
- 
+
 	for( yPos = 1; yPos <= height; yPos += 2 ) {
 		for( xPos = 1; xPos <= width; xPos++ ) {
 			u = *uRow;
@@ -779,7 +779,7 @@ static void Theora_DecodeYCbCr2RGB_420( cin_yuv_t *cyuv, int bytes, uint8_t *out
 
 			if( ( xPos & 1 ) != 0 ) {
 				uRow++;
-				vRow++; 
+				vRow++;
 			}
 		}
 
@@ -798,19 +798,19 @@ static void Theora_DecodeYCbCr2RGB_420( cin_yuv_t *cyuv, int bytes, uint8_t *out
 */
 static void Theora_DecodeYCbCr2RGB_422( cin_yuv_t *cyuv, int bytes, uint8_t *out )
 {
-	int 
-		x_offset = cyuv->x_offset, 
-		y_offset = cyuv->y_offset; 
-	unsigned int 
-		width = cyuv->width, 
+	int
+		x_offset = cyuv->x_offset,
+		y_offset = cyuv->y_offset;
+	unsigned int
+		width = cyuv->width,
 		height = cyuv->height;
-	int 
+	int
 		yStride = cyuv->yuv[0].stride,
 		uStride = cyuv->yuv[1].stride,
 		vStride = cyuv->yuv[2].stride,
 		outStride = width * bytes;
-	uint8_t 
-		*yData = cyuv->yuv[0].data + (x_offset     ) + yStride * (y_offset), 
+	uint8_t
+		*yData = cyuv->yuv[0].data + (x_offset     ) + yStride * (y_offset),
 		*uData = cyuv->yuv[1].data + (x_offset >> 1) + uStride * (y_offset),
 		*vData = cyuv->yuv[2].data + (x_offset >> 1) + vStride * (y_offset);
 	uint8_t
@@ -828,7 +828,7 @@ static void Theora_DecodeYCbCr2RGB_422( cin_yuv_t *cyuv, int bytes, uint8_t *out
 	uStride -= width / 2;
 	vStride -= width / 2;
 	outStride -= width * bytes;
- 
+
 	for( yPos = 1; yPos <= height; yPos++ ) {
 		for( xPos = 1; xPos <= width; xPos += 2 ) {
 			u = *uRow++;
@@ -862,19 +862,19 @@ static void Theora_DecodeYCbCr2RGB_422( cin_yuv_t *cyuv, int bytes, uint8_t *out
 */
 static void Theora_DecodeYCbCr2RGB_444( cin_yuv_t *cyuv, int bytes, uint8_t *out )
 {
-	int 
-		x_offset = cyuv->x_offset, 
-		y_offset = cyuv->y_offset; 
-	unsigned int 
-		width = cyuv->width, 
+	int
+		x_offset = cyuv->x_offset,
+		y_offset = cyuv->y_offset;
+	unsigned int
+		width = cyuv->width,
 		height = cyuv->height;
-	int 
+	int
 		yStride = cyuv->yuv[0].stride,
 		uStride = cyuv->yuv[1].stride,
 		vStride = cyuv->yuv[2].stride,
 		outStride = width * bytes;
-	uint8_t 
-		*yData = cyuv->yuv[0].data + x_offset + yStride * y_offset, 
+	uint8_t
+		*yData = cyuv->yuv[0].data + x_offset + yStride * y_offset,
 		*uData = cyuv->yuv[1].data + x_offset + uStride * y_offset,
 		*vData = cyuv->yuv[2].data + x_offset + vStride * y_offset;
 	uint8_t
@@ -892,7 +892,7 @@ static void Theora_DecodeYCbCr2RGB_444( cin_yuv_t *cyuv, int bytes, uint8_t *out
 	uStride -= width;
 	vStride -= width;
 	outStride -= width * bytes;
- 
+
 	for( yPos = 1; yPos <= height; yPos++ ) {
 		for( xPos = 1; xPos <= width; xPos++ ) {
 			u = *uRow++;
@@ -949,7 +949,7 @@ uint8_t *Theora_ReadNextFrame_CIN( cinematics_t *cin, bool *redraw )
 	}
 
 	if( haveVideo ) {
-		// convert YCbCr to RGB	
+		// convert YCbCr to RGB
 		Theora_DecodeYCbCr2RGB( qth->ti.pixel_fmt, &qth->pub_yuv, 3, cin->vid_buffer );
 	}
 
@@ -1022,9 +1022,9 @@ bool Theora_Init_CIN( cinematics_t *cin )
 		{
 			ogg_stream_state test;
 
-			// is this a mandated initial header? If not, stop parsing 
+			// is this a mandated initial header? If not, stop parsing
 			if( !qogg_page_bos( &og ) ) {
-				// don't leak the page; get it into the appropriate stream 
+				// don't leak the page; get it into the appropriate stream
 				Ogg_LoadPagesToStreams( qth, &og );
 				status = 1;
 				break;
@@ -1094,7 +1094,7 @@ bool Theora_Init_CIN( cinematics_t *cin )
 				break;
 		}
 
-		// the header pages/packets will arrive before anything else we 
+		// the header pages/packets will arrive before anything else we
 		// care about, or the stream is not obeying spec
 		if( qogg_sync_pageout( &qth->oy, &og ) > 0 )
 		{
@@ -1252,6 +1252,6 @@ bool Theora_NeedNextFrame_CIN( cinematics_t *cin )
 		qth->s_sound_time = sys_time;
 	}
 
-	return OggVorbis_NeedAudioData( cin ) 
+	return OggVorbis_NeedAudioData( cin )
 		|| OggTheora_NeedVideoData( cin );
 }

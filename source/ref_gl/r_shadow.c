@@ -234,11 +234,11 @@ static float R_FitOccluder( const shadowGroup_t *group, refdef_t *refdef )
 
 	// use current view settings for first approximation
 	if( useOrtho ) {
-		Matrix4_OrthogonalProjection( -refdef->ortho_x, refdef->ortho_x, -refdef->ortho_y, refdef->ortho_y, 
+		Matrix4_OrthogonalProjection( -refdef->ortho_x, refdef->ortho_x, -refdef->ortho_y, refdef->ortho_y,
 			-group->projDist, group->projDist, projectionMatrix );
 	}
 	else {
-		Matrix4_PerspectiveProjection( refdef->fov_x, refdef->fov_y, 
+		Matrix4_PerspectiveProjection( refdef->fov_x, refdef->fov_y,
 			Z_NEAR, group->projDist, rf.cameraSeparation, projectionMatrix );
 	}
 
@@ -307,7 +307,7 @@ static float R_SetupShadowmapView( shadowGroup_t *group, refdef_t *refdef, int l
 
 	// clamp LOD to a sane value
 	clamp( lod, 0, SHADOWMAP_MAX_LOD );
-	
+
 	shadowmap = group->shadowmap;
 	width = shadowmap->upload_width >> lod;
 	height = shadowmap->upload_height >> lod;

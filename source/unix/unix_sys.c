@@ -271,7 +271,7 @@ const char *Sys_GetPreferredLanguage( void )
 	setlocale( LC_ALL, "" );
 	locale = setlocale( LC_ALL, NULL );
 
-	Q_strncpyz( lang, locale, sizeof( lang ) ); 
+	Q_strncpyz( lang, locale, sizeof( lang ) );
 
 	setlocale( LC_ALL, "C" );
 
@@ -316,7 +316,7 @@ int main( int argc, char **argv )
 	char resourcesPath[MAXPATHLEN];
 	CFURLGetFileSystemRepresentation(CFBundleCopyResourcesDirectoryURL(CFBundleGetMainBundle()), 1, (UInt8 *)resourcesPath, MAXPATHLEN);
 	chdir(resourcesPath);
-	
+
 	SDL_Init( SDL_INIT_VIDEO );
 #endif
 

@@ -109,7 +109,7 @@ typedef struct
 {
 const char *name;
 float default_yaw_speed;
-float reaction_time;		
+float reaction_time;
 float combatmove_timeout;
 float yaw_accel;
 float offensiveness;
@@ -388,7 +388,7 @@ static void BOT_InitPersistant( edict_t *self )
 		self->ai->pers.netname = self->r.client->netname;
 	else
 		self->ai->pers.netname = "SomeBot";
-	
+
 	if( !level.gametype.disableObituaries ) // FIXME
 		G_Printf( "%s skill %i\n", self->r.client->netname, (int)( self->ai->pers.skillLevel * 100 ) );
 
@@ -412,7 +412,7 @@ static void BOT_DoSpawnBot( void )
 	if( !nav.loaded )
 	{
 		Com_Printf( "AI: Can't spawn bots without a valid navigation file\n" );
-		if( g_numbots->integer ) 
+		if( g_numbots->integer )
 			trap_Cvar_Set( "g_numbots", "0" );
 		return;
 	}
@@ -472,7 +472,7 @@ void BOT_SpawnBot( const char *team_name )
 	if( !nav.loaded )
 	{
 		Com_Printf( "AI: Can't spawn bots without a valid navigation file\n" );
-		if( g_numbots->integer ) 
+		if( g_numbots->integer )
 			trap_Cvar_Set( "g_numbots", "0" );
 		return;
 	}

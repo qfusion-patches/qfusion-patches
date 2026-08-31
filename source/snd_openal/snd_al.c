@@ -352,9 +352,9 @@ static void S_SetListener( const vec3_t origin, const vec3_t velocity, const mat
 static void S_Update( void )
 {
 	S_UpdateMusic();
-	
+
 	S_UpdateStreams();
-	
+
 	s_volume->modified = false; // Checked by src and stream
 	s_musicvolume->modified = false; // Checked by stream and music
 

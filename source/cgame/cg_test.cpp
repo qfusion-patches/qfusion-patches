@@ -281,7 +281,7 @@ void CG_DrawTestBox( vec3_t origin, vec3_t mins, vec3_t maxs, vec3_t angles )
 
 /*
 * CG_TestEntities
-* 
+*
 * If cg_testEntities is set, create 32 player models
 */
 static void CG_TestEntities( void )
@@ -300,7 +300,7 @@ static void CG_TestEntities( void )
 		f = 64 * ( i/4 ) + 128;
 
 		for( j = 0; j < 3; j++ )
-			ent.origin[j] = ent.lightingOrigin[j] = cg.view.origin[j] + 
+			ent.origin[j] = ent.lightingOrigin[j] = cg.view.origin[j] +
 				cg.view.axis[AXIS_FORWARD+j]*f + cg.view.axis[AXIS_RIGHT+j]*r;
 
 		Matrix3_Copy( cg.autorotateAxis, ent.axis );
@@ -320,7 +320,7 @@ static void CG_TestEntities( void )
 
 /*
 * CG_TestLights
-* 
+*
 * If cg_testLights is set, create 32 lights models
 */
 static void CG_TestLights( void )

@@ -21,7 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 /*
 * G_Teleport
-* 
+*
 * Teleports client to specified position
 * If client is not spectator teleporting is only done if position is free and teleport effects are drawn.
 */
@@ -71,7 +71,7 @@ static bool G_Teleport( edict_t *ent, vec3_t origin, vec3_t angles )
 
 /*
 * Cmd_Give_f
-* 
+*
 * Give items to a client
 */
 static void Cmd_Give_f( edict_t *ent )
@@ -233,7 +233,7 @@ static void Cmd_God_f( edict_t *ent )
 
 /*
 * Cmd_Noclip_f
-* 
+*
 * argv(0) noclip
 */
 static void Cmd_Noclip_f( edict_t *ent )
@@ -1078,7 +1078,7 @@ static void Cmd_Awards_f ( edict_t *ent )
 
 /*
 * G_StatsMessage
-* 
+*
 * Generates stats message for the entity
 * The returned string must be freed by the caller using G_Free
 * Note: This string must never contain " characters

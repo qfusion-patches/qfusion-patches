@@ -25,7 +25,7 @@ static void CL_PauseDemo( bool paused );
 
 /*
 * CL_WriteDemoMessage
-* 
+*
 * Dumps the current net message, prefixed by the length
 */
 void CL_WriteDemoMessage( msg_t *msg )
@@ -42,7 +42,7 @@ void CL_WriteDemoMessage( msg_t *msg )
 
 /*
 * CL_Stop_f
-* 
+*
 * stop recording a demo
 */
 void CL_Stop_f( void )
@@ -110,9 +110,9 @@ void CL_Stop_f( void )
 
 /*
 * CL_Record_f
-* 
+*
 * record <demoname>
-* 
+*
 * Begins recording a demo from the current position
 */
 void CL_Record_f( void )
@@ -250,7 +250,7 @@ static void CL_StopDemoAviDump( void )
 
 /*
 * CL_DemoCompleted
-* 
+*
 * Close the demo file and disable demo state. Called from disconnection proccess
 */
 void CL_DemoCompleted( void )
@@ -283,7 +283,7 @@ void CL_DemoCompleted( void )
 
 /*
 * CL_ReadDemoMessage
-* 
+*
 * Read a packet from the demo file and send it to the messages parser
 */
 static void CL_ReadDemoMessage( void )
@@ -322,7 +322,7 @@ static void CL_ReadDemoMessage( void )
 
 /*
 * CL_ReadDemoPackets
-* 
+*
 * See if it's time to read a new demo packet
 */
 void CL_ReadDemoPackets( void )
@@ -345,7 +345,7 @@ void CL_ReadDemoPackets( void )
 
 /*
 * CL_LatchedDemoJump
-* 
+*
 * See if it's time to read a new demo packet
 */
 void CL_LatchedDemoJump( void )
@@ -459,7 +459,7 @@ char **CL_DemoComplete( const char *partial )
 
 /*
 * CL_PlayDemo_f
-* 
+*
 * demo <demoname>
 */
 void CL_PlayDemo_f( void )
@@ -555,7 +555,7 @@ void CL_DemoJump_f( void )
 
 /*
 * CL_PlayDemoToAvi_f
-* 
+*
 * demoavi <demoname> (if no name suplied, toogles demoavi status)
 */
 void CL_PlayDemoToAvi_f( void )
@@ -601,7 +601,7 @@ size_t CL_ReadDemoMetaData( const char *demopath, char *meta_data, size_t meta_d
 	servername = TempCopyString( demopath );
 	COM_SanitizeFilePath( servername );
 
-	// hack: 
+	// hack:
 	if( cls.demo.playing && !Q_stricmp( cls.demo.name, servername ) && cls.demo.meta_data_realsize > 0 ) {
 		if( meta_data && meta_data_size ) {
 			meta_data_realsize = cls.demo.meta_data_realsize;
@@ -641,4 +641,3 @@ size_t CL_ReadDemoMetaData( const char *demopath, char *meta_data, size_t meta_d
 
 	return meta_data_realsize;
 }
-

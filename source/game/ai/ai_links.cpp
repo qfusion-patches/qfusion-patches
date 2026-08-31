@@ -194,7 +194,7 @@ bool AI_AddLink( int n1, int n2, int linkType )
 	pLinks[n1].nodes[pLinks[n1].numLinks] = n2;
 	pLinks[n1].moveType[pLinks[n1].numLinks] = linkType;
 	pLinks[n1].dist[pLinks[n1].numLinks] = (int)AI_FindLinkDistance( n1, n2, linkType );
-	
+
 	pLinks[n1].numLinks++;
 
 	return true;

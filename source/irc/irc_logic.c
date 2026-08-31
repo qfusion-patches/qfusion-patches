@@ -406,7 +406,7 @@ static void Irc_Logic_CmdMode_f(irc_command_t cmd, const char *prefix, const cha
 						// not implemented yet (should we care?)
 						break;
 					case IRC_MODE_LIMIT:
-					case IRC_MODE_KEY:	
+					case IRC_MODE_KEY:
 						// not implemented yet (should we care?)
 						break;
 					default:
@@ -607,7 +607,7 @@ static void Irc_Logic_CmdRplTopic_f(irc_command_t cmd, const char *prefix, const
 	}
 }
 
-static void Irc_Logic_CmdRplNotopic_f(irc_command_t cmd, const char *prefix, const char *params, const char *trailing) {	
+static void Irc_Logic_CmdRplNotopic_f(irc_command_t cmd, const char *prefix, const char *params, const char *trailing) {
 	const char *chan = strchr(params, ' ');
 	if (chan) {
 		irc_channel_t * const channel = Irc_Logic_GetChannel(chan + 1);

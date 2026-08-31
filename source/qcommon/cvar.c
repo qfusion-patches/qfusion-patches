@@ -392,7 +392,7 @@ void Cvar_SetValue( const char *var_name, float value )
 
 /*
 * Cvar_GetLatchedVars
-* 
+*
 * Any variables with CVAR_LATCHED will now be updated
 */
 void Cvar_GetLatchedVars( cvar_flag_t flags )
@@ -432,7 +432,7 @@ void Cvar_GetLatchedVars( cvar_flag_t flags )
 
 /*
 * Cvar_FixCheatVars
-* 
+*
 * All cheat variables with be reset to default unless cheats are allowed
 */
 void Cvar_FixCheatVars( void )
@@ -462,9 +462,9 @@ void Cvar_FixCheatVars( void )
 
 /*
 * Cvar_Command
-* 
+*
 * Handles variable inspection and changing from the console
-* 
+*
 * Called by Cmd_ExecuteString when Cmd_Argv(0) doesn't match a known
 * command.  Returns true if the command was a variable reference that
 * was handled. (print or change)
@@ -497,7 +497,7 @@ bool Cvar_Command( void )
 
 /*
 * Cvar_Set_f
-* 
+*
 * Allows setting and defining of arbitrary cvars from console
 */
 static void Cvar_Set_f( void )
@@ -590,7 +590,7 @@ static void Cvar_Toggle_f( void )
 
 /*
 * Cvar_WriteVariables
-* 
+*
 * Appends lines containing "set variable value" for all variables
 * with the archive flag set to true.
 */
@@ -682,7 +682,7 @@ static void Cvar_List_f( void )
 			Com_Printf( "C" );
 		else
 			Com_Printf( " " );
-		Com_Printf( " %s \"%s%s\", default: \"%s%s\"\n", var->name, 
+		Com_Printf( " %s \"%s%s\", default: \"%s%s\"\n", var->name,
 			var->string, Q_ColorStringTerminator( var->string, ColorIndex(COLOR_WHITE) ),
 			var->dvalue, Q_ColorStringTerminator( var->dvalue, ColorIndex(COLOR_WHITE) ) );
 	}
@@ -885,7 +885,7 @@ void Cvar_PreInit( void )
 
 /*
 * Cvar_Init
-* 
+*
 * Reads in all archived cvars
 */
 void Cvar_Init( void )
@@ -923,7 +923,7 @@ void Cvar_Init( void )
 
 /*
 * Cvar_Shutdown
-* 
+*
 * Reads in all archived cvars
 */
 void Cvar_Shutdown( void )

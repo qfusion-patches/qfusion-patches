@@ -100,7 +100,7 @@ typedef struct r_backend_s
 
 		bool			flushTextures;
 		int				currentTMU;
-		unsigned		currentTextures[MAX_TEXTURE_UNITS];				
+		unsigned		currentTextures[MAX_TEXTURE_UNITS];
 	} gl;
 
 	unsigned int time;
@@ -124,7 +124,7 @@ typedef struct r_backend_s
 	const mesh_vbo_t *currentMeshVBO;
 	rbBonesData_t bonesData;
 	const portalSurface_t *currentPortalSurface;
-	
+
 	// glUseProgram cache
 	int	currentProgram;
 	int currentProgramObject;
@@ -201,7 +201,7 @@ void RB_DrawElementsReal( rbDrawElements_t *de );
 void RB_InitShading( void );
 void RB_DrawOutlinedElements( void );
 void RB_DrawShadedElements( void );
-int RB_RegisterProgram( int type, const char *name, const char *deformsKey, 
+int RB_RegisterProgram( int type, const char *name, const char *deformsKey,
 	const deformv_t *deforms, int numDeforms, r_glslfeat_t features );
 int RB_BindProgram( int program );
 void RB_BindImage( int tmu, const image_t *tex );

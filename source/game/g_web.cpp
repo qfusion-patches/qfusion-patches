@@ -25,7 +25,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 *
 * Route request to appropriate submodule
 */
-http_response_code_t G_WebRequest( http_query_method_t method, const char *resource, 
+http_response_code_t G_WebRequest( http_query_method_t method, const char *resource,
 		const char *query_string, char **content, size_t *content_length )
 {
 	if( !Q_strnicmp( resource, "callvote", 8 ) ) {

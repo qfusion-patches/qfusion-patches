@@ -89,7 +89,7 @@ bool CIN_Init( bool verbose );
 void CIN_Shutdown( bool verbose );
 char *CIN_CopyString( const char *in );
 
-struct cinematics_s *CIN_Open( const char *name, unsigned int start_time, 
+struct cinematics_s *CIN_Open( const char *name, unsigned int start_time,
 	int flags, bool *yuv, float *framerate );
 
 bool CIN_HasOggAudio( cinematics_t *cin );
@@ -98,18 +98,18 @@ const char *CIN_FileName( cinematics_t *cin );
 
 bool CIN_NeedNextFrame( cinematics_t *cin, unsigned int curtime );
 
-uint8_t *CIN_ReadNextFrame( cinematics_t *cin, int *width, int *height, 
+uint8_t *CIN_ReadNextFrame( cinematics_t *cin, int *width, int *height,
 	int *aspect_numerator, int *aspect_denominator, bool *redraw );
 
-cin_yuv_t *CIN_ReadNextFrameYUV( cinematics_t *cin, int *width, int *height, 
+cin_yuv_t *CIN_ReadNextFrameYUV( cinematics_t *cin, int *width, int *height,
 	int *aspect_numerator, int *aspect_denominator, bool *redraw );
 
 void CIN_ClearRawSamplesListeners( cinematics_t *cin );
 
-bool CIN_AddRawSamplesListener( cinematics_t *cin, void *listener, 
+bool CIN_AddRawSamplesListener( cinematics_t *cin, void *listener,
 	cin_raw_samples_cb_t raw_samples, cin_get_raw_samples_cb_t get_raw_samples );
 
-void CIN_RawSamplesToListeners( cinematics_t *cin, unsigned int samples, unsigned int rate, 
+void CIN_RawSamplesToListeners( cinematics_t *cin, unsigned int samples, unsigned int rate,
 		unsigned short width, unsigned short channels, const uint8_t *data );
 
 unsigned int CIN_GetRawSamplesLengthFromListeners( cinematics_t *cin );

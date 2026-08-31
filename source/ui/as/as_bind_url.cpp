@@ -30,7 +30,7 @@ typedef Rocket::Core::URL RocketURL;
 
 ASURL::ASURL( void ) : rocketURL( "" ) { }
 
-ASURL::ASURL( const char *url ) : rocketURL( url ) { } 
+ASURL::ASURL( const char *url ) : rocketURL( url ) { }
 
 ASURL::ASURL( const asstring_t &url ) : rocketURL( url.buffer ) { }
 

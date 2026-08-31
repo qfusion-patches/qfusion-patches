@@ -27,7 +27,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 /*
 * CG_ViewWeapon_UpdateProjectionSource
 */
-static void CG_ViewWeapon_UpdateProjectionSource( vec3_t hand_origin, mat3_t hand_axis, 
+static void CG_ViewWeapon_UpdateProjectionSource( vec3_t hand_origin, mat3_t hand_axis,
 	vec3_t weap_origin, mat3_t weap_axis )
 {
 	orientation_t *tag_result = &cg.weapon.projectionSource;
@@ -103,10 +103,10 @@ static void CG_ViewWeapon_AddAngleEffects( vec3_t angles )
 				angles[ROLL] += 0.001 * delta;
 			angles[i] += 0.002 * delta;
 		}
-		
+
 		// gun angles from kicks
 		CG_AddKickAngles( angles );
-	}	
+	}
 }
 
 /*
@@ -298,7 +298,7 @@ void CG_CalcViewWeapon( cg_viewweapon_t *viewweapon )
 	gunOffset[FORWARD] = cg_gunz->value + weaponInfo->handpositionOrigin[FORWARD];
 	gunOffset[RIGHT] = cg_gunx->value + weaponInfo->handpositionOrigin[RIGHT];
 	gunOffset[UP] = cg_guny->value + weaponInfo->handpositionOrigin[UP];
-	
+
 	// scale forward gun offset depending on fov and aspect ratio
 	gunOffset[FORWARD] = gunOffset[FORWARD] * cgs.vidWidth / ( cgs.vidHeight * cg.view.fracDistFOV ) ;
 

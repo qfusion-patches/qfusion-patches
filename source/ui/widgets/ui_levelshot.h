@@ -17,7 +17,7 @@ namespace WSWUI
 	public:
 		/// Initializes the levelshot element
 		explicit LevelShot(const Rocket::Core::String&);
-	
+
 		virtual void OnAttributeChange(const Rocket::Core::AttributeNameList&);
 
 	private:

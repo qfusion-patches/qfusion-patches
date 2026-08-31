@@ -8,7 +8,7 @@
 typedef struct wswcurl_req_s wswcurl_req;
 
 typedef void (*wswcurl_done_cb)(struct wswcurl_req_s *req, int status, void *customp);
-typedef size_t (*wswcurl_read_cb)(struct wswcurl_req_s *req, const void *buf, size_t numb, 
+typedef size_t (*wswcurl_read_cb)(struct wswcurl_req_s *req, const void *buf, size_t numb,
 	float percentage, void *customp);
 typedef void (*wswcurl_header_cb)(struct wswcurl_req_s *req, const char *buf, void *customp);
 
@@ -35,7 +35,7 @@ size_t wswcurl_getsize (wswcurl_req *req, size_t *rxreceived);
 /**
  * Sets callbacks to read the data in streaming-mode, no data will be stored by wswcurl
  */
-void wswcurl_stream_callbacks (wswcurl_req *req, wswcurl_read_cb read_cb, wswcurl_done_cb done_cb, 
+void wswcurl_stream_callbacks (wswcurl_req *req, wswcurl_read_cb read_cb, wswcurl_done_cb done_cb,
 							   wswcurl_header_cb header_cb, void *customp);
 /**
  * Read 'size' bytes to buffer. Blocking call that waits for as long as buffer is filled
@@ -101,7 +101,7 @@ int wswcurl_tell(wswcurl_req *req);
  */
 int wswcurl_eof(wswcurl_req *req);
 /**
- * 
+ *
  */
 void wswcurl_ignore_bytes(wswcurl_req *req, size_t nbytes);
 

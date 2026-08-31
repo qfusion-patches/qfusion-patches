@@ -191,7 +191,7 @@ static char *TV_Downstream_ShortInfoString( void )
 
 /*
 * TV_Downstream_InfoResponse
-* 
+*
 * Responds with short info for broadcast scans
 * The second parameter should be the current protocol version number.
 */
@@ -283,7 +283,7 @@ static bool TV_Downstream_ClientConnect( const socket_t *socket, const netadr_t 
 
 	// it may actually happen that we reuse a client slot (same IP, same port),
 	// which is "attached" to an active relay, so we need to notify the relay that client
-	// isn't active anymore, otherwise it'll get confused after we set the client's state 
+	// isn't active anymore, otherwise it'll get confused after we set the client's state
 	// to CS_CONNECTING down below
 	if( client->relay )
 		TV_Relay_ClientDisconnect( client->relay, client );
@@ -523,7 +523,7 @@ static void TV_Downstream_DirectConnect( const socket_t *socket, const netadr_t 
 
 /*
 * TV_Downstream_GetChallenge
-* 
+*
 * Returns a challenge number that can be used
 * in a subsequent client_connect command.
 * We do this to prevent denial of service attacks that
@@ -579,7 +579,7 @@ static int Rcon_Validate( void )
 
 /*
 * TV_Downstream_RemoteCommand
-* 
+*
 * A client issued an rcon command.
 * Shift down the remaining args
 * Redirect all printfs
@@ -737,7 +737,7 @@ bool TV_Downstream_SteamServerQuery( const char *s, const socket_t *socket, cons
 			"\\type\\p\\secure\\0"
 			"\\version\\%i.%i.0.0"
 			"\\product\\%s\n",
-			challenge, 
+			challenge,
 			count, min( tv_maxclients->integer, 99 ),
 			gamedir,
 			tv_password->string[0] ? 1 : 0, STEAMQUERY_OS,

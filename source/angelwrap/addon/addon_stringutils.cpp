@@ -140,31 +140,31 @@ static asstring_t *QAS_FormatString3( const asstring_t &format, const asstring_t
 	return QAS_FormatStringHelper( format.buffer, arg1.buffer, arg2.buffer, arg3.buffer );
 }
 
-static asstring_t *QAS_FormatString4( const asstring_t &format, const asstring_t &arg1, const asstring_t &arg2, const asstring_t &arg3, 
+static asstring_t *QAS_FormatString4( const asstring_t &format, const asstring_t &arg1, const asstring_t &arg2, const asstring_t &arg3,
 	const asstring_t &arg4 )
 {
 	return QAS_FormatStringHelper( format.buffer, arg1.buffer, arg2.buffer, arg3.buffer, arg4.buffer );
 }
 
-static asstring_t *QAS_FormatString5( const asstring_t &format, const asstring_t &arg1, const asstring_t &arg2, const asstring_t &arg3, 
+static asstring_t *QAS_FormatString5( const asstring_t &format, const asstring_t &arg1, const asstring_t &arg2, const asstring_t &arg3,
 	const asstring_t &arg4, const asstring_t &arg5 )
 {
 	return QAS_FormatStringHelper( format.buffer, arg1.buffer, arg2.buffer, arg3.buffer, arg4.buffer, arg5.buffer );
 }
 
-static asstring_t *QAS_FormatString6( const asstring_t &format, const asstring_t &arg1, const asstring_t &arg2, const asstring_t &arg3, 
+static asstring_t *QAS_FormatString6( const asstring_t &format, const asstring_t &arg1, const asstring_t &arg2, const asstring_t &arg3,
 	const asstring_t &arg4, const asstring_t &arg5, const asstring_t &arg6 )
 {
 	return QAS_FormatStringHelper( format.buffer, arg1.buffer, arg2.buffer, arg3.buffer, arg4.buffer, arg5.buffer, arg6.buffer );
 }
 
-static asstring_t *QAS_FormatString7( const asstring_t &format, const asstring_t &arg1, const asstring_t &arg2, const asstring_t &arg3, 
+static asstring_t *QAS_FormatString7( const asstring_t &format, const asstring_t &arg1, const asstring_t &arg2, const asstring_t &arg3,
 	const asstring_t &arg4, const asstring_t &arg5, const asstring_t &arg6, const asstring_t &arg7 )
 {
 	return QAS_FormatStringHelper( format.buffer, arg1.buffer, arg2.buffer, arg3.buffer, arg4.buffer, arg5.buffer, arg6.buffer, arg7.buffer );
 }
 
-static asstring_t *QAS_FormatString8( const asstring_t &format, const asstring_t &arg1, const asstring_t &arg2, const asstring_t &arg3, 
+static asstring_t *QAS_FormatString8( const asstring_t &format, const asstring_t &arg1, const asstring_t &arg2, const asstring_t &arg3,
 	const asstring_t &arg4, const asstring_t &arg5, const asstring_t &arg6, const asstring_t &arg7, const asstring_t &arg8 )
 {
 	return QAS_FormatStringHelper( format.buffer, arg1.buffer, arg2.buffer, arg3.buffer, arg4.buffer, arg5.buffer, arg6.buffer, arg7.buffer, arg8.buffer );
@@ -301,12 +301,12 @@ void RegisterStringUtilsAddon( asIScriptEngine *engine )
 		"const String &in arg3, const String &in arg4, const String &in arg5, const String &in arg6, const String &in arg7)", asFUNCTION( QAS_FormatString7 ), asCALL_CDECL ); assert( r >= 0 );
 	r = engine->RegisterGlobalFunction( "String @Format(const String &in format, const String &in arg1, const String &in arg2, "
 		"const String &in arg3, const String &in arg4, const String &in arg5, const String &in arg6, const String &in arg7, const String &in arg8)", asFUNCTION( QAS_FormatString8 ), asCALL_CDECL ); assert( r >= 0 );
-	
+
 	r = engine->RegisterGlobalFunction( "array<String @> @Split(const String &in string, const String &in delimiter)", asFUNCTION( QAS_SplitString ), asCALL_CDECL ); assert( r >= 0 );
 	r = engine->RegisterGlobalFunction( "String @Join(array<String @> &in, const String &in delimiter)", asFUNCTION( QAS_JoinString ), asCALL_CDECL ); assert( r >= 0 );
 
 	r = engine->RegisterGlobalFunction( "uint Strtol(const String &in string, uint base)", asFUNCTION( QAS_Strtol ), asCALL_CDECL ); assert( r >= 0 );
-	
+
 	r = engine->RegisterGlobalFunction( "String @FromCharCode(uint charCode)", asFUNCTION( QAS_StringFromCharCode ), asCALL_CDECL ); assert( r >= 0 );
 	r = engine->RegisterGlobalFunction( "String @FromCharCode(array<uint> &in charCodes)", asFUNCTION( QAS_StringFromCharCodes ), asCALL_CDECL ); assert( r >= 0 );
 

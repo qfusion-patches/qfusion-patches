@@ -225,7 +225,7 @@ static void sv_mm_clientconnect_done( stat_query_t *query, bool success, void *c
 	 * session or do anything stupid like that
 	 * (currently we dont even tell MM about these so ignore)
 	 */
-	
+
 	session_id = (int)((intptr_t )customp);
 	isession_id = 0;
 	cl = SV_MM_ClientForSession( session_id );
@@ -249,7 +249,7 @@ static void sv_mm_clientconnect_done( stat_query_t *query, bool success, void *c
 		else
 		{
 			int banned = (int)sq_api->GetNumber( root, "banned" );
-			if( banned != 0 ) 
+			if( banned != 0 )
 			{
 				const char *reason = sq_api->GetString( root, "reason" );
 				if( !reason || *reason == '\0' )

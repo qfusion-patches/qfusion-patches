@@ -811,11 +811,11 @@ void SP_target_print( edict_t *self )
 
 static void target_relay_use( edict_t *self, edict_t *other, edict_t *activator )
 {
-	if( ( self->spawnflags & 1 ) != 0 && activator->r.client 
+	if( ( self->spawnflags & 1 ) != 0 && activator->r.client
 		&& activator->s.team != TEAM_ALPHA )
 		return;
 
-	if( ( self->spawnflags & 2 ) != 0 && activator->r.client 
+	if( ( self->spawnflags & 2 ) != 0 && activator->r.client
 		&& activator->s.team != TEAM_BETA )
 		return;
 
@@ -1012,4 +1012,3 @@ void SP_target_kill( edict_t *self )
 	self->r.svflags |= SVF_NOCLIENT;
 	self->use = target_kill_use;
 }
-

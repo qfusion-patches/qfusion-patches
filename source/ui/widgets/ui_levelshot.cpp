@@ -9,7 +9,7 @@ namespace WSWUI
 
 	LevelShot::LevelShot(const Rocket::Core::String& tag) : ElementImage(tag), srcProcessed(false)
 	{
-	} 
+	}
 
 	void LevelShot::OnAttributeChange(const Rocket::Core::AttributeNameList& anl)
 	{
@@ -37,7 +37,7 @@ namespace WSWUI
 					SetAttribute( "src", fullPath );
 
 					// precache the levelshot shader here, so that
-					// the subsequent trap::R_RegisterPic call in UI_RenderInterface::LoadTexture 
+					// the subsequent trap::R_RegisterPic call in UI_RenderInterface::LoadTexture
 					// will return proper shader (with fallback image, etc)
 					trap::R_RegisterLevelshot( fullPath.CString(), fallbackShader, NULL );
 					return;
@@ -60,6 +60,6 @@ namespace WSWUI
 
 	Rocket::Core::ElementInstancer *GetLevelShotInstancer(void)
 	{
-		return __new__( GenericElementInstancer<LevelShot> )(); 
+		return __new__( GenericElementInstancer<LevelShot> )();
 	}
 }

@@ -265,7 +265,7 @@ void QBufPipe_WriteCmd( qbufPipe_t *pipe, const void *cmd, unsigned cmd_size )
 	void *buf;
 	unsigned write_remains;
 	bool was_empty;
-	
+
 	if( !pipe ) {
 		return;
 	}
@@ -349,7 +349,7 @@ int QBufPipe_ReadCmds( qbufPipe_t *pipe, unsigned (**cmdHandlers)( const void * 
 		int cmd;
 		int cmd_size;
 		int read_remains;
-	
+
 		assert( pipe->bufSize >= pipe->read_pos );
 		if( pipe->bufSize < pipe->read_pos ) {
 			pipe->read_pos = 0;
@@ -378,7 +378,7 @@ int QBufPipe_ReadCmds( qbufPipe_t *pipe, unsigned (**cmdHandlers)( const void * 
 			pipe->terminated = 1;
 			return -1;
 		}
-		
+
 		if( cmd_size > pipe->cmdbuf_len ) {
 			assert( 0 );
 			pipe->terminated = 1;
@@ -395,7 +395,7 @@ int QBufPipe_ReadCmds( qbufPipe_t *pipe, unsigned (**cmdHandlers)( const void * 
 /*
 * QBufPipe_Wait
 */
-void QBufPipe_Wait( qbufPipe_t *pipe, int (*read)( qbufPipe_t *, unsigned( ** )(const void *), bool ), 
+void QBufPipe_Wait( qbufPipe_t *pipe, int (*read)( qbufPipe_t *, unsigned( ** )(const void *), bool ),
 	unsigned (**cmdHandlers)( const void * ), unsigned timeout_msec )
 {
 	while( !pipe->terminated ) {

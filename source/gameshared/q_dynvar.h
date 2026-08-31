@@ -69,4 +69,3 @@ typedef void ( *dynvar_listener_f )( void *val );
 #endif
 
 #endif // GAME_QDYNVAR_H
-

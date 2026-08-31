@@ -192,7 +192,7 @@ public:
 
 	virtual void setUI( UI_Main *ui ) { ui_main = ui; }
 
-	virtual asIScriptEngine *getEngine( void ) const { 
+	virtual asIScriptEngine *getEngine( void ) const {
 		return engine;
 	}
 
@@ -216,7 +216,7 @@ public:
 		return as_api ? as_api->asAcquireContext( engine ) : NULL;
 	}
 
-	virtual asIScriptContext *getActiveContext( void ) const { 
+	virtual asIScriptContext *getActiveContext( void ) const {
 		return as_api ? as_api->asGetActiveContext() : NULL;
 	}
 

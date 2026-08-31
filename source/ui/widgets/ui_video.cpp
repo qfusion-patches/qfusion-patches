@@ -4,11 +4,11 @@
 #include "widgets/ui_widgets.h"
 
 namespace WSWUI
-{	
+{
 	Video::Video(const Rocket::Core::String& tag) : ElementImage(tag)
 	{
 
-	} 
+	}
 
 	void Video::OnAttributeChange(const Rocket::Core::AttributeNameList& anl)
 	{
@@ -19,7 +19,7 @@ namespace WSWUI
 
 	Rocket::Core::ElementInstancer *GetVideoInstancer(void)
 	{
-		return __new__( GenericElementInstancer<Video> )(); 
+		return __new__( GenericElementInstancer<Video> )();
 	}
 
 }

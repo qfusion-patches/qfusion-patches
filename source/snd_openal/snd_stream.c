@@ -89,7 +89,7 @@ static rawsrc_t *find_rawsound( int entNum )
 	free = NULL;
 	for( i = 0; i < MAX_RAW_SOUNDS; i++ ) {
 		rs = &raw_sounds[i];
-		
+
 		if( !free && !rs->src ) {
 			free = rs;
 		}
@@ -168,7 +168,7 @@ void S_UpdateStreams( void )
 		if( !rs->src ) {
 			continue;
 		}
-		
+
 		update_rawsound( rs );
 
 		if( !rs->src->isActive ) {
@@ -198,7 +198,7 @@ void S_StopRawSamples( void )
 	}
 }
 
-static void S_RawSamples_( int entNum, float fvol, float attenuation, 
+static void S_RawSamples_( int entNum, float fvol, float attenuation,
 	unsigned int samples, unsigned int rate, unsigned short width,
 	unsigned short channels, const uint8_t *data, cvar_t *volumeVar )
 {
@@ -265,28 +265,28 @@ static void S_RawSamples_( int entNum, float fvol, float attenuation,
 /*
 * S_RawSamples2
 */
-void S_RawSamples2( unsigned int samples, unsigned int rate, unsigned short width, 
+void S_RawSamples2( unsigned int samples, unsigned int rate, unsigned short width,
 	unsigned short channels, const uint8_t *data, bool music, float fvol )
 {
-	S_RawSamples_( RAW_SOUND_ENTNUM, fvol, ATTN_NONE, samples, rate, width, 
+	S_RawSamples_( RAW_SOUND_ENTNUM, fvol, ATTN_NONE, samples, rate, width,
 		channels, data, music ? s_musicvolume : s_volume );
 }
 
 /*
 * Global functions (sound.h)
 */
-void S_RawSamples( unsigned int samples, unsigned int rate, unsigned short width, 
+void S_RawSamples( unsigned int samples, unsigned int rate, unsigned short width,
 	unsigned short channels, const uint8_t *data, bool music )
 {
-	S_RawSamples_( RAW_SOUND_ENTNUM, 1, ATTN_NONE, samples, rate, width, 
+	S_RawSamples_( RAW_SOUND_ENTNUM, 1, ATTN_NONE, samples, rate, width,
 		channels, data, music ? s_musicvolume : s_volume );
 }
 
 /*
 * S_PositionedRawSamples
 */
-void S_PositionedRawSamples( int entnum, float fvol, float attenuation, 
-		unsigned int samples, unsigned int rate, 
+void S_PositionedRawSamples( int entnum, float fvol, float attenuation,
+		unsigned int samples, unsigned int rate,
 		unsigned short width, unsigned short channels, const uint8_t *data )
 {
 	if( entnum < 0 ) {
@@ -312,7 +312,7 @@ void S_PositionedRawSamples( int entnum, float fvol, float attenuation,
 /*
 * S_GetRawSamplesLength
 */
-unsigned int S_GetRawSamplesLength( void ) 
+unsigned int S_GetRawSamplesLength( void )
 {
 	rawsrc_t *rs;
 

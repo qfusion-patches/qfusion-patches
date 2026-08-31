@@ -208,7 +208,7 @@ typedef struct
 	unsigned int	(*Sys_Milliseconds)(void);
 	uint64_t			(*Sys_Microseconds)(void);
 	// managed memory allocation
-	struct mempool_s *(*Mem_AllocPool)(const char *name, const char *filename, int fileline);	
+	struct mempool_s *(*Mem_AllocPool)(const char *name, const char *filename, int fileline);
 	void		*(*Mem_Alloc)(int size, const char *filename, int fileline);
 	void		(*Mem_Free)(void *data, const char *filename, int fileline);
 	void		(*Mem_FreePool)(const char *filename, int fileline);
@@ -243,7 +243,7 @@ typedef struct
 	void		(*Cmd_SetCompletionFunc)(const char *cmd_name,  xcompletionf_t completion_func);
 
 	// console
-	void		(*Com_BeginRedirect)(int target, char *buffer, int buffersize, 
+	void		(*Com_BeginRedirect)(int target, char *buffer, int buffersize,
 		void (*flush)(int, const char*, const void*), const void *extra);
 	void		(*Com_EndRedirect)(void);
 	void		(*Cbuf_AddText)(const char *text);

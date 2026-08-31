@@ -157,7 +157,7 @@ bool SV_ClientConnect( const socket_t *socket, const netadr_t *address, client_t
 		}
 	}
 
-	
+
 	// create default rating for the client and current gametype
 	ge->AddDefaultRating( ent, NULL );
 
@@ -181,7 +181,7 @@ bool SV_ClientConnect( const socket_t *socket, const netadr_t *address, client_t
 
 /*
 * SV_DropClient
-* 
+*
 * Called when the player is totally leaving the server, either willingly
 * or unwillingly.  This is NOT called if the entire server is quiting
 * or crashing.
@@ -271,7 +271,7 @@ CLIENT COMMAND EXECUTION
 
 /*
 * SV_New_f
-* 
+*
 * Sends the first message from the server to a connected client.
 * This will be sent on the initial connection and upon each server load.
 */
@@ -514,7 +514,7 @@ static void SV_Begin_f( client_t *client )
 
 /*
 * SV_NextDownload_f
-* 
+*
 * Responds to reliable nextdl packet with unreliable download packet
 * If nextdl packet's offet information is negative, download will be stopped
 */

@@ -27,12 +27,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "../gameshared/q_keycodes.h"
 #include <Rocket/Core/Input.h>
 
-namespace WSWUI 
+namespace WSWUI
 {
 
 using namespace Rocket::Core;
 
-	UI_KeySelect::UI_KeySelect( const String &tag, const String &bind, UI_KeySelectInstancer *instancer ) 
+	UI_KeySelect::UI_KeySelect( const String &tag, const String &bind, UI_KeySelectInstancer *instancer )
 		: Element( tag ), cmd( bind )
 	{
 		this->focusMode = false;
@@ -93,7 +93,7 @@ using namespace Rocket::Core;
 		}
 
 		boundKey[1] = 0;
-		
+
 		// unbind key
 		if( saveKey )
 			trap::Key_SetBinding( saveKey, NULL );
@@ -291,7 +291,7 @@ using namespace Rocket::Core;
 	void UI_KeySelectInstancer::ReleaseElement( Element *element )
 	{
 		// first remove from the list
-		keyselect_widgets.erase( std::remove( keyselect_widgets.begin(), keyselect_widgets.end(), element ), 
+		keyselect_widgets.erase( std::remove( keyselect_widgets.begin(), keyselect_widgets.end(), element ),
 			keyselect_widgets.end() );
 
 		// then delete

@@ -89,17 +89,17 @@ static void CL_UIModule_AsyncStream_Init( void )
 /*
 * CL_UIModule_AsyncStream_PerformRequest
 */
-static int CL_UIModule_AsyncStream_PerformRequest( const char *url, const char *method, 
+static int CL_UIModule_AsyncStream_PerformRequest( const char *url, const char *method,
 	const char *data, int timeout,
 	ui_async_stream_read_cb_t read_cb, ui_async_stream_done_cb_t done_cb, void *privatep )
 {
 	const char *headers[] = { NULL, NULL, NULL, NULL, NULL };
 
 	assert( ui_async_stream );
-	
+
 	CL_AddSessionHttpRequestHeaders( url, headers );
 
-	return AsyncStream_PerformRequestExt( ui_async_stream, url, method, data, headers, timeout, 
+	return AsyncStream_PerformRequestExt( ui_async_stream, url, method, data, headers, timeout,
 		0, read_cb, done_cb, NULL, privatep );
 }
 
@@ -403,8 +403,8 @@ void CL_UIModule_TouchAllAssets( void )
 void CL_UIModule_Refresh( bool backGround, bool showCursor )
 {
 	if( uie )
-		uie->Refresh( cls.realtime, Com_ClientState(), Com_ServerState(), 
-			cls.demo.playing, cls.demo.name, cls.demo.paused, Q_rint(cls.demo.time/1000.0f), 
+		uie->Refresh( cls.realtime, Com_ClientState(), Com_ServerState(),
+			cls.demo.playing, cls.demo.name, cls.demo.paused, Q_rint(cls.demo.time/1000.0f),
 			backGround, showCursor );
 }
 
@@ -480,7 +480,7 @@ void CL_UIModule_UpdateConnectScreen( bool backGround )
 			downloadType, cls.download.name, cls.download.percent * 100.0f, downloadSpeed,
 			cls.connect_count, backGround );
 
-		CL_UIModule_Refresh( backGround, false );	
+		CL_UIModule_Refresh( backGround, false );
 	}
 }
 

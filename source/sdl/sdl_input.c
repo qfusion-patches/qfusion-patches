@@ -51,7 +51,7 @@ static void mouse_motion_event( SDL_MouseMotionEvent *event )
 		static Uint32 last_which;
 		static Sint32 last_xrel, last_yrel;
 
-		if (last_timestamp == event->timestamp && last_which == event->which 
+		if (last_timestamp == event->timestamp && last_which == event->which
 			&& last_xrel == event->xrel && last_yrel == event->yrel)
 			return;
 
@@ -120,7 +120,7 @@ static void mouse_wheel_event( SDL_MouseWheelEvent *event )
 static wchar_t TranslateSDLScancode(SDL_Scancode scancode)
 {
 	wchar_t charkey = 0;
-	
+
 	switch(scancode)
 	{
 		case SDL_SCANCODE_TAB:          charkey = K_TAB;		break;
@@ -171,8 +171,8 @@ static wchar_t TranslateSDLScancode(SDL_Scancode scancode)
 		case SDL_SCANCODE_NONUSBACKSLASH:charkey= '<';          break;
 		case SDL_SCANCODE_LGUI:
 		case SDL_SCANCODE_RGUI:         charkey = K_COMMAND;    break;
-			
-			
+
+
 		case SDL_SCANCODE_A:			charkey = 'a';			break;
 		case SDL_SCANCODE_B:			charkey = 'b';			break;
 		case SDL_SCANCODE_C:			charkey = 'c';			break;
@@ -199,7 +199,7 @@ static wchar_t TranslateSDLScancode(SDL_Scancode scancode)
 		case SDL_SCANCODE_X:			charkey = 'x';			break;
 		case SDL_SCANCODE_Y:			charkey = 'y';			break;
 		case SDL_SCANCODE_Z:			charkey = 'z';			break;
-			
+
 		case SDL_SCANCODE_1:			charkey = '1';			break;
 		case SDL_SCANCODE_2:			charkey = '2';			break;
 		case SDL_SCANCODE_3:			charkey = '3';			break;
@@ -285,7 +285,7 @@ static void IN_HandleEvents( void )
 				#else
 					#define KEYBOARD_COPY_PASTE_MODIFIER KMOD_CTRL
 				#endif
-				
+
 				if( event.key.keysym.sym == SDLK_c ) {
 					if( event.key.keysym.mod & KEYBOARD_COPY_PASTE_MODIFIER ) {
 						Key_CharEvent( KC_CTRLC, KC_CTRLC );
@@ -442,7 +442,7 @@ void IN_Init()
 	SDL_ShowCursor( SDL_DISABLE );
 
 #if SDL_VERSION_ATLEAST(2, 0, 2)
-	
+
 	{
 		cvar_t *m_raw = Cvar_Get( "m_raw", "1", CVAR_ARCHIVE );
 		SDL_SetHint( SDL_HINT_MOUSE_RELATIVE_MODE_WARP, m_raw->integer ? "0" : "1" );

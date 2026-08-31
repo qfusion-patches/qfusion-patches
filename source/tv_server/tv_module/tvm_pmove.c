@@ -185,7 +185,7 @@ static void TVM_PM_ClampAngles( void )
 
 /*
 * TVM_PM_SnapPosition
-* 
+*
 * On exit, the origin will have a value that is pre-quantized to the (1.0/16.0)
 * precision of the network channel and in a valid position.
 */
@@ -241,7 +241,7 @@ static void TVM_PM_SnapPosition( void )
 
 /*
 * TVM_Pmove
-* 
+*
 * Can be called by either the server or the client
 */
 void TVM_Pmove( pmove_t *pmove )
@@ -320,14 +320,14 @@ void TVM_Pmove( pmove_t *pmove )
 		TVM_PM_ClampAngles();
 		TVM_PM_FlyMove();
 	}
-	else if( pm->playerState->pmove.pm_type != PM_NORMAL ) 
+	else if( pm->playerState->pmove.pm_type != PM_NORMAL )
 	{
 		pm->playerState->pmove.pm_flags |= PMF_NO_PREDICTION;
 
 		if( pm->playerState->pmove.pm_type == PM_FREEZE ) {
 			pm->playerState->viewheight = 0;
 		}
-		pml.forwardPush = pml.sidePush = pml.upPush = 0;		
+		pml.forwardPush = pml.sidePush = pml.upPush = 0;
 		pm->cmd.buttons = 0;
 	}
 

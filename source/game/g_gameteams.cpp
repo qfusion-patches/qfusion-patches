@@ -269,7 +269,7 @@ void G_Teams_Invite_f( edict_t *ent )
 
 		for( i = 0, e = game.edicts+1; i < gs.maxclients; i++, e++ )
 		{
-			if( !e->r.inuse ) 
+			if( !e->r.inuse )
 				continue;
 
 			Q_strncatz( msg, va( "%3i: %s\n", PLAYERNUM( e ), e->r.client->netname ), sizeof( msg ) );
@@ -745,7 +745,7 @@ static int G_Teams_ChallengersQueueCmp( const edict_t **pe1, const edict_t **pe2
 
 /*
 * G_Teams_ChallengersQueue
-* 
+*
 * Returns a NULL-terminated list of challengers or NULL if
 * there are no challengers.
 */
@@ -843,7 +843,7 @@ void G_Teams_ExecuteChallengersQueue( void )
 }
 
 /*
-* 
+*
 * G_Teams_BestScoreBelow
 */
 static edict_t *G_Teams_BestScoreBelow( int maxscore )
@@ -1476,4 +1476,3 @@ void G_Teams_CoachUnLockTeam( edict_t *ent )
 		}
 	}
 }
-

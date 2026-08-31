@@ -129,7 +129,7 @@ int G_API( void )
 
 /*
 * G_Error
-* 
+*
 * Abort the server with a game error
 */
 void G_Error( const char *format, ... )
@@ -146,7 +146,7 @@ void G_Error( const char *format, ... )
 
 /*
 * G_Printf
-* 
+*
 * Debug print to server console
 */
 void G_Printf( const char *format, ... )
@@ -225,7 +225,7 @@ static void G_InitGameShared( void )
 
 /*
 * G_Init
-* 
+*
 * This will be called when the dll is first loaded, which
 * only happens when a new game is started or a save game is loaded.
 */
@@ -435,7 +435,7 @@ bool G_AllowDownload( edict_t *ent, const char *requestname, const char *uploadn
 
 /*
 * CreateTargetChangeLevel
-* 
+*
 * Returns the created target changelevel
 */
 static edict_t *CreateTargetChangeLevel( const char *map )
@@ -451,7 +451,7 @@ static edict_t *CreateTargetChangeLevel( const char *map )
 
 /*
 * G_UpdateMapRotation
-* 
+*
 * Reads current map rotation into internal list
 */
 static void G_UpdateMapRotation( void )

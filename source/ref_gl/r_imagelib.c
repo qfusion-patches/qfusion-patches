@@ -1001,7 +1001,7 @@ bool WriteJPG( const char *name, r_imginfo_t *info, int quality )
 
 	qjpeg_set_quality( &cinfo, quality, TRUE );
 
-	// If quality is set high, disable chroma subsampling 
+	// If quality is set high, disable chroma subsampling
 	if( quality >= 85 )
 	{
 		cinfo.comp_info[0].h_samp_factor = 1;
@@ -1117,10 +1117,10 @@ error:
 		R_FreeFile( png_data );
 		return imginfo;
 	}
-	
+
 	// create and initialize the png_struct with the desired error handler
-	// functions. We also supply the  the compiler header file version, so 
-	// that we know if the application was compiled with a compatible 
+	// functions. We also supply the  the compiler header file version, so
+	// that we know if the application was compiled with a compatible
 	// version of the library. REQUIRED
 	ver = qpng_access_version_number();
 	Q_snprintfz( ver_string, sizeof( ver_string ), "%u.%u.%u", ver / 10000, ( ver / 100 ) % 100, ver % 100 );

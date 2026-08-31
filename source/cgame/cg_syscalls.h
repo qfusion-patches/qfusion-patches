@@ -272,10 +272,10 @@ static inline void trap_R_UpdateScreen( void )
 	CGAME_IMPORT.R_UpdateScreen();
 }
 
-static inline int trap_R_GetClippedFragments( const vec3_t origin, float radius, vec3_t axis[3], 
+static inline int trap_R_GetClippedFragments( const vec3_t origin, float radius, vec3_t axis[3],
 	int maxfverts, vec4_t *fverts, int maxfragments, fragment_t *fragments )
 {
-	return CGAME_IMPORT.R_GetClippedFragments( origin, radius, axis, 
+	return CGAME_IMPORT.R_GetClippedFragments( origin, radius, axis,
 		maxfverts, fverts, maxfragments, fragments );
 }
 
@@ -540,14 +540,14 @@ static inline void trap_S_StopBackgroundTrack( void )
 	CGAME_IMPORT.S_StopBackgroundTrack();
 }
 
-static inline void trap_S_RawSamples( unsigned int samples, unsigned int rate, 
+static inline void trap_S_RawSamples( unsigned int samples, unsigned int rate,
 	unsigned short width, unsigned short channels, const uint8_t *data )
 {
 	CGAME_IMPORT.S_RawSamples( samples, rate, width, channels, data );
 }
 
-static inline void trap_S_PositionedRawSamples( int entnum, float fvol, float attenuation, 
-		unsigned int samples, unsigned int rate, unsigned short width, 
+static inline void trap_S_PositionedRawSamples( int entnum, float fvol, float attenuation,
+		unsigned int samples, unsigned int rate, unsigned short width,
 		unsigned short channels, const uint8_t *data )
 {
 	CGAME_IMPORT.S_PositionedRawSamples( entnum, fvol, attenuation, samples, rate, width, channels, data );
@@ -663,7 +663,7 @@ static inline void trap_AsyncStream_UrlDecode( const char *src, char *dst, size_
 	CGAME_IMPORT.AsyncStream_UrlDecode( src, dst, size );
 }
 
-static inline int trap_AsyncStream_PerformRequest( const char *url, const char *method, const char *data, 
+static inline int trap_AsyncStream_PerformRequest( const char *url, const char *method, const char *data,
 		int timeout, cg_async_stream_read_cb_t read_cb, cg_async_stream_done_cb_t done_cb, void *privatep )
 {
 	return CGAME_IMPORT.AsyncStream_PerformRequest( url, method, data, timeout, read_cb, done_cb, privatep );
@@ -689,7 +689,7 @@ static inline const char *trap_L10n_TranslateString( const char *string )
 	return CGAME_IMPORT.L10n_TranslateString( string );
 }
 
-static inline bool trap_CIN_AddRawSamplesListener( struct cinematics_s *cin, 
+static inline bool trap_CIN_AddRawSamplesListener( struct cinematics_s *cin,
 	void *listener, cg_raw_samples_cb_t rs,cg_get_raw_samples_cb_t grs )
 {
 	return CGAME_IMPORT.CIN_AddRawSamplesListener( cin, listener, rs, grs );

@@ -204,17 +204,17 @@ static void CL_GameModule_AsyncStream_Init( void )
 /*
 * CL_GameModule_AsyncStream_PerformRequest
 */
-static int CL_GameModule_AsyncStream_PerformRequest( const char *url, const char *method, 
+static int CL_GameModule_AsyncStream_PerformRequest( const char *url, const char *method,
 	const char *data, int timeout,
 	cg_async_stream_read_cb_t read_cb, cg_async_stream_done_cb_t done_cb, void *privatep )
 {
 	const char *headers[] = { NULL, NULL, NULL, NULL, NULL };
 
 	assert( cg_async_stream );
-	
+
 	CL_AddSessionHttpRequestHeaders( url, headers );
 
-	return AsyncStream_PerformRequestExt( cg_async_stream, url, method, data, headers, timeout, 
+	return AsyncStream_PerformRequestExt( cg_async_stream, url, method, data, headers, timeout,
 		0, read_cb, done_cb, NULL, privatep );
 }
 
@@ -258,7 +258,7 @@ void CL_GameModule_L10n_ClearDomain( void )
 /*
 * CL_GameModule_S_RawSamples
 */
-static void CL_GameModule_S_RawSamples( unsigned int samples, unsigned int rate, 
+static void CL_GameModule_S_RawSamples( unsigned int samples, unsigned int rate,
 	unsigned short width, unsigned short channels, const uint8_t *data )
 {
 	CL_SoundModule_RawSamples( samples, rate, width, channels, data, false );
@@ -287,8 +287,8 @@ cg_raw_samples_listener_t cg_raw_samples_listeners[MAX_CGAME_RAW_SAMPLES_LISTENE
 /*
 * CL_GameModule_RawSamples
 */
-static void CL_GameModule_RawSamples( void *ptr, unsigned int samples, 
-	unsigned int rate, unsigned short width, unsigned short channels, 
+static void CL_GameModule_RawSamples( void *ptr, unsigned int samples,
+	unsigned int rate, unsigned short width, unsigned short channels,
 	const uint8_t *data )
 {
 	cg_raw_samples_listener_t *cglistener;
@@ -311,7 +311,7 @@ static void CL_GameModule_RawSamples( void *ptr, unsigned int samples,
 static unsigned int CL_GameModule_GetRawSamplesLength( void *ptr )
 {
 	cg_raw_samples_listener_t *cglistener;
-	
+
 	cglistener = ( cg_raw_samples_listener_t * )ptr;
 	if( cglistener->load_seq != cg_load_seq ) {
 		return 0;
@@ -322,7 +322,7 @@ static unsigned int CL_GameModule_GetRawSamplesLength( void *ptr )
 /*
 * CL_GameModule_AddRawSamplesListener
 */
-static bool CL_GameModule_AddRawSamplesListener( struct cinematics_s *cin, 
+static bool CL_GameModule_AddRawSamplesListener( struct cinematics_s *cin,
 	void *listener, cg_raw_samples_cb_t rs, cg_get_raw_samples_cb_t grs )
 {
 	int i;
@@ -337,7 +337,7 @@ static bool CL_GameModule_AddRawSamplesListener( struct cinematics_s *cin,
 			freel = cglistener;
 		}
 		else if( cglistener->inuse
-			&& cglistener->cin == cin 
+			&& cglistener->cin == cin
 			&& cglistener->ptr == listener
 			&& cglistener->rs == rs
 			&& cglistener->grs == grs ) {
@@ -346,7 +346,7 @@ static bool CL_GameModule_AddRawSamplesListener( struct cinematics_s *cin,
 		}
 		cglistener++;
 	}
-	
+
 	if( !freel ) {
 		return false;
 	}
@@ -360,7 +360,7 @@ static bool CL_GameModule_AddRawSamplesListener( struct cinematics_s *cin,
 	cglistener->rs = (cin_raw_samples_cb_t)rs;
 	cglistener->grs = (cin_get_raw_samples_cb_t)grs;
 
-	if( !CIN_AddRawSamplesListener( cin, cglistener, &CL_GameModule_RawSamples, 
+	if( !CIN_AddRawSamplesListener( cin, cglistener, &CL_GameModule_RawSamples,
 		&CL_GameModule_GetRawSamplesLength ) ) {
 		// free listener
 		cglistener->inuse = false;
@@ -684,7 +684,7 @@ bool CL_GameModule_NewSnapshot( int pendingSnapshot )
 void CL_GameModule_RenderView( float stereo_separation )
 {
 	if( cge && cls.cgameActive )
-		cge->RenderView( cls.frametime, cls.realframetime, cls.realtime, cl.serverTime, stereo_separation, 
+		cge->RenderView( cls.frametime, cls.realframetime, cls.realtime, cl.serverTime, stereo_separation,
 		cl_extrapolate->integer && !cls.demo.playing ? cl_extrapolationTime->integer : 0, cl_flip->integer != 0 );
 }
 

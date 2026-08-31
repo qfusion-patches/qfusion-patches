@@ -86,7 +86,7 @@ static void R_ReserveDrawSurfaces( drawList_t *list, int minMeshes )
 		memcpy( newDs, ds, oldSize * sizeof( sortedDrawSurf_t ) );
 		R_Free( ds );
 	}
-	
+
 	list->drawSurfs = newDs;
 	list->maxDrawSurfs = newSize;
 }
@@ -102,17 +102,17 @@ static unsigned int R_PackDistKey( int shaderSort, int dist, int order )
 /*
 * R_PackSortKey
 */
-static unsigned int R_PackSortKey( unsigned int shaderNum, int fogNum, 
+static unsigned int R_PackSortKey( unsigned int shaderNum, int fogNum,
 	int portalNum, unsigned int entNum )
 {
-	return (shaderNum & 0x7FF) << 21 | (entNum & 0x7FF) << 10 | 
+	return (shaderNum & 0x7FF) << 21 | (entNum & 0x7FF) << 10 |
 		(((portalNum+1) & 0x1F) << 5) | ((unsigned int)(fogNum+1) & 0x1F);
 }
 
 /*
 * R_UnpackSortKey
 */
-static void R_UnpackSortKey( unsigned int sortKey, unsigned int *shaderNum, int *fogNum, 
+static void R_UnpackSortKey( unsigned int sortKey, unsigned int *shaderNum, int *fogNum,
 	int *portalNum, unsigned int *entNum )
 {
 	*shaderNum = (sortKey >> 21) & 0x7FF;
@@ -148,11 +148,11 @@ unsigned R_PackOpaqueOrder( const entity_t *e, const shader_t *shader, bool ligh
 
 /*
 * R_AddSurfToDrawList
-* 
+*
 * Calculate sortkey and store info used for batching and sorting.
 * All 3D-geometry passes this function.
 */
-void *R_AddSurfToDrawList( drawList_t *list, const entity_t *e, const mfog_t *fog, const shader_t *shader, 
+void *R_AddSurfToDrawList( drawList_t *list, const entity_t *e, const mfog_t *fog, const shader_t *shader,
 	float dist, unsigned int order, const portalSurface_t *portalSurf, void *drawSurf )
 {
 	sortedDrawSurf_t *sds;
@@ -266,7 +266,7 @@ void R_SortDrawList( drawList_t *list )
 	if( r_draworder->integer ) {
 		return;
 	}
-	qsort( list->drawSurfs, list->numDrawSurfs, sizeof( sortedDrawSurf_t ), 
+	qsort( list->drawSurfs, list->numDrawSurfs, sizeof( sortedDrawSurf_t ),
 		(int (*)(const void *, const void *))R_DrawSurfCompare );
 }
 
@@ -298,7 +298,7 @@ static void R_ReserveVBOSlices( drawList_t *list, unsigned int minSlices )
 /*
 * R_AddVBOSlice
 */
-void R_AddVBOSlice( unsigned int index, unsigned int numVerts, unsigned int numElems, 
+void R_AddVBOSlice( unsigned int index, unsigned int numVerts, unsigned int numElems,
 	unsigned int firstVert, unsigned int firstElem )
 {
 	drawList_t *list = rn.meshlist;
@@ -456,9 +456,9 @@ static void _R_DrawSurfaces( drawList_t *list )
 		depthWrite = shader->flags & SHADER_DEPTHWRITE ? true : false;
 
 		// see if we need to reset mesh properties in the backend
-		if( !prevBatchDrawSurf || shaderNum != prevShaderNum || fogNum != prevFogNum || 
+		if( !prevBatchDrawSurf || shaderNum != prevShaderNum || fogNum != prevFogNum ||
 			portalNum != prevPortalNum ||
-			( entNum != prevEntNum && !(shader->flags & SHADER_ENTITY_MERGABLE) ) || 
+			( entNum != prevEntNum && !(shader->flags & SHADER_ENTITY_MERGABLE) ) ||
 			entityFX != prevEntityFX ) {
 
 			if( prevBatchDrawSurf && !batchDrawSurf ) {
@@ -536,7 +536,7 @@ static void _R_DrawSurfaces( drawList_t *list )
 			}
 			else {
 				if( ( entNum != prevEntNum ) || prevBatchDrawSurf ) {
-					if( shader->flags & SHADER_AUTOSPRITE ) 
+					if( shader->flags & SHADER_AUTOSPRITE )
 						R_TranslateForEntity( entity );
 					else
 						R_TransformForEntity( entity );
@@ -592,7 +592,7 @@ static void _R_DrawSurfaces( drawList_t *list )
 void R_DrawSurfaces( drawList_t *list )
 {
 	bool triOutlines;
-	
+
 	triOutlines = RB_EnableTriangleOutlines( false );
 	if( !triOutlines ) {
 		// do not recurse into normal mode when rendering triangle outlines
@@ -607,11 +607,11 @@ void R_DrawSurfaces( drawList_t *list )
 void R_DrawOutlinedSurfaces( drawList_t *list )
 {
 	bool triOutlines;
-	
+
 	if( rn.renderFlags & RF_SHADOWMAPVIEW )
 		return;
 
-	// properly store and restore the state, as the 
+	// properly store and restore the state, as the
 	// R_DrawOutlinedSurfaces calls can be nested
 	triOutlines = RB_EnableTriangleOutlines( true );
 	_R_DrawSurfaces( list );
@@ -662,7 +662,7 @@ void R_BuildTrifanElements( int vertsOffset, int numVerts, elem_t *elems )
 /*
 * R_BuildTangentVectors
 */
-void R_BuildTangentVectors( int numVertexes, vec4_t *xyzArray, vec4_t *normalsArray, 
+void R_BuildTangentVectors( int numVertexes, vec4_t *xyzArray, vec4_t *normalsArray,
 	vec2_t *stArray, int numTris, elem_t *elems, vec4_t *sVectorsArray )
 {
 	int i, j;

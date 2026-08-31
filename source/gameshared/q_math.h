@@ -337,4 +337,3 @@ vec_t NormalPDF( vec_t x );
 #endif
 
 #endif // GAME_QMATH_H
-
