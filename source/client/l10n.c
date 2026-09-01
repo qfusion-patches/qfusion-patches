@@ -480,7 +480,7 @@ void L10n_Init( void )
 /*
 * L10n_LoadLangPOFile_
 */
-static bool L10n_LoadLangPOFile_( podomain_t *podomain, const char *filepath, const char *lang )
+static bool L10n_LoadLangPOFile_( podomain_t *podomain, const char *filepath, char *lang )
 {
 	pofile_t *pofile;
 	podict_t *pofile_dict;

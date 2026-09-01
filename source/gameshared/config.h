@@ -13,7 +13,7 @@
 //==============================================
 
 #ifdef BROKEN_BUILD
-break
+#error BROKEN_BUILD
 #endif
 
 // pretty solid
