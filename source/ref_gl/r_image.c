@@ -2732,8 +2732,6 @@ void R_InitImages( void )
 	if( r_imagesPool )
 		return;
 
-	R_Imagelib_Init();
-
 	r_imagesPool = R_AllocPool( r_mempool, "Images" );
 	r_imagesLock = ri.Mutex_Create();
 
@@ -2878,8 +2876,6 @@ void R_ShutdownImages( void )
 
 	r_imagePathBuf = r_imagePathBuf2 = NULL;
 	r_sizeof_imagePathBuf = r_sizeof_imagePathBuf2 = 0;
-
-	R_Imagelib_Shutdown();
 }
 
 // ============================================================================
