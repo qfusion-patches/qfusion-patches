@@ -530,7 +530,7 @@ static void Irc_Logic_CmdTopic_f(irc_command_t cmd, const char *prefix, const ch
 static void Irc_Logic_CmdPrivmsg_f(irc_command_t cmd, const char *prefix, const char *params, const char *trailing) {
 	if (Cvar_GetIntegerValue(irc_ctcpReplies)) {
 		char nick[IRC_SEND_BUF_SIZE];
-		char * const emph = strchr(prefix, '!');
+		const char *emph = strchr(prefix, '!');
 		memset(nick, 0, sizeof(nick));
 		if (emph)
 			memcpy(nick, prefix, emph - prefix);
