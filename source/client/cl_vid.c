@@ -31,10 +31,6 @@ cvar_t *vid_width, *vid_height;
 cvar_t *vid_xpos;          // X coordinate of window position
 cvar_t *vid_ypos;          // Y coordinate of window position
 cvar_t *vid_fullscreen;
-cvar_t *vid_displayfrequency;
-cvar_t *vid_multiscreen_head;
-cvar_t *win_noalttab;
-cvar_t *win_nowinkeys;
 
 // Global variables used internally by this module
 viddef_t viddef;             // global video state; used by other modules
@@ -60,8 +56,6 @@ static mempool_t *vid_ref_mempool = NULL;
 // wrapper around R_Init
 rserr_t VID_Sys_Init( const char *applicationName, const char *screenshotsPrefix, int startupColor, const int *iconXPM, bool verbose );
 void VID_UpdateWindowPosAndSize( int x, int y );
-void VID_EnableAltTab( bool enable );
-void VID_EnableWinKeys( bool enable );
 
 /*
 ** VID_Restart_f
@@ -181,10 +175,8 @@ static rserr_t VID_ChangeMode( void )
 {
 	int x, y;
 	int w, h;
-	int disp_freq;
 	bool fs;
 	rserr_t err;
-	bool stereo;
 
 	vid_fullscreen->modified = false;
 
@@ -193,10 +185,8 @@ static rserr_t VID_ChangeMode( void )
 	w = vid_width->integer;
 	h = vid_height->integer;
 	fs = vid_fullscreen->integer ? true : false;
-	disp_freq = vid_displayfrequency->integer;
-	stereo = Cvar_Value( "cl_stereo" ) != 0;
 
-	err = re.SetMode( x, y, w, h, disp_freq, fs, stereo );
+	err = re.SetMode( x, y, w, h, fs );
 
 	if( err == rserr_ok ) {
 		// store fallback mode
@@ -225,7 +215,7 @@ static rserr_t VID_ChangeMode( void )
 			vid_fullscreen->modified = false;
 			fs = false;
 
-			err = re.SetMode( x, y, w, h, disp_freq, false, stereo );
+			err = re.SetMode( x, y, w, h, false );
 		}
 
 		if( err == rserr_invalid_mode ) {
@@ -237,7 +227,7 @@ static rserr_t VID_ChangeMode( void )
 			Cvar_ForceSet( vid_height->name, va( "%i", h ) );
 
 			// try setting it back to something safe
-			err = re.SetMode( x, y, w, h, disp_freq, fs, stereo );
+			err = re.SetMode( x, y, w, h, fs );
 			if( err == rserr_invalid_fullscreen ) {
 				Com_Printf( "VID_ChangeMode() - could not revert to safe fullscreen mode\n" );
 
@@ -245,7 +235,7 @@ static rserr_t VID_ChangeMode( void )
 				vid_fullscreen->modified = false;
 				fs = false;
 
-				err = re.SetMode( x, y, w, h, disp_freq, false, stereo );
+				err = re.SetMode( x, y, w, h, false );
 			}
 			if( err != rserr_ok ) {
 				Com_Printf( "VID_ChangeMode() - could not revert to safe mode\n" );
@@ -447,16 +437,6 @@ void VID_CheckChanges( void )
 	rserr_t err;
 	bool vid_ref_was_active = vid_ref_active;
 	bool verbose = vid_ref_verbose || vid_ref_sound_restart;
-
-	if( win_noalttab->modified ) {
-		VID_EnableAltTab( win_noalttab->integer ? false : true );
-		win_noalttab->modified = false;
-	}
-
-	if( win_nowinkeys->modified ) {
-		VID_EnableWinKeys( win_nowinkeys->integer ? false : true );
-		win_nowinkeys->modified = false;
-	}
 
 	if( vid_fullscreen->modified ) {
 		if( vid_ref_active ) {
@@ -711,11 +691,6 @@ void VID_Init( void )
 	vid_xpos = Cvar_Get( "vid_xpos", "0", CVAR_ARCHIVE );
 	vid_ypos = Cvar_Get( "vid_ypos", "0", CVAR_ARCHIVE );
 	vid_fullscreen = Cvar_Get( "vid_fullscreen", "1", CVAR_ARCHIVE );
-	vid_displayfrequency = Cvar_Get( "vid_displayfrequency", "0", CVAR_ARCHIVE|CVAR_LATCH_VIDEO );
-	vid_multiscreen_head = Cvar_Get( "vid_multiscreen_head", "-1", CVAR_ARCHIVE );
-
-	win_noalttab = Cvar_Get( "win_noalttab", "0", CVAR_ARCHIVE );
-	win_nowinkeys = Cvar_Get( "win_nowinkeys", "0", CVAR_ARCHIVE );
 
 	/* Add some console commands that we want to handle */
 	Cmd_AddCommand( "vid_restart", VID_Restart_f );

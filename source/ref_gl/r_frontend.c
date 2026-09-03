@@ -201,17 +201,17 @@ rserr_t RF_Init( const char *applicationName, const char *screenshotPrefix, int 
 	return rserr_ok;
 }
 
-rserr_t RF_SetMode( int x, int y, int width, int height, int displayFrequency, bool fullScreen, bool stereo )
+rserr_t RF_SetMode( int x, int y, int width, int height, bool fullScreen )
 {
 	rserr_t err;
 
 	if( glConfig.width == width && glConfig.height == height && glConfig.fullScreen != fullScreen ) {
-		return GLimp_SetFullscreenMode( displayFrequency, fullScreen );
+		return GLimp_SetFullscreenMode( fullScreen );
 	}
 
 	RF_AdapterShutdown( &rrf.adapter );
 
-	err = R_SetMode( x, y, width, height, displayFrequency, fullScreen, stereo );
+	err = R_SetMode( x, y, width, height, fullScreen );
 	if( err != rserr_ok ) {
 		return err;
 	}
@@ -245,12 +245,12 @@ rserr_t RF_SetMode( int x, int y, int width, int height, int displayFrequency, b
 	return rserr_ok;
 }
 
-rserr_t RF_SetWindow( void *hinstance, void *wndproc, void *parenthWnd )
+rserr_t RF_SetWindow( void *wndproc )
 {
 	rserr_t err;
 	bool surfaceChangePending = false;
 
-	err = GLimp_SetWindow( hinstance, wndproc, parenthWnd, &surfaceChangePending );
+	err = GLimp_SetWindow( wndproc, &surfaceChangePending );
 
 	if( err == rserr_ok && surfaceChangePending )
 		rrf.adapter.cmdPipe->SurfaceChange( rrf.adapter.cmdPipe );
@@ -340,7 +340,7 @@ static void RF_CheckCvars( void )
 	}
 }
 
-void RF_BeginFrame( float cameraSeparation, bool forceClear, bool forceVsync )
+void RF_BeginFrame( bool forceClear, bool forceVsync )
 {
 	RF_CheckCvars();
 
@@ -364,11 +364,10 @@ void RF_BeginFrame( float cameraSeparation, bool forceClear, bool forceVsync )
 	}
 
 	rrf.frame->Clear( rrf.frame );
-	rrf.cameraSeparation = cameraSeparation;
 
 	R_DataSync();
 
-	rrf.frame->BeginFrame( rrf.frame, cameraSeparation, forceClear, forceVsync );
+	rrf.frame->BeginFrame( rrf.frame, forceClear, forceVsync );
 }
 
 void RF_EndFrame( void )
@@ -614,7 +613,7 @@ void RF_TransformVectorToScreen( const refdef_t *rd, const vec3_t in, vec2_t out
 			-4096.0f, 4096.0f, p );
 	}
 	else {
-		Matrix4_InfinitePerspectiveProjection( rd->fov_x, rd->fov_y, Z_NEAR, rrf.cameraSeparation,
+		Matrix4_InfinitePerspectiveProjection( rd->fov_x, rd->fov_y, Z_NEAR,
 			p, glConfig.depthEpsilon );
 	}
 

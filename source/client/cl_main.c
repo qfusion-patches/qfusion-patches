@@ -24,9 +24,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "../qcommon/asyncstream.h"
 #include "../qalgo/hash.h"
 
-cvar_t *cl_stereo_separation;
-cvar_t *cl_stereo;
-
 cvar_t *rcon_client_password;
 cvar_t *rcon_address;
 
@@ -2047,9 +2044,6 @@ static void CL_InitLocal( void )
 	//
 	// register our variables
 	//
-	cl_stereo_separation =	Cvar_Get( "cl_stereo_separation", "0.4", CVAR_ARCHIVE );
-	cl_stereo =		Cvar_Get( "cl_stereo", "0", CVAR_ARCHIVE );
-
 	cl_maxfps =		Cvar_Get( "cl_maxfps", "250", CVAR_ARCHIVE );
 	cl_sleep =		Cvar_Get( "cl_sleep", "0", CVAR_ARCHIVE );
 	cl_pps =		Cvar_Get( "cl_pps", "40", CVAR_ARCHIVE );

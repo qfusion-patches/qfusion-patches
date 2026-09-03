@@ -122,7 +122,6 @@ cvar_t *r_maxglslbones;
 
 cvar_t *gl_drawbuffer;
 cvar_t *gl_cull;
-cvar_t *r_multithreading;
 
 static bool	r_verbose;
 static bool	r_postinit;
@@ -958,16 +957,6 @@ static void R_FillStartupBackgroundColor( float r, float g, float b )
 {
 	qglClearColor( r, g, b, 1.0 );
 	GLimp_BeginFrame();
-#ifndef GL_ES_VERSION_2_0
-	if( glConfig.stereoEnabled )
-	{
-		qglDrawBuffer( GL_BACK_LEFT );
-		qglClear( GL_COLOR_BUFFER_BIT );
-		qglDrawBuffer( GL_BACK_RIGHT );
-		qglClear( GL_COLOR_BUFFER_BIT );
-		qglDrawBuffer( GL_BACK );
-	}
-#endif
 	qglClear( GL_COLOR_BUFFER_BIT );
 	qglFinish();
 	GLimp_EndFrame();
@@ -1088,8 +1077,6 @@ static void R_Register( const char *screenshotsPrefix )
 
 	r_maxglslbones = ri.Cvar_Get( "r_maxglslbones", STR_TOSTR( MAX_GLSL_UNIFORM_BONES ), CVAR_LATCH_VIDEO );
 
-	r_multithreading = ri.Cvar_Get( "r_multithreading", "1", CVAR_ARCHIVE|CVAR_LATCH_VIDEO );
-
 	gl_cull = ri.Cvar_Get( "gl_cull", "1", 0 );
 	gl_drawbuffer = ri.Cvar_Get( "gl_drawbuffer", "GL_BACK", 0 );
 
@@ -1140,7 +1127,6 @@ static void R_GfxInfo_f( void )
 	Com_Printf( "texturemode: %s\n", r_texturemode->string );
 	Com_Printf( "anisotropic filtering: %i\n", r_texturefilter->integer );
 	Com_Printf( "vertical sync: %s\n", ( r_swapinterval->integer || r_swapinterval_min->integer ) ? "enabled" : "disabled" );
-	Com_Printf( "multithreading: %s\n", glConfig.multithreading ? "enabled" : "disabled" );
 
 	R_PrintGLExtensionsInfo();
 
@@ -1264,7 +1250,8 @@ static rserr_t R_PostInit( void )
 
 	glConfig.versionHash = R_GLVersionHash( glConfig.vendorString, glConfig.rendererString,
 		glConfig.versionString );
-	glConfig.multithreading = r_multithreading->integer != 0 && !strstr( glConfig.vendorString, "nouveau" );
+
+	glConfig.multithreading = false;
 
 	memset( &rsh, 0, sizeof( rsh ) );
 	memset( &rf, 0, sizeof( rf ) );
@@ -1331,11 +1318,11 @@ static rserr_t R_PostInit( void )
 /*
 * R_SetMode
 */
-rserr_t R_SetMode( int x, int y, int width, int height, int displayFrequency, bool fullScreen, bool stereo )
+rserr_t R_SetMode( int x, int y, int width, int height, bool fullScreen )
 {
 	rserr_t err;
 
-	err = GLimp_SetMode( x, y, width, height, displayFrequency, fullScreen, stereo );
+	err = GLimp_SetMode( x, y, width, height, fullScreen );
 	if( err != rserr_ok )
 	{
 		Com_Printf( "Could not GLimp_SetMode()\n" );

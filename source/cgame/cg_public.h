@@ -301,7 +301,7 @@ typedef struct
 
 	void ( *Trace )( trace_t *tr, vec3_t start, vec3_t mins, vec3_t maxs, vec3_t end, int passent, int contentmask );
 
-	void ( *RenderView )( float frameTime, float realFrameTime, int realTime, unsigned int serverTime, float stereo_separation, unsigned int extrapolationTime, bool flipped );
+	void ( *RenderView )( float frameTime, float realFrameTime, int realTime, unsigned int serverTime, unsigned int extrapolationTime, bool flipped );
 
 	bool ( *NewFrameSnapshot )( snapshot_t *newSnapshot, snapshot_t *currentSnapshot );
 

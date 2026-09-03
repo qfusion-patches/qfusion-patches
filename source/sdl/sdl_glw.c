@@ -26,7 +26,7 @@
 glwstate_t glw_state;
 cvar_t *vid_fullscreen;
 
-static int GLimp_InitGL( int stencilbits, bool stereo );
+static int GLimp_InitGL( int stencilbits );
 
 void GLimp_SetWindowIcon( void )
 {
@@ -51,7 +51,7 @@ void GLimp_SetWindowIcon( void )
 	}
 }
 
-rserr_t GLimp_SetFullscreenMode( int displayFrequency, bool fullscreen )
+rserr_t GLimp_SetFullscreenMode( bool fullscreen )
 {
     if( SDL_SetWindowFullscreen( glw_state.sdl_window, fullscreen ) ) {
 	    SDL_SyncWindow( glw_state.sdl_window );
@@ -93,7 +93,7 @@ static void GLimp_CreateWindow( int x, int y, int width, int height )
  * @param fullscreen <code>true</code> for a fullscreen mode,
  *     <code>false</code> otherwise
  */
-rserr_t GLimp_SetMode( int x, int y, int width, int height, int displayFrequency, bool fullscreen, bool stereo )
+rserr_t GLimp_SetMode( int x, int y, int width, int height, bool fullscreen )
 {
 	const char *win_fs[] = {"W", "FS"};
 
@@ -109,12 +109,12 @@ rserr_t GLimp_SetMode( int x, int y, int width, int height, int displayFrequency
 	GLimp_CreateWindow( x, y, width, height );
 
 	// init all the gl stuff for the window
-	if( !GLimp_InitGL( r_stencilbits->integer, stereo ) ) {
+	if( !GLimp_InitGL( r_stencilbits->integer ) ) {
 		ri.Com_Printf( "GLimp_SetMode() - GLimp_InitGL failed\n" );
 		return rserr_invalid_mode;
 	}
 
-    glConfig.fullScreen = fullscreen ? GLimp_SetFullscreenMode( displayFrequency, fullscreen ) == rserr_ok : false;
+    glConfig.fullScreen = fullscreen ? GLimp_SetFullscreenMode( fullscreen ) == rserr_ok : false;
 	glConfig.width = width;
 	glConfig.height = height;
 
@@ -160,9 +160,9 @@ int GLimp_Init( const char *applicationName, void *wndproc, const int *iconXPM )
 	return true;
 }
 
-static int GLimp_InitGL( int stencilbits, bool stereo )
+static int GLimp_InitGL( int stencilbits )
 {
-	int colorBits, depthBits, stencilBits, stereo_;
+	int colorBits, depthBits, stencilBits;
 
 	SDL_GL_SetAttribute( SDL_GL_STENCIL_SIZE, max( 0, stencilbits ) );
 
@@ -185,7 +185,6 @@ static int GLimp_InitGL( int stencilbits, bool stereo )
 	SDL_GL_GetAttribute( SDL_GL_STENCIL_SIZE, &stencilBits );
 
 	glConfig.stencilBits = stencilBits;
-	glConfig.stereoEnabled = 0;
 
 	ri.Com_Printf( "GL PFD: color(%d-bits) Z(%d-bit) stencil(%d-bits)\n", colorBits, depthBits, stencilBits );
 
@@ -227,7 +226,7 @@ void GLimp_AppActivate( bool active, bool destroy )
 /*
 ** GLimp_SetWindow
 */
-rserr_t GLimp_SetWindow( void *hinstance, void *wndproc, void *parenthWnd, bool *surfaceChangePending )
+rserr_t GLimp_SetWindow( void *wndproc, bool *surfaceChangePending )
 {
 	if( surfaceChangePending )
 		*surfaceChangePending = false;

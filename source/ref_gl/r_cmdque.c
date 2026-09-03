@@ -312,12 +312,11 @@ static void RF_IssueAbstractCmd( ref_cmdbuf_t *cmdbuf, void *cmd, size_t struct_
 	cmdbuf->len += cmd_len;
 }
 
-static void RF_IssueBeginFrameCmd( ref_cmdbuf_t *cmdbuf, float cameraSeparation, bool forceClear, bool forceVsync )
+static void RF_IssueBeginFrameCmd( ref_cmdbuf_t *cmdbuf, bool forceClear, bool forceVsync )
 {
 	refCmdBeginFrame_t cmd;
 
 	cmd.id = REF_CMD_BEGIN_FRAME;
-	cmd.cameraSeparation = cameraSeparation;
 	cmd.forceClear = forceClear;
 	cmd.forceVsync = forceVsync;
 
