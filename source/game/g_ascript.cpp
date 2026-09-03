@@ -1600,16 +1600,7 @@ static asstring_t *objectGameClient_getClanName( gclient_t *self )
 
 static asstring_t *objectGameClient_getMMLogin( gclient_t *self )
 {
-	const char *login = NULL;
-
-	if( self->mm_session > 0 ) {
-		login = Info_ValueForKey( self->userinfo, "cl_mm_login" );
-	}
-	if( !login ) {
-		login = "";
-	}
-
-	return angelExport->asStringFactoryBuffer( login, strlen( login ) );
+	return angelExport->asStringFactoryBuffer( "", 0 );
 }
 
 static void objectGameClient_Respawn( bool ghost, gclient_t *self )
@@ -1905,24 +1896,10 @@ static bool objectGameClient_GetChaseActive( gclient_t *self )
 
 static void objectGameClient_NewRaceRun( int numSectors, gclient_t *self )
 {
-	int playerNum;
-
-	playerNum = objectGameClient_PlayerNum( self );
-	if( playerNum < 0 || playerNum >= gs.maxclients )
-		return;
-
-	G_NewRaceRun( PLAYERENT( playerNum ), numSectors );
 }
 
 static void objectGameClient_SetRaceTime( int sector, unsigned int time, gclient_t *self )
 {
-	int playerNum;
-
-	playerNum = objectGameClient_PlayerNum( self );
-	if( playerNum < 0 || playerNum >= gs.maxclients )
-		return;
-
-	G_SetRaceTime( PLAYERENT( playerNum ), sector, time );
 }
 
 static void objectGameClient_SetHelpMessage( unsigned int index, gclient_t *self )

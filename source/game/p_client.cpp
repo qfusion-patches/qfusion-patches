@@ -775,14 +775,8 @@ void ClientBegin( edict_t *ent )
 
 	G_UpdatePlayerMatchMsg( ent );
 
-	mm_login = Info_ValueForKey( client->userinfo, "cl_mm_login" );
-	if( mm_login && *mm_login && client->mm_session > 0 ) {
-		G_PrintMsg( NULL, "%s" S_COLOR_WHITE " (" S_COLOR_YELLOW "%s" S_COLOR_WHITE ") entered the game\n", client->netname, mm_login );
-	}
-	else {
-		if( !level.gametype.disableObituaries || !(ent->r.svflags & SVF_FAKECLIENT ) )
-			G_PrintMsg( NULL, "%s" S_COLOR_WHITE " entered the game\n", client->netname );
-	}
+	if( !level.gametype.disableObituaries || !(ent->r.svflags & SVF_FAKECLIENT ) )
+		G_PrintMsg( NULL, "%s" S_COLOR_WHITE " entered the game\n", client->netname );
 
 	client->level.respawnCount = 0; // clear respawncount
 	client->connecting = false;
@@ -1237,14 +1231,6 @@ void ClientUserinfoChanged( edict_t *ent, char *userinfo )
 	}
 #endif
 
-	// mm session
-	// TODO: remove the key after storing it to gclient_t !
-	s = Info_ValueForKey( userinfo, "cl_mm_session" );
-	cl->mm_session = ( s == NULL ) ? 0 : atoi( s );
-
-	s = Info_ValueForKey( userinfo, "mmflags" );
-	cl->mmflags = ( s == NULL ) ? 0 : strtoul( s, NULL, 10 );
-
 	// tv
 	if( cl->isTV )
 	{
@@ -1391,11 +1377,6 @@ void ClientDisconnect( edict_t *ent, const char *reason )
 
 	if( !ent->r.client || !ent->r.inuse )
 		return;
-
-	// always report in RACE mode
-	if( GS_RaceGametype()
-		|| ( ent->r.client->team != TEAM_SPECTATOR && ( GS_MatchState() == MATCH_STATE_PLAYTIME || GS_MatchState() == MATCH_STATE_POSTMATCH ) ) )
-		G_AddPlayerReport( ent, GS_MatchState() == MATCH_STATE_POSTMATCH );
 
 	for( team = TEAM_PLAYERS; team < GS_MAX_TEAMS; team++ )
 		G_Teams_UnInvitePlayer( team, ent );

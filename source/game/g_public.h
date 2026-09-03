@@ -20,7 +20,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 // g_public.h -- game dll information visible to server
 
-#define	GAME_API_VERSION    50
+#define	GAME_API_VERSION    60
 
 //===============================================================
 
@@ -187,13 +187,6 @@ typedef struct
 
 	// angelscript api
 	struct angelwrap_api_s *( *asGetAngelExport )( void );
-
-	// Match reporting to MM
-
-	// GAME CANT USE ->Send directly!
-	struct stat_query_api_s *( *GetStatQueryAPI )( void );
-	void ( *MM_SendQuery )( struct stat_query_s *query );
-	void ( *MM_GameState )( bool state );
 } game_import_t;
 
 //
@@ -232,10 +225,4 @@ typedef struct
 	// Web requests to local HTTP server
 	http_response_code_t ( *WebRequest )( http_query_method_t method, const char *resource,
 		const char *query_string, char **content, size_t *content_length );
-
-	// gameside rating library
-	struct clientRating_s *( *AddDefaultRating )( edict_t *ent, const char *gametype );
-	struct clientRating_s *( *AddRating )( edict_t *ent, const char *gametype, float rating, float deviation );
-	void ( *RemoveRating )( edict_t *ent );
-	void ( *AddRaceRecords )( edict_t *ent, int numRecords, unsigned int *records );
 } game_export_t;
