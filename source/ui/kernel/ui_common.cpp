@@ -33,7 +33,7 @@ void collectChildren( Rocket::Core::Element *elem, T &container, Function predic
 template<typename T>
 void releaseCollectedChildren( T &container )
 {
-	std::for_each( container.begin(), container.end(), std::mem_fun( &Rocket::Core::Element::RemoveReference ) );
+	std::for_each( container.begin(), container.end(), std::mem_fn( &Rocket::Core::Element::RemoveReference ) );
 	container.clear();
 }
 }
