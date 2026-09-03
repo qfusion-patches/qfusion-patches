@@ -1000,7 +1000,7 @@ static void CG_SetupViewDef( cg_viewdef_t *view, int type, bool flipped )
 */
 #define	WAVE_AMPLITUDE	0.015   // [0..1]
 #define	WAVE_FREQUENCY	0.6     // [0..1]
-void CG_RenderView( float frameTime, float realFrameTime, int realTime, unsigned int serverTime, float stereo_separation, unsigned int extrapolationTime, bool flipped )
+void CG_RenderView( float frameTime, float realFrameTime, int realTime, unsigned int serverTime, unsigned int extrapolationTime, bool flipped )
 {
 	refdef_t *rd = &cg.view.refdef;
 
@@ -1152,8 +1152,7 @@ void CG_RenderView( float frameTime, float realFrameTime, int realTime, unsigned
 	CG_AddTest();
 #endif
 
-	// offset vieworg appropriately if we're doing stereo separation
-	VectorMA( cg.view.origin, stereo_separation, &cg.view.axis[AXIS_RIGHT], rd->vieworg );
+	VectorCopy( cg.view.origin, rd->vieworg );
 
 	// never let it sit exactly on a node line, because a water plane can
 	// disappear when viewed with the eye exactly on it.

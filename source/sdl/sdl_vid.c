@@ -42,14 +42,8 @@ rserr_t VID_Sys_Init( const char *applicationName, const char *screenshotsPrefix
  */
 void VID_UpdateWindowPosAndSize( int x, int y )
 {
-	SDL_SetWindowPosition( sdl_window, x, y );
-}
-
-/*
- * VID_EnableAltTab
- */
-void VID_EnableAltTab( bool enable )
-{
+	if( SDL_SetWindowPosition( sdl_window, x, y ) )
+		SDL_SyncWindow( sdl_window );
 }
 
 /*
@@ -58,13 +52,6 @@ void VID_EnableAltTab( bool enable )
 void *VID_GetWindowHandle( void )
 {
 	return (void *)NULL;
-}
-
-/*
- * VID_EnableWinKeys
- */
-void VID_EnableWinKeys( bool enable )
-{
 }
 
 /*

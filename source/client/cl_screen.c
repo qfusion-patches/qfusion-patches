@@ -660,7 +660,7 @@ void SCR_ShutDownConsoleMedia( void )
 /*
 * SCR_RenderView
 */
-static void SCR_RenderView( float stereo_separation )
+static void SCR_RenderView( )
 {
 	if( cls.demo.playing )
 	{
@@ -674,7 +674,7 @@ static void SCR_RenderView( float stereo_separation )
 
 	// frame is not valid until we load the CM data
 	if( cl.cms != NULL )
-		CL_GameModule_RenderView( stereo_separation );
+		CL_GameModule_RenderView( );
 }
 
 //============================================================================
@@ -688,9 +688,7 @@ static void SCR_RenderView( float stereo_separation )
 void SCR_UpdateScreen( void )
 {
 	static dynvar_t *updatescreen = NULL;
-	int numframes;
 	int i;
-	float separation[2];
 	bool cinematic;
 	bool forcevsync, forceclear;
 
@@ -716,89 +714,64 @@ void SCR_UpdateScreen( void )
 
 	SCR_CheckSystemFontsModified();
 
-	/*
-	** range check cl_camera_separation so we don't inadvertently fry someone's
-	** brain
-	*/
-	if( cl_stereo_separation->value > 1.0 )
-		Cvar_SetValue( "cl_stereo_separation", 1.0 );
-	else if( cl_stereo_separation->value < 0 )
-		Cvar_SetValue( "cl_stereo_separation", 0.0 );
-
-	if( cl_stereo->integer )
-	{
-		numframes = 2;
-		separation[0] = -cl_stereo_separation->value / 2;
-		separation[1] =  cl_stereo_separation->value / 2;
-	}
-	else
-	{
-		separation[0] = 0;
-		separation[1] = 0;
-		numframes = 1;
-	}
-
 	cinematic = cls.state == CA_CINEMATIC ? true : false;
 	forcevsync = cinematic;
 	forceclear = cinematic;
 
-	for( i = 0; i < numframes; i++ )
+	re.BeginFrame( forceclear, forcevsync );
+
+	if( scr_draw_loading == 2 )
 	{
-		re.BeginFrame( separation[i], forceclear, forcevsync );
-
-		if( scr_draw_loading == 2 )
-		{
-			// loading plaque over APP_STARTUP_COLOR screen
-			scr_draw_loading = 0;
-			CL_UIModule_UpdateConnectScreen( true );
-		}
-		// if a cinematic is supposed to be running, handle menus
-		// and console specially
-		else if( cinematic )
-		{
-			SCR_DrawCinematic();
-			SCR_DrawConsole();
-		}
-		else if( cls.state == CA_DISCONNECTED )
-		{
-			CL_UIModule_Refresh( true, true );
-			SCR_DrawConsole();
-		}
-		else if( cls.state == CA_GETTING_TICKET || cls.state == CA_CONNECTING  || cls.state == CA_HANDSHAKE )
-		{
-			CL_UIModule_UpdateConnectScreen( true );
-		}
-		else if( cls.state == CA_CONNECTED )
-		{
-			if( cls.cgameActive )
-			{
-				CL_UIModule_UpdateConnectScreen( false );
-				SCR_RenderView( separation[i] );
-			}
-			else
-			{
-				CL_UIModule_UpdateConnectScreen( true );
-			}
-		}
-		else if( cls.state == CA_ACTIVE )
-		{
-			SCR_RenderView( separation[i] );
-
-			CL_UIModule_Refresh( false, true );
-
-			if( scr_timegraph->integer )
-				SCR_DebugGraph( cls.frametime*300, 1, 1, 1 );
-
-			if( scr_debuggraph->integer || scr_timegraph->integer || scr_netgraph->integer )
-				SCR_DrawDebugGraph();
-
-			SCR_DrawConsole();
-			SCR_DrawNotify();
-		}
-
-		// wsw : aiwa : call any listeners so they can draw their stuff
-		Dynvar_CallListeners( updatescreen, NULL );
-
-		re.EndFrame();
+		// loading plaque over APP_STARTUP_COLOR screen
+		scr_draw_loading = 0;
+		CL_UIModule_UpdateConnectScreen( true );
 	}
+	// if a cinematic is supposed to be running, handle menus
+	// and console specially
+	else if( cinematic )
+	{
+		SCR_DrawCinematic();
+		SCR_DrawConsole();
+	}
+	else if( cls.state == CA_DISCONNECTED )
+	{
+		CL_UIModule_Refresh( true, true );
+		SCR_DrawConsole();
+	}
+	else if( cls.state == CA_GETTING_TICKET || cls.state == CA_CONNECTING  || cls.state == CA_HANDSHAKE )
+	{
+		CL_UIModule_UpdateConnectScreen( true );
+	}
+	else if( cls.state == CA_CONNECTED )
+	{
+		if( cls.cgameActive )
+		{
+			CL_UIModule_UpdateConnectScreen( false );
+			SCR_RenderView( );
+		}
+		else
+		{
+			CL_UIModule_UpdateConnectScreen( true );
+		}
+	}
+	else if( cls.state == CA_ACTIVE )
+	{
+		SCR_RenderView( );
+
+		CL_UIModule_Refresh( false, true );
+
+		if( scr_timegraph->integer )
+			SCR_DebugGraph( cls.frametime*300, 1, 1, 1 );
+
+		if( scr_debuggraph->integer || scr_timegraph->integer || scr_netgraph->integer )
+			SCR_DrawDebugGraph();
+
+		SCR_DrawConsole();
+		SCR_DrawNotify();
+	}
+
+	// wsw : aiwa : call any listeners so they can draw their stuff
+	Dynvar_CallListeners( updatescreen, NULL );
+
+	re.EndFrame();
 }

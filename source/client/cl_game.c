@@ -679,10 +679,10 @@ bool CL_GameModule_NewSnapshot( int pendingSnapshot )
 /*
 * CL_GameModule_RenderView
 */
-void CL_GameModule_RenderView( float stereo_separation )
+void CL_GameModule_RenderView( )
 {
 	if( cge && cls.cgameActive )
-		cge->RenderView( cls.frametime, cls.realframetime, cls.realtime, cl.serverTime, stereo_separation,
+		cge->RenderView( cls.frametime, cls.realframetime, cls.realtime, cl.serverTime,
 		cl_extrapolate->integer && !cls.demo.playing ? cl_extrapolationTime->integer : 0, cl_flip->integer != 0 );
 }
 
@@ -751,4 +751,3 @@ bool CL_GameModule_IsTouchDown( int id )
 
 	return false;
 }
-

@@ -132,8 +132,8 @@ typedef struct
 	int			( *API )( void );
 
 	rserr_t		( *Init )( const char *applicationName, const char *screenshotsPrefix, int startupColor, const int *iconXPM, void *wndproc, bool verbose );
-	rserr_t		( *SetMode )( int x, int y, int width, int height, int displayFrequency, bool fullScreen, bool stereo );
-	rserr_t		( *SetWindow )( void *hinstance, void *wndproc, void *parenthWnd );
+	rserr_t		( *SetMode )( int x, int y, int width, int height, bool fullScreen );
+	rserr_t		( *SetWindow )( void *wndproc );
 
 	void		( *Shutdown )( bool verbose );
 
@@ -212,7 +212,7 @@ typedef struct
 	// Should only be used as a hint - the renderer may keep drawing or not drawing to the window for a few frames when this changes
 	bool		( *RenderingEnabled )( void );
 
-	void		( *BeginFrame )( float cameraSeparation, bool forceClear, bool forceVsync );
+	void		( *BeginFrame )( bool forceClear, bool forceVsync );
 	void		( *EndFrame )( void );
 	const char *( *GetSpeedsMessage )( char *out, size_t size );
 	int			( *GetAverageFramerate )( void );
