@@ -32,8 +32,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "g_syscalls.h"
 #include "g_gametypes.h"
 
-#include "../matchmaker/mm_rating.h"
-
 //==================================================================
 // round(x)==floor(x+0.5f)
 
@@ -141,9 +139,6 @@ typedef struct
 {
 	edict_t	*edicts;        // [maxentities]
 	gclient_t *clients;     // [maxclients]
-	gclient_quit_t *quits;	// [dynamic] <-- MM
-	clientRating_t *ratings;	// list of ratings for current game and gametype <-- MM
-	linear_allocator_t *raceruns;	// raceRun_t <-- MM
 
 	int protocol;
 	char demoExtension[MAX_QPATH];
@@ -317,7 +312,6 @@ extern cvar_t *g_gravity;
 extern cvar_t *g_maxvelocity;
 
 extern cvar_t *sv_cheats;
-extern cvar_t *sv_mm_enable;
 
 extern cvar_t *cm_mapHeader;
 extern cvar_t *cm_mapVersion;
@@ -375,8 +369,6 @@ extern cvar_t *g_instashield;
 
 extern cvar_t *g_asGC_stats;
 extern cvar_t *g_asGC_interval;
-
-extern cvar_t *g_skillRating;
 
 edict_t **G_Teams_ChallengersQueue( void );
 void G_Teams_Join_Cmd( edict_t *ent );
@@ -1216,9 +1208,6 @@ struct gclient_s
 		int channel;
 	} tv;
 
-	int mm_session;					// 0 - invalid session, < 0 - local session, > 0 authenticated account
-	clientRating_t *ratings;		// list of ratings for gametypes
-
 	bool connecting;
 	bool multiview;
 	bool isTV;
@@ -1442,23 +1431,6 @@ static inline int PLAYERNUM( edict_t *x ) { return x - game.edicts - 1; }
 static inline int PLAYERNUM( gclient_t *x ) { return x - game.clients; }
 
 static inline edict_t *PLAYERENT( int x ) { return game.edicts + x + 1; }
-
-// matchmaker
-
-void G_AddPlayerReport( edict_t *ent, bool final );
-void G_Match_SendReport( void );
-
-void G_TransferRatings( void );
-clientRating_t *G_AddDefaultRating( edict_t *ent, const char *gametype );
-clientRating_t *G_AddRating( edict_t *ent, const char *gametype, float rating, float deviation );
-void G_RemoveRating( edict_t *ent );
-void G_ListRatings_f( void );
-
-void G_AddRaceRecords( edict_t *ent, int numSectors, unsigned int *records );
-unsigned int G_GetRaceRecord( edict_t *ent, int sector );
-raceRun_t *G_NewRaceRun( edict_t *ent, int numSectors );
-void G_SetRaceTime( edict_t *ent, int sector, unsigned int time );
-void G_ListRaces_f( void );
 
 // web
 http_response_code_t G_WebRequest( http_query_method_t method, const char *resource,

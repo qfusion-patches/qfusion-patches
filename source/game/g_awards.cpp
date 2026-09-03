@@ -450,8 +450,6 @@ void G_AwardPlayerKilled( edict_t *self, edict_t *inflictor, edict_t *attacker, 
 			stats->fragAllocator = LinearAllocator( sizeof( loggedFrag_t ), 0, _G_LevelMalloc, _G_LevelFree );
 
 		lfrag = ( loggedFrag_t * )LA_Alloc( stats->fragAllocator );
-		lfrag->mm_attacker = attacker->r.client->mm_session;
-		lfrag->mm_victim = self->r.client->mm_session;
 		lfrag->weapon = G_ModToAmmo( mod ) - AMMO_GUNBLADE;
 		lfrag->time = ( game.serverTime - GS_MatchStartTime() ) / 1000;
 	}

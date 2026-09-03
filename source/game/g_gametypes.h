@@ -46,8 +46,6 @@ typedef struct gameaward_s
 
 typedef struct
 {
-	int mm_attacker;	// session-id
-	int mm_victim;		// session-id
 	int weapon;			// weapon used
 	unsigned int time;	// server timestamp
 } loggedFrag_t;

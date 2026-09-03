@@ -487,17 +487,7 @@ static void Cmd_PlayersExt_f( edict_t *ent, bool onlyspecs )
 
 			cl = ent->r.client;
 
-			login = NULL;
-			if( cl->mm_session > 0 ) {
-				login = Info_ValueForKey( cl->userinfo, "cl_mm_login" );
-			}
-			if( !login ) {
-				login = "";
-			}
-
-			Q_snprintfz( line, sizeof( line ), "%3i %s" S_COLOR_WHITE "%s%s%s%s\n", i, cl->netname,
-				login[0] ? "(" S_COLOR_YELLOW : "", login, login[0] ? S_COLOR_WHITE ")" : "",
-				cl->isoperator ? " op" : "" );
+			Q_snprintfz( line, sizeof( line ), "%3i %s" S_COLOR_WHITE "%s\n", i, cl->netname, cl->isoperator ? " op" : "" );
 
 			if( strlen( line ) + strlen( msg ) > sizeof( msg ) - 100 )
 			{
@@ -687,18 +677,6 @@ void Cmd_Say_f( edict_t *ent, bool arg0, bool checkflood )
 	char *p;
 	char text[2048];
 	size_t arg0len = 0;
-
-#ifdef AUTHED_SAY
-	if( sv_mm_enable->integer && ent->r.client && ent->r.client->mm_session <= 0 )
-	{
-		// unauthed players are only allowed to chat to public at non play-time
-		if( GS_MatchState() == MATCH_STATE_PLAYTIME )
-		{
-			G_PrintMsg( ent, "%s", S_COLOR_YELLOW "You must authenticate to be able to communicate to other players during the match.\n");
-			return;
-		}
-	}
-#endif
 
 	if( checkflood )
 	{
@@ -1179,8 +1157,11 @@ static void Cmd_ShowStats_f( edict_t *ent )
 }
 
 /*
-* Cmd_Whois_f
-*/
+ * Cmd_Whois_f
+ * XXX: command is functionally useless without the matchmaker service, but
+ *      angelscript can call console commands and I don't want to risk breaking
+ *      anything
+ */
 static void Cmd_Whois_f( edict_t *ent )
 {
 	edict_t *target;
@@ -1212,15 +1193,17 @@ static void Cmd_Whois_f( edict_t *ent )
 
 	cl = target->r.client;
 
-	if( cl->mm_session <= 0 )
-	{
-		G_PrintMsg( ent, "Unregistered player\n" );
-		return;
-	}
+	G_PrintMsg( ent, "Unregistered player\n" );
 
-	login = Info_ValueForKey( cl->userinfo, "cl_mm_login" );
-
-	G_PrintMsg( ent, "%s%s is %s\n", cl->netname, S_COLOR_WHITE, login ? login : "unknown" );
+	// if( cl->mm_session <= 0 )
+	// {
+	// 	G_PrintMsg( ent, "Unregistered player\n" );
+	// 	return;
+	// }
+	//
+	// login = Info_ValueForKey( cl->userinfo, "cl_mm_login" );
+	//
+	// G_PrintMsg( ent, "%s%s is %s\n", cl->netname, S_COLOR_WHITE, login ? login : "unknown" );
 }
 
 /*

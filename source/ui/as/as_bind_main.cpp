@@ -59,7 +59,6 @@ void BindGlobals( ASInterface *as )
 // update function for bound api
 void BindFrame( ASInterface *as )
 {
-	RunMatchMakerFrame();
 	RunWindowFrame();
 }
 

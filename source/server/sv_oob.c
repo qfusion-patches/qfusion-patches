@@ -19,7 +19,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
 #include "server.h"
-#include "../matchmaker/mm_common.h"
 
 typedef struct sv_master_s
 {
@@ -415,16 +414,6 @@ static char *SV_ShortInfoString( void )
 		}
 	}
 
-	if( SV_MM_Initialized() )
-	{
-		Q_snprintfz( entry, sizeof( entry ), "mm\\\\1\\\\" );
-		if( MAX_SVCINFOSTRING_LEN - len > strlen( entry ) )
-		{
-			Q_strncatz( string, entry, sizeof( string ) );
-			len = strlen( string );
-		}
-	}
-
 	if( Cvar_Value( "g_race_gametype" ) )
 	{
 		Q_snprintfz( entry, sizeof( entry ), "r\\\\1\\\\" );
@@ -494,10 +483,6 @@ static void SVC_InfoResponse( const socket_t *socket, const netadr_t *address )
 	if( sv.state < ss_loading || sv.state > ss_game )
 		return;
 
-	// don't reply when we are locked for mm
-	// if( SV_MM_IsLocked() )
-	//	return;
-
 	// different protocol version
 	if( atoi( Cmd_Argv( 1 ) ) != APP_PROTOCOL_VERSION )
 		return;
@@ -557,10 +542,6 @@ static void SVC_SendInfoString( const socket_t *socket, const netadr_t *address,
 	// ignore when in invalid server state
 	if( sv.state < ss_loading || sv.state > ss_game )
 		return;
-
-	// don't reply when we are locked for mm
-	// if( SV_MM_IsLocked() )
-	//	return;
 
 	// send the same string that we would give for a status OOB command
 	string = SV_LongInfoString( fullStatus );
@@ -644,9 +625,6 @@ static void SVC_DirectConnect( const socket_t *socket, const netadr_t *address )
 	client_t *cl, *newcl;
 	int i, version, game_port, challenge;
 	int previousclients;
-	int session_id;
-	char *session_id_str;
-	unsigned int ticket_id;
 	bool tv_client;
 	unsigned int time;
 
@@ -696,23 +674,6 @@ static void SVC_DirectConnect( const socket_t *socket, const netadr_t *address )
 			DROP_TYPE_GENERAL, 0 );
 		Com_DPrintf( "Connection from %s refused: couldn't set userinfo (ip)\n", NET_AddressToString( address ) );
 		return;
-	}
-
-	if( Cmd_Argc() >= 7 )
-	{
-		// we have extended information, ticket-id and session-id
-		Com_Printf("Extended information %s\n", Cmd_Argv(6) );
-		ticket_id = (unsigned int)atoi( Cmd_Argv(6) );
-		session_id_str = Info_ValueForKey( userinfo, "cl_mm_session" );
-		if( session_id_str != NULL )
-			session_id = atoi( session_id_str );
-		else
-			session_id = 0;
-	}
-	else
-	{
-		ticket_id = 0;
-		session_id = 0;
 	}
 
 #ifdef TCP_ALLOW_CONNECT
@@ -837,7 +798,7 @@ static void SVC_DirectConnect( const socket_t *socket, const netadr_t *address )
 
 	// get the game a chance to reject this connection or modify the userinfo
 	if( !SV_ClientConnect( socket, address, newcl, userinfo, game_port, challenge, false,
-		tv_client, ticket_id, session_id ) )
+		tv_client ) )
 	{
 		char *rejtype, *rejflag, *rejtypeflag, *rejmsg;
 
@@ -920,7 +881,7 @@ int SVC_FakeConnect( char *fakeUserinfo, char *fakeSocketType, const char *fakeI
 
 	NET_InitAddress( &address, NA_NOTRANSMIT );
 	// get the game a chance to reject this connection or modify the userinfo
-	if( !SV_ClientConnect( NULL, &address, newcl, userinfo, -1, -1, true, false, 0, 0 ) )
+	if( !SV_ClientConnect( NULL, &address, newcl, userinfo, -1, -1, true, false ) )
 	{
 		Com_DPrintf( "Game rejected a connection.\n" );
 		return -1;

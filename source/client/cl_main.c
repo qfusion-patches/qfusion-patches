@@ -227,12 +227,7 @@ static void CL_SendConnectPacket( void )
 {
 	userinfo_modified = false;
 
-	Com_DPrintf("CL_MM_Initialized: %d, cls.mm_ticket: %u\n", CL_MM_Initialized(), cls.mm_ticket );
-	if( CL_MM_Initialized() && cls.mm_ticket != 0 )
-		Netchan_OutOfBandPrint( cls.socket, &cls.serveraddress, "connect %i %i %i \"%s\" %i %u\n",
-				APP_PROTOCOL_VERSION, Netchan_GamePort(), cls.challenge, Cvar_Userinfo(), 0, cls.mm_ticket );
-	else
-		Netchan_OutOfBandPrint( cls.socket, &cls.serveraddress, "connect %i %i %i \"%s\" %i\n",
+	Netchan_OutOfBandPrint( cls.socket, &cls.serveraddress, "connect %i %i %i \"%s\" %i\n",
 				APP_PROTOCOL_VERSION, Netchan_GamePort(), cls.challenge, Cvar_Userinfo(), 0 );
 }
 
@@ -395,15 +390,7 @@ static void CL_Connect( const char *servername, socket_type_t type, netadr_t *ad
 
 	memset( cl.configstrings, 0, sizeof( cl.configstrings ) );
 
-	// If the server supports matchmaking and that we are authenticated, try getting a matchmaking ticket before joining the server
-	newstate = CA_CONNECTING;
-	if( CL_MM_Initialized() )
-	{
-		// if( MM_GetStatus() == MM_STATUS_AUTHENTICATED && CL_MM_GetTicket( serversession ) )
-		if( CL_MM_Connect( &cls.serveraddress ) )
-			newstate = CA_GETTING_TICKET;
-	}
-	CL_SetClientState( newstate );
+	CL_SetClientState( CA_CONNECTING );
 
 	if( serverchain[0] ) {
 		Q_strncpyz( cl_connectChain, serverchain, sizeof( cl_connectChain ) );
@@ -487,10 +474,6 @@ static void CL_Connect_Cmd_f( socket_type_t socket )
 		Com_Printf( "Bad server address\n" );
 		return;
 	}
-
-	// wait until MM allows us to connect to a server
-	// (not in a middle of login process or anything)
-	CL_MM_WaitForLogin();
 
 	servername = TempCopyString( connectstring );
 	CL_Connect( servername, ( serveraddress.type == NA_LOOPBACK ? SOCKET_LOOPBACK : socket ),
@@ -2628,7 +2611,6 @@ void CL_Frame( int realmsec, int gamemsec )
 	CL_AdjustServerTime( gamemsec );
 	CL_UserInputFrame();
 	CL_NetFrame( realmsec, gamemsec );
-	CL_MM_Frame();
 
 	if( cls.state == CA_CINEMATIC )
 	{
@@ -3113,8 +3095,6 @@ void CL_Init( void )
 
 	CL_InitServerList();
 
-	CL_MM_Init();
-
 	ML_Init();
 
 	CL_Mumble_Init();
@@ -3142,7 +3122,6 @@ void CL_Shutdown( void )
 	CL_SoundModule_StopAllSounds( true, true );
 
 	ML_Shutdown();
-	CL_MM_Shutdown( true );
 	CL_ShutDownServerList();
 
 	CL_WriteConfiguration( "config.cfg", true );

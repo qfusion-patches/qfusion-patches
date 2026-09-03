@@ -41,7 +41,6 @@ cvar_t *g_maxvelocity;
 cvar_t *g_gravity;
 
 cvar_t *sv_cheats;
-cvar_t *sv_mm_enable;
 
 cvar_t *cm_mapHeader;
 cvar_t *cm_mapVersion;
@@ -106,9 +105,6 @@ cvar_t *g_allow_spectator_voting;
 
 cvar_t *g_asGC_stats;
 cvar_t *g_asGC_interval;
-
-cvar_t *g_skillRating;
-
 
 static char *map_rotation_s = NULL;
 static char **map_rotation_p = NULL;
@@ -261,7 +257,6 @@ void G_Init( unsigned int seed, unsigned int framemsec, int protocol, const char
 
 	// latched vars
 	sv_cheats = trap_Cvar_Get( "sv_cheats", "0", CVAR_SERVERINFO | CVAR_LATCH );
-	sv_mm_enable = trap_Cvar_Get( "sv_mm_enable", "0", CVAR_ARCHIVE | CVAR_NOSET | CVAR_SERVERINFO );
 
 	// hack in CVAR_SERVERINFO flag
 	trap_Cvar_Get( "gamename", trap_Cvar_String( "gamename" ), CVAR_SERVERINFO );
@@ -351,9 +346,6 @@ void G_Init( unsigned int seed, unsigned int framemsec, int protocol, const char
 	g_asGC_stats = trap_Cvar_Get( "g_asGC_stats", "0", CVAR_ARCHIVE );
 	g_asGC_interval = trap_Cvar_Get( "g_asGC_interval", "10", CVAR_ARCHIVE );
 
-	g_skillRating = trap_Cvar_Get( "sv_skillRating", va("%.0f", MM_RATING_DEFAULT), CVAR_SERVERINFO|CVAR_READONLY );
-	// trap_Cvar_ForceSet( "sv_skillRating", va("%d", MM_RATING_DEFAULT) );
-
 	// nextmap
 	trap_Cvar_ForceSet( "nextmap", "match \"advance\"" );
 
@@ -364,8 +356,6 @@ void G_Init( unsigned int seed, unsigned int framemsec, int protocol, const char
 
 	// initialize all clients for this game
 	game.clients = ( gclient_t * )G_Malloc( gs.maxclients * sizeof( game.clients[0] ) );
-
-	game.quits = NULL;
 
 	game.numentities = gs.maxclients + 1;
 

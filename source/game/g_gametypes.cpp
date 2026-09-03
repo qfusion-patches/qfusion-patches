@@ -779,14 +779,6 @@ void G_Match_LaunchState( int matchState )
 		level.finalMatchDuration = game.serverTime - GS_MatchStartTime();
 	}
 
-    if( ( matchState == MATCH_STATE_POSTMATCH && GS_RaceGametype() )
-        || ( matchState != MATCH_STATE_POSTMATCH && gs.gameState.stats[GAMESTAT_MATCHSTATE] == MATCH_STATE_POSTMATCH ) )
-	{
-		// entering postmatch in race or leaving postmatch in normal gt
-		G_Match_SendReport();
-		trap_MM_GameState( false );
-	}
-
 	switch( matchState )
 	{
 	default:
@@ -798,10 +790,6 @@ void G_Match_LaunchState( int matchState )
 			gs.gameState.stats[GAMESTAT_MATCHSTATE] = MATCH_STATE_WARMUP;
 			gs.gameState.longstats[GAMELONG_MATCHDURATION] = (unsigned int)( fabs( g_warmup_timelimit->value * 60 ) * 1000 );
 			gs.gameState.longstats[GAMELONG_MATCHSTART] = game.serverTime;
-
-			// race has playtime in warmup too, so flag the matchmaker about this
-			if( GS_RaceGametype() )
-				trap_MM_GameState( true );
 
 			break;
 		}
@@ -828,15 +816,8 @@ void G_Match_LaunchState( int matchState )
 			gs.gameState.longstats[GAMELONG_MATCHDURATION] = (unsigned int)( fabs( 60 * g_timelimit->value )*1000 );
 			gs.gameState.longstats[GAMELONG_MATCHSTART] = game.serverTime;
 
-			// request a new match UUID
-			trap_ConfigString( CS_MATCHUUID, "" );
-
-			// tell matchmaker that the game is on, so if
-			// client disconnects before SendReport, it is flagged
-			// as 'purgable' on MM side
-			trap_MM_GameState( true );
+			break;
 		}
-		break;
 
 	case MATCH_STATE_POSTMATCH:
 		{
@@ -2008,9 +1989,4 @@ void G_Gametype_Init( void )
 	trap_ConfigString( CS_GAMETYPENAME, g_gametype->string );
 
 	G_CheckCvars(); // update GS_Instagib, GS_FallDamage, etc
-
-	// ch : if new gametype has been initialized, transfer the
-	// client-specific ratings to gametype-specific list
-	if( changed )
-		G_TransferRatings();
 }

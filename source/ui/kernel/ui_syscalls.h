@@ -485,30 +485,6 @@ namespace trap
 			return UI_IMPORT.GetBaseServerURL( buffer, buffer_size );
 		}
 
-		inline bool MM_Login( const char *user, const char *password ) {
-			return UI_IMPORT.MM_Login( user, password );
-		}
-
-		inline bool MM_Logout( bool force ) {
-			return UI_IMPORT.MM_Logout( force );
-		}
-
-		inline int MM_GetLoginState( void ) {
-			return UI_IMPORT.MM_GetLoginState();
-		}
-
-		inline size_t MM_GetLastErrorMessage( char *buffer, size_t buffer_size ) {
-			return UI_IMPORT.MM_GetLastErrorMessage( buffer, buffer_size );
-		}
-
-		inline size_t MM_GetProfileURL( char *buffer, size_t buffer_size, bool rml ) {
-			return UI_IMPORT.MM_GetProfileURL( buffer, buffer_size, rml );
-		}
-
-		inline size_t MM_GetBaseWebURL( char *buffer, size_t buffer_size ) {
-			return UI_IMPORT.MM_GetBaseWebURL( buffer, buffer_size );
-		}
-
 		// IRC
 		inline size_t Irc_HistorySize( void ) {
 			return UI_IMPORT.Irc_HistorySize();
