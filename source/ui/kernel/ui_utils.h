@@ -56,7 +56,7 @@ namespace WSWUI
 	template<typename T>
 	void releaseCollectedElements( T &container )
 	{
-		std::for_each( container.begin(), container.end(), std::mem_fun( &Rocket::Core::Element::RemoveReference ) );
+		std::for_each( container.begin(), container.end(), std::mem_fn( &Rocket::Core::Element::RemoveReference ) );
 		container.clear();
 	}
 

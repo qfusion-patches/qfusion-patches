@@ -46,7 +46,7 @@ DemoInfo & DemoInfo::operator = ( const DemoInfo &other )
 	return *this;
 }
 
-const bool DemoInfo::isValid( void ) const
+bool DemoInfo::isValid( void ) const
 {
 	return !name.empty();
 }

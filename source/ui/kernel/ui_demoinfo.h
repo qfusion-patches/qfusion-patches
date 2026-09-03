@@ -42,7 +42,7 @@ public:
 	DemoInfo & operator = ( const DemoInfo &other );
 
 	// whether playable at all
-	const bool isValid( void ) const;
+	bool isValid( void ) const;
 
 	// demo name, e.g.: "server/1.wd13"
 	void setName( const std::string & name );
@@ -57,15 +57,15 @@ public:
 
 	// only relevant for currently playing demo (single instance)
 	void setPlaying( bool playing ) { isPlaying = playing; }
-	const bool getPlaying( void ) const { return isPlaying; }
+	bool getPlaying( void ) const { return isPlaying; }
 
 	// only relevant for currently playing demo (single instance)
 	void setPaused( bool paused ) { isPaused = paused; }
-	const bool getPaused( void ) const { return isPaused; }
+	bool getPaused( void ) const { return isPaused; }
 
 	// only relevant for currently playing demo (single instance)
 	void setTime( unsigned int time_ ) { time = time_; }
-	const unsigned int getTime( void ) const { return time; }
+	unsigned int getTime( void ) const { return time; }
 
 	const DemoMetaData &getMetaData( void );
 

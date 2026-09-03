@@ -36,6 +36,8 @@ public:
 	{
 	}
 
+	DownloadInfo( const DownloadInfo &other ) = default;
+
 	DownloadInfo & operator = ( const DownloadInfo &other )
 	{
 		name = other.getName();
