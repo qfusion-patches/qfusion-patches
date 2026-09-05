@@ -46,6 +46,6 @@ void TV_Downstream_ExecuteClientThinks( relay_t *relay, client_t *client );
 void TV_Downstream_InitMaster( void );
 void TV_Downstream_MasterHeartbeat( void );
 void TV_Downstream_MasterSendQuit( void );
-bool TV_Downstream_IsMaster( const netadr_t *address, bool *isSteam );
+bool TV_Downstream_IsMaster( const netadr_t *address );
 
 #endif // __TV_DOWNSTREAM_H

@@ -24,7 +24,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #endif
 #include <setjmp.h>
 #include "wswcurl.h"
-#include "steam.h"
 #include "../qalgo/glob.h"
 #include "../qalgo/md5.h"
 #include "compression.h"
@@ -989,10 +988,6 @@ void Qcommon_Init( int argc, char **argv )
 
 	CM_Init();
 
-#if APP_STEAMID
-	Steam_LoadLibrary();
-#endif
-
 	Com_ScriptModule_Init();
 
 	SV_Init();
@@ -1087,8 +1082,6 @@ void Qcommon_Frame( unsigned int realmsec )
 
 	FS_Frame();
 
-	Steam_RunFrame();
-
 	if( dedicated->integer )
 	{
 		do
@@ -1159,8 +1152,6 @@ void Qcommon_Shutdown( void )
 	Netchan_Shutdown();
 	NET_Shutdown();
 	Key_Shutdown();
-
-	Steam_UnloadLibrary();
 
 	Com_Autoupdate_Shutdown();
 
