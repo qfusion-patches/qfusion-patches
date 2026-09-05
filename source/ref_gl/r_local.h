@@ -689,10 +689,7 @@ int			R_GetClippedFragments( const vec3_t origin, float radius, vec3_t axis[3], 
 //
 // r_register.c
 //
-rserr_t		R_Init( const char *applicationName, const char *screenshotPrefix, int startupColor,
-				int iconResource, const int *iconXPM,
-				void *hinstance, void *wndproc, void *parenthWnd,
-				bool verbose );
+rserr_t		R_Init( const char *applicationName, const char *screenshotPrefix, int startupColor, const int *iconXPM, void *wndproc, bool verbose );
 void		R_BeginRegistration( void );
 void		R_EndRegistration( void );
 void		R_Shutdown( bool verbose );

@@ -45,7 +45,7 @@ and Zephaniah E. Hull. Adapted by Victor Luchits for qfusion project.
 ** QGL_Shutdown() - unloads libraries, NULLs function pointers
 */
 
-#include <SDL.h>
+#include <SDL3/SDL.h>
 
 #include "../qcommon/qcommon.h"
 #include "sdl_glw.h"
@@ -86,8 +86,6 @@ void QGL_Shutdown( void )
 {
 	SDL_QuitSubSystem( SDL_INIT_VIDEO );
 
-	glw_state.OpenGLLib = NULL;
-
 #define QGL_FUNC( type, name, params ) ( q##name ) = NULL;
 #define QGL_FUNC_OPT( type, name, params ) ( q##name ) = NULL;
 #define QGL_EXT( type, name, params ) ( q##name ) = NULL;
@@ -121,28 +119,20 @@ void QGL_Shutdown( void )
 ** might be.
 **
 */
-qgl_initerr_t QGL_Init( const char *dllname )
+qgl_initerr_t QGL_Init( void )
 {
 	int result = -1;
 
-	glw_state.OpenGLLib = (void *)0;
-	if( SDL_InitSubSystem( SDL_INIT_VIDEO ) < 0 ) {
+	if( !SDL_InitSubSystem( SDL_INIT_VIDEO ) ) {
 		Com_Printf( "SDL_InitSubSystem(SDL_INIT_VIDEO) failed: %s", SDL_GetError() );
 		return qgl_initerr_unknown;
 	}
 
 	// try the system default first
 	result = SDL_GL_LoadLibrary( NULL );
-	if( result == -1 )
-		result = SDL_GL_LoadLibrary( dllname );
-
 	if( result == -1 ) {
-		Com_Printf( "Error loading %s: %s\n", dllname ? dllname : "OpenGL dlib", SDL_GetError() );
+		Com_Printf( "Error loading OpenGL: %s\n", SDL_GetError() );
 		return qgl_initerr_invalid_driver;
-	} else {
-		glw_state.OpenGLLib = (void *)1;
-		if( dllname )
-			Com_Printf( "Using %s for OpenGL...\n", dllname );
 	}
 
 #define QGL_FUNC( type, name, params )                                   \
@@ -151,7 +141,7 @@ qgl_initerr_t QGL_Init( const char *dllname )
 		Com_Printf( "QGL_Init: Failed to get address for %s\n", #name ); \
 		return qgl_initerr_invalid_driver;                               \
 	}
-#define QGL_FUNC_OPT( type, name, params ) ( q##name ) = (void *)qglGetProcAddress( (const GLubyte *)#name );
+#define QGL_FUNC_OPT( type, name, params ) ( q##name ) = (void *)qglGetProcAddress( #name );
 #define QGL_EXT( type, name, params ) ( q##name ) = NULL;
 #define QGL_WGL( type, name, params )
 #define QGL_WGL_EXT( type, name, params )
@@ -178,23 +168,11 @@ qgl_initerr_t QGL_Init( const char *dllname )
 }
 
 /*
-** QGL_GetDriverInfo
-**
-** Returns information about the GL DLL.
-*/
-const qgl_driverinfo_t *QGL_GetDriverInfo( void )
-{
-	return NULL;
-}
-
-/*
 ** qglGetProcAddress
 */
-void *qglGetProcAddress( const GLubyte *procName )
+void *qglGetProcAddress( const char *procName )
 {
-	if( glw_state.OpenGLLib )
-		return (void *)SDL_GL_GetProcAddress( (char *)procName );
-	return NULL;
+	return (void *)SDL_GL_GetProcAddress( procName );
 }
 
 /*

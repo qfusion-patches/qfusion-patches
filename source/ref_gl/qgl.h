@@ -60,36 +60,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define QGL_H
 
 #define GL_GLEXT_LEGACY
-#define GLX_GLXEXT_LEGACY
-
-#if !defined (__MACOSX__) && !defined (__ANDROID__)
-#ifdef _WIN32
-#include <windows.h>
-#endif
 #include <GL/gl.h>
-#endif
-
-#if defined (__ANDROID__)
-#include <GLES2/gl2.h>
-#include <EGL/egl.h>
-
-#elif defined (__linux__) || defined (__FreeBSD__)
-#include <GL/glx.h>
-#endif
-
-#if defined (__MACOSX__)
-# include <OpenGL/gl.h>
-# include <OpenGL/glext.h>
-#endif
-
 #undef GL_GLEXT_LEGACY
-#undef GLX_GLXEXT_LEGACY
-
-typedef struct qgl_driverinfo_s
-{
-	const char *dllname;		// default driver DLL name
-	const char *dllcvarname;	// custom driver DLL cvar name, NULL if can't override driver
-} qgl_driverinfo_t;
 
 typedef enum
 {
@@ -98,11 +70,10 @@ typedef enum
 	qgl_initerr_unknown
 } qgl_initerr_t;
 
-QGL_EXTERN	const qgl_driverinfo_t	*QGL_GetDriverInfo( void );
-QGL_EXTERN	qgl_initerr_t			QGL_Init( const char *dllname );
+QGL_EXTERN	qgl_initerr_t			QGL_Init( void );
 QGL_EXTERN	void					QGL_Shutdown( void );
 
-QGL_EXTERN	void					*qglGetProcAddress( const GLubyte * );
+QGL_EXTERN	void					*qglGetProcAddress( const char * );
 QGL_EXTERN	const char				*(*qglGetGLWExtensionsString)( void );
 
 /*
@@ -552,50 +523,6 @@ typedef unsigned short GLhalfARB;
 #define QGL_FUNC
 #endif
 
-// WGL Functions
-QGL_WGL(PROC, wglGetProcAddress, (LPCSTR));
-QGL_WGL(int, wglChoosePixelFormat, (HDC, CONST PIXELFORMATDESCRIPTOR *));
-QGL_WGL(int, wglDescribePixelFormat, (HDC, int, UINT, LPPIXELFORMATDESCRIPTOR));
-QGL_WGL(BOOL, wglSetPixelFormat, (HDC, int, CONST PIXELFORMATDESCRIPTOR *));
-QGL_WGL(BOOL, wglSwapBuffers, (HDC));
-QGL_WGL(HGLRC, wglCreateContext, (HDC));
-QGL_WGL(BOOL, wglDeleteContext, (HGLRC));
-QGL_WGL(BOOL, wglMakeCurrent, (HDC, HGLRC));
-QGL_WGL(BOOL, wglShareLists, (HGLRC, HGLRC));
-
-// GLX Functions
-QGL_GLX(void *, glXGetProcAddressARB, (const GLubyte *procName));
-QGL_GLX(XVisualInfo *, glXChooseVisual, (Display *dpy, int screen, int *attribList));
-QGL_GLX(GLXContext, glXCreateContext, (Display *dpy, XVisualInfo *vis, GLXContext shareList, Bool direct));
-QGL_GLX(void, glXDestroyContext, (Display *dpy, GLXContext ctx));
-QGL_GLX(Bool, glXMakeCurrent, (Display *dpy, GLXDrawable drawable, GLXContext ctx));
-QGL_GLX(Bool, glXCopyContext, (Display *dpy, GLXContext src, GLXContext dst, GLuint mask));
-QGL_GLX(Bool, glXSwapBuffers, (Display *dpy, GLXDrawable drawable));
-QGL_GLX(Bool, glXQueryVersion, (Display *dpy, int *major, int *minor));
-QGL_GLX(const char *, glXQueryExtensionsString, (Display *dpy, int screen));
-
-// EGL Functions
-#ifdef EGL_VERSION_1_0
-QGL_EGL(void *, eglGetProcAddress, (const char *procname));
-QGL_EGL(EGLBoolean, eglChooseConfig, (EGLDisplay dpy, const EGLint *attrib_list, EGLConfig *configs, EGLint config_size, EGLint *num_config));
-QGL_EGL(EGLContext, eglCreateContext, (EGLDisplay dpy, EGLConfig config, EGLContext share_context, const EGLint *attrib_list));
-QGL_EGL(EGLSurface, eglCreatePbufferSurface, (EGLDisplay dpy, EGLConfig config, const EGLint *attrib_list));
-QGL_EGL(EGLSurface, eglCreateWindowSurface, (EGLDisplay dpy, EGLConfig config, EGLNativeWindowType win, const EGLint *attrib_list));
-QGL_EGL(EGLBoolean, eglDestroyContext, (EGLDisplay dpy, EGLContext ctx));
-QGL_EGL(EGLBoolean, eglDestroySurface, (EGLDisplay dpy, EGLSurface surface));
-QGL_EGL(EGLBoolean, eglGetConfigAttrib, (EGLDisplay dpy, EGLConfig config, EGLint attribute, EGLint *value));
-QGL_EGL(EGLContext, eglGetCurrentContext, (void));
-QGL_EGL(EGLDisplay, eglGetCurrentDisplay, (void));
-QGL_EGL(EGLDisplay, eglGetDisplay, (EGLNativeDisplayType display_id));
-QGL_EGL(EGLint, eglGetError, (void));
-QGL_EGL(EGLBoolean, eglInitialize, (EGLDisplay dpy, EGLint *major, EGLint *minor));
-QGL_EGL(EGLBoolean, eglMakeCurrent, (EGLDisplay dpy, EGLSurface draw, EGLSurface read, EGLContext ctx));
-QGL_EGL(const char *, eglQueryString, (EGLDisplay dpy, EGLint name));
-QGL_EGL(EGLBoolean, eglSwapBuffers, (EGLDisplay dpy, EGLSurface surface));
-QGL_EGL(EGLBoolean, eglSwapInterval, (EGLDisplay dpy, EGLint interval));
-QGL_EGL(EGLBoolean, eglTerminate, (EGLDisplay dpy));
-#endif
-
 // GL Functions
 QGL_FUNC(void, glBindTexture, (GLenum target, GLuint texture));
 QGL_FUNC(void, glClear, (GLbitfield mask));
@@ -953,12 +880,3 @@ QGL_FUNC_OPT(void, glTexSubImage3D, (GLenum target, GLint level, GLint xoffset, 
 #define qglTexSubImage3DEXT qglTexSubImage3DOES
 #endif
 #endif
-
-// WGL_EXT Functions
-QGL_WGL_EXT(const char *, wglGetExtensionsStringEXT, (void));
-QGL_WGL_EXT(BOOL, wglGetDeviceGammaRamp3DFX, (HDC, WORD *));
-QGL_WGL_EXT(BOOL, wglSetDeviceGammaRamp3DFX, (HDC, WORD *));
-QGL_WGL_EXT(BOOL, wglSwapIntervalEXT, (int interval));
-
-// GLX_EXT Functions
-QGL_GLX_EXT(int, glXSwapIntervalSGI, (int interval));

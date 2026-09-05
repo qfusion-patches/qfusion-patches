@@ -90,7 +90,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 extern cvar_t *r_stencilbits;
 extern cvar_t *gl_drawbuffer;
-extern cvar_t *gl_driver;
 
 //====================================================================
 
@@ -260,8 +259,7 @@ IMPLEMENTATION SPECIFIC FUNCTIONS
 bool	GLimp_RenderingEnabled( void );
 void	GLimp_BeginFrame( void );
 void	GLimp_EndFrame( void );
-int		GLimp_Init( const char *applicationName, void *hinstance, void *wndproc, void *parenthWnd,
-			int iconResource, const int *iconXPM );
+int		GLimp_Init( const char *applicationName, void *wndproc, const int *iconXPM );
 void	GLimp_Shutdown( void );
 rserr_t	GLimp_SetMode( int x, int y, int width, int height, int displayFrequency, bool fullscreen, bool stereo );
 rserr_t	GLimp_SetWindow( void *hinstance, void *wndproc, void *parenthWnd, bool *surfaceChangePending );
