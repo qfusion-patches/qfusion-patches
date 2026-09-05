@@ -517,8 +517,6 @@ void SV_ShutdownGame( const char *finalmsg, bool reconnect )
 
 	SV_ShutdownGameProgs();
 
-	SV_MasterSendQuit();
-
 	NET_CloseSocket( &svs.socket_loopback );
 	NET_CloseSocket( &svs.socket_udp );
 	NET_CloseSocket( &svs.socket_udp6 );

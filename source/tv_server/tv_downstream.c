@@ -1028,7 +1028,6 @@ void TV_Downstream_ExecuteClientThinks( relay_t *relay, client_t *client )
 typedef struct sv_master_s
 {
 	netadr_t address;
-	bool steam;
 } tv_master_t;
 
 static tv_master_t tv_masters[MAX_MASTERS];    // address of group servers
@@ -1037,7 +1036,7 @@ static tv_master_t tv_masters[MAX_MASTERS];    // address of group servers
 * TV_Downstream_AddMaster_f
 * Add a master server to the list
 */
-static void TV_Downstream_AddMaster_f( const char *address, bool steam )
+static void TV_Downstream_AddMaster_f( const char *address )
 {
 	int i;
 
@@ -1063,9 +1062,7 @@ static void TV_Downstream_AddMaster_f( const char *address, bool steam )
 			return;
 		}
 		if( NET_GetAddressPort( &master->address ) == 0 )
-			NET_SetAddressPort( &master->address, steam ? PORT_MASTER_STEAM : PORT_MASTER );
-
-		master->steam = steam;
+			NET_SetAddressPort( &master->address, PORT_MASTER );
 
 		Com_Printf( "Added new master server #%i at %s\n", i, NET_AddressToString( &master->address ) );
 		return;
@@ -1097,24 +1094,9 @@ void TV_Downstream_InitMaster( void )
 			if( !master[0] )
 				break;
 
-			TV_Downstream_AddMaster_f( master, false );
+			TV_Downstream_AddMaster_f( master );
 		}
 	}
-
-#if APP_STEAMID
-	mlist = tv_masterservers_steam->string;
-	if( *mlist )
-	{
-		while( mlist )
-		{
-			master = COM_Parse( &mlist );
-			if( !master[0] )
-				break;
-
-			TV_Downstream_AddMaster_f( master, true );
-		}
-	}
-#endif
 
 	tvs.lobby.next_heartbeat = Sys_Milliseconds() + HEARTBEAT_SECONDS * 1000; // wait a while before sending first heartbeat
 }
@@ -1149,42 +1131,8 @@ void TV_Downstream_MasterHeartbeat( void )
 
 			socket = ( master->address.type == NA_IP6 ? &tvs.socket_udp6 : &tvs.socket_udp );
 
-			if( master->steam )
-			{
-				uint8_t steamHeartbeat = 'q';
-				NET_SendPacket( socket, &steamHeartbeat, sizeof( steamHeartbeat ), &master->address );
-			}
-			else
-			{
-				// warning: "DarkPlaces" is a protocol name here, not a game name. Do not replace it.
-				Netchan_OutOfBandPrint( socket, &master->address, "heartbeat DarkPlaces\n" );
-			}
-		}
-	}
-}
-
-/*
-* TV_Downstream_MasterSendQuit
-* Notifies Steam master servers that the server is shutting down.
-*/
-void TV_Downstream_MasterSendQuit( void )
-{
-	int i;
-	const char quitMessage[] = "b\n";
-
-	if( !tv_public->integer || ( tv_maxclients->integer == 1 ) )
-		return;
-
-	// send to group master
-	for( i = 0; i < MAX_MASTERS; i++ )
-	{
-		tv_master_t *master = &tv_masters[i];
-
-		if( master->steam && ( master->address.type != NA_NOTRANSMIT ) )
-		{
-			socket_t *socket = ( master->address.type == NA_IP6 ? &tvs.socket_udp6 : &tvs.socket_udp );
-			Com_Printf( "Sending quit to %s\n", NET_AddressToString( &master->address ) );
-			NET_SendPacket( socket, ( const uint8_t * )quitMessage, sizeof( quitMessage ), &master->address );
+			// warning: "DarkPlaces" is a protocol name here, not a game name. Do not replace it.
+			Netchan_OutOfBandPrint( socket, &master->address, "heartbeat DarkPlaces\n" );
 		}
 	}
 }
@@ -1192,17 +1140,14 @@ void TV_Downstream_MasterSendQuit( void )
 /*
 * TV_Downstream_IsMaster
 * Check whether the address belongs to a master servers.
-* Also may return whether it's a Steam master server.
 */
-bool TV_Downstream_IsMaster( const netadr_t *address, bool *isSteam )
+bool TV_Downstream_IsMaster( const netadr_t *address )
 {
 	int i;
 	for( i = 0; i < MAX_MASTERS; i++ )
 	{
 		if( NET_CompareAddress( address, &tv_masters[i].address ) )
 		{
-			if( isSteam )
-				*isSteam = tv_masters[i].steam;
 			return true;
 		}
 	}

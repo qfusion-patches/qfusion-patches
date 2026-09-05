@@ -1825,9 +1825,6 @@ void CL_SetClientState( int state )
 	cls.state = state;
 	Com_SetClientState( state );
 
-	if( state <= CA_DISCONNECTED )
-		Steam_AdvertiseGame( NULL, 0 );
-
 	switch( state )
 	{
 	case CA_DISCONNECTED:
@@ -2110,27 +2107,7 @@ static void CL_InitLocal( void )
 	info_password =		Cvar_Get( "password", "", CVAR_USERINFO );
 	rate =			Cvar_Get( "rate", "60000", CVAR_DEVELOPER ); // FIXME
 
-	name = Cvar_Get( "name", "", CVAR_USERINFO | CVAR_ARCHIVE );
-	if( !name->string[0] )
-	{
-		char steamname[MAX_NAME_BYTES * 4], *steamnameIn = steamname, *steamnameOut = steamname, c;
-		steamname[0] = '\0';
-		Steam_GetPersonaName( steamname, sizeof( steamname ) );
-		while( ( c = *steamnameIn ) != '\0' )
-		{
-			steamnameIn++;
-			if( ( c < 32 ) || ( c >= 127 ) || ( c == '\\' ) || ( c == ';' ) || ( c == '"' ) )
-				continue;
-
-			*( steamnameOut++ ) = c;
-		}
-		*steamnameOut = '\0';
-
-		if( !( COM_RemoveColorTokens( steamname )[0] ) )
-			Q_strncpyz( steamname, "Player", sizeof( steamname ) );
-
-		Cvar_Set( name->name, steamname );
-	}
+	name = Cvar_Get( "name", "Player", CVAR_USERINFO | CVAR_ARCHIVE );
 
 	Cvar_Get( "clan", "", CVAR_USERINFO | CVAR_ARCHIVE );
 	Cvar_Get( "model", DEFAULT_PLAYERMODEL, CVAR_USERINFO | CVAR_ARCHIVE );
@@ -2877,8 +2854,6 @@ static void CL_CheckForUpdate( void )
 
 	if( !cl_checkForUpdate->integer )
 		return;
-	if( Steam_GetSteamID() )
-		return;
 
 	if( updateRemoteData )
 		return; // still not done with the previous iteration?..
@@ -3052,8 +3027,6 @@ void CL_Init( void )
 	// init localization subsystem
 	L10n_Init();
 
-	Steam_Init();
-
 	VID_Init();
 
 	CL_ClearState();
@@ -3146,8 +3119,6 @@ void CL_Shutdown( void )
 	CL_ShutdownLocal();
 
 	SCR_ShutdownScreen();
-
-	Steam_Shutdown();
 
 	CL_Sys_Shutdown();
 

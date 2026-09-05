@@ -23,7 +23,6 @@
 #include "../ref_gl/r_public.h"
 #include "../cgame/cg_public.h"
 #include "snd_public.h"
-#include "../qcommon/steam.h"
 
 #include "vid.h"
 #include "input.h"
