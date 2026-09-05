@@ -21,7 +21,7 @@
 #ifndef __SDL_GLW_H_
 #define __SDL_GLW_H_
 
-#include <SDL.h>
+#include <SDL3/SDL.h>
 
 typedef int (* wndproc_t)(void *, int, int, int);
 
@@ -33,13 +33,11 @@ typedef struct
 	SDL_Window *sdl_window;
 	SDL_GLContext sdl_glcontext;
 
-	void *OpenGLLib; // instance of OpenGL library
 	wndproc_t wndproc;
 } glwstate_t;
 
 extern glwstate_t glw_state;
 
 extern cvar_t *vid_fullscreen;
-extern cvar_t *vid_multiscreen_head;
 
 #endif // __SDL_GLW_H_

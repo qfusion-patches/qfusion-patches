@@ -58,8 +58,7 @@ typedef struct
 } ref_frontend_t;
 
 // public API
-rserr_t RF_Init( const char *applicationName, const char *screenshotPrefix, int startupColor,
-	int iconResource, const int *iconXPM, void *hinstance, void *wndproc, void *parenthWnd,  bool verbose );
+rserr_t RF_Init( const char *applicationName, const char *screenshotPrefix, int startupColor, const int *iconXPM, void *wndproc, bool verbose );
 rserr_t RF_SetMode( int x, int y, int width, int height, int displayFrequency, bool fullScreen, bool stereo );
 void RF_AppActivate( bool active, bool destroy );
 rserr_t	RF_SetWindow( void *hinstance, void *wndproc, void *parenthWnd );

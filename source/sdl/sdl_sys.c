@@ -1,18 +1,7 @@
-#include <SDL.h>
+#include <SDL3/SDL.h>
 #include "../client/client.h"
 
-#if defined( _WIN32 )
-#include "../win32/resource.h"
-#endif
-
-#if defined( __APPLE__ )
-#include <CoreFoundation/CoreFoundation.h>
-#include <sys/param.h>
-#endif
-
 unsigned sys_frame_time;
-
-void Sys_InitTime( void );
 
 void Sys_Sleep( unsigned int millis )
 {
@@ -38,7 +27,6 @@ void Sys_Error( const char *format, ... )
 */
 void Sys_Init( void )
 {
-	Sys_InitTime();
 }
 
 /*
@@ -104,19 +92,12 @@ int main( int argc, char **argv )
 {
 	unsigned int oldtime, newtime, time;
 
-#if defined( __APPLE__ ) && !defined( DEDICATED_ONLY )
-	char resourcesPath[MAXPATHLEN];
-	CFURLGetFileSystemRepresentation( CFBundleCopyResourcesDirectoryURL( CFBundleGetMainBundle() ), 1, (UInt8 *)resourcesPath, MAXPATHLEN );
-	chdir( resourcesPath );
-#endif
+	if( !SDL_SetAppMetadata( APPLICATION_UTF8, APP_VERSION_STR, APPLICATION ) )
+		Sys_Error( "SDL_SetAppMetadata: %s", SDL_GetError() );
 
-#if defined( __WIN32__ )
-#if defined( _DEBUG )
-	SDL_SetHint( SDL_HINT_ALLOW_TOPMOST, "0" );
-#endif
-#endif
-
-	SDL_Init( SDL_INIT_VIDEO );
+	// needed to enumerate video modes
+	if( !SDL_Init( SDL_INIT_VIDEO ) )
+		Sys_Error( "SDL_Init: %s", SDL_GetError() );
 
 	Qcommon_Init( argc, argv );
 
