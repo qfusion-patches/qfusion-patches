@@ -18,10 +18,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-#ifdef FTLIB_HARD_LINKED
-#define FTLIB_IMPORT ftlibi_imp_local
-#endif
-
 extern ftlib_import_t FTLIB_IMPORT;
 
 static inline void trap_Print( const char *msg )

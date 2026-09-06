@@ -101,7 +101,6 @@ void QAS_Printf( const char *format, ... )
 	trap_Print( msg );
 }
 
-#ifndef ANGELWRAP_HARD_LINKED
 // this is only here so the functions in q_shared.c and q_math.c can link
 void Sys_Error( const char *format, ... )
 {
@@ -126,4 +125,3 @@ void Com_Printf( const char *format, ... )
 
 	trap_Print( msg );
 }
-#endif

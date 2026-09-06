@@ -18,6 +18,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
+#include <cstdarg>
+
 #include "ui_precompiled.h"
 #include "kernel/ui_common.h"
 #include "kernel/ui_main.h"
@@ -223,9 +225,6 @@ ui_export_t *GetUIAPI( ui_import_t *import )
 	return &globals;
 }
 
-#ifndef UI_HARD_LINKED
-#include <stdarg.h>
-
 // this is only here so the functions in q_shared.c and q_math.c can link
 void Sys_Error( const char *format, ... )
 {
@@ -250,11 +249,3 @@ void Com_Printf( const char *format, ... )
 
 	trap::Print( msg );
 }
-#endif
-
-#if defined(HAVE_DLLMAIN) && !defined(UI_HARD_LINKED)
-int WINAPI DLLMain( void *hinstDll, unsigned long dwReason, void *reserved )
-{
-	return 1;
-}
-#endif

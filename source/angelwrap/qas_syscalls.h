@@ -21,10 +21,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __QAS_SYSCALLS_H__
 #define __QAS_SYSCALLS_H__
 
-#ifdef ANGELWRAP_HARD_LINKED
-#define ANGELWRAP_IMPORT qasi_imp_local
-#endif
-
 extern angelwrap_import_t ANGELWRAP_IMPORT;
 
 static inline void trap_Print( const char *msg )
