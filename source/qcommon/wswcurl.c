@@ -92,9 +92,9 @@ struct wswcurl_req_s {
 	// Additional header stuff
 	struct curl_slist *txhead;
 
-	// Internal form stuff - see http://curl.haxx.se/libcurl/c/curl_formadd.html
-	struct curl_httppost *post;
-	struct curl_httppost *post_last;
+	// MIME
+	curl_mime *mime;
+	int nparts;
 
 	// Linked list stuff
 	struct wswcurl_req_s *next;
@@ -161,7 +161,12 @@ int wswcurl_formadd(wswcurl_req *req, const char *field, const char *value, ...)
 	va_start(arg, value);
 	Q_vsnprintfz(buf, sizeof(buf), value, arg);
 	va_end(arg);
-	qcurl_formadd(&req->post, &req->post_last, CURLFORM_COPYNAME, field, CURLFORM_COPYCONTENTS, buf, CURLFORM_END);
+
+	curl_mimepart *part = curl_mime_addpart(req->mime);
+	curl_mime_name(part, field);
+	curl_mime_data(part, buf, CURL_ZERO_TERMINATED);
+	req->nparts++;
+
 	return 0;
 }
 
@@ -171,12 +176,11 @@ int wswcurl_formadd_raw(wswcurl_req *req, const char *field, void *data, size_t 
 	if (!data) return -2;
 	if (!size) return -3;
 
-	// TODO: set the Content-type: to some other or just accept base64(URL) encoding here?
-	qcurl_formadd(&req->post, &req->post_last,
-					CURLFORM_COPYNAME, field,
-					CURLFORM_COPYCONTENTS, data,
-					CURLFORM_CONTENTSLENGTH, size,
-					CURLFORM_END);
+	curl_mimepart *part = curl_mime_addpart(req->mime);
+	curl_mime_name(part, field);
+	curl_mime_data(part, data, size);
+	req->nparts++;
+
 	return 0;
 }
 
@@ -270,10 +274,9 @@ void wswcurl_start(wswcurl_req *req)
 	{
 		CURLSETOPT(req->curl, res, CURLOPT_HTTPHEADER, req->txhead);
 	}
-	if (req->post)
-	{
-		CURLSETOPT(req->curl, res, CURLOPT_HTTPPOST, req->post);
-		req->post_last = NULL;
+
+	if (req->nparts > 0) {
+		CURLSETOPT(req->curl, res, CURLOPT_MIMEPOST, req->mime);
 	}
 
 	req->status = WSTATUS_QUEUED; // queued
@@ -594,6 +597,9 @@ wswcurl_req *wswcurl_create( const char *iface, const char *furl, ... )
 	}
 	http_requests = retreq;
 
+	retreq->mime = curl_mime_init( curl );
+	retreq->nparts = 0;
+
 	CURLDBG((va("   CURL CREATE %s\n", url)));
 
 	QMutex_Unlock( http_requests_mutex );
@@ -638,12 +644,7 @@ void wswcurl_delete(wswcurl_req *req)
 		req->txhead = NULL;
 	}
 
-	if (req->post)
-	{
-		qcurl_formfree(req->post);
-		req->post      = NULL;
-		req->post_last = NULL;
-	}
+	curl_mime_free(req->mime);
 
 	if (req->url)
 	{
@@ -878,7 +879,7 @@ static int wswcurl_checkmsg( void )
 		}
 		else {
 			// failed, store and pass to callback negative status value
-			r->status = -abs( msg->data.result );
+			r->status = -msg->data.result;
 			r->respcode = -1;
 
 			if( r->callback_done ) {
