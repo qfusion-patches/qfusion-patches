@@ -121,8 +121,6 @@ QF_DLL_EXPORT ref_export_t *GetRefAPI( ref_import_t *import )
 }
 #endif
 
-#ifndef REF_HARD_LINKED
-
 // this is only here so the functions in q_shared.c and q_math.c can link
 void Sys_Error( const char *format, ... )
 {
@@ -159,12 +157,3 @@ void Com_DPrintf( const char *format, ... )
 
 	ri.Com_DPrintf( "%s", msg );
 }
-
-#endif
-
-#if defined(HAVE_DLLMAIN) && !defined(REF_HARD_LINKED)
-int WINAPI DLLMain( void *hinstDll, unsigned long dwReason, void *reserved )
-{
-	return 1;
-}
-#endif

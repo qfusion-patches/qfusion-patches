@@ -18,10 +18,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
 
-#ifdef SOUND_HARD_LINKED
-#define SOUND_IMPORT sndi_imp_local
-#endif
-
 extern sound_import_t SOUND_IMPORT;
 
 static inline void trap_Print( const char *msg )

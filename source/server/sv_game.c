@@ -431,12 +431,7 @@ void SV_InitGameProgs( void )
 {
 	int apiversion;
 	game_import_t import;
-	void *( *builtinAPIfunc )(void *) = NULL;
 	char manifest[MAX_INFO_STRING];
-
-#ifdef GAME_HARD_LINKED
-	builtinAPIfunc = GetGameAPI;
-#endif
 
 	// unload anything we have now
 	if( ge )
@@ -540,12 +535,7 @@ void SV_InitGameProgs( void )
 	assert( sizeof( manifest ) >= MAX_INFO_STRING );
 	memset( manifest, 0, sizeof( manifest ) );
 
-	if( builtinAPIfunc ) {
-		ge = builtinAPIfunc( &import );
-	}
-	else {
-		ge = (game_export_t *)Com_LoadGameLibrary( "game", "GetGameAPI", &module_handle, &import, false, manifest );
-	}
+	ge = (game_export_t *)Com_LoadGameLibrary( "game", "GetGameAPI", &module_handle, &import, false, manifest );
 	if( !ge )
 		Com_Error( ERR_DROP, "Failed to load game DLL" );
 

@@ -691,7 +691,6 @@ void G_RestartLevel( void )
 
 //======================================================================
 
-#ifndef GAME_HARD_LINKED
 // this is only here so the functions in q_shared.c and q_math.c can link
 void Sys_Error( const char *format, ... )
 {
@@ -716,4 +715,3 @@ void Com_Printf( const char *format, ... )
 
 	G_Printf( "%s", msg );
 }
-#endif

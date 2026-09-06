@@ -508,7 +508,6 @@ void S_Error( const char *format, ... )
 	trap_Error( msg );
 }
 
-#ifndef SOUND_HARD_LINKED
 
 // this is only here so the functions in q_shared.c and q_math.c can link
 void Sys_Error( const char *format, ... )
@@ -522,7 +521,6 @@ void Sys_Error( const char *format, ... )
 
 	trap_Error( msg );
 }
-
 void Com_Printf( const char *format, ... )
 {
 	va_list	argptr;
@@ -534,12 +532,3 @@ void Com_Printf( const char *format, ... )
 
 	trap_Print( msg );
 }
-
-#if defined ( HAVE_DLLMAIN )
-int WINAPI DLLMain( void *hinstDll, unsigned long dwReason, void *reserved )
-{
-	return 1;
-}
-#endif
-
-#endif

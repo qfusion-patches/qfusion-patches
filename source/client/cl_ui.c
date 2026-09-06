@@ -166,9 +166,7 @@ void CL_UIModule_Init( void )
 	int apiversion;
 	ui_import_t import;
 	dllfunc_t funcs[2];
-#ifndef UI_HARD_LINKED
 	void *( *GetUIAPI )(void *) = NULL;
-#endif
 
 	CL_UIModule_Shutdown();
 
@@ -325,7 +323,6 @@ void CL_UIModule_Init( void )
 	import.L10n_ClearDomain = &CL_UIModule_L10n_ClearDomain;
 	import.L10n_GetUserLanguage = &L10n_GetUserLanguage;
 
-#ifndef UI_HARD_LINKED
 	funcs[0].name = "GetUIAPI";
 	funcs[0].funcPointer = ( void ** ) &GetUIAPI;
 	funcs[1].name = NULL;
@@ -337,7 +334,6 @@ void CL_UIModule_Init( void )
 		uie = NULL;
 		return;
 	}
-#endif
 
 	uie = GetUIAPI( &import );
 	apiversion = uie->API();

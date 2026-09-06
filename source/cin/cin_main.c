@@ -19,7 +19,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
 #include "cin_local.h"
-#include "cin_theora.h"
 
 struct mempool_s *cinPool;
 
@@ -62,8 +61,6 @@ char *CIN_CopyString( const char *in )
 	return out;
 }
 
-#ifndef CIN_HARD_LINKED
-
 // this is only here so the functions in q_shared.c and q_math.c can link
 void Sys_Error( const char *format, ... )
 {
@@ -89,7 +86,6 @@ void Com_Printf( const char *format, ... )
 	trap_Print( msg );
 }
 
-
 void Com_DPrintf( const char *format, ... )
 {
 	va_list	argptr;
@@ -103,5 +99,3 @@ void Com_DPrintf( const char *format, ... )
 		trap_Print( msg );
 	}
 }
-
-#endif
