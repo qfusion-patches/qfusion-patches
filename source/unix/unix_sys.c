@@ -180,7 +180,11 @@ void Sys_Error( const char *format, ... )
 */
 void Sys_Sleep( unsigned int millis )
 {
-	usleep( millis * 1000 );
+	struct timespec ts = {
+		millis / 1000,
+		(millis % 1000) * 1000000
+	};
+	nanosleep( &ts, NULL );
 }
 
 /*
