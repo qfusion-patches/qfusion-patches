@@ -529,13 +529,8 @@ float anglemod( float a )
 */
 float CalcFov( float fov_x, float width, float height )
 {
-	float x;
-
-	if( fov_x < 1 || fov_x > 179 )
-		Sys_Error( "Bad fov: %f", fov_x );
-
-	x = width/tan( fov_x/360*M_PI );
-
+	assert(fov_x >= 1 && fov_x <= 179);
+	float x = width/tan( fov_x/360*M_PI );
 	return atan( height/x )*360/M_PI;
 }
 

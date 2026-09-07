@@ -330,7 +330,8 @@ static void Cmd_RemoveIP_f( void )
 			G_Printf( "Removed.\n" );
 			return;
 		}
-		G_Printf( "Didn't find %s.\n", trap_Cmd_Argv( 1 ) );
+
+	G_Printf( "Didn't find %s.\n", trap_Cmd_Argv( 1 ) );
 }
 
 /*

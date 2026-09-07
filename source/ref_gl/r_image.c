@@ -148,7 +148,7 @@ static void R_UnbindImage( const image_t *tex )
 */
 void R_TextureMode( char *string )
 {
-	int i;
+	size_t i;
 	image_t	*glt;
 	int target;
 

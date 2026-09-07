@@ -93,7 +93,7 @@ void R_DrawStretchPoly( const poly_t *poly, float x_offset, float y_offset )
 	mesh.numElems = poly->numelems;
 	mesh.elems = ( elem_t * )poly->elems;
 
-	if( ( x_offset || y_offset ) && ( poly->numverts <= ( sizeof( translated ) / sizeof( translated[0] ) ) ) ) {
+	if( ( x_offset || y_offset ) && ( (size_t)poly->numverts <= ( sizeof( translated ) / sizeof( translated[0] ) ) ) ) {
 		int i;
 		const vec_t *src = poly->verts[0];
 		vec_t *dest = translated[0];
@@ -406,7 +406,7 @@ bool R_SurfPotentiallyFragmented( const msurface_t *surf )
 */
 static void R_RecursiveFragmentNode( void )
 {
-	int stackdepth = 0;
+	size_t stackdepth = 0;
 	float dist;
 	bool inside;
 	mnode_t	*node, *localstack[2048];

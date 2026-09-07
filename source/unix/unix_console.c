@@ -47,7 +47,7 @@ char *Sys_ConsoleInput( void )
 static void Sys_AnsiColorPrint( const char *msg )
 {
 	static char buffer[2096];
-	int         length = 0;
+	size_t      length = 0;
 	static int  q3ToAnsi[ 8 ] =
 	{
 		30, // COLOR_BLACK

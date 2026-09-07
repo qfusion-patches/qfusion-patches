@@ -181,7 +181,8 @@ static bool SV_ProcessPacket( netchan_t *netchan, msg_t *msg )
 */
 static void SV_ReadPackets( void )
 {
-	int i, socketind, ret;
+	size_t socketind;
+	int i, ret;
 	client_t *cl;
 #ifdef TCP_ALLOW_CONNECT
 	socket_t newsocket;

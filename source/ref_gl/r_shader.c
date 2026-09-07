@@ -2269,7 +2269,8 @@ static void Shader_SetVertexAttribs( shader_t *s )
 		switch( s->deforms[i].type )
 		{
 		case DEFORMV_BULGE:
-			s->vattribs |= VATTRIB_TEXCOORDS_BIT;
+			s->vattribs |= VATTRIB_TEXCOORDS_BIT | VATTRIB_NORMAL_BIT;
+			break;
 		case DEFORMV_WAVE:
 			s->vattribs |= VATTRIB_NORMAL_BIT;
 			break;

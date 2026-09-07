@@ -242,10 +242,7 @@ static void W_Touch_Projectile( edict_t *ent, edict_t *other, cplane_t *plane, i
 
 	G_RadiusDamage( ent, ent->r.owner, plane, other, MOD_EXPLOSIVE );
 
-	if( !plane->normal )
-		VectorSet( normal, 0, 0, 1 );
-	else
-		VectorCopy( plane->normal, normal );
+	VectorCopy( plane->normal, normal );
 
 	G_Gametype_ScoreEvent( NULL, "projectilehit", va( "%i %i %f %f %f", ent->s.number, surfFlags, normal[0], normal[1], normal[2] ) );
 }

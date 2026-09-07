@@ -852,7 +852,7 @@ static void CMod_LoadEntityString( cmodel_state_t *cms, lump_t *l )
 */
 void CM_LoadQ3BrushModel( cmodel_state_t *cms, void *parent, void *buf, bspFormatDesc_t *format )
 {
-	int i;
+	size_t i;
 	dheader_t header;
 
 	cms->cmap_bspFormat = format;

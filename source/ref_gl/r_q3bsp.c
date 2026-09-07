@@ -1829,7 +1829,7 @@ static void Mod_Finish( const lump_t *faces, const lump_t *light, vec3_t gridSiz
 */
 void Mod_LoadQ3BrushModel( model_t *mod, model_t *parent, void *buffer, bspFormatDesc_t *format )
 {
-	int i;
+	size_t i;
 	dheader_t *header;
 	vec3_t gridSize, ambient, outline;
 
