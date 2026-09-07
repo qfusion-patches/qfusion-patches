@@ -25,7 +25,6 @@ file(GLOB SERVER_SOURCES
     "../qcommon/ascript.c"
     "../qcommon/anticheat.c"
     "../qcommon/wswcurl.c"
-    "../qcommon/cjson.c"
     "../qcommon/threads.c"
     "*.c"
     "../null/cl_null.c"
