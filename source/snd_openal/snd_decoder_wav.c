@@ -65,7 +65,7 @@ static int readChunkInfo( int f, char *name )
 		return 0;
 
 	len = FGetLittleLong( f );
-	if( len < 0 || len > 0xffffffff )
+	if( len <= 0 || len == INT_MAX )
 		return 0;
 
 	len = ( len + 1 ) & ~1; // pad to word boundary

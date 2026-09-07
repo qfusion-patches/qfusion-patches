@@ -371,7 +371,7 @@ static inline void trap_DropClient( edict_t *ent, int type, const char *message 
 	GAME_IMPORT.DropClient( ent, type, message );
 }
 
-static inline void trap_LocateEntities( struct edict_s *edicts, int edict_size, int num_edicts, int max_edicts )
+static inline void trap_LocateEntities( struct edict_s *edicts, size_t edict_size, int num_edicts, int max_edicts )
 {
 	GAME_IMPORT.LocateEntities( edicts, edict_size, num_edicts, max_edicts );
 }

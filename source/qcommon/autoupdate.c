@@ -308,7 +308,7 @@ static void AU_FinishDownload( filedownload_t *fd_, int status )
 static void AU_ParseUpdateList( const char *data, bool checkOnly )
 {
 	const char *ptr = (const char *)data;
-	unsigned int checksum, expected_checksum;
+	unsigned long checksum, expected_checksum;
 	const char *token;
 	char path[MAX_TOKEN_CHARS];
 	char newVersionTag[MAX_QPATH];

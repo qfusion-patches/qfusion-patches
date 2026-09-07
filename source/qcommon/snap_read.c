@@ -569,7 +569,8 @@ snapshot_t *SNAP_ParseFrame( msg_t *msg, snapshot_t *lastFrame, int *suppressCou
 	snapshot_t	*deltaframe;
 	int numplayers;
 	char *text;
-	int framediff, numtargets;
+	int framediff;
+	size_t numtargets;
 	gcommand_t *gcmd;
 	snapshot_t	*newframe;
 
@@ -638,7 +639,7 @@ snapshot_t *SNAP_ParseFrame( msg_t *msg, snapshot_t *lastFrame, int *suppressCou
 	}
 
 	// read areabits
-	len = (size_t)MSG_ReadByte( msg );
+	len = MSG_ReadByte( msg );
 	if( len > newframe->areabytes )
 		Com_Error( ERR_DROP, "Invalid areabits size: %u > %u", len, newframe->areabytes );
 	memset( newframe->areabits, 0, newframe->areabytes );

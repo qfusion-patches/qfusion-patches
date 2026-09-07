@@ -785,7 +785,7 @@ int R_SkeletalGetBoneInfo( const model_t *mod, int bonenum, char *name, size_t n
 		return 0;
 
 	skmodel = ( mskmodel_t * )mod->extradata;
-	if( (unsigned int)bonenum >= (int)skmodel->numbones )
+	if( (unsigned int)bonenum >= skmodel->numbones )
 		ri.Com_Error( ERR_DROP, "R_SkeletalGetBone: bad bone number" );
 
 	bone = &skmodel->bones[bonenum];

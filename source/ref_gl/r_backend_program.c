@@ -587,6 +587,7 @@ static int RB_RGBAlphaGenToProgramFeatures( const colorgen_t *rgbgen, const colo
 			break;
 		case RGB_GEN_IDENTITY:
 			identity++;
+			// fallthrough
 		default:
 			programFeatures |= GLSL_SHADER_COMMON_RGB_GEN_CONST;
 			break;
@@ -608,6 +609,7 @@ static int RB_RGBAlphaGenToProgramFeatures( const colorgen_t *rgbgen, const colo
 			break;
 		case ALPHA_GEN_IDENTITY:
 			identity++;
+			// fallthrough
 		default:
 			programFeatures |= GLSL_SHADER_COMMON_ALPHA_GEN_CONST;
 			break;

@@ -779,7 +779,7 @@ static const g_vsays_t g_vsays[] = {
 	{ "defend_b", VSAY_DEFEND_B, "Defend B!" },
 	{ "attack_b", VSAY_ATTACK_B, "Attack B!" },
 
-	{ NULL, 0 }
+	{ NULL, 0, NULL }
 };
 
 void G_BOTvsay_f( edict_t *ent, const char *msg, bool team )

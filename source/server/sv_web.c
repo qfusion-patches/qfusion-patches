@@ -1071,7 +1071,7 @@ static const char *SV_Web_ResponseCodeMessage( http_response_code_t code )
 * SV_Web_RouteRequest
 */
 static void SV_Web_RouteRequest( const sv_http_request_t *request, sv_http_response_t *response,
-	char **content, size_t *content_length )
+	char **content, int *content_length )
 {
 	const char *resource = request->resource;
 	const char *query_string = request->query_string;
@@ -1139,7 +1139,7 @@ static void SV_Web_RespondToQuery( sv_http_connection_t *con )
 	char err_body[1024];
 	char *content = NULL;
 	size_t header_length = 0;
-	size_t content_length = 0;
+	int content_length = 0;
 	sv_http_request_t *request = &con->request;
 	sv_http_response_t *response = &con->response;
 	sv_http_stream_t *resp_stream = &response->stream;
@@ -1185,7 +1185,7 @@ static void SV_Web_RespondToQuery( sv_http_connection_t *con )
 			// Content-Range header values
 			response->file_send_pos = FS_Tell( response->file );
 			response->stream.content_range.begin = response->file_send_pos;
-			response->stream.content_range.end = min( (int)content_length, response->stream.content_range.end );
+			response->stream.content_range.end = min( content_length, response->stream.content_range.end );
 			response->code = HTTP_RESP_PARTIAL_CONTENT;
 		}
 

@@ -1516,6 +1516,7 @@ bool NET_IsLANAddress( const netadr_t *address )
 			if( addr4->ip[0] == 192 && addr4->ip[1] == 168 )
 				return true;
 		}
+		break;
 
 	case NA_IP6:
 		{
@@ -1531,6 +1532,7 @@ bool NET_IsLANAddress( const netadr_t *address )
 				return true;
 			}
 		}
+		break;
 
 	default:
 		return false;

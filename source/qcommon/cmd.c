@@ -1095,7 +1095,7 @@ char **Cmd_CompleteFileList( const char *partial, const char *basedir, const cha
 			return NULL;
 		if( dir[0] )
 			Q_strncatz( dir, "/", sizeof( dir ) );
-		Q_strncpyz( subdir, partial, min( p - partial, sizeof( subdir ) ) );
+		Q_strncpyz( subdir, partial, min( (size_t)(p - partial), sizeof( subdir ) ) );
 		for( subdir_len = strlen( subdir ); subdir[subdir_len-1] == '/'; subdir_len-- ) subdir[subdir_len-1] = '\0';
 		Q_strncatz( dir, subdir, sizeof( dir ) );
 		Q_strncatz( subdir, "/", sizeof( subdir ) );

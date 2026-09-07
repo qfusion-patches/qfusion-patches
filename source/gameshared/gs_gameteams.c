@@ -54,7 +54,7 @@ static char *gs_teamSkinsNames[] =
 */
 const char *GS_TeamName( int team )
 {
-	if( team < 0 && team >= GS_MAX_TEAMS )
+	if( team < 0 || team >= GS_MAX_TEAMS )
 		return NULL;
 
 	return module_GetConfigString( CS_TEAM_SPECTATOR_NAME + team );
@@ -62,7 +62,7 @@ const char *GS_TeamName( int team )
 
 const char *GS_DefaultTeamName( int team )
 {
-	if( team < 0 && team >= GS_MAX_TEAMS )
+	if( team < 0 || team >= GS_MAX_TEAMS )
 		return NULL;
 
 	return gs_teamNames[team];
@@ -73,7 +73,7 @@ const char *GS_DefaultTeamName( int team )
 */
 const char *GS_TeamSkinName( int team )
 {
-	if( team < 0 && team >= GS_MAX_TEAMS )
+	if( team < 0 || team >= GS_MAX_TEAMS )
 		return NULL;
 
 	return gs_teamSkinsNames[team];

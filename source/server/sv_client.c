@@ -65,7 +65,7 @@ void SV_ClientCloseDownload( client_t *client )
 bool SV_ClientConnect( const socket_t *socket, const netadr_t *address, client_t *client, char *userinfo,
 						  int game_port, int challenge, bool fakeClient, bool tvClient)
 {
-	int i;
+	size_t i;
 	edict_t	*ent;
 	int edictnum;
 
@@ -550,7 +550,7 @@ static void SV_NextDownload_f( client_t *client )
 
 	blocksize = client->download.size - offset;
 	// jalfixme: adapt download to user rate setting and sv_maxrate setting.
-	if( blocksize > sizeof( data ) )
+	if( blocksize > (int)sizeof( data ) )
 		blocksize = sizeof( data );
 	if( offset + blocksize > client->download.size )
 		blocksize = client->download.size - offset;

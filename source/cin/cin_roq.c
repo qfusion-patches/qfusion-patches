@@ -459,18 +459,18 @@ static cin_yuv_t *RoQ_ReadVideo( cinematics_t *cin )
 				}
 			}
 
-			xpos += 16;
-			if( xpos >= cin->width )
-			{
-				xpos -= cin->width;
+		xpos += 16;
+		if( xpos >= cin->width )
+		{
+			xpos -= cin->width;
 
-				ypos += 16;
-				if( ypos >= cin->height )
-				{
-					RoQ_SkipBlock( cin, remaining ); // ignore remaining trash
-					break;
-				}
+			ypos += 16;
+			if( ypos >= cin->height )
+			{
+				RoQ_SkipBlock( cin, remaining ); // ignore remaining trash
+				break;
 			}
+		}
 	}
 
 	return roq->cyuv;

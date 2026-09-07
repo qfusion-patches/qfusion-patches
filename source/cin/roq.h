@@ -19,7 +19,7 @@
  */
 
 #define RoQ_HEADER1			4228
-#define RoQ_HEADER2			-1
+#define RoQ_HEADER2			0xFFFFFFFFU
 #define RoQ_HEADER3			30
 
 #define RoQ_FRAMERATE		30

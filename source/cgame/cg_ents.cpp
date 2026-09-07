@@ -2179,6 +2179,7 @@ void CG_UpdateEntities( void )
 
 		case ET_RADAR:
 			cent->renderfx |= RF_NODEPTHTEST;
+			// fallthrough
 		case ET_SPRITE:
 			cent->renderfx |= ( RF_NOSHADOW|RF_FULLBRIGHT );
 			CG_UpdateSpriteEnt( cent );

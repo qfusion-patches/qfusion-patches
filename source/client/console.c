@@ -1203,7 +1203,7 @@ static void Con_CompleteCommandLine( void )
 	char *cmd = "";
 	char *s;
 	int c, v, a, d, ca, i;
-	int cmd_len;
+	size_t cmd_len;
 	char **list[6] = { 0, 0, 0, 0, 0, 0 };
 
 	s = key_lines[edit_line] + 1;
@@ -1256,7 +1256,7 @@ static void Con_CompleteCommandLine( void )
 		else
 			list[0] = list[4], list[4] = NULL;
 		cmd = *list[0];
-		cmd_len = (int)strlen( cmd );
+		cmd_len = strlen( cmd );
 	}
 	else
 	{
@@ -1273,7 +1273,7 @@ static void Con_CompleteCommandLine( void )
 		if( ca )
 			s = strstr( s, " " ) + 1, cmd = *( list[4] ), i_start = 4;
 
-		cmd_len = (int)strlen( s );
+		cmd_len = strlen( s );
 		do
 		{
 			for( i = i_start; i < 5; i++ )
@@ -1327,7 +1327,7 @@ static void Con_CompleteCommandLine( void )
 
 	if( cmd )
 	{
-		int skip = 1;
+		size_t skip = 1;
 		char *cmd_temp = NULL, *p;
 
 		if ( con_chatmode && con_chatmode->integer != 3 )

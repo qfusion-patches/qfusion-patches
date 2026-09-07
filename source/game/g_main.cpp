@@ -580,7 +580,7 @@ static edict_t *G_ChooseNextMap( void )
 		return CreateTargetChangeLevel( level.forcemap );
 	}
 
-	if( !( *g_maplist->string ) || g_maplist->string[0] == '\0' || g_maprotation->integer == 0 )
+	if( !( *g_maplist->string ) || g_maprotation->integer == 0 )
 	{
 		// same map again
 		return CreateTargetChangeLevel( level.mapname );
