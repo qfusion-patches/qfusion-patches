@@ -763,9 +763,6 @@ int	    FS_Flush( int file );
 bool	FS_IsUrl( const char *url );
 int		FS_FileNo( int file, size_t *offset );
 
-void	FS_SetCompressionLevel( int file, int level );
-int		FS_GetCompressionLevel( int file );
-
 // file loading
 int	    FS_LoadFileExt( const char *path, int flags, void **buffer, void *stack, size_t stackSize, const char *filename, int fileline );
 int	    FS_LoadBaseFileExt( const char *path, int flags, void **buffer, void *stack, size_t stackSize, const char *filename, int fileline );

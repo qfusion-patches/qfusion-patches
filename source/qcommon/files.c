@@ -1043,11 +1043,9 @@ int FS_FOpenAbsoluteFile( const char *filename, int *filenum, int mode )
 	file->gzstream = gzf;
 	file->gzlevel = Z_DEFAULT_COMPRESSION;
 
-#if ZLIB_VER_MAJOR >= 1 && ZLIB_VER_MINOR >= 2 && ZLIB_VER_REVISION >= 4
 	if( gzf ) {
 		qgzbuffer( gzf, FZ_GZ_BUFSIZE );
 	}
-#endif
 
 	return end;
 }
@@ -1274,11 +1272,10 @@ static int _FS_FOpenFile( const char *filename, int *filenum, int mode, bool bas
 		file->gzstream = gzf;
 		file->gzlevel = Z_DEFAULT_COMPRESSION;
 
-#if ZLIB_VER_MAJOR >= 1 && ZLIB_VER_MINOR >= 2 && ZLIB_VER_REVISION >= 4
 		if( gzf ) {
 			qgzbuffer( gzf, FZ_GZ_BUFSIZE );
 		}
-#endif
+
 		return end;
 	}
 
@@ -1788,7 +1785,7 @@ int FS_Flush( int file )
 
 	fh = FS_FileHandleForNum( file );
 	if( fh->gzstream )
-		return qgzflush( fh->gzstream, Z_FINISH );
+		return qgzflush( fh->gzstream, Z_FULL_FLUSH );
 	if( !fh->fstream )
 		return 0;
 
@@ -1818,30 +1815,6 @@ int FS_FileNo( int file, size_t *offset )
 	}
 
 	return -1;
-}
-
-/*
-* FS_SetCompressionLevel
-*/
-void FS_SetCompressionLevel( int file, int level )
-{
-	filehandle_t *fh = FS_FileHandleForNum( file );
-	if( fh->gzstream ) {
-		fh->gzlevel = level;
-		qgzsetparams( fh->gzstream, level,  Z_DEFAULT_STRATEGY );
-	}
-}
-
-/*
-* FS_GetCompressionLevel
-*/
-int	FS_GetCompressionLevel( int file )
-{
-	filehandle_t *fh = FS_FileHandleForNum( file );
-	if( fh->gzstream ) {
-		return fh->gzlevel;
-	}
-	return 0;
 }
 
 /*
