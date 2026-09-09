@@ -172,7 +172,7 @@ void CL_Record_f( void )
 		return;
 	}
 
-	if( FS_FOpenFile( name, &cls.demo.file, FS_WRITE|SNAP_DEMO_GZ ) == -1 )
+	if( FS_FOpenFile( name, &cls.demo.file, FS_WRITE ) == -1 )
 	{
 		Com_Printf( "Error: Couldn't create the demo file.\n" );
 		Mem_ZoneFree( name );
