@@ -2212,7 +2212,7 @@ static void R_InitNoTexture( int *w, int *h, int *flags, int *samples )
 	// also use this for bad textures, but without alpha
 	//
 	*w = *h = 8;
-	*flags = 0;
+	*flags = IT_NOFILTERING | IT_NOCOMPRESS | IT_NOPICMIP;
 	*samples = 3;
 
 	// ch : check samples
