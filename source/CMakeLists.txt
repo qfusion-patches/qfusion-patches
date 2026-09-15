@@ -10,6 +10,5 @@ add_subdirectory(cgame)
 
 add_subdirectory(client)
 add_subdirectory(server)
-# add_subdirectory(tv_server)
 
 add_subdirectory(ui)
