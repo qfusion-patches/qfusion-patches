@@ -1777,14 +1777,16 @@ static void Mod_Finish( const lump_t *faces, const lump_t *light, vec3_t gridSiz
 
 		Mod_ApplySuperStylesToFace( in, surf );
 
+		shader_t *shader = surf->shader;
+
 		// force outlines hack for old maps
 		if( !mapConfig.forceWorldOutlines
-			&& surf->shader && ( surf->shader->flags & SHADER_FORCE_OUTLINE_WORLD )  ) {
+			&& shader && ( shader->flags & SHADER_FORCE_OUTLINE_WORLD )  ) {
 			mapConfig.forceWorldOutlines = true;
 		}
 
 		if( globalFog && surf->mesh && surf->fog != testFog ) {
-			if( !( surf->shader->flags & SHADER_SKY ) && !surf->shader->fog_dist )
+			if( shader && !( shader->flags & SHADER_SKY ) && !shader->fog_dist )
 				globalFog = false;
 		}
 	}
