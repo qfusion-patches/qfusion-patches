@@ -825,9 +825,6 @@ void Qcommon_InitCommands( void )
 	Cmd_AddCommand( "lag", Com_Lag_f );
 #endif
 
-	Cmd_AddCommand( "irc_connect", Irc_Connect_f );
-	Cmd_AddCommand( "irc_disconnect", Irc_Disconnect_f );
-
 	if( dedicated->integer )
 		Cmd_AddCommand( "quit", Com_Quit );
 
@@ -846,9 +843,6 @@ void Qcommon_ShutdownCommands( void )
 	Cmd_RemoveCommand( "error" );
 	Cmd_RemoveCommand( "lag" );
 #endif
-
-	Cmd_RemoveCommand( "irc_connect" );
-	Cmd_RemoveCommand( "irc_disconnect" );
 
 	if( dedicated->integer )
 		Cmd_RemoveCommand( "quit" );
@@ -903,7 +897,6 @@ void Qcommon_Init( int argc, char **argv )
 	Dynvar_Create( "sys_uptime", true, Com_Sys_Uptime_f, DYNVAR_READONLY );
 	Dynvar_Create( "frametick", false, DYNVAR_WRITEONLY, DYNVAR_READONLY );
 	Dynvar_Create( "quit", false, DYNVAR_WRITEONLY, DYNVAR_READONLY );
-	Dynvar_Create( "irc_connected", false, Irc_GetConnected_f, Irc_SetConnected_f );
 
 	Sys_InitDynvars();
 	CL_InitDynvars();
@@ -965,12 +958,6 @@ void Qcommon_Init( int argc, char **argv )
 
 	com_showtrace =	    Cvar_Get( "com_showtrace", "0", 0 );
 	com_introPlayed3 =   Cvar_Get( "com_introPlayed3", "0", CVAR_ARCHIVE );
-
-	Cvar_Get( "irc_server", "irc.quakenet.org", CVAR_ARCHIVE );
-	Cvar_Get( "irc_port", "6667", CVAR_ARCHIVE );
-	Cvar_Get( "irc_nick", APPLICATION "Player", CVAR_ARCHIVE );
-	Cvar_Get( "irc_user", APPLICATION "User", CVAR_ARCHIVE );
-	Cvar_Get( "irc_password", "", CVAR_ARCHIVE );
 
 	Cvar_Get( "gamename", APPLICATION, CVAR_READONLY );
 	versioncvar = Cvar_Get( "version", APP_VERSION_STR " " CPUSTRING " " __DATE__ " " BUILDSTRING, CVAR_SERVERINFO|CVAR_READONLY );

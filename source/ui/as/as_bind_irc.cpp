@@ -30,159 +30,132 @@ namespace ASUI {
 class Irc
 {
 public:
-	Irc() :
-	  irc_connected( NULL ), irc_perform_str( " " )
-	{
-	}
+	Irc() {}
 
 	bool isConnected( void )
 	{
-		bool *c;
-
-		if( !irc_connected )
-			irc_connected = trap::Dynvar_Lookup( "irc_connected" );
-		assert( irc_connected );
-
-		trap::Dynvar_GetValue( irc_connected, (void **) &c );
-		if( *c ) {
-			return true;
-		}
-
 		return false;
 	}
 
 	void connect( void )
 	{
-		trap::Cmd_ExecuteText( EXEC_APPEND, "irc_connect\n" );
+		trap::Print( "unimplemented: irc_connect\n" );
 	}
 
 	void connect( const asstring_t &hostname, const int port )
 	{
-		trap::Cmd_ExecuteText( EXEC_APPEND, va( "irc_connect %s %i\n", hostname.buffer, port ) );
+		trap::Print( va( "unimplemented: irc_connect %s %i\n", hostname.buffer, port ) );
 	}
 
 	void disconnect( void )
 	{
-		trap::Cmd_ExecuteText( EXEC_APPEND, "irc_disconnect\n" );
+		trap::Print( "unimplemented: irc_disconnect\n" );
 	}
 
 	void join( const asstring_t &channel )
 	{
-		trap::Cmd_ExecuteText( EXEC_APPEND, va( "irc_join %s\n", channel.buffer ) );
+		trap::Print( va( "unimplemented: irc_join %s\n", channel.buffer ) );
 	}
 
 	void join( const asstring_t &channel, const asstring_t &password )
 	{
-		trap::Cmd_ExecuteText( EXEC_APPEND, va( "irc_join %s %s\n", channel.buffer, password.buffer ) );
+		trap::Print( va( "unimplemented: irc_join %s %s\n", channel.buffer, password.buffer ) );
 	}
 
 	void part( const asstring_t &channel )
 	{
-		trap::Cmd_ExecuteText( EXEC_APPEND, va( "irc_part %s\n", channel.buffer ) );
+		trap::Print( va( "unimplemented: irc_part %s\n", channel.buffer ) );
 	}
 
 	void privateMessage( const asstring_t &target, const asstring_t &message )
 	{
-		trap::Cmd_ExecuteText( EXEC_APPEND, va( "irc_privmsg %s %s\n", target.buffer, message.buffer ) );
+		trap::Print( va( "unimplemented: irc_privmsg %s %s\n", target.buffer, message.buffer ) );
 	}
 
 	void mode( const asstring_t &target, const asstring_t &modes )
 	{
-		trap::Cmd_ExecuteText( EXEC_APPEND, va( "irc_mode %s %s\n", target.buffer, modes.buffer ) );
+		trap::Print( va( "unimplemented: irc_mode %s %s\n", target.buffer, modes.buffer ) );
 	}
 
 	void mode( const asstring_t &target, const asstring_t &modes, const asstring_t &param )
 	{
 		if( param.len > 0 ) {
-			trap::Cmd_ExecuteText( EXEC_APPEND, va( "irc_mode %s %s %s\n", target.buffer, modes.buffer, param.buffer ) );
+			trap::Print( va( "unimplemented: irc_mode %s %s %s\n", target.buffer, modes.buffer, param.buffer ) );
 		}
 		else {
-			trap::Cmd_ExecuteText( EXEC_APPEND, va( "irc_mode %s %s\n", target.buffer, modes.buffer, param.buffer ) );
+			trap::Print( va( "unimplemented: irc_mode %s %s\n", target.buffer, modes.buffer, param.buffer ) );
 		}
 	}
 
 	void who( const asstring_t &nick )
 	{
-		trap::Cmd_ExecuteText( EXEC_APPEND, va( "irc_who %s\n", nick.buffer ) );
+		trap::Print( va( "unimplemented: irc_who %s\n", nick.buffer ) );
 	}
 
 	void whois( const asstring_t &nick )
 	{
-		trap::Cmd_ExecuteText( EXEC_APPEND, va( "irc_whois %s\n", nick.buffer ) );
+		trap::Print( va( "unimplemented: irc_whois %s\n", nick.buffer ) );
 	}
 
 	void whowas( const asstring_t &nick )
 	{
-		trap::Cmd_ExecuteText( EXEC_APPEND, va( "irc_whowas %s\n", nick.buffer ) );
+		trap::Print( va( "unimplemented: irc_whowas %s\n", nick.buffer ) );
 	}
 
 	void quote( const asstring_t &string )
 	{
-		trap::Cmd_ExecuteText( EXEC_APPEND, va( "irc_quote %s\n", string.buffer ) );
+		trap::Print( va( "unimplemented: irc_quote %s\n", string.buffer ) );
 	}
 
 	void action( const asstring_t &action )
 	{
-		trap::Cmd_ExecuteText( EXEC_APPEND, va( "irc_action %s\n", action.buffer ) );
+		trap::Print( va( "unimplemented: irc_action %s\n", action.buffer ) );
 	}
 
 	void channelMessage( const asstring_t &message )
 	{
-		trap::Cmd_ExecuteText( EXEC_APPEND, va( "irc_chanmsg %s\n", message.buffer ) );
+		trap::Print( va( "unimplemented: irc_chanmsg %s\n", message.buffer ) );
 	}
 
 	void topic( const asstring_t &channel )
 	{
-		trap::Cmd_ExecuteText( EXEC_APPEND, va( "irc_topic %s\n", channel.buffer ) );
+		trap::Print( va( "unimplemented: irc_topic %s\n", channel.buffer ) );
 	}
 
 	void topic( const asstring_t &channel, const asstring_t &topic )
 	{
 		if( topic.len > 0 ) {
-			trap::Cmd_ExecuteText( EXEC_APPEND, va( "irc_topic %s %s\n", channel.buffer, topic.buffer ) );
+			trap::Print( va( "unimplemented: irc_topic %s %s\n", channel.buffer, topic.buffer ) );
 		}
 		else {
-			trap::Cmd_ExecuteText( EXEC_APPEND, va( "irc_topic %s\n", channel.buffer ) );
+			trap::Print( va( "unimplemented: irc_topic %s\n", channel.buffer ) );
 		}
 	}
 
 	void names( const asstring_t &channel )
 	{
-		trap::Cmd_ExecuteText( EXEC_APPEND, va( "irc_names %s\n", channel.buffer ) );
+		trap::Print( va( "unimplemented: irc_names %s\n", channel.buffer ) );
 	}
 
 	void kick( const asstring_t &channel, const asstring_t &nick )
 	{
-		trap::Cmd_ExecuteText( EXEC_APPEND, va( "irc_kick %s %s %s\n", channel.buffer, nick.buffer ) );
+		trap::Print( va( "unimplemented: irc_kick %s %s %s\n", channel.buffer, nick.buffer ) );
 	}
 
 	void kick2( const asstring_t &channel, const asstring_t &nick, const asstring_t &reason )
 	{
 		if( reason.len > 0 ) {
-			trap::Cmd_ExecuteText( EXEC_APPEND, va( "irc_kick %s %s %s\n", channel.buffer, nick.buffer, reason.buffer ) );
+			trap::Print( va( "unimplemented: irc_kick %s %s %s\n", channel.buffer, nick.buffer, reason.buffer ) );
 		}
 		else {
-			trap::Cmd_ExecuteText( EXEC_APPEND, va( "irc_kick %s %s\n", channel.buffer, nick.buffer ) );
+			trap::Print( va( "unimplemented: irc_kick %s %s\n", channel.buffer, nick.buffer ) );
 		}
 	}
 
 	void joinOnEndOfMotd( const asstring_t &string )
 	{
-		cvar_t *irc_perform = trap::Cvar_Get( "irc_perform", "exec irc_perform.cfg\n", 0 );
-
-		if( string.len > 0 ) {
-			irc_perform_str += ";" + (std::string( "irc_join " ) + string.buffer );
-			trap::Cvar_Set( irc_perform->name, (irc_perform_str + "\n" ).c_str() );
-		}
-		else {
-			irc_perform_str.clear();
-			trap::Cvar_Set( irc_perform->name, irc_perform->dvalue );
-		}
+		trap::Print( "unimplemented: joinOnEndOfMotd\n" );
 	}
-
-private:
-	dynvar_t *irc_connected;
-	std::string irc_perform_str;
 };
 
 // ch : whats up with these statics?
