@@ -24,8 +24,6 @@ namespace WSWUI
 		/// Generates the path to the preview image from the given map name
 		static Rocket::Core::String getImagePath(const Rocket::Core::String&);
 
-		static shader_s *fallbackShader;
-
 		bool srcProcessed;
 	};
 }
