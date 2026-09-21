@@ -230,7 +230,7 @@ namespace trap
 			UI_IMPORT.CL_Quit ();
 		}
 
-		inline void CL_SetKeyDest( int key_dest ) {
+		inline void CL_SetKeyDest( keydest_t key_dest ) {
 			UI_IMPORT.CL_SetKeyDest( key_dest );
 		}
 

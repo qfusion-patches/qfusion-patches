@@ -7,12 +7,12 @@ char IRC_ERROR_MSG[256] = { '\0' };
 const irc_chat_history_node_t *irc_chat_history = NULL;
 
 // private, modifyable history
-struct {
+static struct {
 	size_t size;
 	size_t total_size;
 	irc_chat_history_node_t *first;
 	irc_chat_history_node_t *last;
-} static irc_chat_history_list = { 0, 0, NULL, NULL };
+} irc_chat_history_list = { 0, 0, NULL, NULL };
 
 static cvar_t *irc_console = NULL;
 

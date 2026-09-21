@@ -129,7 +129,7 @@ typedef struct
 	fdrawchar_t ( *SCR_SetDrawCharIntercept )( fdrawchar_t intercept );
 
 	void ( *CL_Quit )( void );
-	void ( *CL_SetKeyDest )( int key_dest );
+	void ( *CL_SetKeyDest )( keydest_t key_dest );
 	void ( *CL_ResetServerCount )( void );
 	char *( *CL_GetClipboardData )( bool primary );
 	void ( *CL_FreeClipboardData )( char *data );

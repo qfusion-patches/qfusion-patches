@@ -904,7 +904,7 @@ static const svcmd_t cg_svcmds[] =
 	{ "aw", CG_SC_AddAward },
 	{ "qm", CG_SC_MenuQuick },
 
-	{ NULL }
+	{ NULL, NULL }
 };
 
 /*

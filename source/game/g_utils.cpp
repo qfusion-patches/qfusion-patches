@@ -1958,7 +1958,6 @@ void G_DropSpawnpointToFloor( edict_t *ent )
 * is not a staircase.
 *
 */
-int c_yes, c_no;
 bool G_CheckBottom( edict_t *ent )
 {
 	vec3_t mins, maxs, start, stop;
@@ -1982,45 +1981,40 @@ bool G_CheckBottom( edict_t *ent )
 				goto realcheck;
 		}
 
-		c_yes++;
-		return true;   // we got out easy
+	return true;   // we got out easy
 
 realcheck:
-		c_no++;
-		//
-		// check it for real...
-		//
-		start[2] = mins[2];
+	//
+	// check it for real...
+	//
+	start[2] = mins[2];
 
-		// the midpoint must be within 16 of the bottom
-		start[0] = stop[0] = ( mins[0] + maxs[0] )*0.5;
-		start[1] = stop[1] = ( mins[1] + maxs[1] )*0.5;
-		stop[2] = start[2] - 2*STEPSIZE;
-		G_Trace( &trace, start, vec3_origin, vec3_origin, stop, ent, G_SolidMaskForEnt( ent ) );
+	// the midpoint must be within 16 of the bottom
+	start[0] = stop[0] = ( mins[0] + maxs[0] )*0.5;
+	start[1] = stop[1] = ( mins[1] + maxs[1] )*0.5;
+	stop[2] = start[2] - 2*STEPSIZE;
+	G_Trace( &trace, start, vec3_origin, vec3_origin, stop, ent, G_SolidMaskForEnt( ent ) );
 
-		if( trace.fraction == 1.0 )
-			return false;
-		mid = bottom = trace.endpos[2];
+	if( trace.fraction == 1.0 )
+		return false;
+	mid = bottom = trace.endpos[2];
 
-		// the corners must be within 16 of the midpoint
-		for( x = 0; x <= 1; x++ )
+	// the corners must be within 16 of the midpoint
+	for( x = 0; x <= 1; x++ )
+		for( y = 0; y <= 1; y++ )
 		{
-			for( y = 0; y <= 1; y++ )
-			{
-				start[0] = stop[0] = x ? maxs[0] : mins[0];
-				start[1] = stop[1] = y ? maxs[1] : mins[1];
+			start[0] = stop[0] = x ? maxs[0] : mins[0];
+			start[1] = stop[1] = y ? maxs[1] : mins[1];
 
-				G_Trace( &trace, start, vec3_origin, vec3_origin, stop, ent, G_SolidMaskForEnt( ent ) );
+			G_Trace( &trace, start, vec3_origin, vec3_origin, stop, ent, G_SolidMaskForEnt( ent ) );
 
-				if( trace.fraction != 1.0 && trace.endpos[2] > bottom )
-					bottom = trace.endpos[2];
-				if( trace.fraction == 1.0 || mid - trace.endpos[2] > STEPSIZE )
-					return false;
-			}
+			if( trace.fraction != 1.0 && trace.endpos[2] > bottom )
+				bottom = trace.endpos[2];
+			if( trace.fraction == 1.0 || mid - trace.endpos[2] > STEPSIZE )
+				return false;
 		}
 
-		c_yes++;
-		return true;
+	return true;
 }
 
 /*

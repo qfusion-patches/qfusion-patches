@@ -504,26 +504,25 @@ static int R_PackLightmaps( int num, int w, int h, int dataSize, int stride, int
 		for(; ( num >= root ) && ( rectY < maxY ); rectY++, num -= root ) ;
 
 		//if( !glConfig.ext.texture_non_power_of_two )
-		{
-			// sample down if not a power of two
-			for( y = 1; y < rectY; y <<= 1 ) ;
-			if( y > rectY )
-				y >>= 1;
-			rectY = y;
-		}
+		//{
+		for( y = 1; y < rectY; y <<= 1 ) ;
+		if( y > rectY )
+			y >>= 1;
+		rectY = y;
+		//}
 	}
 	else
 	{
 		for(; ( num >= root ) && ( rectX < maxX ); rectX++, num -= root ) ;
 
 		//if( !glConfig.ext.texture_non_power_of_two )
-		{
-			// sample down if not a power of two
-			for( x = 1; x < rectX; x <<= 1 ) ;
-			if( x > rectX )
-				x >>= 1;
-			rectX = x;
-		}
+		//{
+		// sample down if not a power of two
+		for( x = 1; x < rectX; x <<= 1 ) ;
+		if( x > rectX )
+			x >>= 1;
+		rectX = x;
+		//}
 	}
 
 	tw = 1.0 / (double)rectX;

@@ -3366,7 +3366,7 @@ static const asglobfuncs_t asGlobFuncs[] =
 	{ "void G_SetColorCorrection( int index )", asFUNCTION(asFunc_G_SetColorCorrection), NULL },
 	{ "int G_GetDefaultColorCorrection()", asFUNCTION(asFunc_G_GetDefaultColorCorrection), NULL },
 
-	{ NULL }
+	{ NULL, {}, NULL }
 };
 
 // ============================================================================
@@ -3390,7 +3390,7 @@ static const asglobfuncs_t asAIGlobFuncs[] =
 	{ "void RemoveGoal( Entity @ent )", asFUNCTION(AI_RemoveGoalEntity), NULL },
 	{ "void ReachedGoal( Entity @ent )", asFUNCTION(AI_ReachedEntity), NULL },
 
-	{ NULL }
+	{ NULL, {}, NULL }
 };
 
 // ============================================================================
@@ -3408,7 +3408,7 @@ static const asglobproperties_t asGlobProps[] =
 	{ "GametypeDesc gametype", &level.gametype },
 	{ "Match match", &level.gametype.match },
 
-	{ NULL }
+	{ NULL, NULL }
 };
 
 static void G_asRegisterGlobalFunctions( asIScriptEngine *asEngine, const asglobfuncs_t *funcs, const char *nameSpace )

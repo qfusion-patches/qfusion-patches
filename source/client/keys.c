@@ -817,6 +817,7 @@ void Key_Event( int key, bool down, unsigned time )
 				CL_UIModule_KeyupQuick( numkey );
 			break;
 		}
+		// fallthrough
 	case key_console:
 		Con_KeyDown( key );
 		break;
@@ -872,7 +873,7 @@ typedef struct
 } key_delegates_t;
 
 static key_delegates_t key_delegate_stack[32];
-static int key_delegate_stack_index = 0;
+static size_t key_delegate_stack_index = 0;
 
 /*
 * Key_DelegatePush

@@ -354,7 +354,7 @@ static int Mod_CreateSubmodelBufferObjects( model_t *mod, unsigned int modnum, s
 	loadbmodel = (( mbrushmodel_t * )mod->extradata);
 	assert( loadbmodel );
 
-	assert( modnum >= 0 && modnum < loadbmodel->numsubmodels );
+	assert( modnum < loadbmodel->numsubmodels );
 	bm = loadbmodel->submodels + modnum;
 
 	// ignore empty models

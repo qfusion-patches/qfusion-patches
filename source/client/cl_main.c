@@ -449,7 +449,7 @@ static void CL_Connect_Cmd_f( socket_type_t socket )
 	}
 
 	if ( ( tmp = Q_strrstr(connectstring, "@") ) != NULL ) {
-		Q_strncpyz( password, connectstring, min(sizeof(password),( tmp - connectstring + 1)) );
+		Q_strncpyz( password, connectstring, min(sizeof(password),(size_t)( tmp - connectstring + 1)) );
 		Cvar_Set( "password", password );
 		connectstring = connectstring + (tmp - connectstring) + 1;
 	}
@@ -630,7 +630,7 @@ int CL_GetKeyDest( void )
 /*
 * CL_SetKeyDest
 */
-void CL_SetKeyDest( int key_dest )
+void CL_SetKeyDest( keydest_t key_dest )
 {
 	if( key_dest < key_game || key_dest > key_delegate )
 		Com_Error( ERR_DROP, "CL_SetKeyDest: invalid key_dest" );
@@ -1334,7 +1334,8 @@ void CL_ReadPackets( void )
 {
 	static msg_t msg;
 	static uint8_t msgData[MAX_MSGLEN];
-	int socketind, ret;
+	size_t socketind;
+	int ret;
 	socket_t *socket;
 	netadr_t address;
 

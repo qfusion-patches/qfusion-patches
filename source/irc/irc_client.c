@@ -74,12 +74,12 @@ static void Irc_Client_CmdGeneric_f(irc_command_t cmd, const char *prefix, const
 
 // chat buffer
 #define IRC_MESSAGEMODE_BUFSIZE 256
-enum {
+static enum {
 	IRC_MESSAGEMODE_NONE = 0,
 	IRC_MESSAGEMODE_CHANMSG,
 	IRC_MESSAGEMODE_PRIVMSG_TARGET,
 	IRC_MESSAGEMODE_PRIVMSG_TEXT
-} static reading_from_keyboard = IRC_MESSAGEMODE_NONE;
+} reading_from_keyboard = IRC_MESSAGEMODE_NONE;
 static char	irc_messagemode_buf[IRC_MESSAGEMODE_BUFSIZE];
 static int	irc_messagemode_buflen = 0;
 static char	irc_messagemode_target_buf[256];
@@ -831,7 +831,7 @@ static void Irc_Client_CmdParamNotice_f(irc_command_t cmd, const char *prefix, c
 
 static void Irc_Client_CmdPrivmsg_f(irc_command_t cmd, const char *prefix, const char *params, const char *trailing) {
 	char nick[IRC_SEND_BUF_SIZE];
-	char * const emph = strchr(prefix, '!');
+	const char *emph = strchr(prefix, '!');
 	memset(nick, 0, sizeof(nick));
 	if (emph)
 		memcpy(nick, prefix, emph - prefix);

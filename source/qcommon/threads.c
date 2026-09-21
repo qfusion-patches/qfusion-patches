@@ -357,7 +357,7 @@ int QBufPipe_ReadCmds( qbufPipe_t *pipe, unsigned (**cmdHandlers)( const void * 
 
 		read_remains = pipe->bufSize - pipe->read_pos;
 
-		if( sizeof( int ) > read_remains ) {
+		if( sizeof( int ) > (size_t)read_remains ) {
 			// implicit reset
 			pipe->read_pos = 0;
 			QBufPipe_BufLenAdd( pipe, -read_remains );
@@ -367,7 +367,7 @@ int QBufPipe_ReadCmds( qbufPipe_t *pipe, unsigned (**cmdHandlers)( const void * 
 		if( cmd == -1 ) {
 			// this cmd is special
 			pipe->read_pos = 0;
-			QBufPipe_BufLenAdd( pipe, -((int)(sizeof(int) + read_remains)) ); // atomic
+			QBufPipe_BufLenAdd( pipe, -(int)(sizeof(int) + (size_t)read_remains) ); // atomic
 			continue;
 		}
 
