@@ -184,33 +184,6 @@ void Com_UnloadGameLibrary( void **handle )
 		gamelib->lib = NULL;
 	}
 
-	// remove tempfile if it's not used by other instances
-	if( gamelib->fullname )
-	{
-		iter = gamelibs;
-		while( iter )
-		{
-			if( !strcmp( gamelib->fullname, iter->fullname ) )
-				break;
-			iter = iter->next;
-		}
-
-		if( !iter )
-		{
-			char *p;
-
-			FS_RemoveAbsoluteFile( gamelib->fullname );
-			p = strrchr( gamelib->fullname, '/' );
-			if( p )
-			{
-				*p = '\0';
-				FS_RemoveAbsoluteDirectory( gamelib->fullname );
-			}
-		}
-
-		Mem_ZoneFree( gamelib->fullname );
-	}
-
 	Mem_ZoneFree( gamelib );
 
 	*handle = NULL;
@@ -265,74 +238,36 @@ static void Com_LoadGameLibraryManifest( const char *libname, char *manifest )
 */
 void *Com_LoadGameLibrary( const char *basename, const char *apifuncname, void **handle, void *parms, bool pure, char *manifest )
 {
-	static int randomizer = 0; // random part of tempmodules dir, always the same for one launch of Warsow
-	static int64_t randomizer_time;
-	const char *temppath;
-	char *tempname, *libname;
+	static char libname[1024];
+	char *fullname;
 	int libname_size;
 	void *( *APIfunc )(void *);
 	gamelib_t *gamelib;
 
 	*handle = 0;
 
-	if( !randomizer )
-	{
-		randomizer_time = time( NULL );
-		srand( randomizer_time );
-		randomizer = brandom( 1, 9999 );
-	}
-
 	gamelib = ( gamelib_t* )Mem_ZoneMalloc( sizeof( gamelib_t ) );
-	gamelib->lib = NULL;
-	gamelib->fullname = NULL;
 
-	libname_size = strlen( LIB_PREFIX ) + strlen( basename ) + 1 + strlen( ARCH ) + strlen( LIB_SUFFIX ) + 1;
-	libname = ( char* )Mem_TempMalloc( libname_size );
-	Q_snprintfz( libname, libname_size, LIB_PREFIX "%s_" ARCH LIB_SUFFIX, basename );
+	Q_snprintfz( libname, sizeof( libname ), LIB_DIRECTORY "/" LIB_PREFIX "%s_" ARCH LIB_SUFFIX, basename );
+	COM_SanitizeFilePath( libname );
 
-	// it exists?
-	if( FS_FOpenFile( libname, NULL, FS_READ ) == -1 )
+	fullname = ( char* )Sys_Library_GetFullName( libname );
+	if(!fullname)
 	{
-		Com_Printf( "LoadLibrary (%s):(File not found)\n", libname );
-		Mem_TempFree( libname );
+		Com_DPrintf( "LoadLibrary (%s):(Not found)\n", fullname );
 		Mem_ZoneFree( gamelib );
 		return NULL;
 	}
+	fullname = Mem_CopyString( tempMemPool, fullname );
 
-	// pure check
-	if( pure && !FS_IsPureFile( libname ) )
-	{
-		Com_Printf( "LoadLibrary (%s):(Unpure file)\n", libname );
-		Mem_TempFree( libname );
-		Mem_ZoneFree( gamelib );
-		return NULL;
-	}
-
-	temppath = Sys_Library_GetGameLibPath( libname, randomizer_time, randomizer );
-	tempname = ( char * )Mem_ZoneMalloc( strlen( temppath ) + 1 );
-	strcpy( tempname, temppath );
-
-	if( FS_FOpenFile( tempname, NULL, FS_READ ) == -1 )
-	{
-		if( !FS_ExtractFile( libname, tempname ) )
-		{
-			Com_Printf( "LoadLibrary (%s):(FS_ExtractFile failed)\n", libname );
-			Mem_TempFree( libname );
-			Mem_ZoneFree( tempname );
-			Mem_ZoneFree( gamelib );
-			return NULL;
-		}
-	}
-
-	gamelib->fullname = COM_SanitizeFilePath( tempname );
-	gamelib->lib = Sys_Library_Open( gamelib->fullname );
+	gamelib->lib = Sys_Library_Open( fullname );
 	gamelib->next = gamelibs;
 	gamelibs = gamelib;
 
 	if( !( gamelib->lib ) )
 	{
-		Com_Printf( "LoadLibrary (%s):(%s)\n", tempname, Sys_Library_ErrorString() );
-		Mem_TempFree( libname );
+		Com_Printf( "LoadLibrary (%s):(%s)\n", fullname, Sys_Library_ErrorString() );
+		Mem_TempFree( fullname );
 		Com_UnloadGameLibrary( (void **)&gamelib );
 		return NULL;
 	}
@@ -340,8 +275,8 @@ void *Com_LoadGameLibrary( const char *basename, const char *apifuncname, void *
 	APIfunc = ( void* ( * )( void* ) )Sys_Library_ProcAddress( gamelib->lib, apifuncname );
 	if( !APIfunc )
 	{
-		Com_Printf( "LoadLibrary (%s):(%s)\n", tempname, Sys_Library_ErrorString() );
-		Mem_TempFree( libname );
+		Com_Printf( "LoadLibrary (%s):(%s)\n", fullname, Sys_Library_ErrorString() );
+		Mem_TempFree( fullname );
 		Com_UnloadGameLibrary( (void **)&gamelib );
 		return NULL;
 	}
@@ -351,7 +286,7 @@ void *Com_LoadGameLibrary( const char *basename, const char *apifuncname, void *
 	if( manifest )
 		Com_LoadGameLibraryManifest( libname, manifest );
 
-	Mem_TempFree( libname );
+	Mem_TempFree( fullname );
 
 	return APIfunc( parms );
 }
