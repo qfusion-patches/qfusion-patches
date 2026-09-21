@@ -5,8 +5,6 @@ add_subdirectory(ftlib)
 add_subdirectory(ref_gl)
 add_subdirectory(snd_openal)
 
-add_subdirectory(irc)
-
 add_subdirectory(game)
 add_subdirectory(cgame)
 

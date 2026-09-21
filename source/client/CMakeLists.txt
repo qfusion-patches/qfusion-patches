@@ -36,7 +36,6 @@ file(GLOB CLIENT_HEADERS
 	"../game/g_public.h"
 	"../ui/ui_public.h"
 	"../ftlib/ftlib_public.h"
-	"../irc/irc_interface.h"
 	"../cin/cin_public.h"
 )
 
@@ -56,4 +55,4 @@ target_link_libraries(${QFUSION_CLIENT_NAME}
     PkgConfig::ZLIB
 )
 
-add_dependencies(${QFUSION_CLIENT_NAME} game cgame ui cin ftlib ref_gl irc snd_openal)
+add_dependencies(${QFUSION_CLIENT_NAME} game cgame ui cin ftlib ref_gl snd_openal)

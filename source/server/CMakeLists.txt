@@ -16,7 +16,6 @@ file(GLOB SERVER_SOURCES
     "../qcommon/msg.c"
     "../qcommon/cvar.c"
     "../qcommon/dynvar.c"
-    "../qcommon/irc.c"
     "../qcommon/library.c"
     "../qcommon/mlist.c"
     "../qcommon/svnrev.c"
@@ -52,7 +51,6 @@ file(GLOB SERVER_HEADERS
 	"../qalgo/*.h"
 	"../angelwrap/qas_public.h"
 	"../game/g_public.h"
-	"../irc/irc_interface.h"
 )
 
 add_executable(${QFUSION_SERVER_NAME}
@@ -77,4 +75,4 @@ target_link_libraries(
     PkgConfig::ZLIB
 )
 
-add_dependencies(${QFUSION_SERVER_NAME} angelwrap irc)
+add_dependencies(${QFUSION_SERVER_NAME} angelwrap)
