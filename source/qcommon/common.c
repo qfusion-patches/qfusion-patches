@@ -923,8 +923,6 @@ void Qcommon_Init( int argc, char **argv )
 	dedicated =	    Cvar_Get( "dedicated", "0", CVAR_NOSET );
 #endif
 
-	Com_LoadCompressionLibraries();
-
 	FS_Init();
 
 	Cbuf_AddText( "exec default.cfg\n" );
@@ -1161,8 +1159,6 @@ void Qcommon_Shutdown( void )
 	Com_CloseConsoleLog( true, true );
 
 	FS_Shutdown();
-
-	Com_UnloadCompressionLibraries();
 
 	wswcurl_cleanup();
 
