@@ -99,6 +99,8 @@ int main( int argc, char **argv )
 	if( !SDL_Init( SDL_INIT_VIDEO ) )
 		Sys_Error( "SDL_Init: %s", SDL_GetError() );
 
+	SDL_SetHint( SDL_HINT_VIDEO_MINIMIZE_ON_FOCUS_LOSS, "1" );
+
 	Qcommon_Init( argc, argv );
 
 	oldtime = Sys_Milliseconds();
