@@ -22,6 +22,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "qcommon.h"
 #include "cm_local.h"
 
+// debug/performance counter vars
+int c_pointcontents, c_traces, c_brush_traces;
+
 /*
 * CM_InitBoxHull
 *
