@@ -29,7 +29,7 @@
 
 // Curl setopt wrapper
 #define CURLSETOPT(c,r,o,v) { if (c) { r = qcurl_easy_setopt(c,o,v); if (r) { printf("\nCURL ERROR: %d: %s\n", r, qcurl_easy_strerror(r)); qcurl_easy_cleanup(c) ; c = NULL; } } }
-#define CURLDBG(x)			
+#define CURLDBG(x)
 
 #define WCONNECTTIMEOUT		0
 #define WTIMEOUT			200
@@ -421,7 +421,7 @@ size_t wswcurl_getsize( wswcurl_req *req, size_t *rxreceived )
 	return req->rx_expsize;
 }
 
-void wswcurl_stream_callbacks(wswcurl_req *req, wswcurl_read_cb read_cb, wswcurl_done_cb done_cb, 
+void wswcurl_stream_callbacks(wswcurl_req *req, wswcurl_read_cb read_cb, wswcurl_done_cb done_cb,
 							  wswcurl_header_cb header_cb, void *customp)
 {
 	if( !req ) {
@@ -465,7 +465,7 @@ size_t wswcurl_read(wswcurl_req *req, void *buffer, size_t size)
 			cb->rxoffset += req->ignore_bytes;
 			req->ignore_bytes = 0;
 		}
-		
+
 		memcpy( ((char*)buffer)+written, cb->data+cb->rxoffset, numb );
 		written += numb;
 		cb->rxoffset += numb;
@@ -680,7 +680,7 @@ int wswcurl_header( wswcurl_req *req, const char *key, const char *value, ...)
 static int wswcurl_debug_callback( CURL *curl, curl_infotype infotype, char *buf, size_t buf_size, void *userp )
 {
 	char *temp;
-	
+
 	if( infotype != CURLINFO_TEXT ) {
 		return 0;
 	}
@@ -1062,7 +1062,7 @@ static int wswcurl_checkmsg( void )
 		}
 		else {
 			// failed, store and pass to callback negative status value
-			r->status = -abs( msg->data.result ); 
+			r->status = -abs( msg->data.result );
 			r->respcode = -1;
 
 			if( r->callback_done ) {

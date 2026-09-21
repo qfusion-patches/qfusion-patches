@@ -56,7 +56,7 @@ static asstring_t *DemoInfo_GetMeta( DemoInfo *demoInfo, const asstring_t &key )
 	const DemoMetaData &metaData = demoInfo->getMetaData();
 	DemoMetaData::const_iterator it = metaData.find( key.buffer );
 
-	if( it == metaData.end() ) { 
+	if( it == metaData.end() ) {
 		return ASSTR( "" );
 	}
 	return ASSTR( it->second.c_str() );
@@ -69,7 +69,7 @@ void BindDemoInfo( ASInterface *as )
 	ASBind::GetClass<DemoInfo>( as->getEngine() )
 		.constructor<void()>()
 		.constructor( &DemoInfo_StringConstructor, true )
-		
+
 		.constructor<void(const DemoInfo &other)>()
 		.destructor()
 

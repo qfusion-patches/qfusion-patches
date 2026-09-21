@@ -33,7 +33,7 @@ using namespace Rocket::Controls;
 class SelectableDataGrid : public ElementDataGrid
 {
 public:
-	SelectableDataGrid( const String& tag ) : 
+	SelectableDataGrid( const String& tag ) :
 		ElementDataGrid(tag), lastSelectedRow( NULL ), lastSelectedRowIndex( -1 )
 	{
 		SetProperty( "selected-row", "-1" );
@@ -91,7 +91,7 @@ public:
 				ElementDataGridRow *row = static_cast<ElementDataGridRow*>( elem );
 				int index = row->GetTableRelativeIndex();
 				Rocket::Core::String indexStr(toString( index ).c_str());
-					
+
 				// this should never happen
 				if( index >= this->GetNumRows() )
 					return;
@@ -115,7 +115,7 @@ public:
 					row->SetPseudoClass( "selected", true );
 					row->AddReference();
 				}
-				
+
 				Rocket::Core::Dictionary parameters;
 				parameters.Set( "index", indexStr );
 				parameters.Set( "column_index", column );

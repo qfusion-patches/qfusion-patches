@@ -326,7 +326,7 @@ static cg_tagmask_t *CG_TagMask( const char *maskname, cgs_skeleton_t *skel )
 * CG_SkeletalPoseGetAttachment
 * Get the tag from the interpolated and transformed pose
 */
-bool CG_SkeletalPoseGetAttachment( orientation_t *orient, cgs_skeleton_t *skel, 
+bool CG_SkeletalPoseGetAttachment( orientation_t *orient, cgs_skeleton_t *skel,
 	bonepose_t *boneposes, const char *bonename )
 {
 	int i;
@@ -382,7 +382,7 @@ bool CG_SkeletalPoseGetAttachment( orientation_t *orient, cgs_skeleton_t *skel,
 	// do the offseting if having a tagmask
 	if( tagmask )
 	{
-		// we want to place a rotated model over this tag, not to rotate the tag, 
+		// we want to place a rotated model over this tag, not to rotate the tag,
 		// because all rotations would move. So we create a new orientation for the
 		// model and we position the new orientation in tag space
 		if( tagmask->rotate[YAW] || tagmask->rotate[PITCH] || tagmask->rotate[ROLL] )

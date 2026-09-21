@@ -120,7 +120,7 @@ char *TV_Upstream_Userinfo( upstream_t *upstream )
 	int i, count;
 
 	if( !upstream->userinfo )
-		upstream->userinfo = ( char * )Mem_Alloc( upstream->mempool, 
+		upstream->userinfo = ( char * )Mem_Alloc( upstream->mempool,
 		sizeof( *upstream->userinfo ) * MAX_INFO_STRING );
 
 	userinfo = upstream->userinfo;

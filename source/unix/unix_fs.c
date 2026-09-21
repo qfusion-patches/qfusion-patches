@@ -316,7 +316,7 @@ const char *Sys_FS_GetSecureDirectory( void )
 	static char dir[PATH_MAX] = { '\0' };
 	if( !dir[0] )
 	{
-		Q_snprintfz( dir, sizeof( dir ), "%s/%d.%d", 
+		Q_snprintfz( dir, sizeof( dir ), "%s/%d.%d",
 			sys_android_app->activity->internalDataPath, APP_VERSION_MAJOR, APP_VERSION_MINOR );
 	}
 	return dir;
@@ -395,7 +395,7 @@ const char *Sys_FS_GetMediaDirectory( fs_mediatype_t type )
 */
 const char *Sys_FS_GetRuntimeDirectory( void )
 {
-	// disabled because some distributions mount /var/run with 'noexec' flag and consequently 
+	// disabled because some distributions mount /var/run with 'noexec' flag and consequently
 	// game libs fail to load with 'failed to map segment from shared object' error
 #if 0
 	static char runtime[PATH_MAX] = { '\0' };

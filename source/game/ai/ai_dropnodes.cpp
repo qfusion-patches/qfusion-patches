@@ -539,7 +539,7 @@ void AITools_InitMakenodes( void )
 		return;
 	}
 
-	if( nav.loaded ) 
+	if( nav.loaded )
 	{
 		AI_InitNavigationData( true );
 

@@ -552,10 +552,10 @@ void SV_MM_SendQuery( stat_query_t *query );
 void SV_MM_GameState( bool state );
 void SV_MM_GetMatchUUID( void (*callback_fn)( const char *uuid ) );
 
-// 
+//
 // sv_web.c
 //
-typedef http_response_code_t ( *http_game_query_cb )( http_query_method_t method, const char *resource, 
+typedef http_response_code_t ( *http_game_query_cb )( http_query_method_t method, const char *resource,
 		const char *query_string, char **content, size_t *content_length );
 
 void SV_Web_Init( void );

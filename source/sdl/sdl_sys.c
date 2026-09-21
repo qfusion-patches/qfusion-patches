@@ -117,7 +117,7 @@ int main( int argc, char **argv )
 #endif
 
 	SDL_Init( SDL_INIT_VIDEO );
-	
+
 	Qcommon_Init( argc, argv );
 
 	oldtime = Sys_Milliseconds();

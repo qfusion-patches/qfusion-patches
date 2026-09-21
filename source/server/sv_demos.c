@@ -24,7 +24,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 /*
 * SV_Demo_WriteMessage
-* 
+*
 * Writes given message to the demofile
 */
 static void SV_Demo_WriteMessage( msg_t *msg )
@@ -44,7 +44,7 @@ static void SV_Demo_WriteStartMessages( void )
 	// clear demo meta data, we'll write some keys later
 	svs.demo.meta_data_realsize = SNAP_ClearDemoMeta( svs.demo.meta_data, sizeof( svs.demo.meta_data ) );
 
-	SNAP_BeginDemoRecording( svs.demo.file, svs.spawncount, svc.snapFrameTime, sv.mapname, SV_BITFLAGS_RELIABLE, 
+	SNAP_BeginDemoRecording( svs.demo.file, svs.spawncount, svc.snapFrameTime, sv.mapname, SV_BITFLAGS_RELIABLE,
 		svs.purelist, sv.configstrings[0], sv.baselines );
 }
 
@@ -108,7 +108,7 @@ static void SV_Demo_InitClient( void )
 
 /*
 * SV_Demo_Start_f
-* 
+*
 * Begins server demo recording.
 */
 void SV_Demo_Start_f( void )
@@ -265,7 +265,7 @@ static void SV_Demo_Stop( bool cancel, bool silent )
 
 /*
 * SV_Demo_Stop_f
-* 
+*
 * Console command for stopping server demo recording.
 */
 void SV_Demo_Stop_f( void )
@@ -275,7 +275,7 @@ void SV_Demo_Stop_f( void )
 
 /*
 * SV_Demo_Cancel_f
-* 
+*
 * Cancels the server demo recording (stop, remove file)
 */
 void SV_Demo_Cancel_f( void )
@@ -285,7 +285,7 @@ void SV_Demo_Cancel_f( void )
 
 /*
 * SV_Demo_Purge_f
-* 
+*
 * Removes the server demo files
 */
 void SV_Demo_Purge_f( void )
@@ -481,7 +481,7 @@ void SV_DemoList_f( client_t *client )
 
 /*
 * SV_DemoGet_f
-* 
+*
 * Responds to clients demoget request with: demoget "filename"
 * If nothing is found, responds with demoget without filename, so client knowns it wasn't found
 */
@@ -556,7 +556,7 @@ bool SV_IsDemoDownloadRequest( const char *request )
 	const char *demoDir = SV_DEMO_DIR;
 	const size_t demoDirLen = strlen( demoDir );
 
-	if( !request ) { 
+	if( !request ) {
 		return false;
 	}
 	if( strlen( request ) <= demoDirLen + 1 + strlen( APP_DEMO_EXTENSION_STR ) ) {

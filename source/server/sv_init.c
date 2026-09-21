@@ -83,7 +83,7 @@ int SV_SkinIndex( const char *name )
 
 /*
 * SV_CreateBaseline
-* 
+*
 * Entity baselines are used to compress the update messages
 * to the clients -- only the fields that differ from the
 * baseline will be transmitted
@@ -470,7 +470,7 @@ void SV_InitGame( void )
 
 /*
 * SV_FinalMessage
-* 
+*
 * Used by SV_ShutdownGame to send a final message to all
 * connected clients before the server goes down.  The messages are sent immediately,
 * not just stuck on the outgoing message list, because the server is going
@@ -504,7 +504,7 @@ static void SV_FinalMessage( const char *message, bool reconnect )
 
 /*
 * SV_ShutdownGame
-* 
+*
 * Called when each game quits
 */
 void SV_ShutdownGame( const char *finalmsg, bool reconnect )

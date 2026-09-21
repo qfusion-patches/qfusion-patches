@@ -24,10 +24,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 /*
 * TVM_FindLocal
-* 
+*
 * Searches all active entities for the next one that holds
 * the matching string at fieldofs (use the FOFS() macro) in the structure.
-* 
+*
 * Searches beginning at the edict after from, or the beginning if NULL
 * NULL will be returned if the end of the list is reached.
 */
@@ -106,7 +106,7 @@ static void TVM_UpdatePowerupFXNums( tvm_relay_t *relay )
 
 /*
 * TVM_PrintMsg_Template
-* 
+*
 * NULL sends to all the message to all clients
 */
 static void TVM_PrintMsg_Template( tvm_relay_t *relay, edict_t *ent, const char *tmplt, char *msg )
@@ -125,7 +125,7 @@ static void TVM_PrintMsg_Template( tvm_relay_t *relay, edict_t *ent, const char 
 
 /*
 * TVM_PrintMsg
-* 
+*
 * NULL sends to all the message to all clients
 */
 void TVM_PrintMsg( tvm_relay_t *relay, edict_t *ent, const char *format, ... )
@@ -145,7 +145,7 @@ void TVM_PrintMsg( tvm_relay_t *relay, edict_t *ent, const char *format, ... )
 
 /*
 * TVM_CenterPrintMsg
-* 
+*
 * NULL sends to all the message to all clients
 */
 // MOVEME

@@ -307,7 +307,7 @@ static bool GS_CheckBladeAutoAttack( player_state_t *playerState, int timeDelta 
 //============================================================
 
 
-char *gs_weaponStateNames[] = 
+char *gs_weaponStateNames[] =
 {
 	"WEAPON_STATE_READY",
 	"WEAPON_STATE_ACTIVATING",

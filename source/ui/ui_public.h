@@ -23,7 +23,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 #define	UI_API_VERSION	    62
 
-typedef size_t (*ui_async_stream_read_cb_t)(const void *buf, size_t numb, float percentage, 
+typedef size_t (*ui_async_stream_read_cb_t)(const void *buf, size_t numb, float percentage,
 	int status, const char *contentType, void *privatep);
 typedef void (*ui_async_stream_done_cb_t)(int status, const char *contentType, void *privatep);
 
@@ -233,12 +233,12 @@ typedef struct
 
 	void ( *TouchAllAssets )( void );
 
-	void ( *Refresh )( unsigned int time, int clientState, int serverState, 
-		bool demoPlaying, const char *demoName, bool demoPaused, unsigned int demoTime, 
+	void ( *Refresh )( unsigned int time, int clientState, int serverState,
+		bool demoPlaying, const char *demoName, bool demoPaused, unsigned int demoTime,
 		bool backGround, bool showCursor );
 
-	void ( *UpdateConnectScreen )( const char *serverName, const char *rejectmessage, 
-		int downloadType, const char *downloadfilename, float downloadPercent, int downloadSpeed, 
+	void ( *UpdateConnectScreen )( const char *serverName, const char *rejectmessage,
+		int downloadType, const char *downloadfilename, float downloadPercent, int downloadSpeed,
 		int connectCount, bool backGround );
 
 	void ( *Keydown )( int context, int key );

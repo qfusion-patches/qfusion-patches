@@ -73,7 +73,7 @@ DocumentCache::DocumentSet::iterator DocumentCache::purgeDocument( DocumentSet::
 		documentSet.erase( it );
 		doc->removeReference();
 	}
-	
+
 	return next;
 }
 
@@ -215,7 +215,7 @@ Document *NavigationStack::pushDocument(const std::string &name, bool modal, boo
 
 	doc->setStack( this );
 
-	// the loading document might have pushed another document onto the stack 
+	// the loading document might have pushed another document onto the stack
 	// in the onload event, pushing ourselves on top of it now is going to fuck up the order
 	Document *new_top = !documentStack.empty() ? documentStack.back() : nullptr;
 	if( top != new_top ) {

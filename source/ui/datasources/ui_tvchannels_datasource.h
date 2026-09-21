@@ -17,8 +17,8 @@ struct TVChannel
 	std::string matchname;
 	std::string address;
 
-	TVChannel() : id(0), 
-		name(""), realname(""), 
+	TVChannel() : id(0),
+		name(""), realname(""),
 		numPlayers(0), numSpecs(0),
 		gametype(""), mapname(""), matchname(""),
 		address("")

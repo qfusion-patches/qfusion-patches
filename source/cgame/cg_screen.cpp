@@ -111,7 +111,7 @@ int scr_erase_center;
 
 /*
 * CG_CenterPrint
-* 
+*
 * Called for important messages that should stay in the center of the screen
 * for a few moments
 */
@@ -151,7 +151,7 @@ static void CG_DrawCenterString( void )
 static void CG_CheckDamageCrosshair( void )
 {
 	scr_damagetime_off -= cg.frameTime;
-	if( scr_damagetime_off <= 0 ) 
+	if( scr_damagetime_off <= 0 )
 	{
 		if ( ! cg_crosshair_damage_color->modified )
 			return;
@@ -209,7 +209,7 @@ void CG_ShowQuickMenu( int state )
 
 /*
 * CG_CalcVrect
-* 
+*
 * Sets scr_vrect, the coordinates of the rendered window
 */
 void CG_CalcVrect( void )
@@ -245,7 +245,7 @@ void CG_CalcVrect( void )
 
 /*
 * CG_SizeUp_f
-* 
+*
 * Keybinding command
 */
 static void CG_SizeUp_f( void )
@@ -255,7 +255,7 @@ static void CG_SizeUp_f( void )
 
 /*
 * CG_SizeDown_f
-* 
+*
 * Keybinding command
 */
 static void CG_SizeDown_f( void )
@@ -485,7 +485,7 @@ void CG_DrawCrosshair( int x, int y, int align )
 
 	if( cg_crosshair_color->modified || cg_crosshair_damage_color->modified )
 	{
-		if ( cg_crosshair_damage_color->modified ) 
+		if ( cg_crosshair_damage_color->modified )
 		{
 			if ( scr_damagetime_off <= 0 )
 				scr_damagetime_off = 0.3;
@@ -525,7 +525,7 @@ void CG_DrawCrosshair( int x, int y, int align )
 
 	if( cg_crosshair_strong_color->modified || cg_crosshair_damage_color->modified )
 	{
-		if ( cg_crosshair_damage_color->modified ) 
+		if ( cg_crosshair_damage_color->modified )
 		{
 			rgbcolor = COM_ReadColorRGBString( cg_crosshair_damage_color->string );
 		} else {
@@ -630,7 +630,7 @@ void CG_DrawClock( int x, int y, int align, struct qfontface_s *font, vec4_t col
 		// count downwards when having a duration
 		if( duration && ( cg_showTimer->integer != 3 ) )
 		{
-			if( duration + startTime < curtime ) 
+			if( duration + startTime < curtime )
 				duration = curtime - startTime; // avoid negative results
 
 			clocktime = startTime + duration - curtime;
@@ -916,7 +916,7 @@ void CG_DrawTeamMates( void )
 		coords[1] -= pic_size / 2;
 		clamp( coords[0], 0, cgs.vidWidth - pic_size );
 		clamp( coords[1], 0, cgs.vidHeight - pic_size );
-		
+
 		CG_TeamColor( cg.predictedPlayerState.stats[STAT_TEAM], color );
 
 		if( cent->current.effects & EF_CARRIER )
@@ -1164,13 +1164,13 @@ static void CG_InGameMenu( void )
 	if( GS_MatchState() <= MATCH_STATE_WARMUP && realteam != TEAM_SPECTATOR )
 		is_ready = ( ( cg.predictedPlayerState.stats[STAT_LAYOUTS] & STAT_LAYOUT_READY ) != 0 );
 
-	Q_snprintfz( menuparms, sizeof( menuparms ), 
-		"menu_open game" 
-			" is_teambased %i" 
-			" team %i" 
-			" queue %i" 
-			" needs_ready %i" 
-			" is_ready %i" 
+	Q_snprintfz( menuparms, sizeof( menuparms ),
+		"menu_open game"
+			" is_teambased %i"
+			" team %i"
+			" queue %i"
+			" needs_ready %i"
+			" is_ready %i"
 			" gametype \"%s\""
 			" has_gametypemenu %i"
 			" team_spec %i"
@@ -1242,7 +1242,7 @@ void CG_DrawLoading( void )
 	if( cgs.precacheCount && cgs.precacheTotal )
 	{
 		struct shader_s *shader = trap_R_RegisterPic( UI_SHADER_LOADINGBAR );
-		int width = 480 * scale; 
+		int width = 480 * scale;
 		int height = 32 * scale;
 		float percent = ( ( float )cgs.precacheCount / ( float )cgs.precacheTotal );
 		int barWidth = ( width - height ) * bound( 0.0f, percent, 1.0f );
@@ -1281,7 +1281,7 @@ bool CG_LoadingItemName( const char *str )
 
 /*
 * CG_TileClearRect
-* 
+*
 * This repeats tile graphic to fill the screen around a sized down
 * refresh window.
 */
@@ -1297,7 +1297,7 @@ static void CG_TileClearRect( int x, int y, int w, int h, struct shader_s *shade
 
 /*
 * CG_TileClear
-* 
+*
 * Clear any parts of the tiled background that were drawn on last frame
 */
 void CG_TileClear( void )

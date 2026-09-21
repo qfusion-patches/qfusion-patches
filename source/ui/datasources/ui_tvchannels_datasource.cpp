@@ -77,7 +77,7 @@ void TVChannelsDataSource::AddChannel( int id, const TVChannel &chan )
 void TVChannelsDataSource::RemoveChannel( int id )
 {
 	ChannelList::iterator it = channelList.find( id );
-	if( it == channelList.end() ) { 
+	if( it == channelList.end() ) {
 		return;
 	}
 

@@ -200,7 +200,7 @@ static void CG_FlashGameWindow( void )
 	}
 
 	// notify player of teams scoring in team-based gametypes
-	if( !scoresSet || 
+	if( !scoresSet ||
 		( oldAlphaScore != cg.predictedPlayerState.stats[STAT_TEAM_ALPHA_SCORE] || oldBetaScore != cg.predictedPlayerState.stats[STAT_TEAM_BETA_SCORE] ) )  {
 		oldAlphaScore = cg.predictedPlayerState.stats[STAT_TEAM_ALPHA_SCORE];
 		oldBetaScore = cg.predictedPlayerState.stats[STAT_TEAM_BETA_SCORE];

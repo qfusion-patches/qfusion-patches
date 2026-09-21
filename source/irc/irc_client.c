@@ -106,7 +106,7 @@ void Irc_Client_Connected_f(void *connected) {
 		cmd.string = "QUIT";				Irc_Proto_AddListener(cmd, Irc_Client_CmdQuit_f);
 		cmd.string = "KILL";				Irc_Proto_AddListener(cmd, Irc_Client_CmdKill_f);
 		cmd.string = "KICK";				Irc_Proto_AddListener(cmd, Irc_Client_CmdKick_f);
-		
+
 		cmd.type = IRC_COMMAND_NUMERIC;
 		cmd.numeric = RPL_HELLO;			Irc_Proto_AddListener(cmd, Irc_Client_CmdNotice_f);
 		cmd.numeric = RPL_WELCOME;			Irc_Proto_AddListener(cmd, Irc_Client_CmdNotice_f);
@@ -244,7 +244,7 @@ void Irc_Client_Connected_f(void *connected) {
 		cmd.string = "QUIT";				Irc_Proto_RemoveListener(cmd, Irc_Client_CmdQuit_f);
 		cmd.string = "KILL";				Irc_Proto_RemoveListener(cmd, Irc_Client_CmdKill_f);
 		cmd.string = "KICK";				Irc_Proto_RemoveListener(cmd, Irc_Client_CmdKick_f);
-		
+
 		cmd.type = IRC_COMMAND_NUMERIC;
 		cmd.numeric = RPL_HELLO;			Irc_Proto_RemoveListener(cmd, Irc_Client_CmdNotice_f);
 		cmd.numeric = RPL_WELCOME;			Irc_Proto_RemoveListener(cmd, Irc_Client_CmdNotice_f);
@@ -826,7 +826,7 @@ static void Irc_Client_CmdParamNotice_f(irc_command_t cmd, const char *prefix, c
 		Irc_Println(IRC_COLOR_WHITE " %s %s", IRC_COLOR_IRC_TO_WSW, p, trailing);
 	} else
 		Irc_Println(IRC_COLOR_WHITE " %s", IRC_COLOR_IRC_TO_WSW, trailing);
-	
+
 }
 
 static void Irc_Client_CmdPrivmsg_f(irc_command_t cmd, const char *prefix, const char *params, const char *trailing) {
@@ -938,7 +938,7 @@ static void Irc_Client_CmdRplTopic_f(irc_command_t cmd, const char *prefix, cons
 	}
 }
 
-static void Irc_Client_CmdRplNotopic_f(irc_command_t cmd, const char *prefix, const char *params, const char *trailing) {	
+static void Irc_Client_CmdRplNotopic_f(irc_command_t cmd, const char *prefix, const char *params, const char *trailing) {
 	const char *chan = strchr(params, ' ');
 	if (chan) {
 		++chan;
@@ -951,7 +951,7 @@ static void Irc_Client_CmdRplWhoisuser_f(irc_command_t cmd, const char *prefix, 
 	const char *nick = "", *user = "", *host = "", *real_name = trailing;
 	char *p;
 	unsigned int i = 0;
-	
+
 	// parse params "<nick> <user> <host> * :<real name>"
 	strcpy(buf, params);
 	for (p = strtok(buf, " "); p; p = strtok(NULL, " "), ++i) {
@@ -975,7 +975,7 @@ static void Irc_Client_CmdRplWhoisserver_f(irc_command_t cmd, const char *prefix
 	const char *nick = "", *server = "", *server_info = trailing;
 	char *p;
 	unsigned int i = 0;
-	
+
 	// parse params "<nick> <server> :<server info>"
 	strcpy(buf, params);
 	for (p = strtok(buf, " "); p; p = strtok(NULL, " "), ++i) {
@@ -1012,7 +1012,7 @@ static void Irc_Client_CmdRplWhoisaccount_f(irc_command_t cmd, const char *prefi
 	const char *nick = "", *account = "";
 	char *p;
 	unsigned int i = 0;
-	
+
 	// parse params "<nick> <account> :is logged in as"
 	strcpy(buf, params);
 	for (p = strtok(buf, " "); p; p = strtok(NULL, " "), ++i) {

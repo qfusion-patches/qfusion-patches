@@ -317,7 +317,7 @@ void TV_Relay_NameNotify( relay_t *relay, client_t *client )
 	numspecs = relay->num_active_specs;
 
 	Q_snprintfz( cmd, sizeof( cmd ), "cha %i \"%s\" \"%s\" \"%s\" %i %i \"%s\" \"%s\" \"%s\"", relay->upstream->number + 1, relay->upstream->name,
-		relay->configstrings[CS_HOSTNAME], addr, 
+		relay->configstrings[CS_HOSTNAME], addr,
 		numplayers, numspecs,
 		relay->configstrings[CS_GAMETYPENAME], relay->configstrings[CS_MAPNAME], relay->configstrings[CS_MATCHNAME] );
 

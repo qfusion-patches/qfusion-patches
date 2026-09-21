@@ -59,7 +59,7 @@ typedef struct callvotetype_s
 	void ( *execute )( callvotedata_t *vote );
 	const char *( *current )( void );
 	void ( *extraHelp )( edict_t *ent );
-	http_response_code_t ( *webRequest )( http_query_method_t method, const char *resource, 
+	http_response_code_t ( *webRequest )( http_query_method_t method, const char *resource,
 		const char *query_string, char **content, size_t *content_length );
 	char *argument_format;
 	char *help;
@@ -101,7 +101,7 @@ static void G_AppendString( char **pdst, const char *src, size_t *pdst_len, size
 	src_len = strlen( src );
 	if( dst_len + src_len >= dst_size ) {
 		char *old_dst = dst;
-	
+
 		dst_size = (dst_len + src_len) * 2;
 		dst = ( char * )G_Malloc( dst_size );
 		memcpy( dst, old_dst, dst_len );
@@ -119,7 +119,7 @@ static void G_AppendString( char **pdst, const char *src, size_t *pdst_len, size
 	*pdst = dst;
 }
 
-static http_response_code_t G_PlayerlistWebRequest( http_query_method_t method, const char *resource, 
+static http_response_code_t G_PlayerlistWebRequest( http_query_method_t method, const char *resource,
 	const char *query_string, char **content, size_t *content_length )
 {
 	int i;
@@ -132,11 +132,11 @@ static http_response_code_t G_PlayerlistWebRequest( http_query_method_t method, 
 
 	for( i = 0; i < gs.maxclients; i++ ) {
 		if( trap_GetClientState( i ) >= CS_SPAWNED ) {
-			G_AppendString( &msg, va( 
+			G_AppendString( &msg, va(
 				"{\n"
 				"\"value\"" " " "\"%i\"" "\n"
 				"\"name\"" " " "\"%s\"" "\n"
-				"}\n", 
+				"}\n",
 				i,
 				game.clients[i].netname
 				), &msg_len, &msg_size );
@@ -151,7 +151,7 @@ static http_response_code_t G_PlayerlistWebRequest( http_query_method_t method, 
 /*
 * shuffle/rebalance
 */
-typedef struct 
+typedef struct
 {
 	int ent;
 	int weight;
@@ -326,7 +326,7 @@ static const char *G_VoteMapCurrent( void )
 	return level.mapname;
 }
 
-static http_response_code_t G_VoteMapWebRequest( http_query_method_t method, const char *resource, 
+static http_response_code_t G_VoteMapWebRequest( http_query_method_t method, const char *resource,
 	const char *query_string, char **content, size_t *content_length )
 {
 	int i;
@@ -351,11 +351,11 @@ static http_response_code_t G_VoteMapWebRequest( http_query_method_t method, con
 		{
 			const char *fullname = trap_ML_GetFullname( tok );
 
-			G_AppendString( &msg, va( 
+			G_AppendString( &msg, va(
 				"{\n"
 				"\"value\"" " " "\"%s\"" "\n"
 				"\"name\"" " " "\"%s '%s'\"" "\n"
-				"}\n", 
+				"}\n",
 				tok,
 				tok, fullname
 			), &msg_len, &msg_size );
@@ -371,7 +371,7 @@ static http_response_code_t G_VoteMapWebRequest( http_query_method_t method, con
 				"{\n"
 				"\"value\"" " " "\"%s\"" "\n"
 				"\"name\"" " " "\"%s '%s'\"" "\n"
-				"}\n", 
+				"}\n",
 				buffer,
 				buffer, buffer + strlen( buffer ) + 1
 			), &msg_len, &msg_size );
@@ -496,7 +496,7 @@ static void G_VoteGametypeExtraHelp( edict_t *ent )
 
 	Q_strncatz( message, "- Available gametypes:", sizeof( message ) );
 
-	for( count = 0; ( name = G_ListNameForPosition( g_gametypes_list->string, count, CHAR_GAMETYPE_SEPARATOR ) ) != NULL; 
+	for( count = 0; ( name = G_ListNameForPosition( g_gametypes_list->string, count, CHAR_GAMETYPE_SEPARATOR ) ) != NULL;
 		count++ )
 	{
 		if( G_Gametype_IsVotable( name ) )
@@ -509,7 +509,7 @@ static void G_VoteGametypeExtraHelp( edict_t *ent )
 	G_PrintMsg( ent, "%s\n", message );
 }
 
-static http_response_code_t G_VoteGametypeWebRequest( http_query_method_t method, const char *resource, 
+static http_response_code_t G_VoteGametypeWebRequest( http_query_method_t method, const char *resource,
 	const char *query_string, char **content, size_t *content_length )
 {
 	char *name; // use buffer to send only one print message
@@ -521,16 +521,16 @@ static http_response_code_t G_VoteGametypeWebRequest( http_query_method_t method
 		return HTTP_RESP_BAD_REQUEST;
 	}
 
-	for( count = 0; ( name = G_ListNameForPosition( g_gametypes_list->string, count, CHAR_GAMETYPE_SEPARATOR ) ) != NULL; 
+	for( count = 0; ( name = G_ListNameForPosition( g_gametypes_list->string, count, CHAR_GAMETYPE_SEPARATOR ) ) != NULL;
 		count++ )
 	{
 		if( G_Gametype_IsVotable( name ) )
 		{
-			G_AppendString( &msg, va( 
+			G_AppendString( &msg, va(
 				"{\n"
 				"\"value\"" " " "\"%s\"" "\n"
 				"\"name\"" " " "\"%s\"" "\n"
-				"}\n", 
+				"}\n",
 				name,
 				name
 				), &msg_len, &msg_size );
@@ -1066,7 +1066,7 @@ static bool G_VoteKickValidate( callvotedata_t *vote, bool first )
 	{
 		if( !vote->string || Q_stricmp( vote->string, game.edicts[who+1].r.client->netname ) )
 		{
-			if( vote->string ) 
+			if( vote->string )
 				G_Free( vote->string );
 
 			vote->string = G_CopyString( game.edicts[who+1].r.client->netname );
@@ -1166,7 +1166,7 @@ static bool G_VoteKickBanValidate( callvotedata_t *vote, bool first )
 	{
 		if( !vote->string || Q_stricmp( vote->string, game.edicts[who+1].r.client->netname ) )
 		{
-			if( vote->string ) 
+			if( vote->string )
 				G_Free( vote->string );
 
 			vote->string = G_CopyString( game.edicts[who+1].r.client->netname );
@@ -1483,14 +1483,14 @@ static bool G_VoteAllowInstajumpValidate( callvotedata_t *vote, bool first )
 
 	if( instajump && g_instajump->integer )
 	{
-		if( first ) 
+		if( first )
 			G_PrintMsg( vote->caller, "%sInstajump is already allowed\n", S_COLOR_RED );
 		return false;
 	}
 
 	if( !instajump && !g_instajump->integer )
 	{
-		if( first ) 
+		if( first )
 			G_PrintMsg( vote->caller, "%sInstajump is already disabled\n", S_COLOR_RED );
 		return false;
 	}
@@ -1524,14 +1524,14 @@ static bool G_VoteAllowInstashieldValidate( callvotedata_t *vote, bool first )
 
 	if( instashield && g_instashield->integer )
 	{
-		if( first ) 
+		if( first )
 			G_PrintMsg( vote->caller, "%sInstashield is already allowed\n", S_COLOR_RED );
 		return false;
 	}
 
 	if( !instashield && !g_instashield->integer )
 	{
-		if( first ) 
+		if( first )
 			G_PrintMsg( vote->caller, "%sInstashield is already disabled\n", S_COLOR_RED );
 		return false;
 	}
@@ -2350,7 +2350,7 @@ static void G_CallVote( edict_t *ent, bool isopcall )
 		return;
 	}
 
-	if( !isopcall && ent->r.client->level.callvote_when && 
+	if( !isopcall && ent->r.client->level.callvote_when &&
 		(ent->r.client->level.callvote_when + g_callvote_cooldowntime->integer * 1000 > game.realtime) ) {
 		G_PrintMsg( ent, "%sYou can not call a vote right now\n", S_COLOR_RED, callvote->name );
 		return;
@@ -2476,7 +2476,7 @@ void G_OperatorVote_Cmd( edict_t *ent )
 			clientVoted[PLAYERNUM( other )] = forceVote;
 		}
 
-		G_PrintMsg( NULL, "Callvote has been %s by %s\n", 
+		G_PrintMsg( NULL, "Callvote has been %s by %s\n",
 			forceVote == VOTED_NO ? "cancelled" : "passed", ent->r.client->netname );
 		return;
 	}
@@ -2938,7 +2938,7 @@ void G_CallVotes_Init( void )
 /*
 * G_CallVotes_WebRequest
 */
-http_response_code_t G_CallVotes_WebRequest( http_query_method_t method, const char *resource, 
+http_response_code_t G_CallVotes_WebRequest( http_query_method_t method, const char *resource,
 	const char *query_string, char **content, size_t *content_length )
 {
 	char *msg = NULL;
@@ -2962,7 +2962,7 @@ http_response_code_t G_CallVotes_WebRequest( http_query_method_t method, const c
 				"\"argument_format\"" " " "\"%s\"" "\n"
 				"\"argument_type\"" " " "\"%s\"" "\n"
 				"\"help\"" " " "\"%s\"" "\n"
-				"}\n", 
+				"}\n",
 				callvote->name,
 				callvote->expectedargs,
 				callvote->argument_format ? callvote->argument_format : "",

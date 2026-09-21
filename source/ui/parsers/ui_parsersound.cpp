@@ -30,8 +30,8 @@ PropertyParserSound::~PropertyParserSound()
 }
 
 // Called to parse a RCSS string declaration.
-bool PropertyParserSound::ParseValue(Rocket::Core::Property& property, 
-	const Rocket::Core::String& value, 
+bool PropertyParserSound::ParseValue(Rocket::Core::Property& property,
+	const Rocket::Core::String& value,
 	const Rocket::Core::ParameterMap& ROCKET_UNUSED_PARAMETER(parameters)) const
 {
 	property.value = Rocket::Core::Variant(value);

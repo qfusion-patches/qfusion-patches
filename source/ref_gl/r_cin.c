@@ -108,28 +108,28 @@ static void R_UploadCinematicFrame( r_cinhandle_t *handle )
 			const char *letters[3] = { "y", "u", "v" };
 
 			for( i = 0; i < 3; i++ ) {
-				handle->yuv_images[i] = R_LoadImage( 
-					va_r( tn, sizeof( tn ), "%s_%s", handle->name, letters[i] ), 
+				handle->yuv_images[i] = R_LoadImage(
+					va_r( tn, sizeof( tn ), "%s_%s", handle->name, letters[i] ),
 					fake_data, 1, 1, IT_SPECIAL|IT_NO_DATA_SYNC, 1, IMAGE_TAG_GENERIC, 1 );
 			}
 			handle->new_frame = true;
 		}
-		
+
 		if( handle->new_frame ) {
 			int fbo;
 			bool in2D;
-			
+
 			// render/convert three 8-bit YUV images into RGB framebuffer
 
-			in2D = rf.in2D;	
+			in2D = rf.in2D;
 			fbo = RFB_BoundObject();
 
 			if( !in2D ) {
 				R_PushRefInst();
 			}
 
-			R_InitViewportTexture( &handle->image, handle->name, 0, 
-				handle->cyuv->image_width, handle->cyuv->image_height, 
+			R_InitViewportTexture( &handle->image, handle->name, 0,
+				handle->cyuv->image_width, handle->cyuv->image_height,
 				0, IT_SPECIAL|IT_FRAMEBUFFER, IMAGE_TAG_GENERIC, samples );
 
 			R_BindFrameBufferObject( handle->image->fbo );
@@ -143,13 +143,13 @@ static void R_UploadCinematicFrame( r_cinhandle_t *handle )
 			R_UploadRawYUVPic( handle->yuv_images, handle->cyuv->yuv );
 
 			// flip the image vertically because we're rendering to a FBO
-			R_DrawStretchRawYUVBuiltin( 
-				0, 0, 
+			R_DrawStretchRawYUVBuiltin(
+				0, 0,
 				handle->image->upload_width, handle->image->upload_height,
-				(float)handle->cyuv->x_offset / handle->cyuv->image_width, 
-				(float)handle->cyuv->y_offset / handle->cyuv->image_height, 
-				(float)(handle->cyuv->x_offset + handle->cyuv->width) / handle->cyuv->image_width, 
-				(float)(handle->cyuv->y_offset + handle->cyuv->height) / handle->cyuv->image_height, 
+				(float)handle->cyuv->x_offset / handle->cyuv->image_width,
+				(float)handle->cyuv->y_offset / handle->cyuv->image_height,
+				(float)(handle->cyuv->x_offset + handle->cyuv->width) / handle->cyuv->image_width,
+				(float)(handle->cyuv->y_offset + handle->cyuv->height) / handle->cyuv->image_height,
 				handle->yuv_images, 2 );
 
 			if( !in2D ) {
@@ -164,12 +164,12 @@ static void R_UploadCinematicFrame( r_cinhandle_t *handle )
 	}
 	else {
 		if( !handle->image ) {
-			handle->image = R_LoadImage( handle->name, (uint8_t **)&handle->pic, handle->width, handle->height, 
+			handle->image = R_LoadImage( handle->name, (uint8_t **)&handle->pic, handle->width, handle->height,
 				IT_SPECIAL|IT_NO_DATA_SYNC, 1, IMAGE_TAG_GENERIC, samples );
 		}
-		
+
 		if( handle->new_frame ) {
-			R_ReplaceImage( handle->image, (uint8_t **)&handle->pic, handle->width, handle->height, 
+			R_ReplaceImage( handle->image, (uint8_t **)&handle->pic, handle->width, handle->height,
 				handle->image->flags, 1, samples );
 			handle->new_frame = false;
 		}
@@ -203,7 +203,7 @@ void R_CinList_f( void )
 
 		image = handle->image;
 		if( image && (handle->width != image->upload_width || handle->height != image->upload_height) )
-			Com_Printf( "%s %i(%i)x%i(%i)\n", handle->name, handle->width, 
+			Com_Printf( "%s %i(%i)x%i(%i)\n", handle->name, handle->width,
 				image->upload_width, handle->height, image->upload_height );
 		else
 			Com_Printf( "%s %ix%i\n", handle->name, handle->width, handle->height );
@@ -267,7 +267,7 @@ static r_cinhandle_t *R_GetCinematicHandleById( unsigned int id )
 struct cinematics_s *R_GetCinematicById( unsigned int id )
 {
 	r_cinhandle_t *handle;
-	
+
 	handle = R_GetCinematicHandleById( id );
 	if( handle ) {
 		return handle->cin;
@@ -281,7 +281,7 @@ struct cinematics_s *R_GetCinematicById( unsigned int id )
 image_t *R_GetCinematicImage( unsigned int id )
 {
 	r_cinhandle_t *handle;
-	
+
 	handle = R_GetCinematicHandleById( id );
 	if( handle ) {
 		return handle->image;
@@ -296,7 +296,7 @@ image_t *R_GetCinematicImage( unsigned int id )
 void R_UploadCinematic( unsigned int id )
 {
 	r_cinhandle_t *handle;
-	
+
 	handle = R_GetCinematicHandleById( id );
 	if( handle ) {
 		R_UploadCinematicFrame( handle );
@@ -381,7 +381,7 @@ void R_TouchCinematic( unsigned int id )
 {
 	int i;
 	r_cinhandle_t *handle;
-	
+
 	handle = R_GetCinematicHandleById( id );
 	if( !handle ) {
 		return;
@@ -400,7 +400,7 @@ void R_TouchCinematic( unsigned int id )
 		}
 	}
 
-	// do not attempt to reupload the new frame until successful R_RunCin 
+	// do not attempt to reupload the new frame until successful R_RunCin
 	handle->new_frame = false;
 	handle->pic = NULL;
 	handle->cyuv = NULL;
@@ -431,7 +431,7 @@ void R_FreeCinematic( unsigned int id )
 {
 	qmutex_t *lock;
 	r_cinhandle_t *handle;
-	
+
 	handle = R_GetCinematicHandleById( id );
 	if( !handle ) {
 		return;

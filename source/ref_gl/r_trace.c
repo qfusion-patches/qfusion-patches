@@ -33,7 +33,7 @@ static int r_traceframecount;
 
 /*
 * R_TraceAgainstTriangle
-* 
+*
 * Ray-triangle intersection as per
 * http://geometryalgorithms.com/Archive/algorithm_0105/algorithm_0105.htm
 * (original paper by Dan Sunday)
@@ -237,7 +237,7 @@ loc0:
 /*
 * R_TraceLine
 */
-static msurface_t *R_TransformedTraceLine( rtrace_t *tr, const vec3_t start, const vec3_t end, 
+static msurface_t *R_TransformedTraceLine( rtrace_t *tr, const vec3_t start, const vec3_t end,
 	entity_t *test, int surfumask )
 {
 	model_t *model;

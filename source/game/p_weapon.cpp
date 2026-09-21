@@ -114,7 +114,7 @@ bool Pickup_Weapon( edict_t *other, const gsitem_t *item, int flags, int ammo_co
 			Add_Ammo( other->r.client, GS_FindItemByTag( ammo_tag ), weapondef->firedef.weapon_pickup, true );
 	}
 	else
-	{    
+	{
 		// it's a dropped weapon
 		ammo_tag = item->ammo_tag;
 		if( ammo_count && ammo_tag )
@@ -184,9 +184,9 @@ static void G_ProjectileDistancePrestep( edict_t *projectile, float distance )
 	vec3_t plasma_hack_start;
 #endif
 
-	if( projectile->movetype != MOVETYPE_TOSS 
+	if( projectile->movetype != MOVETYPE_TOSS
 		&& projectile->movetype != MOVETYPE_LINEARPROJECTILE
-		&& projectile->movetype != MOVETYPE_BOUNCE 
+		&& projectile->movetype != MOVETYPE_BOUNCE
 		&& projectile->movetype != MOVETYPE_BOUNCEGRENADE )
 		return;
 
@@ -729,7 +729,7 @@ void G_FireWeapon( edict_t *ent, int parm )
 	VectorAdd( ent->s.origin, viewoffset, origin );
 
 
-	// shoot 
+	// shoot
 
 	projectile = NULL;
 
@@ -779,7 +779,7 @@ void G_FireWeapon( edict_t *ent, int parm )
 	}
 
 	// add stats
-	if( ent->r.client && weapondef->weapon_id != WEAP_NONE ) 
+	if( ent->r.client && weapondef->weapon_id != WEAP_NONE )
 		ent->r.client->level.stats.accuracy_shots[firedef->ammo_id - AMMO_GUNBLADE] += firedef->projectile_count;
 
 	if( projectile )
@@ -805,4 +805,3 @@ void G_FireWeapon( edict_t *ent, int parm )
 	}
 #endif
 }
-

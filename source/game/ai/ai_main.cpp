@@ -475,12 +475,12 @@ static void AI_PickShortRangeGoal( edict_t *self )
 		dist = DistanceFast( self->s.origin, goalEnt->ent->s.origin );
 		if( goalEnt == self->ai->goalEnt ) {
 			if( dist > AI_GOAL_SR_LR_RADIUS )
-				continue;			
+				continue;
 		}
 		else {
 			if( dist > AI_GOAL_SR_RADIUS )
 				continue;
-		}		
+		}
 
 		clamp_low( dist, 0.01f );
 
@@ -490,7 +490,7 @@ static void AI_PickShortRangeGoal( edict_t *self )
 			bool in_front = G_InFront( self, goalEnt->ent );
 
 			// Long range goal gets top priority
-			if( in_front && goalEnt == self->ai->goalEnt ) 
+			if( in_front && goalEnt == self->ai->goalEnt )
 			{
 				bestGoal = goalEnt->ent;
 				break;
@@ -628,4 +628,3 @@ void AI_Think( edict_t *self )
 			AITools_DrawPath( self, self->ai->goal_node );
 	}
 }
-

@@ -47,9 +47,9 @@ vec3_t item_box_maxs = { 16.0f, 16.0f, 40.0f };
 #define REGEN_TIME	30
 
 /*
-* 
+*
 * ITEM DEFS
-* 
+*
 */
 
 gsitem_t	itemdefs[] =
@@ -1153,7 +1153,7 @@ gsitem_t *GS_Cmd_UseItem( player_state_t *playerState, const char *string, int t
 			gs_weapon_definition_t *weapondef = GS_GetWeaponDef( item->tag );
 
 			if( weapondef )
-			{	
+			{
 				// do we have any of these ammos ?
 				if( playerState->inventory[item->weakammo_tag] >= weapondef->firedef_weak.usage_count )
 					return item;

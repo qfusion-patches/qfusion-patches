@@ -5,7 +5,7 @@
 // string type must be registered with the engine before registering the
 // dictionary type
 
-#ifndef ANGELSCRIPT_H 
+#ifndef ANGELSCRIPT_H
 // Avoid having to inform include path if header is already include before
 #include <angelscript.h>
 #endif
@@ -105,7 +105,7 @@ protected:
 	void Initialize(asIScriptEngine *engine);
 
 	void Set_(const char *key, void *value, int typeId);
-	
+
 	// Our properties
 	asIScriptEngine *engine;
 	mutable int refCount;

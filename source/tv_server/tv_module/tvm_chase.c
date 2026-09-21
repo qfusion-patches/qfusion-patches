@@ -212,7 +212,7 @@ static int TVM_Chase_FindFollowPOV( edict_t *ent )
 				newpoweruppov = warshell;
 			else if( poweruppov == warshell )
 				newpoweruppov = quad;
-			else 
+			else
 				newpoweruppov = ( rand() & 1 ) ? quad : warshell;
 		}
 
@@ -433,7 +433,7 @@ static void TVM_ChaseChange( edict_t *ent, int step )
 			if( i == start )
 				break;
 			if( TVM_Chase_IsValidTarget( ent, ent->relay->edicts + i ) )
-			{	
+			{
 				newtarget = ent->relay->edicts + i;
 				break;
 			}
@@ -569,5 +569,3 @@ void TVM_Cmd_SwitchChaseCamMode( edict_t *ent )
 		TVM_ChasePlayer( ent, NULL, ent->r.client->chase.followmode );
 	}
 }
-
-

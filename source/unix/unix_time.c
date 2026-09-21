@@ -31,7 +31,7 @@ unsigned int Sys_Milliseconds( void )
 
 /*
 * Sys_XTimeToSysTime
-* 
+*
 * Sub-frame timing of events returned by X
 * Ported from Quake III Arena source code.
 */

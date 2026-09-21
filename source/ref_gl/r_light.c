@@ -51,7 +51,7 @@ void R_InitCoronas( void )
 /*
 * R_BatchCoronaSurf
 */
-void R_BatchCoronaSurf( const entity_t *e, const shader_t *shader, 
+void R_BatchCoronaSurf( const entity_t *e, const shader_t *shader,
 	const mfog_t *fog, const portalSurface_t *portalSurface, unsigned int shadowBits, drawSurfaceType_t *drawSurf )
 {
 	int i;
@@ -131,9 +131,9 @@ void R_DrawCoronas( void )
 		if( tr.fraction != 1.0f )
 			continue;
 
-		R_AddSurfToDrawList( rn.meshlist, rsc.polyent, 
-			R_FogForSphere( light->origin, 1 ), 
-			r_coronaShader, 
+		R_AddSurfToDrawList( rn.meshlist, rsc.polyent,
+			R_FogForSphere( light->origin, 1 ),
+			r_coronaShader,
 			Distance( rn.viewOrigin, light->origin ), 0, NULL, &r_coronaSurfs[i] );
 	}
 }
@@ -197,9 +197,9 @@ void R_LightForOrigin( const vec3_t origin, vec3_t dir, vec4_t ambient, vec4_t d
 
 	for( i = 0; i < 4; i++ )
 	{
-		lightarray[i*2+0] = *rsh.worldBrushModel->lightarray[bound( 0, elem[i]+0, 
+		lightarray[i*2+0] = *rsh.worldBrushModel->lightarray[bound( 0, elem[i]+0,
 			(int)rsh.worldBrushModel->numlightarrayelems-1)];
-		lightarray[i*2+1] = *rsh.worldBrushModel->lightarray[bound( 1, elem[i]+1, 
+		lightarray[i*2+1] = *rsh.worldBrushModel->lightarray[bound( 1, elem[i]+1,
 			(int)rsh.worldBrushModel->numlightarrayelems-1)];
 	}
 
@@ -432,7 +432,7 @@ static int R_UploadLightmap( const char *name, uint8_t *data, int w, int h, int 
 		return r_numUploadedLightmaps;
 	if( r_numUploadedLightmaps == MAX_LIGHTMAP_IMAGES ) {
 		// not sure what I'm supposed to do here.. an unrealistic scenario
-		Com_Printf( S_COLOR_YELLOW "Warning: r_numUploadedLightmaps == MAX_LIGHTMAP_IMAGES\n" ); 
+		Com_Printf( S_COLOR_YELLOW "Warning: r_numUploadedLightmaps == MAX_LIGHTMAP_IMAGES\n" );
 		return 0;
 	}
 
@@ -447,7 +447,7 @@ static int R_UploadLightmap( const char *name, uint8_t *data, int w, int h, int 
 /*
 * R_PackLightmaps
 */
-static int R_PackLightmaps( int num, int w, int h, int dataSize, int stride, int samples, bool deluxe, 
+static int R_PackLightmaps( int num, int w, int h, int dataSize, int stride, int samples, bool deluxe,
 	const char *name, const uint8_t *data, mlightmapRect_t *rects )
 {
 	int i, x, y, root;
@@ -549,8 +549,8 @@ static int R_PackLightmaps( int num, int w, int h, int dataSize, int stride, int
 	{
 		for( x = 0, tx = 0.0; x < rectX; x++, tx += tw, num++, data += dataSize * stride )
 		{
-			R_BuildLightmap( w, h, 
-				mapConfig.deluxeMappingEnabled && ( num & 1 ) ? true : false, 
+			R_BuildLightmap( w, h,
+				mapConfig.deluxeMappingEnabled && ( num & 1 ) ? true : false,
 				data, block + x * xStride, rectX * xStride, samples );
 
 			// this is not a real texture matrix, but who cares?
@@ -618,12 +618,12 @@ void R_BuildLightmaps( model_t *mod, int numLightmaps, int w, int h, const uint8
 		if( !mapConfig.lightmapsPacking )
 			size = max( w, h );
 		else
-			for( size = 1; ( size < r_lighting_maxlmblocksize->integer ) 
+			for( size = 1; ( size < r_lighting_maxlmblocksize->integer )
 				&& ( size < glConfig.maxTextureSize ); size <<= 1 ) ;
 
 		if( mapConfig.deluxeMappingEnabled && ( ( size == w ) || ( size == h ) ) )
 		{
-			Com_Printf( S_COLOR_YELLOW "Lightmap blocks larger than %ix%i aren't supported" 
+			Com_Printf( S_COLOR_YELLOW "Lightmap blocks larger than %ix%i aren't supported"
 				", deluxemaps will be disabled\n", size, size );
 			mapConfig.deluxeMappingEnabled = false;
 		}
@@ -719,7 +719,7 @@ void R_BuildLightmaps( model_t *mod, int numLightmaps, int w, int h, const uint8
 		R_Free( r_lightmapBuffer );
 
 	loadbmodel->lightmapImages = Mod_Malloc( mod, sizeof( *loadbmodel->lightmapImages ) * r_numUploadedLightmaps );
-	memcpy( loadbmodel->lightmapImages, r_lightmapTextures, 
+	memcpy( loadbmodel->lightmapImages, r_lightmapTextures,
 		sizeof( *loadbmodel->lightmapImages ) * r_numUploadedLightmaps );
 	loadbmodel->numLightmapImages = r_numUploadedLightmaps;
 
@@ -836,7 +836,7 @@ superLightStyle_t *R_AddSuperLightStyle( model_t *mod, const int *lightmaps,
 
 /*
 * R_SuperLightStylesCmp
-* 
+*
 * Compare function for qsort
 */
 static int R_SuperLightStylesCmp( superLightStyle_t *sls1, superLightStyle_t *sls2 )
@@ -880,6 +880,6 @@ void R_SortSuperLightStyles( model_t *mod )
 	assert( mod );
 
 	loadbmodel = (( mbrushmodel_t * )mod->extradata);
-	qsort( loadbmodel->superLightStyles, loadbmodel->numSuperLightStyles, 
+	qsort( loadbmodel->superLightStyles, loadbmodel->numSuperLightStyles,
 		sizeof( superLightStyle_t ), ( int ( * )( const void *, const void * ) )R_SuperLightStylesCmp );
 }

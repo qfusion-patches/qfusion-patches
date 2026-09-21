@@ -74,7 +74,7 @@ void GT_asCallSpawn( void )
 	ctx = angelExport->asAcquireContext( GAME_AS_ENGINE() );
 
 	error = ctx->Prepare( static_cast<asIScriptFunction *>(level.gametype.spawnFunc) );
-	if( error < 0 ) 
+	if( error < 0 )
 		return;
 
 	error = ctx->Execute();
@@ -94,7 +94,7 @@ void GT_asCallMatchStateStarted( void )
 	ctx = angelExport->asAcquireContext( GAME_AS_ENGINE() );
 
 	error = ctx->Prepare( static_cast<asIScriptFunction *>(level.gametype.matchStateStartedFunc) );
-	if( error < 0 ) 
+	if( error < 0 )
 		return;
 
 	error = ctx->Execute();
@@ -115,7 +115,7 @@ bool GT_asCallMatchStateFinished( int incomingMatchState )
 	ctx = angelExport->asAcquireContext( GAME_AS_ENGINE() );
 
 	error = ctx->Prepare( static_cast<asIScriptFunction *>(level.gametype.matchStateFinishedFunc) );
-	if( error < 0 ) 
+	if( error < 0 )
 		return true;
 
 	// Now we need to pass the parameters to the script function.
@@ -143,7 +143,7 @@ void GT_asCallThinkRules( void )
 	ctx = angelExport->asAcquireContext( GAME_AS_ENGINE() );
 
 	error = ctx->Prepare( static_cast<asIScriptFunction *>(level.gametype.thinkRulesFunc) );
-	if( error < 0 ) 
+	if( error < 0 )
 		return;
 
 	error = ctx->Execute();
@@ -163,7 +163,7 @@ void GT_asCallPlayerRespawn( edict_t *ent, int old_team, int new_team )
 	ctx = angelExport->asAcquireContext( GAME_AS_ENGINE() );
 
 	error = ctx->Prepare( static_cast<asIScriptFunction *>(level.gametype.playerRespawnFunc) );
-	if( error < 0 ) 
+	if( error < 0 )
 		return;
 
 	// Now we need to pass the parameters to the script function.
@@ -195,7 +195,7 @@ void GT_asCallScoreEvent( gclient_t *client, const char *score_event, const char
 	ctx = angelExport->asAcquireContext( GAME_AS_ENGINE() );
 
 	error = ctx->Prepare( static_cast<asIScriptFunction *>(level.gametype.scoreEventFunc) );
-	if( error < 0 ) 
+	if( error < 0 )
 		return;
 
 	// Now we need to pass the parameters to the script function.
@@ -230,7 +230,7 @@ void GT_asCallScoreboardMessage( unsigned int maxlen )
 	ctx = angelExport->asAcquireContext( GAME_AS_ENGINE() );
 
 	error = ctx->Prepare( static_cast<asIScriptFunction *>(level.gametype.scoreboardMessageFunc) );
-	if( error < 0 ) 
+	if( error < 0 )
 		return;
 
 	// Now we need to pass the parameters to the script function.
@@ -260,7 +260,7 @@ edict_t *GT_asCallSelectSpawnPoint( edict_t *ent )
 	ctx = angelExport->asAcquireContext( GAME_AS_ENGINE() );
 
 	error = ctx->Prepare( static_cast<asIScriptFunction *>(level.gametype.selectSpawnPointFunc) );
-	if( error < 0 ) 
+	if( error < 0 )
 		return SelectDeathmatchSpawnPoint( ent );
 
 	// Now we need to pass the parameters to the script function.
@@ -294,7 +294,7 @@ bool GT_asCallGameCommand( gclient_t *client, const char *cmd, const char *args,
 	ctx = angelExport->asAcquireContext( GAME_AS_ENGINE() );
 
 	error = ctx->Prepare( static_cast<asIScriptFunction *>(level.gametype.clientCommandFunc) );
-	if( error < 0 ) 
+	if( error < 0 )
 		return false;
 
 	// Now we need to pass the parameters to the script function.
@@ -329,7 +329,7 @@ bool GT_asCallBotStatus( edict_t *ent )
 	ctx = angelExport->asAcquireContext( GAME_AS_ENGINE() );
 
 	error = ctx->Prepare( static_cast<asIScriptFunction *>(level.gametype.botStatusFunc) );
-	if( error < 0 ) 
+	if( error < 0 )
 		return false;
 
 	// Now we need to pass the parameters to the script function.
@@ -355,7 +355,7 @@ void GT_asCallShutdown( void )
 	ctx = angelExport->asAcquireContext( GAME_AS_ENGINE() );
 
 	error = ctx->Prepare( static_cast<asIScriptFunction *>(level.gametype.shutdownFunc) );
-	if( error < 0 ) 
+	if( error < 0 )
 		return;
 
 	error = ctx->Execute();
@@ -500,7 +500,7 @@ static bool G_asInitializeGametypeScript( asIScriptModule *asModule )
 	ctx = angelExport->asAcquireContext( GAME_AS_ENGINE() );
 
 	error = ctx->Prepare( static_cast<asIScriptFunction *>(level.gametype.initFunc) );
-	if( error < 0 ) 
+	if( error < 0 )
 		return false;
 
 	error = ctx->Execute();

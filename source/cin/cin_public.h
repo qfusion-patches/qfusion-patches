@@ -39,7 +39,7 @@ typedef struct {
 
 	// the width of this plane
 	// note that row data has to be continous
-	// so for planes where stride != image_width, 
+	// so for planes where stride != image_width,
 	// the width should be max (stride, image_width)
 	int width;
 
@@ -70,7 +70,7 @@ typedef struct {
 	//===============================
 } cin_yuv_t;
 
-typedef void (*cin_raw_samples_cb_t)(void*,unsigned int, unsigned int, 
+typedef void (*cin_raw_samples_cb_t)(void*,unsigned int, unsigned int,
 	unsigned short, unsigned short, const uint8_t *);
 typedef unsigned int (*cin_get_raw_samples_cb_t)(void*);
 

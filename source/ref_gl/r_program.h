@@ -195,20 +195,20 @@ void RP_StorePrecacheList( void );
 void RP_ProgramList_f( void );
 
 int	RP_FindProgram( const char *name );
-int	RP_RegisterProgram( int type, const char *name, const char *deformsKey, 
+int	RP_RegisterProgram( int type, const char *name, const char *deformsKey,
 	const deformv_t *deforms, int numDeforms, r_glslfeat_t features );
 int	RP_GetProgramObject( int elem );
 
-void RP_UpdateShaderUniforms( int elem, 
-	float shaderTime, 
-	const vec3_t entOrigin, const vec3_t entDist, const uint8_t *entityColor, 
+void RP_UpdateShaderUniforms( int elem,
+	float shaderTime,
+	const vec3_t entOrigin, const vec3_t entDist, const uint8_t *entityColor,
 	const uint8_t *constColor, const float *rgbGenFuncArgs, const float *alphaGenFuncArgs,
 	const mat4_t texMatrix );
 
-void RP_UpdateViewUniforms( int elem, 
+void RP_UpdateViewUniforms( int elem,
 	const mat4_t modelviewMatrix, const mat4_t modelviewProjectionMatrix,
-	const vec3_t viewOrigin, const mat3_t viewAxis, 
-	const float mirrorSide, 
+	const vec3_t viewOrigin, const mat3_t viewAxis,
+	const float mirrorSide,
 	int viewport[4],
 	float zNear, float zFar );
 
@@ -216,7 +216,7 @@ void RP_UpdateBlendMixUniform( int elem, vec2_t blendMask );
 
 void RP_UpdateSoftParticlesUniforms( int elem, float scale );
 
-void RP_UpdateMaterialUniforms( int elem, 
+void RP_UpdateMaterialUniforms( int elem,
 	float offsetmappingScale, float glossIntensity, float glossExponent );
 
 void RP_UpdateDistortionUniforms( int elem, bool frontPlane );
@@ -228,10 +228,10 @@ void RP_UpdateOutlineUniforms( int elem, float projDistance );
 void RP_UpdateDiffuseLightUniforms( int elem,
 	const vec3_t lightDir, const vec4_t lightAmbient, const vec4_t lightDiffuse );
 
-unsigned int RP_UpdateDynamicLightsUniforms( int elem, const superLightStyle_t *superLightStyle, 
+unsigned int RP_UpdateDynamicLightsUniforms( int elem, const superLightStyle_t *superLightStyle,
 	const vec3_t entOrigin, const mat3_t entAxis, unsigned int dlightbits );
 
-void RP_UpdateFogUniforms( int elem, byte_vec4_t color, float clearDist, float opaqueDist, 
+void RP_UpdateFogUniforms( int elem, byte_vec4_t color, float clearDist, float opaqueDist,
 	cplane_t *fogPlane, cplane_t *eyePlane, float eyeFogDist );
 
 void RP_UpdateTexGenUniforms( int elem, const mat4_t reflectionMatrix, const mat4_t vectorMatrix );

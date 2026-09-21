@@ -709,7 +709,7 @@ void G_CallVotes_Think( void );
 void G_CallVote_Cmd( edict_t *ent );
 void G_OperatorVote_Cmd( edict_t *ent );
 void G_RegisterGametypeScriptCallvote( const char *name, const char *usage, const char *type, const char *help );
-http_response_code_t G_CallVotes_WebRequest( http_query_method_t method, const char *resource, 
+http_response_code_t G_CallVotes_WebRequest( http_query_method_t method, const char *resource,
 	const char *query_string, char **content, size_t *content_length );
 
 //
@@ -1461,5 +1461,5 @@ void G_SetRaceTime( edict_t *ent, int sector, unsigned int time );
 void G_ListRaces_f( void );
 
 // web
-http_response_code_t G_WebRequest( http_query_method_t method, const char *resource, 
+http_response_code_t G_WebRequest( http_query_method_t method, const char *resource,
 		const char *query_string, char **content, size_t *content_length );

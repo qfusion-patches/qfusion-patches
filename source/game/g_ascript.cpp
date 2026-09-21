@@ -66,7 +66,7 @@ typedef struct
 typedef struct
 {
 	const char * name;
-	asDWORD typeFlags; 
+	asDWORD typeFlags;
 	size_t size;
 	const asFuncdef_t * funcdefs;
 	const asBehavior_t * objBehaviors;
@@ -591,7 +591,7 @@ static const asEnumVal_t asKeyiconEnumVals[] =
 	ASLIB_ENUM_VAL( KEYICON_CROUCH ),
 	ASLIB_ENUM_VAL( KEYICON_SPECIAL ),
 	ASLIB_ENUM_VAL( KEYICON_TOTAL ),
-	
+
 	ASLIB_ENUM_VAL_NULL
 };
 
@@ -669,7 +669,7 @@ static asIObjectType *asEntityArrayType()
 //=======================================================================
 
 // CLASS: Trace
-typedef struct  
+typedef struct
 {
 	trace_t trace;
 } astrace_t;
@@ -773,7 +773,7 @@ static const asClassDescriptor_t asTraceClassDescriptor =
 
 //=======================================================================
 
-// CLASS: Item 
+// CLASS: Item
 static asstring_t *objectGItem_getClassName( gsitem_t *self )
 {
 	return angelExport->asStringFactoryBuffer( self->classname, self->classname ? strlen(self->classname) : 0 );
@@ -1234,7 +1234,7 @@ static const asClassDescriptor_t asGametypeClassDescriptor =
 //=======================================================================
 
 // CLASS: Team
-static edict_t *objectTeamlist_GetPlayerEntity( int index, g_teamlist_t *obj ) 
+static edict_t *objectTeamlist_GetPlayerEntity( int index, g_teamlist_t *obj )
 {
 	if( index < 0 || index >= obj->numplayers )
 		return NULL;
@@ -1245,14 +1245,14 @@ static edict_t *objectTeamlist_GetPlayerEntity( int index, g_teamlist_t *obj )
 	return &game.edicts[ obj->playerIndices[index] ];
 }
 
-static asstring_t *objectTeamlist_getName( g_teamlist_t *obj ) 
+static asstring_t *objectTeamlist_getName( g_teamlist_t *obj )
 {
 	const char *name = GS_TeamName( obj - teamlist );
 
 	return angelExport->asStringFactoryBuffer( name, name ? strlen( name ) : 0 );
 }
 
-static asstring_t *objectTeamlist_getDefaultName( g_teamlist_t *obj ) 
+static asstring_t *objectTeamlist_getDefaultName( g_teamlist_t *obj )
 {
 	const char *name = GS_DefaultTeamName( obj - teamlist );
 
@@ -1273,22 +1273,22 @@ static void objectTeamlist_setName( asstring_t *str, g_teamlist_t *obj )
 	trap_ConfigString( CS_TEAM_ALPHA_NAME + team - TEAM_ALPHA, buf );
 }
 
-static bool objectTeamlist_IsLocked( g_teamlist_t *obj ) 
+static bool objectTeamlist_IsLocked( g_teamlist_t *obj )
 {
 	return G_Teams_TeamIsLocked( obj - teamlist );
 }
 
-static bool objectTeamlist_Lock( g_teamlist_t *obj ) 
+static bool objectTeamlist_Lock( g_teamlist_t *obj )
 {
 	return ( obj ? G_Teams_LockTeam( obj - teamlist ) : false );
 }
 
-static bool objectTeamlist_Unlock( g_teamlist_t *obj ) 
+static bool objectTeamlist_Unlock( g_teamlist_t *obj )
 {
 	return ( obj ? G_Teams_UnLockTeam( obj - teamlist ) : false );
 }
 
-static void objectTeamlist_ClearInvites( g_teamlist_t *obj ) 
+static void objectTeamlist_ClearInvites( g_teamlist_t *obj )
 {
 	obj->invited[0] = 0;
 }
@@ -1354,12 +1354,12 @@ static const asClassDescriptor_t asTeamListClassDescriptor =
 //=======================================================================
 
 // CLASS: Stats
-static void objectScoreStats_Clear( score_stats_t *obj ) 
+static void objectScoreStats_Clear( score_stats_t *obj )
 {
 	memset( obj, 0, sizeof( *obj ) );
 }
 
-static int objectScoreStats_AccShots( int ammo, score_stats_t *obj ) 
+static int objectScoreStats_AccShots( int ammo, score_stats_t *obj )
 {
 	if( ammo < AMMO_GUNBLADE || ammo >= AMMO_TOTAL )
 		return 0;
@@ -1367,7 +1367,7 @@ static int objectScoreStats_AccShots( int ammo, score_stats_t *obj )
 	return obj->accuracy_shots[ ammo - AMMO_GUNBLADE ];
 }
 
-static int objectScoreStats_AccHits( int ammo, score_stats_t *obj ) 
+static int objectScoreStats_AccHits( int ammo, score_stats_t *obj )
 {
 	if( ammo < AMMO_GUNBLADE || ammo >= AMMO_TOTAL )
 		return 0;
@@ -1375,7 +1375,7 @@ static int objectScoreStats_AccHits( int ammo, score_stats_t *obj )
 	return obj->accuracy_hits[ ammo - AMMO_GUNBLADE ];
 }
 
-static int objectScoreStats_AccHitsDirect( int ammo, score_stats_t *obj ) 
+static int objectScoreStats_AccHitsDirect( int ammo, score_stats_t *obj )
 {
 	if( ammo < AMMO_GUNBLADE || ammo >= AMMO_TOTAL )
 		return 0;
@@ -1383,7 +1383,7 @@ static int objectScoreStats_AccHitsDirect( int ammo, score_stats_t *obj )
 	return obj->accuracy_hits_direct[ ammo - AMMO_GUNBLADE ];
 }
 
-static int objectScoreStats_AccHitsAir( int ammo, score_stats_t *obj ) 
+static int objectScoreStats_AccHitsAir( int ammo, score_stats_t *obj )
 {
 	if( ammo < AMMO_GUNBLADE || ammo >= AMMO_TOTAL )
 		return 0;
@@ -1391,7 +1391,7 @@ static int objectScoreStats_AccHitsAir( int ammo, score_stats_t *obj )
 	return obj->accuracy_hits_air[ ammo - AMMO_GUNBLADE ];
 }
 
-static int objectScoreStats_AccDamage( int ammo, score_stats_t *obj ) 
+static int objectScoreStats_AccDamage( int ammo, score_stats_t *obj )
 {
 	if( ammo < AMMO_GUNBLADE || ammo >= AMMO_TOTAL )
 		return 0;
@@ -1399,12 +1399,12 @@ static int objectScoreStats_AccDamage( int ammo, score_stats_t *obj )
 	return obj->accuracy_damage[ ammo - AMMO_GUNBLADE ];
 }
 
-static void objectScoreStats_ScoreSet( int newscore, score_stats_t *obj ) 
+static void objectScoreStats_ScoreSet( int newscore, score_stats_t *obj )
 {
 	obj->score = newscore;
 }
 
-static void objectScoreStats_ScoreAdd( int score, score_stats_t *obj ) 
+static void objectScoreStats_ScoreAdd( int score, score_stats_t *obj )
 {
 	obj->score += score;
 }
@@ -2588,7 +2588,7 @@ static const asClassDescriptor_t asGameEntityClassDescriptor =
 
 //=======================================================================
 
-static const asClassDescriptor_t * const asClassesDescriptors[] = 
+static const asClassDescriptor_t * const asClassesDescriptors[] =
 {
 	&asTraceClassDescriptor,
 	&asItemClassDescriptor,
@@ -2645,8 +2645,8 @@ static void G_asRegisterObjectClasses( asIScriptEngine *asEngine )
 				const asBehavior_t *objBehavior = &cDescr->objBehaviors[j];
 				if( !objBehavior->declaration )
 					break;
-				asEngine->RegisterObjectBehaviour( 
-					cDescr->name, objBehavior->behavior, objBehavior->declaration, 
+				asEngine->RegisterObjectBehaviour(
+					cDescr->name, objBehavior->behavior, objBehavior->declaration,
 					objBehavior->funcPointer, objBehavior->callConv );
 			}
 		}
@@ -2660,8 +2660,8 @@ static void G_asRegisterObjectClasses( asIScriptEngine *asEngine )
 				if( !objMethod->declaration )
 					break;
 
-				asEngine->RegisterObjectMethod( cDescr->name, 
-					objMethod->declaration, objMethod->funcPointer, 
+				asEngine->RegisterObjectMethod( cDescr->name,
+					objMethod->declaration, objMethod->funcPointer,
 					objMethod->callConv );
 			}
 		}
@@ -2675,7 +2675,7 @@ static void G_asRegisterObjectClasses( asIScriptEngine *asEngine )
 				if( !objProperty->declaration )
 					break;
 
-				asEngine->RegisterObjectProperty( cDescr->name, 
+				asEngine->RegisterObjectProperty( cDescr->name,
 					objProperty->declaration, objProperty->offset );
 			}
 		}
@@ -3049,9 +3049,9 @@ static void asFunc_RegisterCallvote( asstring_t *asname, asstring_t *asusage, as
 	if( !asname || !asname->buffer || !asname->buffer[0]  )
 		return;
 
-	G_RegisterGametypeScriptCallvote( asname->buffer, 
-		asusage ? asusage->buffer : NULL, 
-		astype ? astype->buffer : NULL, 
+	G_RegisterGametypeScriptCallvote( asname->buffer,
+		asusage ? asusage->buffer : NULL,
+		astype ? astype->buffer : NULL,
 		ashelp ? ashelp->buffer : NULL );
 }
 
@@ -3325,15 +3325,15 @@ static const asglobfuncs_t asGlobFuncs[] =
 	{ "void G_CenterPrintMsg( Entity @, const String &in )", asFUNCTION(asFunc_CenterPrintMsg), NULL },
 	{ "void G_CenterPrintFormatMsg( Entity @, const String &in, const String &in )", asFUNCTION(asFunc_CenterPrintFormatMsg1), NULL },
 	{ "void G_CenterPrintFormatMsg( Entity @, const String &in, const String &in, const String &in )", asFUNCTION(asFunc_CenterPrintFormatMsg2), NULL },
-	{ "void G_CenterPrintFormatMsg( Entity @, const String &in, const String &in, const String &in" 
+	{ "void G_CenterPrintFormatMsg( Entity @, const String &in, const String &in, const String &in"
 		", const String &in )", asFUNCTION(asFunc_CenterPrintFormatMsg3), NULL },
-	{ "void G_CenterPrintFormatMsg( Entity @, const String &in, const String &in, const String &in" 
+	{ "void G_CenterPrintFormatMsg( Entity @, const String &in, const String &in, const String &in"
 		", const String &in, const String &in )", asFUNCTION(asFunc_CenterPrintFormatMsg4), NULL },
-	{ "void G_CenterPrintFormatMsg( Entity @, const String &in, const String &in, const String &in" 
+	{ "void G_CenterPrintFormatMsg( Entity @, const String &in, const String &in, const String &in"
 		", const String &in, const String &in, const String &in )", asFUNCTION(asFunc_CenterPrintFormatMsg5), NULL },
-	{ "void G_CenterPrintFormatMsg( Entity @, const String &in, const String &in, const String &in" 
+	{ "void G_CenterPrintFormatMsg( Entity @, const String &in, const String &in, const String &in"
 		", const String &in, const String &in, const String &in, const String &in )", asFUNCTION(asFunc_CenterPrintFormatMsg6), NULL },
-	{ "void G_CenterPrintFormatMsg( Entity @, const String &in, const String &in, const String &in" 
+	{ "void G_CenterPrintFormatMsg( Entity @, const String &in, const String &in, const String &in"
 		", const String &in, const String &in, const String &in, const String &in, const String &in )", asFUNCTION(asFunc_CenterPrintFormatMsg7), NULL },
 	{ "void G_Sound( Entity @, int channel, int soundindex, float attenuation )", asFUNCTION(asFunc_G_Sound), NULL },
 	{ "void G_PositionedSound( const Vec3 &in, int channel, int soundindex, float attenuation )", asFUNCTION(asFunc_PositionedSound), NULL },
@@ -3527,7 +3527,7 @@ bool G_asCallMapEntitySpawnScript( const char *classname, edict_t *ent )
 	// call the spawn function
 	asContext = angelExport->asAcquireContext( asEngine );
 	error = asContext->Prepare( asSpawnFunc );
-	if( error < 0 ) 
+	if( error < 0 )
 		return false;
 
 	// Now we need to pass the parameters to the script function.
@@ -3617,7 +3617,7 @@ void G_asCallMapEntityThink( edict_t *ent )
 	ctx = angelExport->asAcquireContext( GAME_AS_ENGINE() );
 
 	error = ctx->Prepare( static_cast<asIScriptFunction *>(ent->asThinkFunc) );
-	if( error < 0 ) 
+	if( error < 0 )
 		return;
 
 	// Now we need to pass the parameters to the script function.
@@ -3641,7 +3641,7 @@ void G_asCallMapEntityTouch( edict_t *ent, edict_t *other, cplane_t *plane, int 
 	ctx = angelExport->asAcquireContext( GAME_AS_ENGINE() );
 
 	error = ctx->Prepare( static_cast<asIScriptFunction *>(ent->asTouchFunc) );
-	if( error < 0 ) 
+	if( error < 0 )
 		return;
 
 	if( plane )
@@ -3676,7 +3676,7 @@ void G_asCallMapEntityUse( edict_t *ent, edict_t *other, edict_t *activator )
 	ctx = angelExport->asAcquireContext( GAME_AS_ENGINE() );
 
 	error = ctx->Prepare( static_cast<asIScriptFunction *>(ent->asUseFunc) );
-	if( error < 0 ) 
+	if( error < 0 )
 		return;
 
 	// Now we need to pass the parameters to the script function.
@@ -3701,7 +3701,7 @@ void G_asCallMapEntityPain( edict_t *ent, edict_t *other, float kick, float dama
 	ctx = angelExport->asAcquireContext( GAME_AS_ENGINE() );
 
 	error = ctx->Prepare( static_cast<asIScriptFunction *>(ent->asPainFunc) );
-	if( error < 0 ) 
+	if( error < 0 )
 		return;
 
 	// Now we need to pass the parameters to the script function.
@@ -3727,7 +3727,7 @@ void G_asCallMapEntityDie( edict_t *ent, edict_t *inflicter, edict_t *attacker, 
 	ctx = angelExport->asAcquireContext( GAME_AS_ENGINE() );
 
 	error = ctx->Prepare( static_cast<asIScriptFunction *>(ent->asDieFunc) );
-	if( error < 0 ) 
+	if( error < 0 )
 		return;
 
 	// Now we need to pass the parameters to the script function.
@@ -3752,7 +3752,7 @@ void G_asCallMapEntityStop( edict_t *ent )
 	ctx = angelExport->asAcquireContext( GAME_AS_ENGINE() );
 
 	error = ctx->Prepare( static_cast<asIScriptFunction *>(ent->asStopFunc) );
-	if( error < 0 ) 
+	if( error < 0 )
 		return;
 
 	// Now we need to pass the parameters to the script function.
@@ -3827,7 +3827,7 @@ static asIScriptModule *G_BuildGameScript( const char *moduleName, const char *d
 	char *section;
 	asIScriptModule *asModule;
 	asIScriptEngine *asEngine;
-	
+
 	asEngine = GAME_AS_ENGINE();
 	if( asEngine == NULL ) {
 		G_Printf( S_COLOR_RED "G_BuildGameScript: Angelscript API unavailable\n" );

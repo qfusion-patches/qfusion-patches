@@ -25,7 +25,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 /*
 * SV_AddGravity
-* 
+*
 */
 static void SV_AddGravity( edict_t *ent )
 {
@@ -60,7 +60,7 @@ void G_AddGroundFriction( edict_t *ent, float friction )
 
 	VectorSet( v, ent->velocity[0], ent->velocity[1], 0 );
 	speed = VectorNormalize2( v, frictionVec );
-	if( speed ) 
+	if( speed )
 	{
 		fspeed = friction * FRAMETIME;
 		if( fspeed > speed )
@@ -174,7 +174,7 @@ int G_BoxSlideMove( edict_t *ent, int contentmask, float slideBounce, float fric
 
 /*
 * SV_TestEntityPosition
-* 
+*
 */
 static edict_t *SV_TestEntityPosition( edict_t *ent )
 {
@@ -214,7 +214,7 @@ static void SV_CheckVelocity( edict_t *ent )
 
 /*
 * SV_RunThink
-* 
+*
 * Runs thinking code for this frame if necessary
 */
 static void SV_RunThink( edict_t *ent )
@@ -237,7 +237,7 @@ static void SV_RunThink( edict_t *ent )
 
 /*
 * SV_Impact
-* 
+*
 * Two entities have touched, so run their touch functions
 */
 void SV_Impact( edict_t *e1, trace_t *trace )
@@ -258,7 +258,7 @@ void SV_Impact( edict_t *e1, trace_t *trace )
 
 /*
 * SV_FlyMove
-* 
+*
 * The basic solid body movement clip that slides along multiple planes
 * Returns the clipflags if the velocity was modified (hit something solid)
 * 1 = floor
@@ -406,7 +406,7 @@ int SV_FlyMove( edict_t *ent, float time, int mask )
 
 /*
 * SV_PushEntity
-* 
+*
 * Does not change the entities velocity at all
 */
 static trace_t SV_PushEntity( edict_t *ent, vec3_t push )
@@ -468,7 +468,7 @@ edict_t	*obstacle;
 
 /*
 * SV_Push
-* 
+*
 * Objects need to be moved back on a failed push,
 * otherwise riders would continue to slide.
 */
@@ -628,7 +628,7 @@ static bool SV_Push( edict_t *pusher, vec3_t move, vec3_t amove )
 
 /*
 * SV_Physics_Pusher
-* 
+*
 * Bmodel objects don't interact with each other, but
 * push all box objects
 */
@@ -702,7 +702,7 @@ static void SV_Physics_None( edict_t *ent )
 
 /*
 * SV_Physics_Noclip
-* 
+*
 * A moving object that doesn't obey physics
 */
 #if 0
@@ -723,9 +723,9 @@ static void SV_Physics_Noclip( edict_t *ent )
 
 /*
 * SV_Physics_Toss
-* 
+*
 * Toss, bounce, and fly movement.  When onground, do nothing.
-* 
+*
 * FIXME: This function needs a serious rewrite
 */
 static void SV_Physics_Toss( edict_t *ent )
@@ -828,9 +828,9 @@ static void SV_Physics_Toss( edict_t *ent )
 
 			// LA: hopefully will fix grenades bouncing down slopes
 			// method taken from Darkplaces sourcecode
-			if( trace.allsolid || 
-				( ISWALKABLEPLANE( &trace.plane ) && 
-					fabs( DotProduct( trace.plane.normal, ent->velocity ) ) < 60 
+			if( trace.allsolid ||
+				( ISWALKABLEPLANE( &trace.plane ) &&
+					fabs( DotProduct( trace.plane.normal, ent->velocity ) ) < 60
 				)
 			)
 			{
@@ -944,7 +944,7 @@ void SV_Physics_LinearProjectile( edict_t *ent )
 
 /*
 * G_RunEntity
-* 
+*
 */
 void G_RunEntity( edict_t *ent )
 {

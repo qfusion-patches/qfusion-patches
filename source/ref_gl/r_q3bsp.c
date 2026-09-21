@@ -356,8 +356,8 @@ static void Mod_LoadFaces( const lump_t *l )
 			else
 			{
 				lmRects[j] = &loadmodel_lightmapRects[lightmaps[j]];
-				lightmaps[j] = lmRects[j]->texNum;			
-			}			
+				lightmaps[j] = lmRects[j]->texNum;
+			}
 		}
 
 		// add this super style
@@ -370,7 +370,7 @@ static void Mod_LoadFaces( const lump_t *l )
 		} else {
 			shaderType = SHADER_TYPE_DELUXEMAP;
 		}
-		
+
 		out->shader = shaderRef->shaders[shaderType-SHADER_TYPE_BSP_MIN];
 		out->flags = shaderRef->flags;
 
@@ -620,7 +620,7 @@ static void Mod_LoadShaderrefs( const lump_t *l )
 	{
 		Q_strncpyz( out[i].name, in->name, sizeof( out[i].name ) );
 		out[i].flags = LittleLong( in->flags );
-		
+
 		if( newMap ) {
 			R_TouchShadersByName( out[i].name );
 		}
@@ -771,7 +771,7 @@ static mesh_t *Mod_CreateMeshForSurface( const rdface_t *in, msurface_t *out, in
 			mesh->sVectorsArray = ( vec4_t * )( buffer + bufPos ); bufPos += numVerts * sizeof( vec4_t );
 			mesh->stArray = ( vec2_t * )( buffer + bufPos ); bufPos += numVerts * sizeof( vec2_t );
 
-			Patch_Evaluate( vec_t, 3, loadmodel_xyz_array[inFirstVert], 
+			Patch_Evaluate( vec_t, 3, loadmodel_xyz_array[inFirstVert],
 				patch_cp, step, mesh->xyzArray[0], 4 );
 
 			attribs[numattribs] = ( uint8_t * )mesh->normalsArray[0];
@@ -781,7 +781,7 @@ static mesh_t *Mod_CreateMeshForSurface( const rdface_t *in, msurface_t *out, in
 
 			attribs[numattribs] = ( uint8_t * )mesh->stArray[0];
 			attribsizes[numattribs++] = sizeof( vec2_t );
-			Patch_Evaluate( vec_t, 2, loadmodel_st_array[inFirstVert], 
+			Patch_Evaluate( vec_t, 2, loadmodel_st_array[inFirstVert],
 				patch_cp, step, mesh->stArray[0], 0 );
 
 			for( j = 0; j < MAX_LIGHTMAPS && hasLightmap[j]; j++ )
@@ -789,7 +789,7 @@ static mesh_t *Mod_CreateMeshForSurface( const rdface_t *in, msurface_t *out, in
 				mesh->lmstArray[j] = ( vec2_t * )( buffer + bufPos ); bufPos += numVerts * sizeof( vec2_t );
 				attribs[numattribs] = ( uint8_t * )mesh->lmstArray[j];
 				attribsizes[numattribs++] = sizeof( vec2_t );
-				Patch_Evaluate( vec_t, 2, loadmodel_lmst_array[j][inFirstVert], 
+				Patch_Evaluate( vec_t, 2, loadmodel_lmst_array[j][inFirstVert],
 					patch_cp, step, mesh->lmstArray[j][0], 0 );
 			}
 
@@ -810,7 +810,7 @@ static mesh_t *Mod_CreateMeshForSurface( const rdface_t *in, msurface_t *out, in
 				mesh->colorsArray[j] = ( byte_vec4_t * )( buffer + bufPos ); bufPos += numVerts * sizeof( byte_vec4_t );
 				attribs[numattribs] = ( uint8_t * )mesh->colorsArray[j];
 				attribsizes[numattribs++] = sizeof( byte_vec4_t );
-				Patch_Evaluate( uint8_t, 4, loadmodel_colors_array[j][inFirstVert], 
+				Patch_Evaluate( uint8_t, 4, loadmodel_colors_array[j][inFirstVert],
 					patch_cp, step, mesh->colorsArray[j][0], 0 );
 			}
 
@@ -1057,7 +1057,7 @@ static mesh_t *Mod_CreateMeshForSurface( const rdface_t *in, msurface_t *out, in
 				out->instances = ( instancePoint_t * )( buffer + ALIGN( bufPos, 16 ) );
 
 				for( j = 0; j < out->numInstances; j++ ) {
-					// add pseudo random YAW-angle rotation  
+					// add pseudo random YAW-angle rotation
 					vec3_t angles = { 0, 0, 0 };
 					mat3_t rot;
 
@@ -1266,12 +1266,12 @@ static void Mod_LoadFogs( const lump_t *l, const lump_t *brLump, const lump_t *b
 
 		// brushes are always sorted with the axial sides first
 
-		VectorSet( out->mins, 
+		VectorSet( out->mins,
 			-loadbmodel->planes[brushplanes[0]].dist,
 			-loadbmodel->planes[brushplanes[2]].dist,
 			-loadbmodel->planes[brushplanes[4]].dist
 			);
-		VectorSet( out->maxs, 
+		VectorSet( out->maxs,
 			 loadbmodel->planes[brushplanes[1]].dist,
 			 loadbmodel->planes[brushplanes[3]].dist,
 			 loadbmodel->planes[brushplanes[5]].dist
@@ -1736,7 +1736,7 @@ static void Mod_Finish( const lump_t *faces, const lump_t *light, vec3_t gridSiz
 	// ambient lighting
 	for( i = 0; i < 3; i++ )
 		mapConfig.ambient[i] = ambient[i];
-	
+
 	// outline color
 	for( i = 0; i < 3; i++ )
 		mapConfig.outlineColor[i] = (uint8_t)(bound( 0, outline[i]*255.0f, 255 ));
@@ -1778,7 +1778,7 @@ static void Mod_Finish( const lump_t *faces, const lump_t *light, vec3_t gridSiz
 		Mod_ApplySuperStylesToFace( in, surf );
 
 		// force outlines hack for old maps
-		if( !mapConfig.forceWorldOutlines 
+		if( !mapConfig.forceWorldOutlines
 			&& surf->shader && ( surf->shader->flags & SHADER_FORCE_OUTLINE_WORLD )  ) {
 			mapConfig.forceWorldOutlines = true;
 		}

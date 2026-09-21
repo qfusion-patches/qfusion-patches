@@ -202,7 +202,7 @@ static void PlayerTouchWall( int nbTestDir, float maxZnormal, vec3_t *normal )
 
 /*
 * PM_SlideMove
-* 
+*
 * Returns a new origin, velocity, and contact entity
 * Does not modify any world state?
 */
@@ -367,7 +367,7 @@ static int PM_SlideMove( void )
 
 /*
 * PM_StepSlideMove
-* 
+*
 * Each intersection will try to step over the obstruction instead of
 * sliding along it.
 */
@@ -456,7 +456,7 @@ static void PM_StepSlideMove( void )
 
 /*
 * PM_Friction -- Modified for wsw
-* 
+*
 * Handles both ground friction and water friction
 */
 static void PM_Friction( void )
@@ -510,7 +510,7 @@ static void PM_Friction( void )
 
 /*
 * PM_Accelerate
-* 
+*
 * Handles user intended acceleration
 */
 static void PM_Accelerate( vec3_t wishdir, float wishspeed, float accel )
@@ -674,7 +674,7 @@ static void PM_AddCurrents( vec3_t wishvel )
 
 /*
 * PM_WaterMove
-* 
+*
 */
 static void PM_WaterMove( void )
 {
@@ -711,7 +711,7 @@ static void PM_WaterMove( void )
 
 /*
 * PM_Move -- Kurim
-* 
+*
 */
 static void PM_Move( void )
 {
@@ -779,7 +779,7 @@ static void PM_Move( void )
 		PM_StepSlideMove();
 	}
 	else if( pm->groundentity != -1 )
-	{ 
+	{
 		// walking on ground
 		if( pml.velocity[2] > 0 )
 			pml.velocity[2] = 0; //!!! this is before the accel
@@ -800,13 +800,13 @@ static void PM_Move( void )
 
 		PM_StepSlideMove();
 	}
-	else if( ( pm->playerState->pmove.stats[PM_STAT_FEATURES] & PMFEAT_AIRCONTROL ) 
+	else if( ( pm->playerState->pmove.stats[PM_STAT_FEATURES] & PMFEAT_AIRCONTROL )
 		&& !( pm->playerState->pmove.stats[PM_STAT_FEATURES] & PMFEAT_FWDBUNNY ) )
 	{
 		// Air Control
 		wishspeed2 = wishspeed;
-		if( DotProduct( pml.velocity, wishdir ) < 0 
-			&& !( pm->playerState->pmove.pm_flags & PMF_WALLJUMPING ) 
+		if( DotProduct( pml.velocity, wishdir ) < 0
+			&& !( pm->playerState->pmove.pm_flags & PMF_WALLJUMPING )
 			&& ( pm->playerState->pmove.stats[PM_STAT_KNOCKBACK] <= 0 ) )
 			accel = pm_airdecelerate;
 		else
@@ -840,7 +840,7 @@ static void PM_Move( void )
 
 		accelerating = ( DotProduct( pml.velocity, wishdir ) > 0.0f ) ? true : false;
 		decelerating = ( DotProduct( pml.velocity, wishdir ) < -0.0f ) ? true : false;
-		
+
 		if( ( pm->playerState->pmove.pm_flags & PMF_WALLJUMPING ) &&
 			( pm->playerState->pmove.stats[PM_STAT_WJTIME] >= ( PM_WALLJUMP_TIMEDELAY - PM_AIRCONTROL_BOUNCE_DELAY ) ) )
 			inhibit = true;
@@ -869,14 +869,14 @@ static void PM_Move( void )
 			bool aircontrol = true;
 
 			wishspeed2 = wishspeed;
-			if( decelerating && 
+			if( decelerating &&
 				!( pm->playerState->pmove.pm_flags & PMF_WALLJUMPING ) )
 				accel = pm_airdecelerate;
 			else
 				accel = pm_airaccelerate;
 
 			// ch : knockback out
-			if( pm->playerState->pmove.pm_flags & PMF_WALLJUMPING 
+			if( pm->playerState->pmove.pm_flags & PMF_WALLJUMPING
 			/*	|| ( pm->playerState->pmove.stats[PM_STAT_KNOCKBACK] > 0 ) */ )
 			{
 				accel = 0; // no stop-move while wall-jumping
@@ -1024,7 +1024,7 @@ static void PM_ClearStun( void )
 static void PM_CheckJump( void )
 {
 	if( pml.upPush < 10 )
-	{ 
+	{
 		// not holding jump
 		if( !( pm->playerState->pmove.stats[PM_STAT_FEATURES] & PMFEAT_CONTINOUSJUMP ) )
 			pm->playerState->pmove.pm_flags &= ~PMF_JUMP_HELD;
@@ -1107,7 +1107,7 @@ static void PM_CheckDash( void )
 	if( pm->playerState->pmove.stats[PM_STAT_KNOCKBACK] > 0 ) // can not start a new dash during knockback time
 		return;
 
-	if( ( pm->cmd.buttons & BUTTON_SPECIAL ) && pm->groundentity != -1 
+	if( ( pm->cmd.buttons & BUTTON_SPECIAL ) && pm->groundentity != -1
 		&& ( pm->playerState->pmove.stats[PM_STAT_FEATURES] & PMFEAT_DASH ) )
 	{
 		if( pm->playerState->pmove.pm_flags & PMF_SPECIAL_HELD )
@@ -1202,14 +1202,14 @@ static void PM_CheckWallJump( void )
 		return;
 
 	// don't walljump in the first 100 milliseconds of a dash jump
-	if( pm->playerState->pmove.pm_flags & PMF_DASHING 
+	if( pm->playerState->pmove.pm_flags & PMF_DASHING
 		&& ( pm->playerState->pmove.stats[PM_STAT_DASHTIME] > ( PM_DASHJUMP_TIMEDELAY - 100 ) ) )
 		return;
 
-	
+
 	// markthis
 
-	if( pm->groundentity == -1 && ( pm->cmd.buttons & BUTTON_SPECIAL ) 
+	if( pm->groundentity == -1 && ( pm->cmd.buttons & BUTTON_SPECIAL )
 		&& ( pm->playerState->pmove.stats[PM_STAT_FEATURES] & PMFEAT_WALLJUMP ) &&
 		( !( pm->playerState->pmove.pm_flags & PMF_WALLJUMPCOUNT ) )
 		&& pm->playerState->pmove.stats[PM_STAT_WJTIME] <= 0
@@ -1222,11 +1222,11 @@ static void PM_CheckWallJump( void )
 		point[1] = pml.origin[1];
 		point[2] = pml.origin[2] - STEPSIZE;
 
-		// don't walljump if our height is smaller than a step 
+		// don't walljump if our height is smaller than a step
 		// unless jump is pressed or the player is moving faster than dash speed and upwards
 		hspeed = VectorLengthFast( tv( pml.velocity[0], pml.velocity[1], 0 ) );
 		module_Trace( &trace, pml.origin, pm->mins, pm->maxs, point, pm->playerState->POVnum, pm->contentmask, 0 );
-		
+
 		if( pml.upPush >= 10
 			|| ( hspeed > pm->playerState->pmove.stats[PM_STAT_DASHSPEED] && pml.velocity[2] > 8 )
 			|| ( trace.fraction == 1 ) || ( !ISWALKABLEPLANE( &trace.plane ) && !trace.startsolid ) )
@@ -1236,7 +1236,7 @@ static void PM_CheckWallJump( void )
 			if( !VectorLength( normal ) )
 				return;
 
-			if( !( pm->playerState->pmove.pm_flags & PMF_SPECIAL_HELD ) 
+			if( !( pm->playerState->pmove.pm_flags & PMF_SPECIAL_HELD )
 				&& !( pm->playerState->pmove.pm_flags & PMF_WALLJUMPING ) )
 			{
 				float oldupvelocity = pml.velocity[2];
@@ -1464,7 +1464,7 @@ static void PM_CheckZoom( void )
 
 /*
 * PM_AdjustBBox
-* 
+*
 * Sets mins, maxs, and pm->viewheight
 */
 static void PM_AdjustBBox( void )
@@ -1494,7 +1494,7 @@ static void PM_AdjustBBox( void )
 		pm->playerState->viewheight = playerbox_stand_viewheight;
 	}
 
-	if( pml.upPush < 0 && ( pm->playerState->pmove.stats[PM_STAT_FEATURES] & PMFEAT_CROUCH ) && 
+	if( pml.upPush < 0 && ( pm->playerState->pmove.stats[PM_STAT_FEATURES] & PMFEAT_CROUCH ) &&
 		pm->playerState->pmove.stats[PM_STAT_WJTIME] < ( PM_WALLJUMP_TIMEDELAY - PM_SPECIAL_CROUCH_INHIBIT ) &&
 		pm->playerState->pmove.stats[PM_STAT_DASHTIME] < ( PM_DASHJUMP_TIMEDELAY - PM_SPECIAL_CROUCH_INHIBIT ) )
 	{
@@ -1609,7 +1609,7 @@ static bool PM_GoodPosition( int snaptorigin[3] )
 
 /*
 * PM_SnapPosition
-* 
+*
 * On exit, the origin will have a value that is pre-quantized to the (1.0/16.0)
 * precision of the network channel and in a valid position.
 */
@@ -1665,7 +1665,7 @@ static void PM_SnapPosition( void )
 
 /*
 * PM_InitialSnapPosition
-* 
+*
 */
 static void PM_InitialSnapPosition( void )
 {
@@ -1712,7 +1712,7 @@ static void PM_UpdateDeltaAngles( void )
 
 /*
 * PM_ApplyMouseAnglesClamp
-* 
+*
 */
 #if defined ( _WIN32 ) && ( _MSC_VER >= 1400 )
 #pragma warning( push )
@@ -1756,7 +1756,7 @@ static void PM_ApplyMouseAnglesClamp( void )
 
 /*
 * Pmove
-* 
+*
 * Can be called by either the server or the client
 */
 void Pmove( pmove_t *pmove )
@@ -1912,7 +1912,7 @@ void Pmove( pmove_t *pmove )
 		pm->cmd.buttons = 0;
 	}
 
-	// in order the forward accelt to kick in, one has to keep +fwd pressed 
+	// in order the forward accelt to kick in, one has to keep +fwd pressed
 	// for some time without strafing
 	if( pml.forwardPush <= 0 || pml.sidePush ) {
 		pm->playerState->pmove.stats[PM_STAT_FWDTIME] = PM_FORWARD_ACCEL_TIMEDELAY;
@@ -1949,7 +1949,7 @@ void Pmove( pmove_t *pmove )
 			pml.sidePush = 0;
 			pml.upPush = 0;
 		}
-		
+
 		PM_SnapPosition();
 		return;
 	}

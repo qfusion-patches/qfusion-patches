@@ -53,7 +53,7 @@ int Sys_Mutex_Create( qmutex_t **pmutex )
 	if( res != 0 ) {
 		return res;
 	}
-	
+
 	mutex = ( qmutex_t * )Q_malloc( sizeof( *mutex ) );
 	mutex->m = m;
 	*pmutex = mutex;
@@ -180,7 +180,7 @@ bool Sys_CondVar_Wait( qcondvar_t *cond, qmutex_t *mutex, unsigned int timeout_m
 {
 	struct timespec   ts;
 	struct timeval    tp;
-  
+
 	if( !cond || !mutex ) {
 		return false;
 	}
@@ -190,13 +190,13 @@ bool Sys_CondVar_Wait( qcondvar_t *cond, qmutex_t *mutex, unsigned int timeout_m
 	}
 
 	gettimeofday( &tp, NULL );
-	
+
 	// convert from timeval to timespec
 	ts.tv_sec  = tp.tv_sec;
 	ts.tv_nsec = tp.tv_usec * 1000;
 	ts.tv_sec += timeout_msec / 1000;
 	ts.tv_nsec += (timeout_msec % 1000)*1000000;
-	
+
 	return pthread_cond_timedwait( &cond->c, &mutex->m, &ts ) == 0;
 }
 

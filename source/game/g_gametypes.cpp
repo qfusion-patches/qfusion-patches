@@ -423,7 +423,7 @@ static void G_Gametype_GENERIC_Init( void )
 
 	level.gametype.canShowMinimap = false;
 	level.gametype.teamOnlyMinimap = true;
-	
+
 	level.gametype.numBots = 0;
 	level.gametype.dummyBots = false;
 
@@ -624,7 +624,7 @@ void G_Match_Autorecord_Start( void )
 		}
 
 		// combine
-		Q_snprintfz( level.autorecord_name, sizeof( level.autorecord_name ), "%s_%s_%s%s%s_auto%04i", 
+		Q_snprintfz( level.autorecord_name, sizeof( level.autorecord_name ), "%s_%s_%s%s%s_auto%04i",
 			datetime, gs.gametypeName, level.mapname, players[0] == '\0' ? "" : "_", players, (int)brandom( 1, 9999 ) );
 
 		trap_Cmd_ExecuteText( EXEC_APPEND, va( "serverrecord %s\n", level.autorecord_name ) );
@@ -774,7 +774,7 @@ void G_Match_LaunchState( int matchState )
 
 	GS_GamestatSetFlag( GAMESTAT_FLAG_MATCHEXTENDED, false );
 	GS_GamestatSetFlag( GAMESTAT_FLAG_WAITING, false );
-	
+
 	if( matchState == MATCH_STATE_POSTMATCH ) {
 		level.finalMatchDuration = game.serverTime - GS_MatchStartTime();
 	}

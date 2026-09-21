@@ -352,7 +352,7 @@ bool Irc_IsConnected( void )
 		if( !irc_connected )
 			irc_connected = Dynvar_Lookup( "irc_connected" );
 		assert( irc_connected );
-		
+
 		Dynvar_GetValue( irc_connected, (void **) &c );
 		if( *c ) {
 			return true;
@@ -391,4 +391,3 @@ const char *Irc_GetHistoryNodeLine(const struct irc_chat_history_node_s *n)
 {
 	return irc_libhandle ? irc_export->GetHistoryNodeLine(n) : NULL;
 }
-

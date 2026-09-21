@@ -188,7 +188,7 @@ void TVM_ShutdownRelay( tvm_relay_t *relay )
 
 /*
 * TVM_Init
-* 
+*
 * This will be called when the dll is first loaded
 */
 void TVM_Init( const char *game, unsigned int maxclients )

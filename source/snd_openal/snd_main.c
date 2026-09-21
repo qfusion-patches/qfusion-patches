@@ -110,7 +110,7 @@ static void SF_ListDevices_f( void )
 bool SF_Init( void *hwnd, int maxEntities, bool verbose )
 {
 	soundpool = S_MemAllocPool( "OpenAL sound module" );
-	
+
 	s_num_ent_spats = 0;
 
 #ifdef OPENAL_RUNTIME
@@ -172,7 +172,7 @@ void SF_Shutdown( bool verbose )
 	if( !soundpool ) {
 		return;
 	}
-	
+
 	SF_StopAllSounds( true, true );
 
 	// wake up the mixer
@@ -471,7 +471,7 @@ void SF_Update( const vec3_t origin, const vec3_t velocity, const mat3_t axis, b
 /*
 * SF_RawSamples
 */
-void SF_RawSamples( unsigned int samples, unsigned int rate, unsigned short width, 
+void SF_RawSamples( unsigned int samples, unsigned int rate, unsigned short width,
 	unsigned short channels, const uint8_t *data, bool music )
 {
 	size_t data_size = samples * width * channels;
@@ -485,8 +485,8 @@ void SF_RawSamples( unsigned int samples, unsigned int rate, unsigned short widt
 /*
 * SF_PositionedRawSamples
 */
-void SF_PositionedRawSamples( int entnum, float fvol, float attenuation, 
-	unsigned int samples, unsigned int rate, 
+void SF_PositionedRawSamples( int entnum, float fvol, float attenuation,
+	unsigned int samples, unsigned int rate,
 	unsigned short width, unsigned short channels, const uint8_t *data )
 {
 	size_t data_size = samples * width * channels;
@@ -494,7 +494,7 @@ void SF_PositionedRawSamples( int entnum, float fvol, float attenuation,
 
 	memcpy( data_copy, data, data_size );
 
-	S_IssuePositionedRawSamplesCmd( s_cmdPipe, entnum, fvol, attenuation, 
+	S_IssuePositionedRawSamplesCmd( s_cmdPipe, entnum, fvol, attenuation,
 		samples, rate, width, channels, data_copy );
 }
 

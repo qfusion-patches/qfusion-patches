@@ -41,7 +41,7 @@ void CG_PredictedEvent( int entNum, int ev, int parm )
 	if( ucmdReady && ( cg.predictingTimeStamp > cg.predictedEventTimes[ev] ) )
 	{
 		// inhibit the fire event when there is a weapon change predicted
-		if( ev == EV_FIREWEAPON ) 
+		if( ev == EV_FIREWEAPON )
 		{
 			if( cg.predictedWeaponSwitch && (cg.predictedWeaponSwitch != cg.predictedPlayerState.stats[STAT_PENDING_WEAPON]) )
 				return;
@@ -412,7 +412,7 @@ static void CG_PredictSmoothSteps( void )
 
 /*
 * CG_PredictMovement
-* 
+*
 * Sets cg.predictedVelocty, cg.predictedOrigin and cg.predictedAngles
 */
 void CG_PredictMovement( void )

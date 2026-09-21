@@ -107,7 +107,7 @@ typedef struct
 	void ( *BufPipe_Finish )( qbufPipe_t *queue );
 	void ( *BufPipe_WriteCmd )( qbufPipe_t *queue, const void *cmd, unsigned cmd_size );
 	int ( *BufPipe_ReadCmds )( qbufPipe_t *queue, unsigned (**cmdHandlers)( const void * ) );
-	void ( *BufPipe_Wait )( qbufPipe_t *queue, int (*read)( qbufPipe_t *, unsigned( ** )(const void *), bool ), 
+	void ( *BufPipe_Wait )( qbufPipe_t *queue, int (*read)( qbufPipe_t *, unsigned( ** )(const void *), bool ),
 		unsigned (**cmdHandlers)( const void * ), unsigned timeout_msec );
 } sound_import_t;
 
@@ -145,8 +145,8 @@ typedef struct
 
 	// cinema
 	void ( *RawSamples )( unsigned int samples, unsigned int rate, unsigned short width, unsigned short channels, const uint8_t *data, bool music );
-	void ( *PositionedRawSamples )( int entnum, float fvol, float attenuation, 
-		unsigned int samples, unsigned int rate, 
+	void ( *PositionedRawSamples )( int entnum, float fvol, float attenuation,
+		unsigned int samples, unsigned int rate,
 		unsigned short width, unsigned short channels, const uint8_t *data );
 	unsigned int ( *GetRawSamplesLength )( void );
 	unsigned int ( *GetPositionedRawSamplesLength )( int entnum );

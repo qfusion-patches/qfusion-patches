@@ -58,7 +58,7 @@ void QBufPipe_Destroy( qbufPipe_t **pqueue );
 void QBufPipe_Finish( qbufPipe_t *queue );
 void QBufPipe_WriteCmd( qbufPipe_t *queue, const void *cmd, unsigned cmd_size );
 int QBufPipe_ReadCmds( qbufPipe_t *queue, unsigned( **cmdHandlers )(const void *) );
-void QBufPipe_Wait( qbufPipe_t *queue, int (*read)( qbufPipe_t *, unsigned( ** )(const void *), bool ), 
+void QBufPipe_Wait( qbufPipe_t *queue, int (*read)( qbufPipe_t *, unsigned( ** )(const void *), bool ),
 	unsigned (**cmdHandlers)( const void * ), unsigned timeout_msec );
 
 #endif // Q_THREADS_H

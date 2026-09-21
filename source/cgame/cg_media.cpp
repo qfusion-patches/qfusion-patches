@@ -124,7 +124,7 @@ void CG_RegisterMediaSounds( void )
 	cgs.media.sfxLasergunHit[2] = CG_RegisterMediaSfx( S_WEAPON_LASERGUN_HIT_2, true );
 
 	cgs.media.sfxElectroboltHit = CG_RegisterMediaSfx( S_WEAPON_ELECTROBOLT_HIT, true );
-	
+
 	cgs.media.sfxQuadFireSound = CG_RegisterMediaSfx( S_QUAD_FIRE, true );
 
 	//VSAY sounds
@@ -246,7 +246,7 @@ void CG_RegisterMediaModels( void )
 	cgs.media.modLasergunWallExplo = CG_RegisterMediaModel( PATH_LASERGUN_IMPACT_MODEL, true );
 
 	// gibs model
-	cgs.media.modIlluminatiGibs = CG_RegisterMediaModel( "models/objects/gibs/illuminati/illuminati1.md3", true );	
+	cgs.media.modIlluminatiGibs = CG_RegisterMediaModel( "models/objects/gibs/illuminati/illuminati1.md3", true );
 }
 
 //======================================================================

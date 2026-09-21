@@ -82,7 +82,7 @@ void IN_SDL_JoyCommands( void )
 			for( i = 0; i < num; i++ )
 			{
 				in_sdl_joyController = SDL_GameControllerOpen( i );
-				if( in_sdl_joyController )	
+				if( in_sdl_joyController )
 					break;
 			}
 		}

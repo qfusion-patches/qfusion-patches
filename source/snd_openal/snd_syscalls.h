@@ -271,7 +271,7 @@ static inline int trap_BufPipe_ReadCmds( qbufPipe_t *queue, unsigned (**cmdHandl
 	return SOUND_IMPORT.BufPipe_ReadCmds( queue, cmdHandlers );
 }
 
-static inline void trap_BufPipe_Wait( qbufPipe_t *queue, int (*read)( qbufPipe_t *, unsigned( ** )(const void *), bool ), 
+static inline void trap_BufPipe_Wait( qbufPipe_t *queue, int (*read)( qbufPipe_t *, unsigned( ** )(const void *), bool ),
 	unsigned (**cmdHandlers)( const void * ), unsigned timeout_msec )
 {
 	SOUND_IMPORT.BufPipe_Wait( queue, read, cmdHandlers, timeout_msec );

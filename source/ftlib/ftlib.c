@@ -511,7 +511,7 @@ static qfontface_t *QFT_LoadFace( qfontfamily_t *family, unsigned int size )
 	qttf = FTLIB_Alloc( ftlibPool, sizeof( *qttf ) );
 	qttf->ftsize = ftsize;
 
-	// use scaled version of the original design text height (the vertical 
+	// use scaled version of the original design text height (the vertical
 	// distance from one baseline to the next) as font height
 	fontHeight = ftsize->metrics.height >> 6;
 	unitScale = ( float )fontHeight / ( float )ftface->units_per_EM;
@@ -563,7 +563,7 @@ static qfontface_t *QFT_LoadFace( qfontfamily_t *family, unsigned int size )
 		for( pow2 = 1; pow2 < shaderHeight; pow2<<=1 );
 		qfont->shaderHeight = pow2;
 	} else {
-		// assume we will eventually need some space to render fallback glyphs 
+		// assume we will eventually need some space to render fallback glyphs
 		// for less common chars such as CJK
 		qfont->shaderWidth = maxShaderWidth;
 		qfont->shaderHeight = maxShaderHeight;
@@ -935,7 +935,7 @@ void FTLIB_TouchFont( qfontface_t *qfont )
 	unsigned int i;
 
 	for( i = 0; i < qfont->numShaders; i++ ) {
-		trap_R_RegisterPic( FTLIB_FontShaderName( qfont, i ) ); 
+		trap_R_RegisterPic( FTLIB_FontShaderName( qfont, i ) );
 	}
 }
 
@@ -1022,7 +1022,7 @@ void FTLIB_PrintFontList( void )
 	Com_Printf( "Font families:\n" );
 
 	for( qfamily = fontFamilies; qfamily; qfamily = qfamily->next ) {
-		Com_Printf( "%s%s%s%s\n", qfamily->name, 
+		Com_Printf( "%s%s%s%s\n", qfamily->name,
 			qfamily->fallback ? " (fallback)" : "",
 			qfamily->style & QFONT_STYLE_ITALIC ? " (italic)" : "",
 			qfamily->style & QFONT_STYLE_BOLD ? " (bold)" : "" );

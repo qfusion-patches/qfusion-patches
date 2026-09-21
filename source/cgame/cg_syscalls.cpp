@@ -24,7 +24,7 @@ cgame_import_t CGAME_IMPORT;
 
 /*
 * GetCGameAPI
-* 
+*
 * Returns a pointer to the structure with all entry points
 */
 extern "C" QF_DLL_EXPORT cgame_export_t *GetCGameAPI( cgame_import_t *import )

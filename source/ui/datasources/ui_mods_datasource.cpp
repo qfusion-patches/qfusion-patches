@@ -53,7 +53,7 @@ void ModsDataSource::UpdatePath( void )
 	{
 		length = strlen( s );
 		Q_strncpyz( foldername, s, sizeof( foldername ) );
-		
+
 		modsList.push_back( foldername );
 		NotifyRowAdd( TABLE_NAME, i, 1 );
 	}

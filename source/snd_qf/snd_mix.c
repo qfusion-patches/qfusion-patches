@@ -538,7 +538,7 @@ int S_PaintChannels( unsigned int endtime, int dumpfile, float gain )
 			{
 				if( !ch->sfx || ( !ch->leftvol && !ch->rightvol ) )
 					break;
-				
+
 				count = 0;
 
 				// max painting is to the end of the buffer

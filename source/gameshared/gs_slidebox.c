@@ -224,7 +224,7 @@ int GS_LinearMovement( const entity_state_t *ent, unsigned time, vec3_t dest )
 	return moveTime;
 }
 
-/* 
+/*
 * GS_LinearMovementDelta
 */
 void GS_LinearMovementDelta( const entity_state_t *ent, unsigned oldTime, unsigned curTime, vec3_t dest )

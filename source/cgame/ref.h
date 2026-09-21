@@ -192,7 +192,7 @@ typedef struct {
 
 	// the width of this plane
 	// note that row data has to be continous
-	// so for planes where stride != image_width, 
+	// so for planes where stride != image_width,
 	// the width should be max (stride, image_width)
 	int width;
 
@@ -209,7 +209,7 @@ typedef struct {
 typedef struct {
 	int image_width;
 	int image_height;
-	
+
 	int width;
 	int height;
 

@@ -126,4 +126,3 @@ struct iqmextension
 };
 
 #endif // IQM_H
-

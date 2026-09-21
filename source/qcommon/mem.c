@@ -687,7 +687,7 @@ void Memory_InitCommands( void )
 
 /*
 * Memory_Shutdown
-* 
+*
 * NOTE: Should be the last called function before shutdown!
 */
 void Memory_Shutdown( void )

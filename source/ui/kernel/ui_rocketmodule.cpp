@@ -56,7 +56,7 @@ public:
 RocketModule::RocketModule( int vidWidth, int vidHeight, float pixelRatio )
 	: rocketInitialized( false ), hideCursorBits( 0 ),
 	// pointers
-	systemInterface(0), fsInterface(0), renderInterface(0), 
+	systemInterface(0), fsInterface(0), renderInterface(0),
 	contextMain(0), contextQuick(0)
 {
 	Rocket::Core::String contextName = trap::Cvar_String( "gamename" );
@@ -102,7 +102,7 @@ RocketModule::~RocketModule()
 {
 	if( fontProviderInterface )
 		fontProviderInterface->RemoveReference();
-	
+
 	if( contextMain )
 		contextMain->RemoveReference();
 	contextMain = 0;

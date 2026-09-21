@@ -414,4 +414,3 @@ int FTLIB_DrawMultilineString( int x, int y, const char *str, int halign, int ma
 {
 	return ftlib_export ? ftlib_export->DrawMultilineString( x, y, str, halign, maxwidth, maxlines, font, color, flags ) : 0;
 }
-

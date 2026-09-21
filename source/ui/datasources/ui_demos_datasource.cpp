@@ -80,8 +80,8 @@ void DemoCollection::PopulateList( void )
 	getFileList( demoList, fullPath, demoExtension.c_str(), true );
 }
 
-bool DemoCollection::IsRoot( void ) const 
-{ 
+bool DemoCollection::IsRoot( void ) const
+{
 	return path.empty();
 }
 

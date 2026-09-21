@@ -98,7 +98,7 @@ public:
 
 	void addEventListener( const asstring_t &event, asIScriptFunction *func ) {
 		EventCallback cb;
-		
+
 		cb = ASBind::CreateFunctionPtr( func, cb );
 
 		Listener l( ASSTR( event ), cb );
@@ -141,7 +141,7 @@ erase:
 
 			if( it->first == event ) {
 				ev->AddReference();
-				
+
 				try {
 					func.setContext( asmodule->getContext() );
 					func( ev );

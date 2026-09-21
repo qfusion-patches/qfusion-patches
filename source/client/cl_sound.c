@@ -122,7 +122,7 @@ static void CL_SoundModule_MemEmptyPool( mempool_t *pool, const char *filename, 
 
 /*
 * CL_SoundModule_Load
-* 
+*
 * Helper function to try loading sound module with certain name
 */
 static bool CL_SoundModule_Load( const char *name, sound_import_t *import, bool verbose )
@@ -379,7 +379,7 @@ void CL_SoundModule_SetEntitySpatilization( int entNum, vec3_t origin, vec3_t ve
 /*
 * CL_SoundModule_Update
 */
-void CL_SoundModule_Update( const vec3_t origin, const vec3_t velocity, const mat3_t axis, 
+void CL_SoundModule_Update( const vec3_t origin, const vec3_t velocity, const mat3_t axis,
 	const char *identity, bool avidump )
 {
 	if( se ) {
@@ -501,7 +501,7 @@ void CL_SoundModule_AddLoopSound( struct sfx_s *sfx, int entnum, float fvol, flo
 /*
 * CL_SoundModule_RawSamples
 */
-void CL_SoundModule_RawSamples( unsigned int samples, unsigned int rate, 
+void CL_SoundModule_RawSamples( unsigned int samples, unsigned int rate,
 	unsigned short width, unsigned short channels, const uint8_t *data, bool music )
 {
 	if( se )
@@ -511,8 +511,8 @@ void CL_SoundModule_RawSamples( unsigned int samples, unsigned int rate,
 /*
 * CL_SoundModule_PositionedRawSamples
 */
-void CL_SoundModule_PositionedRawSamples( int entnum, float fvol, float attenuation, 
-		unsigned int samples, unsigned int rate, 
+void CL_SoundModule_PositionedRawSamples( int entnum, float fvol, float attenuation,
+		unsigned int samples, unsigned int rate,
 		unsigned short width, unsigned short channels, const uint8_t *data )
 {
 	if( se )

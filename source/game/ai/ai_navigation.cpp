@@ -132,7 +132,7 @@ void AI_SetGoal( edict_t *self, int goal_node )
 		return;
 	}
 
-	// ASTAR 
+	// ASTAR
 	if( !AStar_GetPath( node, goal_node, self->ai->status.moveTypesMask, &self->ai->path ) )
 	{
 		AI_ClearGoal( self );
@@ -150,7 +150,7 @@ void AI_SetGoal( edict_t *self, int goal_node )
 	self->ai->tries = 0; // Reset the count of how many times we tried this goal
 }
 
-bool AI_NewNextNode( edict_t *self ) 
+bool AI_NewNextNode( edict_t *self )
 {
 	// reset timeout
 	self->ai->node_timeout = 0;
@@ -309,7 +309,7 @@ void AI_TouchedEntity( edict_t *self, edict_t *ent )
 	}
 }
 
-void AI_GetNodeOrigin( int node, vec3_t origin ) 
+void AI_GetNodeOrigin( int node, vec3_t origin )
 {
 	if( node == NODE_INVALID )
 		VectorCopy( vec3_origin, origin );
@@ -317,7 +317,7 @@ void AI_GetNodeOrigin( int node, vec3_t origin )
 		VectorCopy( nodes[node].origin, origin );
 }
 
-int AI_GetNodeFlags( int node ) 
+int AI_GetNodeFlags( int node )
 {
 	if( node == NODE_INVALID )
 		return 0;

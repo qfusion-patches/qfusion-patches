@@ -75,7 +75,7 @@ void CG_ClearDecals( void )
 
 /*
 * CG_AllocDecal
-* 
+*
 * Returns either a free decal or the oldest one
 */
 static cdecal_t *CG_AllocDecal( void )

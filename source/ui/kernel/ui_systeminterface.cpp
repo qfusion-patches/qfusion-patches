@@ -65,7 +65,7 @@ bool UI_SystemInterface::LogMessage(Log::Type type, const String& message)
 int UI_SystemInterface::TranslateString(Rocket::Core::String& translated, const Rocket::Core::String& input)
 {
 	const char *l10ned;
-	
+
 	l10ned = trap::L10n_TranslateString( input.CString() );
 	if( l10ned ) {
 		if( !strcmp( input.CString(), l10ned ) ) {

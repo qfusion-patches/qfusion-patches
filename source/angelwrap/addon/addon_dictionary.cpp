@@ -36,7 +36,7 @@ CScriptDictionary::CScriptDictionary(asBYTE *buffer)
 
 	while( length-- )
 	{
-		// Align the buffer pointer on a 4 byte boundary in 
+		// Align the buffer pointer on a 4 byte boundary in
 		// case previous value was smaller than 4 bytes
 		if( asPWORD(buffer) & 0x3 )
 			buffer += 4 - (asPWORD(buffer) & 0x3);
@@ -70,7 +70,7 @@ CScriptDictionary::CScriptDictionary(asBYTE *buffer)
 			case asTYPEID_FLOAT: d = *(float*)ref; break;
 			case asTYPEID_DOUBLE: d = *(double*)ref; break;
 			}
-			
+
 			if( typeId >= asTYPEID_FLOAT )
 				Set(name, d);
 			else
@@ -78,8 +78,8 @@ CScriptDictionary::CScriptDictionary(asBYTE *buffer)
 		}
 		else
 		{
-			if( (typeId & asTYPEID_MASK_OBJECT) && 
-				!(typeId & asTYPEID_OBJHANDLE) && 
+			if( (typeId & asTYPEID_MASK_OBJECT) &&
+				!(typeId & asTYPEID_OBJHANDLE) &&
 				(engine->GetObjectTypeById(typeId)->GetFlags() & asOBJ_REF) )
 			{
 				// Dereference the pointer to get the reference to the actual object
@@ -123,8 +123,8 @@ void CScriptDictionary::Initialize(asIScriptEngine *engine)
 	gcFlag = false;
 
 	// Keep a reference to the engine for as long as we live
-	// We don't increment the reference counter, because the 
-	// engine will hold a pointer to the object. 
+	// We don't increment the reference counter, because the
+	// engine will hold a pointer to the object.
 	this->engine = engine;
 
 	// Notify the garbage collector of this object
@@ -181,7 +181,7 @@ void CScriptDictionary::EnumReferences(asIScriptEngine *engine)
 
 void CScriptDictionary::ReleaseAllReferences(asIScriptEngine * /*engine*/)
 {
-	// We're being told to release all references in 
+	// We're being told to release all references in
 	// order to break circular references for dead objects
 	DeleteAll();
 }
@@ -257,16 +257,16 @@ void CScriptDictionary::Set(const asstring_t &key, asstring_t *value)
 // This overloaded method is implemented so that all integer and
 // unsigned integers types will be stored in the dictionary as int64
 // through implicit conversions. This simplifies the management of the
-// numeric types when the script retrieves the stored value using a 
+// numeric types when the script retrieves the stored value using a
 // different type.
 void CScriptDictionary::Set(const asstring_t &key, int64_t &value)
 {
 	Set(key, &value, asTYPEID_INT64);
 }
 
-// This overloaded method is implemented so that all floating point types 
-// will be stored in the dictionary as double through implicit conversions. 
-// This simplifies the management of the numeric types when the script 
+// This overloaded method is implemented so that all floating point types
+// will be stored in the dictionary as double through implicit conversions.
+// This simplifies the management of the numeric types when the script
 // retrieves the stored value using a different type.
 void CScriptDictionary::Set(const asstring_t &key, double &value)
 {
@@ -285,7 +285,7 @@ bool CScriptDictionary::Get(const asstring_t &key, void *value, int typeId) cons
 		{
 			// A handle can be retrieved if the stored type is a handle of same or compatible type
 			// or if the stored type is an object that implements the interface that the handle refer to.
-			if( (it->second.typeId & asTYPEID_MASK_OBJECT) && 
+			if( (it->second.typeId & asTYPEID_MASK_OBJECT) &&
 				engine->IsHandleCompatibleWithObject(it->second.valueObj, it->second.typeId, typeId) )
 			{
 				engine->AddRefScriptObject(it->second.valueObj, engine->GetObjectTypeById(it->second.typeId));
@@ -333,7 +333,7 @@ bool CScriptDictionary::Get(const asstring_t &key, void *value, int typeId) cons
 	}
 
 	// AngelScript has already initialized the value with a default value,
-	// so we don't have to do anything if we don't find the element, or if 
+	// so we don't have to do anything if we don't find the element, or if
 	// the element is incompatible with the requested type.
 
 	return false;
@@ -413,10 +413,10 @@ void CScriptDictionary::FreeValue(valueStruct &value)
 
 CScriptArrayInterface * CScriptDictionary::GetKeys() const
 {
-	// TODO: optimize: The string array type should only be determined once. 
+	// TODO: optimize: The string array type should only be determined once.
 	//                 It should be recomputed when registering the dictionary class.
 	//                 Only problem is if multiple engines are used, as they may not
-	//                 share the same type id. Alternatively it can be stored in the 
+	//                 share the same type id. Alternatively it can be stored in the
 	//                 user data for the dictionary type.
 	int stringArrayType = engine->GetTypeIdByDecl("array<String @>");
 	asIObjectType *ot = engine->GetObjectTypeById(stringArrayType);
@@ -705,5 +705,3 @@ void RegisterScriptDictionary(asIScriptEngine *engine)
 }
 
 END_AS_NAMESPACE
-
-
