@@ -256,7 +256,6 @@ extern cvar_t *tv_autorecord;
 extern cvar_t *tv_lobbymusic;
 
 extern cvar_t *tv_masterservers;
-extern cvar_t *tv_masterservers_steam;
 
 extern cvar_t *tv_floodprotection_messages;
 extern cvar_t *tv_floodprotection_seconds;
