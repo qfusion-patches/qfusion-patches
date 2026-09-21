@@ -50,7 +50,7 @@ FIXME:  This will be remidied once a native Mac port is complete
 #include "../qcommon/qcommon.h"
 #include "glob.h"
 
-#if !defined(USE_SDL2) || defined(DEDICATED_ONLY)
+#if defined(DEDICATED_ONLY)
 
 cvar_t *nostdout;
 bool nostdout_backup_val = false;
@@ -62,10 +62,6 @@ uid_t saved_euid;
 // =======================================================================
 // General routines
 // =======================================================================
-
-#ifndef DEDICATED_ONLY
-extern void CL_Shutdown( void );
-#endif
 
 static void sigusr_handler( int sig )
 {
@@ -224,7 +220,7 @@ void Sys_SendKeyEvents( void )
 	sys_frame_time = Sys_Milliseconds();
 }
 
-#endif // !defined(USE_SDL2) || defined(DEDICATED_ONLY)
+#endif // defined(DEDICATED_ONLY)
 
 #ifndef __APPLE__
 /*
@@ -287,7 +283,7 @@ const char *Sys_GetPreferredLanguage( void )
 	return Q_strlwr( lang );
 }
 
-#if !defined(USE_SDL2) || defined(DEDICATED_ONLY)
+#if defined(DEDICATED_ONLY)
 
 /*
 * Sys_AcquireWakeLock
@@ -311,14 +307,6 @@ int main( int argc, char **argv )
 	unsigned int oldtime, newtime, time;
 
 	InitSig();
-
-#if defined ( __MACOSX__ ) && !defined (DEDICATED_ONLY)
-	char resourcesPath[MAXPATHLEN];
-	CFURLGetFileSystemRepresentation(CFBundleCopyResourcesDirectoryURL(CFBundleGetMainBundle()), 1, (UInt8 *)resourcesPath, MAXPATHLEN);
-	chdir(resourcesPath);
-
-	SDL_Init( SDL_INIT_VIDEO );
-#endif
 
 	Qcommon_Init( argc, argv );
 
@@ -349,9 +337,6 @@ int main( int argc, char **argv )
 
 		Qcommon_Frame( time );
 	}
-#if defined ( __MACOSX__ ) && !defined (DEDICATED_ONLY)
-	SDL_Quit();
-#endif
 }
 
-#endif // !defined(USE_SDL2) || defined(DEDICATED_ONLY)
+#endif // defined(DEDICATED_ONLY)

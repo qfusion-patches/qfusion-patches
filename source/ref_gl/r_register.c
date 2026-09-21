@@ -121,7 +121,6 @@ cvar_t *r_usenotexture;
 cvar_t *r_maxglslbones;
 
 cvar_t *gl_drawbuffer;
-cvar_t *gl_driver;
 cvar_t *gl_cull;
 cvar_t *r_multithreading;
 
@@ -393,34 +392,6 @@ static const gl_extension_func_t gl_ext_texture_3D_OES_funcs[] =
 
 #endif // GL_ES_VERSION_2_0
 
-#ifndef USE_SDL2
-
-#ifdef _WIN32
-
-/* WGL_EXT_swap_interval */
-static const gl_extension_func_t wgl_ext_swap_interval_EXT_funcs[] =
-{
-	 GL_EXTENSION_FUNC_EXT("wglSwapIntervalEXT",&qwglSwapIntervalEXT)
-
-	,GL_EXTENSION_FUNC_EXT(NULL,NULL)
-};
-
-#endif
-
-#ifdef GLX_VERSION
-
-/* GLX_SGI_swap_control */
-static const gl_extension_func_t glx_ext_swap_control_SGI_funcs[] =
-{
-	 GL_EXTENSION_FUNC_EXT("glXSwapIntervalSGI",&qglXSwapIntervalSGI)
-
-	,GL_EXTENSION_FUNC_EXT(NULL,NULL)
-};
-
-#endif
-
-#endif // USE_SDL2
-
 #undef GL_EXTENSION_FUNC
 #undef GL_EXTENSION_FUNC_EXT
 
@@ -498,15 +469,6 @@ static const gl_extension_t gl_extensions_decl[] =
 
 	,GL_EXTENSION( EXT, texture_filter_anisotropic, true, false, NULL )
 	,GL_EXTENSION( EXT, bgra, true, false, NULL )
-
-#ifndef USE_SDL2
-#ifdef GLX_VERSION
-	,GL_EXTENSION( GLX_SGI, swap_control, true, false, &glx_ext_swap_control_SGI_funcs )
-#endif
-#ifdef _WIN32
-	,GL_EXTENSION( WGL_EXT, swap_control, true, false, &wgl_ext_swap_interval_EXT_funcs )
-#endif
-#endif
 };
 
 static const int num_gl_extensions = sizeof( gl_extensions_decl ) / sizeof( gl_extensions_decl[0] );
@@ -570,7 +532,7 @@ static bool R_RegisterGLExtensions( void )
 		if( func )
 		{
 			do {
-				*(func->pointer) = ( void * )qglGetProcAddress( (const GLubyte *)func->name );
+				*(func->pointer) = ( void * )qglGetProcAddress( func->name );
 				if( !*(func->pointer) )
 					break;
 			} while( (++func)->name );
@@ -1014,7 +976,6 @@ static void R_FillStartupBackgroundColor( float r, float g, float b )
 static void R_Register( const char *screenshotsPrefix )
 {
 	char tmp[128];
-	const qgl_driverinfo_t *driver;
 
     r_maxfps = ri.Cvar_Get( "r_maxfps", "250", CVAR_ARCHIVE );
 	r_norefresh = ri.Cvar_Get( "r_norefresh", "0", 0 );
@@ -1132,12 +1093,6 @@ static void R_Register( const char *screenshotsPrefix )
 	gl_cull = ri.Cvar_Get( "gl_cull", "1", 0 );
 	gl_drawbuffer = ri.Cvar_Get( "gl_drawbuffer", "GL_BACK", 0 );
 
-	driver = QGL_GetDriverInfo();
-	if( driver && driver->dllcvarname )
-		gl_driver = ri.Cvar_Get( driver->dllcvarname, driver->dllname, CVAR_ARCHIVE|CVAR_LATCH_VIDEO );
-	else
-		gl_driver = NULL;
-
 	ri.Cmd_AddCommand( "imagelist", R_ImageList_f );
 	ri.Cmd_AddCommand( "shaderlist", R_ShaderList_f );
 	ri.Cmd_AddCommand( "shaderdump", R_ShaderDump_f );
@@ -1236,12 +1191,8 @@ static unsigned R_GLVersionHash( const char *vendorString,
 /*
 * R_Init
 */
-rserr_t R_Init( const char *applicationName, const char *screenshotPrefix, int startupColor,
-	int iconResource, const int *iconXPM,
-	void *hinstance, void *wndproc, void *parenthWnd,
-	bool verbose )
+rserr_t R_Init( const char *applicationName, const char *screenshotPrefix, int startupColor, const int *iconXPM, void *wndproc, bool verbose )
 {
-	const qgl_driverinfo_t *driver;
 	const char *dllname = NULL;
 	qgl_initerr_t initerr;
 
@@ -1258,28 +1209,17 @@ rserr_t R_Init( const char *applicationName, const char *screenshotPrefix, int s
 
 	memset( &glConfig, 0, sizeof(glConfig) );
 
-	// initialize our QGL dynamic bindings
-	driver = QGL_GetDriverInfo();
-	if( driver )
-		dllname = driver->dllname;
 init_qgl:
-	initerr = QGL_Init( gl_driver ? gl_driver->string : dllname );
+	initerr = QGL_Init();
 	if( initerr != qgl_initerr_ok )
 	{
 		QGL_Shutdown();
-		Com_Printf( "ref_gl::R_Init() - could not load \"%s\"\n", gl_driver ? gl_driver->string : dllname );
-
-		if( ( initerr == qgl_initerr_invalid_driver ) && gl_driver && strcmp( gl_driver->string, dllname ) )
-		{
-			ri.Cvar_ForceSet( gl_driver->name, dllname );
-			goto init_qgl;
-		}
-
+		Com_Printf( "ref_gl::R_Init() - could not load QGL\n" );
 		return rserr_invalid_driver;
 	}
 
 	// initialize OS-specific parts of OpenGL
-	if( !GLimp_Init( applicationName, hinstance, wndproc, parenthWnd, iconResource, iconXPM ) )
+	if( !GLimp_Init( applicationName, wndproc, iconXPM ) )
 	{
 		QGL_Shutdown();
 		return rserr_unknown;
@@ -1535,7 +1475,6 @@ void R_Shutdown( bool verbose )
 	// destroy compiled GLSL programs
 	RP_Shutdown();
 
-	// restore original gamma
 	if( glConfig.hwGamma )
 		GLimp_SetGammaRamp( GAMMARAMP_STRIDE, glConfig.gammaRampSize, glConfig.originalGammaRamp );
 

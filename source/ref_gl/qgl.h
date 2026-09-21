@@ -85,12 +85,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #undef GL_GLEXT_LEGACY
 #undef GLX_GLXEXT_LEGACY
 
-typedef struct qgl_driverinfo_s
-{
-	const char *dllname;		// default driver DLL name
-	const char *dllcvarname;	// custom driver DLL cvar name, NULL if can't override driver
-} qgl_driverinfo_t;
-
 typedef enum
 {
 	qgl_initerr_ok,
@@ -98,11 +92,10 @@ typedef enum
 	qgl_initerr_unknown
 } qgl_initerr_t;
 
-QGL_EXTERN	const qgl_driverinfo_t	*QGL_GetDriverInfo( void );
-QGL_EXTERN	qgl_initerr_t			QGL_Init( const char *dllname );
+QGL_EXTERN	qgl_initerr_t			QGL_Init( void );
 QGL_EXTERN	void					QGL_Shutdown( void );
 
-QGL_EXTERN	void					*qglGetProcAddress( const GLubyte * );
+QGL_EXTERN	void					*qglGetProcAddress( const char * );
 QGL_EXTERN	const char				*(*qglGetGLWExtensionsString)( void );
 
 /*

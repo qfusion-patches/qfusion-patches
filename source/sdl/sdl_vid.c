@@ -18,7 +18,7 @@
 
  */
 
-#include <SDL.h>
+#include <SDL3/SDL.h>
 #include "../client/client.h"
 
 SDL_Window *sdl_window;
@@ -32,11 +32,9 @@ static int VID_WndProc( void *wnd, int ev, int p1, int p2 )
 /*
  * VID_Sys_Init
  */
-rserr_t VID_Sys_Init( const char *applicationName, const char *screenshotsPrefix, int startupColor,
-	const int *iconXPM, void *parentWindow, bool verbose )
+rserr_t VID_Sys_Init( const char *applicationName, const char *screenshotsPrefix, int startupColor, const int *iconXPM, bool verbose )
 {
-	return re.Init( applicationName, screenshotsPrefix, startupColor, 0, iconXPM,
-		NULL, VID_WndProc, parentWindow, verbose );
+	return re.Init( applicationName, screenshotsPrefix, startupColor, iconXPM, VID_WndProc, verbose );
 }
 
 /*
@@ -44,7 +42,8 @@ rserr_t VID_Sys_Init( const char *applicationName, const char *screenshotsPrefix
  */
 void VID_UpdateWindowPosAndSize( int x, int y )
 {
-	SDL_SetWindowPosition( sdl_window, x, y );
+	if( SDL_SetWindowPosition( sdl_window, x, y ) )
+		SDL_SyncWindow( sdl_window );
 }
 
 /*
@@ -76,6 +75,7 @@ void VID_EnableWinKeys( bool enable )
  */
 void VID_FlashWindow( int count )
 {
+	SDL_FlashWindow(sdl_window, SDL_FLASH_BRIEFLY);
 }
 
 /*
@@ -83,46 +83,42 @@ void VID_FlashWindow( int count )
  */
 unsigned int VID_GetSysModes( vidmode_t *modes )
 {
-#ifdef __APPLE__
-	// only support borderless fullscreen because Alt+Tab doesn't work in fullscreen
-	if( modes )
-		VID_GetDefaultMode( &modes[0].width, &modes[0].height );
-	return 1;
-#else
+	int i;
 	int num;
-	SDL_DisplayMode mode;
 	int prevwidth = 0, prevheight = 0;
+	SDL_DisplayMode *m, **mm;
 	unsigned int ret = 0;
 
-	num = SDL_GetNumDisplayModes( 0 );
-	if( num < 1 )
+	mm = SDL_GetFullscreenDisplayModes( SDL_GetPrimaryDisplay(), &num );
+
+	if( !mm || num < 1 )
 		return 0;
 
-	while( num-- ) // reverse to help the sorting a little
+	for( i = 0; i < num; i++ )
 	{
-		if( SDL_GetDisplayMode( 0, num, &mode ) )
+		m = mm[i];
+
+		if( SDL_BITSPERPIXEL( m->format ) < 15 )
 			continue;
 
-		if( SDL_BITSPERPIXEL( mode.format ) < 15 )
-			continue;
-
-		if( ( mode.w == prevwidth ) && ( mode.h == prevheight ) )
+		if( ( m->w == prevwidth ) && ( m->h == prevheight ) )
 			continue;
 
 		if( modes )
 		{
-			modes[ret].width = mode.w;
-			modes[ret].height = mode.h;
+			modes[ret].width = m->w;
+			modes[ret].height = m->h;
 		}
 
-		prevwidth = mode.w;
-		prevheight = mode.h;
+		prevwidth = m->w;
+		prevheight = m->h;
 
 		ret++;
 	}
 
+	SDL_free(mm);
+
 	return ret;
-#endif
 }
 
 /*
@@ -130,11 +126,11 @@ unsigned int VID_GetSysModes( vidmode_t *modes )
  */
 bool VID_GetDefaultMode( int *width, int *height )
 {
-	SDL_DisplayMode mode;
-	SDL_GetDesktopDisplayMode( 0, &mode );
+	const SDL_DisplayMode *mode;
+	mode = SDL_GetDesktopDisplayMode( SDL_GetPrimaryDisplay() );
 
-	*width = mode.w;
-	*height = mode.h;
+	*width = mode->w;
+	*height = mode->h;
 
 	return true;
 }
@@ -144,13 +140,6 @@ bool VID_GetDefaultMode( int *width, int *height )
  */
 float VID_GetPixelRatio( void )
 {
-#if 0 && SDL_VERSION_ATLEAST(2,0,4)
-	float vdpi;
-
-	if( SDL_GetDisplayDPI( 0, NULL, NULL, &vdpi ) == 0 ) {
-		return vdpi / 96.0f;
-	}
-#endif
-
-	return 1.0f; // TODO: check if retina?
+	// TODO: consider SDL_GetWindowDisplayScale
+	return 1.0f;
 }
