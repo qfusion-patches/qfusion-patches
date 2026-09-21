@@ -22,7 +22,6 @@
 #include "../qcommon/qcommon.h"
 #include "../ref_gl/r_public.h"
 #include "../cgame/cg_public.h"
-#include "../matchmaker/mm_rating.h"
 #include "snd_public.h"
 #include "../qcommon/steam.h"
 
@@ -299,10 +298,6 @@ typedef struct
 	bool pure_restart;
 
 	purelist_t *purelist;
-
-	int mm_session;
-	unsigned int mm_ticket;
-	clientRating_t *ratings;
 
 	char session[MAX_INFO_VALUE];
 
@@ -634,28 +629,6 @@ extern float scr_con_current;
 extern float scr_conlines;       // lines of console to display
 
 extern ref_export_t re;		// interface to refresh .dll
-
-//
-// cl_mm.c
-//
-//extern cvar_t *cl_mmserver;
-
-void CL_MM_Init( void );
-void CL_MM_Shutdown( bool logout );
-void CL_MM_Frame( void );
-bool CL_MM_CanConnect( void );
-bool CL_MM_WaitForLogin( void );
-
-bool CL_MM_Initialized( void );
-bool CL_MM_Connect( const netadr_t *address );
-
-// exported to UI
-bool CL_MM_Login( const char *user, const char *password );
-bool CL_MM_Logout( bool force );
-int CL_MM_GetLoginState( void );
-size_t CL_MM_GetLastErrorMessage( char *buffer, size_t buffer_size );
-size_t CL_MM_GetProfileURL( char *buffer, size_t buffer_size, bool rml );
-size_t CL_MM_GetBaseWebURL( char *buffer, size_t buffer_size );
 
 //
 // sys import

@@ -721,29 +721,6 @@ static void SV_CheckPostUpdateRestart( void )
 }
 
 /*
-* SV_CheckMatchUUID_Callback
-*/
-static void SV_CheckMatchUUID_Callback( const char *uuid )
-{
-	Q_strncpyz( sv.configstrings[CS_MATCHUUID], uuid, sizeof( sv.configstrings[0] ) );
-}
-
-/*
-* SV_CheckMatchUUID
-*
-* See if the game module or the server itself have reset the
-* match UUID configstring. If so, and we're connected to the
-* matchmaker, fetch a new UUID.
-*/
-static void SV_CheckMatchUUID( void )
-{
-	if( sv.configstrings[CS_MATCHUUID][0] != '\0' ) {
-		return;
-	}
-	SV_MM_GetMatchUUID( &SV_CheckMatchUUID_Callback );
-}
-
-/*
 * SV_Frame
 */
 void SV_Frame( int realmsec, int gamemsec )
@@ -787,11 +764,6 @@ void SV_Frame( int realmsec, int gamemsec )
 
 		// write snap to server demo file
 		SV_Demo_WriteSnap();
-
-		// run matchmaker stuff
-		SV_CheckMatchUUID();
-
-		SV_MM_Frame();
 
 		// send a heartbeat to the master if needed
 		SV_MasterHeartbeat();
@@ -840,20 +812,8 @@ void SV_UserinfoChanged( client_t *client )
 	}
 
 	// mm session
-	ival = 0;
-	val = Info_ValueForKey( client->userinfo, "cl_mm_session" );
-	if( val )
-		ival = atoi( val );
-	if( !val || ival != client->mm_session )
-		Info_SetValueForKey( client->userinfo, "cl_mm_session", va("%d", client->mm_session ) );
-
-	// mm login
-	if( client->mm_login[0] != '\0' ) {
-		Info_SetValueForKey( client->userinfo, "cl_mm_login", client->mm_login );
-	}
-	else {
-		Info_RemoveKey( client->userinfo, "cl_mm_login" );
-	}
+	// we initialize it here because it's used in scripts
+	Info_SetValueForKey( client->userinfo, "cl_mm_session", va("%d", 0 ) );
 
 	// call prog code to allow overrides
 	ge->ClientUserinfoChanged( client->edict, client->userinfo );
@@ -1065,8 +1025,6 @@ void SV_Init( void )
 	//init the master servers list
 	SV_InitMaster();
 
-	SV_MM_Init();
-
 	ML_Init();
 
 	SV_Web_Init();
@@ -1087,7 +1045,6 @@ void SV_Shutdown( const char *finalmsg )
 
 	SV_Web_Shutdown();
 	ML_Shutdown();
-	SV_MM_Shutdown( true );
 	SV_ShutdownGame( finalmsg, false );
 
 	SV_ShutdownOperatorCommands();

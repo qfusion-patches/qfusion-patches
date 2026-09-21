@@ -315,14 +315,6 @@ void G_Teams_SetTeam( edict_t *ent, int team )
 	assert( ent && ent->r.inuse && ent->r.client );
 	assert( team >= TEAM_SPECTATOR && team < GS_MAX_TEAMS );
 
-	// if player was on a team, send partial report to matchmaker
-	if( ent->r.client->team != TEAM_SPECTATOR && ent->r.client->team != team && GS_MatchState() == MATCH_STATE_PLAYTIME )
-	{
-		G_Printf("Sending teamchange to MM, team %d to team %d\n", ent->r.client->team, team );
-		G_AddPlayerReport( ent, false );
-		// trap_MR_SendPartialReport();
-	}
-
 	// clear scores at changing team
 	memset( &ent->r.client->level.stats, 0, sizeof( ent->r.client->level.stats ) );
 
@@ -1314,19 +1306,6 @@ void G_Say_Team( edict_t *who, char *msg, bool checkflood )
 		G_ChatMsg( NULL, who, true, "%s", msg );
 		return;
 	}
-
-#ifdef AUTHED_SAY
-	if( sv_mm_enable->integer && who->r.client && who->r.client->mm_session <= 0 )
-	{
-		// unauthed players are only allowed to chat to public at non play-time
-		// they are allowed to team-chat at any time
-		if( GS_MatchState() == MATCH_STATE_PLAYTIME )
-		{
-			G_PrintMsg( who, "%s", S_COLOR_YELLOW "You must authenticate to be able to chat with other players during the match.\n");
-			return;
-		}
-	}
-#endif
 
 	Q_strncpyz( current_color, S_COLOR_WHITE, sizeof( current_color ) );
 

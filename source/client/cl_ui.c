@@ -311,14 +311,6 @@ void CL_UIModule_Init( void )
 	import.ML_GetFilename = ML_GetFilename;
 	import.ML_GetFullname = ML_GetFullname;
 	import.ML_GetMapByNum = ML_GetMapByNum;
-
-	import.MM_Login = CL_MM_Login;
-	import.MM_Logout = CL_MM_Logout;
-	import.MM_GetLoginState = CL_MM_GetLoginState;
-	import.MM_GetLastErrorMessage = CL_MM_GetLastErrorMessage;
-	import.MM_GetProfileURL = CL_MM_GetProfileURL;
-	import.MM_GetBaseWebURL = CL_MM_GetBaseWebURL;
-
 	import.asGetAngelExport = Com_asGetAngelExport;
 
 	import.Irc_HistorySize = Irc_HistorySize;

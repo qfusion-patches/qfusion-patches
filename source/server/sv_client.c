@@ -63,8 +63,7 @@ void SV_ClientCloseDownload( client_t *client )
 * this is the only place a client_t is ever initialized
 */
 bool SV_ClientConnect( const socket_t *socket, const netadr_t *address, client_t *client, char *userinfo,
-						  int game_port, int challenge, bool fakeClient, bool tvClient,
-						  unsigned int ticket_id, int session_id )
+						  int game_port, int challenge, bool fakeClient, bool tvClient)
 {
 	int i;
 	edict_t	*ent;
@@ -72,17 +71,6 @@ bool SV_ClientConnect( const socket_t *socket, const netadr_t *address, client_t
 
 	edictnum = ( client - svs.clients ) + 1;
 	ent = EDICT_NUM( edictnum );
-
-	// give mm a chance to reject if the server is locked ready for mm
-	// must be called before ge->ClientConnect
-	// ch : rly ignore fakeClient and tvClient here?
-	session_id = SV_MM_ClientConnect( address, userinfo, ticket_id, session_id );
-	if( !session_id )
-		return false;
-
-	// we need to set local sessions to userinfo ourselves
-	if( session_id < 0 )
-		Info_SetValueForKey( userinfo, "cl_mm_session", va("%d", session_id) );
 
 	// get the game a chance to reject this connection or modify the userinfo
 	if( !ge->ClientConnect( ent, userinfo, fakeClient, tvClient ) )
@@ -95,9 +83,6 @@ bool SV_ClientConnect( const socket_t *socket, const netadr_t *address, client_t
 	client->challenge = challenge; // save challenge for checksumming
 
 	client->tvclient = tvClient;
-
-	client->mm_session = session_id;
-	client->mm_ticket = ticket_id;
 
 	if( socket )
 	{
@@ -142,8 +127,6 @@ bool SV_ClientConnect( const socket_t *socket, const netadr_t *address, client_t
 	if( fakeClient )
 	{
 		client->netchan.remoteAddress.type = NA_NOTRANSMIT; // fake-clients can't transmit
-		// TODO: if mm_debug_reportbots
-		Info_SetValueForKey( userinfo, "cl_mm_session", va("%d", client->mm_session) );
 	}
 	else
 	{
@@ -157,9 +140,6 @@ bool SV_ClientConnect( const socket_t *socket, const netadr_t *address, client_t
 		}
 	}
 
-
-	// create default rating for the client and current gametype
-	ge->AddDefaultRating( ent, NULL );
 
 	// parse some info from the info strings
 	client->userinfoLatchTimeout = Sys_Milliseconds() + USERINFO_UPDATE_COOLDOWN_MSEC;
@@ -205,10 +185,6 @@ void SV_DropClient( client_t *drop, int type, const char *format, ... )
 		reason = NULL;
 	}
 
-	// remove the rating of the client
-	if( drop->edict )
-		ge->RemoveRating( drop->edict );
-
 	// add the disconnect
 	if( drop->edict && ( drop->edict->r.svflags & SVF_FAKECLIENT ) )
 	{
@@ -236,8 +212,6 @@ void SV_DropClient( client_t *drop, int type, const char *format, ... )
 				S_COLOR_WHITE );
 		}
 	}
-
-	SV_MM_ClientDisconnect( drop );
 
 	SNAP_FreeClientFrames( drop );
 

@@ -446,9 +446,6 @@ void SV_InitGame( void )
 	if( dedicated->integer && !socket_opened )
 		Com_Error( ERR_FATAL, "Couldn't open any socket\n" );
 
-	// init mm
-	// SV_MM_Init();
-
 	// init game
 	SV_InitGameProgs();
 	for( i = 0; i < sv_maxclients->integer; i++ )
@@ -519,8 +516,6 @@ void SV_ShutdownGame( const char *finalmsg, bool reconnect )
 		SV_FinalMessage( finalmsg, reconnect );
 
 	SV_ShutdownGameProgs();
-
-	// SV_MM_Shutdown();
 
 	SV_MasterSendQuit();
 

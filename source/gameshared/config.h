@@ -38,8 +38,6 @@ break
 
 #define TCP_SUPPORT
 
-//#define AUTHED_SAY
-
 //#define TCP_ALLOW_CONNECT
 #define TCP_ALLOW_TVCONNECT
 

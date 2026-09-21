@@ -97,14 +97,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define APP_CLIENT_ANNOUNCEMENT_FILE	"warsow_announcement.txt"
 #endif
 
-#ifdef PUBLIC_BUILD
-#define APP_MATCHMAKER_URL				"https://mm.warsow.gg:1338"
-#define APP_MATCHMAKER_WEB_URL			"https://www.warsow.gg/wmm/"
-#else
-#define APP_MATCHMAKER_URL				"http://mm-dev.warsow.gg:1337"
-#define APP_MATCHMAKER_WEB_URL			"http://www-dev.warsow.gg/wmm/"
-#endif
-
 #ifndef APP_UI_BASEPATH
 #define APP_UI_BASEPATH					"ui/porkui"
 #endif
