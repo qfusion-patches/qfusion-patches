@@ -47,25 +47,11 @@ void VID_UpdateWindowPosAndSize( int x, int y )
 }
 
 /*
- * VID_EnableAltTab
- */
-void VID_EnableAltTab( bool enable )
-{
-}
-
-/*
  * VID_GetWindowHandle - The sound module may require the handle when using Window's directsound
  */
 void *VID_GetWindowHandle( void )
 {
 	return (void *)NULL;
-}
-
-/*
- * VID_EnableWinKeys
- */
-void VID_EnableWinKeys( bool enable )
-{
 }
 
 /*

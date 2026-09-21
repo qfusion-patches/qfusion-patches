@@ -239,7 +239,7 @@ static float R_FitOccluder( const shadowGroup_t *group, refdef_t *refdef )
 	}
 	else {
 		Matrix4_PerspectiveProjection( refdef->fov_x, refdef->fov_y,
-			Z_NEAR, group->projDist, rf.cameraSeparation, projectionMatrix );
+			Z_NEAR, group->projDist, projectionMatrix );
 	}
 
 	Matrix4_Multiply( projectionMatrix, cameraMatrix, cameraProjectionMatrix );
