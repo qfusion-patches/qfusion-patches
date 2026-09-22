@@ -10,5 +10,5 @@ file(GLOB GAME_HEADERS
 	"../gameshared/*.h"
 )
 
-add_library(game SHARED ${GAME_SOURCES} ${GAME_HEADERS})
+add_library(game MODULE ${GAME_SOURCES} ${GAME_HEADERS})
 target_link_libraries(game PRIVATE Angelscript)

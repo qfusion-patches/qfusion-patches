@@ -69,7 +69,6 @@ target_link_libraries(
     ${QFUSION_SERVER_NAME}
     PRIVATE
     m dl
-    game cgame
     Threads::Threads
     PkgConfig::CURL
     PkgConfig::ZLIB

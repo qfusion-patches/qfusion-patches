@@ -8,7 +8,7 @@ file(GLOB CIN_HEADERS
 	"../gameshared/q_*.h"
 )
 
-add_library(cin SHARED ${CIN_SOURCES} ${CIN_HEADERS})
+add_library(cin MODULE ${CIN_SOURCES} ${CIN_HEADERS})
 target_link_libraries(cin
     PRIVATE
     m

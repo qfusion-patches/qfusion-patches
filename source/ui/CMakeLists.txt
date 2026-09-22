@@ -23,7 +23,7 @@ file(GLOB UI_HEADERS
 	"../qalgo/*.h"
 )
 
-add_library(ui SHARED ${UI_SOURCES} ${UI_HEADERS})
+add_library(ui MODULE ${UI_SOURCES} ${UI_HEADERS})
 
 target_include_directories(
     ui

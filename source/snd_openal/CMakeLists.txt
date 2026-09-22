@@ -10,7 +10,7 @@ file(GLOB SND_OPENAL_HEADERS
 	"../client/snd_public.h"
 )
 
-add_library(snd_openal SHARED
+add_library(snd_openal MODULE
     ${SND_OPENAL_SOURCES}
     ${SND_OPENAL_HEADERS}
 )

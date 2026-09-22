@@ -11,7 +11,7 @@ file(GLOB ANGELWRAP_HEADERS
 	"../gameshared/q_*.h"
 )
 
-add_library(angelwrap SHARED ${ANGELWRAP_SOURCES} ${ANGELWRAP_HEADERS})
+add_library(angelwrap MODULE ${ANGELWRAP_SOURCES} ${ANGELWRAP_HEADERS})
 
 target_link_libraries(angelwrap
     PRIVATE

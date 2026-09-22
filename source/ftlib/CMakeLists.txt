@@ -8,5 +8,5 @@ file(GLOB FTLIB_HEADERS
 	"../gameshared/q_*.h"
 )
 
-add_library(ftlib SHARED ${FTLIB_SOURCES} ${FTLIB_HEADERS})
+add_library(ftlib MODULE ${FTLIB_SOURCES} ${FTLIB_HEADERS})
 target_link_libraries(ftlib PRIVATE Freetype::Freetype)

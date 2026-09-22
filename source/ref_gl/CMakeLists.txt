@@ -23,7 +23,7 @@ file(GLOB REF_GL_HEADERS
 	"../qalgo/*.h"
 )
 
-add_library(ref_gl SHARED
+add_library(ref_gl MODULE
     ${REF_GL_SOURCES}
     ${REF_GL_PLATFORM_SOURCES}
     ${REF_GL_HEADERS}

@@ -8,4 +8,4 @@ file(GLOB CGAME_SOURCES
     "../gameshared/*.c"
 )
 
-add_library(cgame SHARED ${CGAME_SOURCES} ${CGAME_HEADERS})
+add_library(cgame MODULE ${CGAME_SOURCES} ${CGAME_HEADERS})
