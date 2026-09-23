@@ -87,3 +87,8 @@ install(PROGRAMS unix/start_script.sh
   DESTINATION .
   RENAME warsow
 )
+
+install(PROGRAMS unix/start_script.sh
+  DESTINATION .
+  RENAME wsw_server
+)
