@@ -112,30 +112,31 @@ static unsigned TranslateSDLKeycode( const SDL_KeyboardEvent *event )
 
 	switch( event->scancode )
 	{
-		case SDL_SCANCODE_F1:           return K_F1;      break;
-		case SDL_SCANCODE_F2:           return K_F2;      break;
-		case SDL_SCANCODE_F3:           return K_F3;      break;
-		case SDL_SCANCODE_F4:           return K_F4;      break;
-		case SDL_SCANCODE_F5:           return K_F5;      break;
-		case SDL_SCANCODE_F6:           return K_F6;      break;
-		case SDL_SCANCODE_F7:           return K_F7;      break;
-		case SDL_SCANCODE_F8:           return K_F8;      break;
-		case SDL_SCANCODE_F9:           return K_F9;      break;
-		case SDL_SCANCODE_F10:          return K_F10;     break;
-		case SDL_SCANCODE_F11:          return K_F11;     break;
-		case SDL_SCANCODE_F12:          return K_F12;     break;
-		case SDL_SCANCODE_F13:          return K_F13;     break;
-		case SDL_SCANCODE_F14:          return K_F14;     break;
-		case SDL_SCANCODE_F15:          return K_F15;     break;
-		case SDL_SCANCODE_INSERT:       return K_INS;     break;
-		case SDL_SCANCODE_DELETE:       return K_DEL;     break;
-		case SDL_SCANCODE_PAGEUP:       return K_PGUP;    break;
-		case SDL_SCANCODE_PAGEDOWN:     return K_PGDN;    break;
-		case SDL_SCANCODE_HOME:         return K_HOME;    break;
-		case SDL_SCANCODE_END:          return K_END;     break;
-		case SDL_SCANCODE_GRAVE:        return '~';       break;
+		case SDL_SCANCODE_F1:             return K_F1;      break;
+		case SDL_SCANCODE_F2:             return K_F2;      break;
+		case SDL_SCANCODE_F3:             return K_F3;      break;
+		case SDL_SCANCODE_F4:             return K_F4;      break;
+		case SDL_SCANCODE_F5:             return K_F5;      break;
+		case SDL_SCANCODE_F6:             return K_F6;      break;
+		case SDL_SCANCODE_F7:             return K_F7;      break;
+		case SDL_SCANCODE_F8:             return K_F8;      break;
+		case SDL_SCANCODE_F9:             return K_F9;      break;
+		case SDL_SCANCODE_F10:            return K_F10;     break;
+		case SDL_SCANCODE_F11:            return K_F11;     break;
+		case SDL_SCANCODE_F12:            return K_F12;     break;
+		case SDL_SCANCODE_F13:            return K_F13;     break;
+		case SDL_SCANCODE_F14:            return K_F14;     break;
+		case SDL_SCANCODE_F15:            return K_F15;     break;
+		case SDL_SCANCODE_INSERT:         return K_INS;     break;
+		case SDL_SCANCODE_DELETE:         return K_DEL;     break;
+		case SDL_SCANCODE_PAGEUP:         return K_PGUP;    break;
+		case SDL_SCANCODE_PAGEDOWN:       return K_PGDN;    break;
+		case SDL_SCANCODE_HOME:           return K_HOME;    break;
+		case SDL_SCANCODE_END:            return K_END;     break;
+		case SDL_SCANCODE_GRAVE:          return '~';       break;
 		case SDL_SCANCODE_LGUI:
-		case SDL_SCANCODE_RGUI:         return K_COMMAND; break;
+		case SDL_SCANCODE_RGUI:           return K_COMMAND; break;
+		case SDL_SCANCODE_NONUSBACKSLASH: return '<';       break;
 
 		case SDL_SCANCODE_A:         return 'a';         break;
 		case SDL_SCANCODE_B:         return 'b';         break;
