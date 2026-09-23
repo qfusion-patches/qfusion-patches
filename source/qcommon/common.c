@@ -960,7 +960,7 @@ void Qcommon_Init( int argc, char **argv )
 	com_introPlayed3 =   Cvar_Get( "com_introPlayed3", "0", CVAR_ARCHIVE );
 
 	Cvar_Get( "gamename", APPLICATION, CVAR_READONLY );
-	versioncvar = Cvar_Get( "version", APP_VERSION_STR " " CPUSTRING " " __DATE__ " " BUILDSTRING, CVAR_SERVERINFO|CVAR_READONLY );
+	versioncvar = Cvar_Get( "version", APP_VERSION_STR " " CPUSTRING " " BUILDSTRING, CVAR_SERVERINFO|CVAR_READONLY );
 	revisioncvar = Cvar_Get( "revision", SVN_RevString(), CVAR_READONLY );
 
 	Sys_Init();
