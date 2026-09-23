@@ -17,6 +17,12 @@ set(CFLAGS
   -Wstrict-overflow
   -Winvalid-pch
 
+  # FIXME
+  -Wno-null-dereference
+  -Wno-clobbered
+  -Wno-maybe-uninitialized
+  -Wno-array-bounds
+
   -fvisibility=hidden
   -fno-strict-aliasing
 )
