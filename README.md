@@ -1,4 +1,39 @@
-qfusion [![Build Status](https://travis-ci.org/Warsow/qfusion.svg?branch=master)](https://travis-ci.org/Warsow/qfusion) [![Build status](https://ci.appveyor.com/api/projects/status/ijn380lud31mepv6?svg=true)](https://ci.appveyor.com/project/viciious/qfusion)
+qfusion-patches
+=======
+
+This repository contains patches for the Warsow 2.1 sources to get them
+compiling cleanly on modern toolchains, as well as fixes for a few
+long-standing bugs in the engine.
+
+Changes:
+
+* Build system rewritten in "modern" CMake
+* Removal of obsolete IRC, Mumble, Steam, Matchmaker code
+* SDL backend ported to SDL 3
+* Fixed UI
+* Fixed demo recording
+* Fixed various other bugs
+
+### Demos
+
+Compression of demo recordings was removed as it was bugged and the cause of
+the broken demo files, but correctly compressed demos should still be viewable.
+For a technical explanation, read
+[here](https://github.com/qfusion-patches/qfusion-patches/commit/11f843663301a66cabdf37500decef2cd406486e).
+
+### Windows/macOS support
+
+I have no interest in supporting Windows/macOS and as such, I've removed the
+platform backends for them (as they're dead code with the new build) as well as
+the relevant definitions in `q_arch.h`. I am also not vendoring zlib, libpng,
+libjpeg, ... as was originally done because they are stable and can be sourced
+from the system on Linux.
+
+---
+
+The original README.md is reproduced below.
+
+qfusion
 =======
 
 http://www.qfusion.net/
