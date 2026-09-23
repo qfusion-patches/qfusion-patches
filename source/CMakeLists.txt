@@ -22,6 +22,7 @@ set(CFLAGS
   -Wno-clobbered
   -Wno-maybe-uninitialized
   -Wno-array-bounds
+  -Wno-stringop-overflow
 
   -fvisibility=hidden
   -fno-strict-aliasing
