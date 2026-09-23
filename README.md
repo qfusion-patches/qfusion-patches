@@ -21,13 +21,16 @@ the broken demo files, but correctly compressed demos should still be viewable.
 For a technical explanation, read
 [here](https://github.com/qfusion-patches/qfusion-patches/commit/11f843663301a66cabdf37500decef2cd406486e).
 
-### Windows/macOS support
+### Building
 
-I have no interest in supporting Windows/macOS and as such, I've removed the
-platform backends for them (as they're dead code with the new build) as well as
-the relevant definitions in `q_arch.h`. I am also not vendoring zlib, libpng,
-libjpeg, ... as was originally done because they are stable and can be sourced
-from the system on Linux.
+```
+$ git submodule update --init --recursive
+$ cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DPUBLIC_BUILD=ON -DCMAKE_INSTALL_PREFIX=install
+$ cmake --build build 
+$ cmake --install build
+```
+
+The engine artifacts will be in the `install` directory. The engine needs the game assets to run, which you can get from the [official tarball](https://warsow.net/warsow-2.1.2.tar.gz). Just copy the `basewsw` directory into `install`. 
 
 ---
 
