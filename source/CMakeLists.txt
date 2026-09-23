@@ -77,9 +77,14 @@ foreach(target ${QFUSION_CLIENT_NAME} ${QFUSION_SERVER_NAME}
 endforeach()
 
 install(
-    TARGETS
-    ${QFUSION_CLIENT_NAME} ${QFUSION_SERVER_NAME}
-    angelwrap cin ftlib ref_gl snd_openal ui game cgame
-    RUNTIME DESTINATION .
-    LIBRARY DESTINATION libs
+  TARGETS
+  ${QFUSION_CLIENT_NAME} ${QFUSION_SERVER_NAME}
+  angelwrap cin ftlib ref_gl snd_openal ui game cgame
+  RUNTIME DESTINATION .
+  LIBRARY DESTINATION libs
+)
+
+install(PROGRAMS unix/start_script.sh
+  DESTINATION .
+  RENAME warsow
 )
