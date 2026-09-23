@@ -1,0 +1,8 @@
+[submodule "third-party/libRocket"]
+	path = third-party/libRocket
+	url = https://github.com/qfusion-patches/libRocket.git
+	branch = master
+[submodule "third-party/angelscript"]
+	path = third-party/angelscript
+	url = https://github.com/qfusion-patches/angelscript.git
+	branch = qfusion
