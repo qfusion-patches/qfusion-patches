@@ -33,7 +33,6 @@ file(GLOB SERVER_SOURCES
     "../qcommon/snap_demos.c"
     "../qcommon/snap_write.c"
     "../qcommon/ascript.c"
-    "../qcommon/anticheat.c"
     "../qcommon/wswcurl.c"
     "../qcommon/threads.c"
     "*.c"
@@ -46,10 +45,10 @@ file(GLOB SERVER_PLATFORM_SOURCES
     "../unix/unix_fs.c"
     "../unix/unix_net.c"
     "../unix/unix_sys.c"
-    "../unix/unix_console.c"
     "../unix/unix_time.c"
     "../unix/unix_lib.c"
     "../unix/unix_threads.c"
+    "../unix/unix_console.c"
     "../null/sys_vfs_null.c"
 )
 

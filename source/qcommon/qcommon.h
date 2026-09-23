@@ -211,7 +211,6 @@ PROTOCOL
 #define	PORT_SERVER			44400
 #define	PORT_HTTP_SERVER	44444
 #define PORT_TV_SERVER		44440
-#define PORT_MATCHMAKER		46002
 #define	NUM_BROADCAST_PORTS 5
 
 //=========================================

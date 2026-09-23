@@ -397,14 +397,6 @@ void IN_GetThumbsticks( vec4_t sticks )
 	Vector4Set( sticks, 0.0f, 0.0f, 0.0f, 0.0f );
 }
 
-/* #if SDL_VERSION_ATLEAST(2, 0, 2) */
-/**/
-/* 	{ */
-/* 		cvar_t *m_raw = Cvar_Get( "m_raw", "1", CVAR_ARCHIVE ); */
-/* 		SDL_SetHint( SDL_HINT_MOUSE_RELATIVE_MODE_WARP, m_raw->integer ? "0" : "1" ); */
-/* 	} */
-/* #endif */
-
 void IN_Init()
 {
 	if( input_inited )

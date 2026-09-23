@@ -67,14 +67,12 @@ add_subdirectory(cgame)
 add_subdirectory(client)
 add_subdirectory(server)
 
-foreach(target ${QFUSION_CLIENT_NAME} ${QFUSION_SERVER_NAME}
-               angelwrap cin ftlib ref_gl snd_openal ui game cgame)
-  get_target_property(type ${target} TYPE)
-  if(type STREQUAL "EXECUTABLE")
-    set_target_properties(${target} PROPERTIES OUTPUT_NAME "${target}.${CMAKE_SYSTEM_PROCESSOR}")
-  elseif(type STREQUAL "MODULE_LIBRARY")
-    set_target_properties(${target} PROPERTIES OUTPUT_NAME "${target}_${CMAKE_SYSTEM_PROCESSOR}")
-  endif()
+foreach(target ${QFUSION_CLIENT_NAME} ${QFUSION_SERVER_NAME})
+  set_target_properties(${target} PROPERTIES OUTPUT_NAME "${target}.${CMAKE_SYSTEM_PROCESSOR}")
+endforeach()
+
+foreach(target angelwrap cin ftlib ref_gl snd_openal ui game cgame)
+  set_target_properties(${target} PROPERTIES OUTPUT_NAME "${target}_${CMAKE_SYSTEM_PROCESSOR}")
 endforeach()
 
 install(
