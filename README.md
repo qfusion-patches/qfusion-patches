@@ -23,10 +23,14 @@ For a technical explanation, read
 
 ### Building
 
+The engine depends on SDL3, OpenAL, freetype2, curl, zlib, libpng, libjpeg,
+libogg, libvorbis, and libtheora. You probably already have all of these on
+your system. CMake will hopefully give you a helpful error otherwise.
+
 ```
 $ git submodule update --init --recursive
 $ cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DPUBLIC_BUILD=ON -DCMAKE_INSTALL_PREFIX=install
-$ cmake --build build 
+$ cmake --build build -j$(nproc)
 $ cmake --install build
 ```
 
