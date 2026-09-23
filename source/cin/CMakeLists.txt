@@ -1,14 +1,15 @@
-file(GLOB CIN_SOURCES
-    "*.c"
-    "../gameshared/q_*.c"
-)
-
 file(GLOB CIN_HEADERS
     "*.h"
 	"../gameshared/q_*.h"
 )
 
+file(GLOB CIN_SOURCES
+    "*.c"
+    "../gameshared/q_*.c"
+)
+
 add_library(cin MODULE ${CIN_SOURCES} ${CIN_HEADERS})
+
 target_link_libraries(cin
     PRIVATE
     m

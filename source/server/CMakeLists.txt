@@ -1,3 +1,14 @@
+file(GLOB SERVER_HEADERS
+    "*.h"
+	"../gameshared/q_*.h"
+	"../gameshared/anorms.h"
+	"../gameshared/config.h"
+	"../qcommon/*.h"
+	"../qalgo/*.h"
+	"../angelwrap/qas_public.h"
+	"../game/g_public.h"
+)
+
 file(GLOB SERVER_SOURCES
 	"../qcommon/asyncstream.c"
 	"../qcommon/autoupdate.c"
@@ -42,28 +53,13 @@ file(GLOB SERVER_PLATFORM_SOURCES
     "../null/sys_vfs_null.c"
 )
 
-file(GLOB SERVER_HEADERS
-    "*.h"
-	"../gameshared/q_*.h"
-	"../gameshared/anorms.h"
-	"../gameshared/config.h"
-	"../qcommon/*.h"
-	"../qalgo/*.h"
-	"../angelwrap/qas_public.h"
-	"../game/g_public.h"
-)
-
 add_executable(${QFUSION_SERVER_NAME}
+    ${SERVER_HEADERS}
     ${SERVER_SOURCES}
     ${SERVER_PLATFORM_SOURCES}
-    ${SERVER_HEADERS}
 )
 
-target_compile_definitions(
-    ${QFUSION_SERVER_NAME}
-    PRIVATE
-    DEDICATED_ONLY
-)
+target_compile_definitions(${QFUSION_SERVER_NAME} PRIVATE DEDICATED_ONLY)
 
 target_link_libraries(
     ${QFUSION_SERVER_NAME}
@@ -74,4 +70,4 @@ target_link_libraries(
     PkgConfig::ZLIB
 )
 
-add_dependencies(${QFUSION_SERVER_NAME} angelwrap)
+add_dependencies(${QFUSION_SERVER_NAME} angelwrap game)

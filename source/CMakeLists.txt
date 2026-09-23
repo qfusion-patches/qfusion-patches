@@ -1,17 +1,12 @@
-set(QFUSION_GAME_DIR basewsw)
-set(QFUSION_CLIENT_NAME warsow)
-set(QFUSION_SERVER_NAME wsw_server)
-set(QFUSION_TVSERVER_NAME wswtv_server)
-add_compile_definitions(APPLICATION_VERSION_HEADER=\"version.warsow.h\")
-add_compile_definitions($<$<OR:$<CONFIG:Release>,$<CONFIG:RelWithDebInfo>>:PUBLIC_BUILD>)
+set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+set(CMAKE_C_EXTENSIONS OFF)
+
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_compile_definitions(_POSIX_C_SOURCE=200809L)
-set(CMAKE_C_STANDARD 99)
-set(CMAKE_C_EXTENSIONS OFF)
-set(CMAKE_C_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CFLAGS
   -Wall -Wextra
@@ -31,12 +26,33 @@ set(CFLAGS
 # genexp.
 add_compile_options("$<$<OR:$<COMPILE_LANGUAGE:C>,$<COMPILE_LANGUAGE:CXX>>:${CFLAGS}>")
 
-add_subdirectory(angelwrap)
+set(QFUSION_CLIENT_NAME warsow)
+set(QFUSION_SERVER_NAME wsw_server)
 
+set(PUBLIC_BUILD OFF CACHE BOOL "Public build")
+if(PUBLIC_BUILD)
+  add_compile_definitions(PUBLIC_BUILD)
+endif()
+
+find_package(Git)
+if(Git_FOUND)
+  execute_process(
+    COMMAND ${GIT_EXECUTABLE} rev-parse --short HEAD
+    OUTPUT_VARIABLE rev
+    RESULT_VARIABLE res
+    OUTPUT_STRIP_TRAILING_WHITESPACE # EOL newline
+  )
+  if(res EQUAL 0)
+    add_compile_definitions(SVN_REVSTR=\"${rev}\")
+  endif()
+endif()
+
+add_subdirectory(angelwrap)
 add_subdirectory(cin)
 add_subdirectory(ftlib)
 add_subdirectory(ref_gl)
 add_subdirectory(snd_openal)
+add_subdirectory(ui)
 
 add_subdirectory(game)
 add_subdirectory(cgame)
@@ -44,15 +60,12 @@ add_subdirectory(cgame)
 add_subdirectory(client)
 add_subdirectory(server)
 
-add_subdirectory(ui)
-
 foreach(target ${QFUSION_CLIENT_NAME} ${QFUSION_SERVER_NAME}
-               angelwrap cin ftlib ref_gl snd_openal game cgame ui)
+               angelwrap cin ftlib ref_gl snd_openal ui game cgame)
   get_target_property(type ${target} TYPE)
-  if (type STREQUAL "EXECUTABLE")
+  if(type STREQUAL "EXECUTABLE")
     set_target_properties(${target} PROPERTIES OUTPUT_NAME "${target}.${CMAKE_SYSTEM_PROCESSOR}")
-  elseif(type STREQUAL "SHARED_LIBRARY"
-      OR type STREQUAL "MODULE_LIBRARY")
+  elseif(type STREQUAL "MODULE_LIBRARY")
     set_target_properties(${target} PROPERTIES OUTPUT_NAME "${target}_${CMAKE_SYSTEM_PROCESSOR}")
   endif()
 endforeach()
@@ -60,7 +73,7 @@ endforeach()
 install(
     TARGETS
     ${QFUSION_CLIENT_NAME} ${QFUSION_SERVER_NAME}
-    angelwrap cin ftlib ref_gl snd_openal game cgame ui
+    angelwrap cin ftlib ref_gl snd_openal ui game cgame
     RUNTIME DESTINATION .
     LIBRARY DESTINATION libs
 )

@@ -6,19 +6,6 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
   set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS Debug Release RelWithDebInfo MinSizeRel)
 endif()
 
-find_package(Git)
-if(Git_FOUND)
-  execute_process(
-    COMMAND ${GIT_EXECUTABLE} rev-parse --short HEAD
-    OUTPUT_VARIABLE rev
-    RESULT_VARIABLE res
-    OUTPUT_STRIP_TRAILING_WHITESPACE # EOL newline
-  )
-  if(res EQUAL 0)
-    add_compile_definitions(SVN_REVSTR=\"${rev}\")
-  endif()
-endif()
-
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 

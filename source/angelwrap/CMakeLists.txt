@@ -1,3 +1,9 @@
+file(GLOB ANGELWRAP_HEADERS
+    "*.h"
+    "addon/*.h"
+	"../gameshared/q_*.h"
+)
+
 file(GLOB ANGELWRAP_SOURCES
     "*.cpp"
     "*.c"
@@ -5,14 +11,7 @@ file(GLOB ANGELWRAP_SOURCES
     "../gameshared/q_*.c"
 )
 
-file(GLOB ANGELWRAP_HEADERS
-    "*.h"
-    "addon/*.h"
-	"../gameshared/q_*.h"
-)
-
-add_library(angelwrap MODULE ${ANGELWRAP_SOURCES} ${ANGELWRAP_HEADERS})
-
+add_library(angelwrap MODULE ${ANGELWRAP_HEADERS} ${ANGELWRAP_SOURCES})
 target_link_libraries(angelwrap
     PRIVATE
     Threads::Threads

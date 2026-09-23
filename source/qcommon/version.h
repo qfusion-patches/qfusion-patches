@@ -24,20 +24,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #define STR_HELPER( s )					# s
 #define STR_TOSTR( x )					STR_HELPER( x )
 
-#ifdef APPLICATION_VERSION_HEADER
-
-#if defined( RC_INVOKED ) && defined ( __GNUC__ )
-
-#define APPLICATION_VERSION_HEADER_RC_STR STR_TOSTR( APPLICATION_VERSION_HEADER )
-#include APPLICATION_VERSION_HEADER_RC_STR
-
-#else
-
-#include APPLICATION_VERSION_HEADER
-
-#endif
-
-#endif
+#include "version.warsow.h"
 
 #ifndef APPLICATION
 #define APPLICATION						"Qfusion"

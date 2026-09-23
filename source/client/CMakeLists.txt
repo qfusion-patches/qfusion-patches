@@ -1,3 +1,20 @@
+file(GLOB CLIENT_HEADERS
+    "*.h"
+	"../gameshared/q_*.h"
+	"../gameshared/anorms.h"
+	"../gameshared/config.h"
+	"../qcommon/*.h"
+	"../qalgo/*.h"
+	"../angelwrap/qas_public.h"
+	"../ref_gl/r_public.h"
+	"../cgame/cg_public.h"
+	"../cgame/ref.h"
+	"../game/g_public.h"
+	"../ui/ui_public.h"
+	"../ftlib/ftlib_public.h"
+	"../cin/cin_public.h"
+)
+
 file(GLOB CLIENT_SOURCES
     "../qcommon/*.c"
     "../server/*.c"
@@ -22,32 +39,14 @@ file(GLOB CLIENT_PLATFORM_SOURCES
     "../sdl/sdl_client.c"
 )
 
-file(GLOB CLIENT_HEADERS
-    "*.h"
-	"../gameshared/q_*.h"
-	"../gameshared/anorms.h"
-	"../gameshared/config.h"
-	"../qcommon/*.h"
-	"../qalgo/*.h"
-	"../angelwrap/qas_public.h"
-	"../ref_gl/r_public.h"
-	"../cgame/cg_public.h"
-	"../cgame/ref.h"
-	"../game/g_public.h"
-	"../ui/ui_public.h"
-	"../ftlib/ftlib_public.h"
-	"../cin/cin_public.h"
-)
-
 add_executable(${QFUSION_CLIENT_NAME}
+    ${CLIENT_HEADERS}
     ${CLIENT_SOURCES}
     ${CLIENT_PLATFORM_SOURCES}
-    ${CLIENT_HEADERS}
 )
 
 target_link_libraries(${QFUSION_CLIENT_NAME}
     PRIVATE
-    # game cgame
     m dl rt
     Threads::Threads
     SDL3::SDL3
@@ -55,4 +54,4 @@ target_link_libraries(${QFUSION_CLIENT_NAME}
     PkgConfig::ZLIB
 )
 
-add_dependencies(${QFUSION_CLIENT_NAME} game cgame ui cin ftlib ref_gl snd_openal)
+add_dependencies(${QFUSION_CLIENT_NAME} angelwrap cin ftlib ref_gl snd_openal ui game cgame)
