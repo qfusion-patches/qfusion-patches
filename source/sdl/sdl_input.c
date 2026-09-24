@@ -324,9 +324,11 @@ static void IN_HandleEvents( void )
 				break;
 
 			case SDL_EVENT_WINDOW_SHOWN:
+			case SDL_EVENT_WINDOW_RESTORED:
 				AppActivate( true );
 				break;
 			case SDL_EVENT_WINDOW_HIDDEN:
+			case SDL_EVENT_WINDOW_MINIMIZED:
 				AppActivate( false );
 				break;
 			case SDL_EVENT_WINDOW_FOCUS_GAINED:
