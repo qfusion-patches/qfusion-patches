@@ -273,6 +273,9 @@ typedef struct
 	// system font
 	qfontface_t *consoleFont;
 
+	// original `fs_game` value, to reset to on disconnect
+	char originalGame[MAX_QPATH];
+
 	// these are our reliable messages that go to the server
 	unsigned int reliableSequence;          // the last one we put in the list to be sent
 	unsigned int reliableSent;              // the last one we sent to the server

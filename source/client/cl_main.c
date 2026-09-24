@@ -946,6 +946,14 @@ void CL_Disconnect( const char *message )
 		Q_snprintfz( cl_nextString, sizeof( cl_nextString ), "connect \"%s\" \"%s\"", cl_connectChain, s + 1 );
 	}
 
+	if( cls.originalGame[0] )
+	{
+		if ( FS_SetGameDirectory( cls.originalGame, true ) ) {
+			ML_Restart(true);
+		}
+		cls.originalGame[0] = '\0';
+	}
+
 done:
 	SCR_EndLoadingPlaque(); // get rid of loading plaque
 
