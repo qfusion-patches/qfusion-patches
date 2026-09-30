@@ -53,7 +53,18 @@ void GLimp_SetWindowIcon( void )
 
 rserr_t GLimp_SetFullscreenMode( bool fullscreen )
 {
-    if( SDL_SetWindowFullscreen( glw_state.sdl_window, fullscreen ) ) {
+	if( fullscreen )
+	{
+		SDL_DisplayID display_id = SDL_GetDisplayForWindow(glw_state.sdl_window);
+		const SDL_DisplayMode *mode = SDL_GetCurrentDisplayMode( display_id );
+		if( mode )
+		{
+			SDL_SetWindowFullscreenMode( glw_state.sdl_window, mode );
+		}
+	}
+
+    if( SDL_SetWindowFullscreen( glw_state.sdl_window, fullscreen ) )
+	{
 	    SDL_SyncWindow( glw_state.sdl_window );
         glConfig.fullScreen = fullscreen;
         return rserr_ok;
