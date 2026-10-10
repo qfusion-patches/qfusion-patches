@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 #### Config
 
@@ -19,8 +19,10 @@ USEHOMEDIR=1
 
 ##### Code
 
+script_path="$(realpath -- "${BASH_SOURCE[0]}")"
+
 if [ "X$BINARY_DIR" = "X" ]; then
-	BINARY_DIR="`dirname \"${0}\"`"
+	BINARY_DIR="$(dirname -- "$script_path")"
 fi
 
 if [ "X$DATA_DIR" = "X" ]; then
@@ -38,13 +40,7 @@ fi
 base_arch=`uname -m | sed -e s/i.86/i386/ -e s/sun4u/sparc/ -e s/sparc64/sparc/ -e s/arm.*/arm/ -e s/sa110/arm/ -e s/alpha/axp/`
 os=`uname`
 
-if [ "X${os}" = "XFreeBSD" ]; then
-	arch=freebsd_$base_arch
-else
-	arch=$base_arch
-fi
-
-executable="`basename \"${0}\"`.$arch"
+executable="$(basename "$script_path").$base_arch"
 
 if [ ! -e "$BINARY_DIR/$executable" ]; then
 	echo "Error: Executable for system '$arch' not found"
