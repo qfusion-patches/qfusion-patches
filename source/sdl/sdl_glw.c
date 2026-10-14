@@ -75,14 +75,23 @@ rserr_t GLimp_SetFullscreenMode( bool fullscreen )
 
 static void GLimp_CreateWindow( int x, int y, int width, int height )
 {
-	// ugly, but SDL2->SDL3 migration guide says so...
 	SDL_PropertiesID props = SDL_CreateProperties();
-	SDL_SetStringProperty( props, SDL_PROP_WINDOW_CREATE_TITLE_STRING, glw_state.applicationName );
-	SDL_SetNumberProperty( props, SDL_PROP_WINDOW_CREATE_WIDTH_NUMBER, width );
-	SDL_SetNumberProperty( props, SDL_PROP_WINDOW_CREATE_HEIGHT_NUMBER, height );
-	SDL_SetNumberProperty( props, SDL_PROP_WINDOW_CREATE_X_NUMBER, x );
-	SDL_SetNumberProperty( props, SDL_PROP_WINDOW_CREATE_Y_NUMBER, y );
-	SDL_SetBooleanProperty( props, SDL_PROP_WINDOW_CREATE_OPENGL_BOOLEAN, true );
+
+#define str(s) #s
+#define setprop(t, n, v) do {                                         \
+	if (!SDL_Set##t##Property(props, SDL_PROP_WINDOW_CREATE_##n, v))  \
+		Sys_Error(str(SDL_Set##t##Property) ": %s", SDL_GetError() ); \
+} while(0)
+
+	setprop( String, TITLE_STRING, glw_state.applicationName );
+	setprop( Number, WIDTH_NUMBER, width );
+	setprop( Number, HEIGHT_NUMBER, height );
+	setprop( Number, X_NUMBER, x );
+	setprop( Number, X_NUMBER, y );
+	setprop( Boolean, OPENGL_BOOLEAN, true );
+
+#undef setprop
+#undef str
 
 	glw_state.sdl_window = SDL_CreateWindowWithProperties( props );
 
