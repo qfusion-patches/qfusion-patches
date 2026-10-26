@@ -62,7 +62,7 @@ typedef struct
 
 	unsigned int ( *Sys_Milliseconds )( void );
 	uint64_t ( *Sys_Microseconds )( void );
-	void ( *Sys_Sleep )( unsigned int milliseconds );
+	void ( *Sys_Sleep )( unsigned int ms );
 
 	void *( *Com_LoadSysLibrary )( const char *name, dllfunc_t *funcs );
 	void ( *Com_UnloadLibrary )( void **lib );

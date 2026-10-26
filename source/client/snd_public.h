@@ -79,7 +79,7 @@ typedef struct
 	bool ( *FS_IsUrl )( const char *url );
 
 	unsigned int ( *Sys_Milliseconds )( void );
-	void ( *Sys_Sleep )( unsigned int milliseconds );
+	void ( *Sys_Sleep )( unsigned int ms );
 
 	void *( *Sys_LoadLibrary )( const char *name, dllfunc_t *funcs );
 	void ( *Sys_UnloadLibrary )( void **lib );

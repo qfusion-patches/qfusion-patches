@@ -1,11 +1,12 @@
 #include <SDL3/SDL.h>
+#include <SDL3/SDL_timer.h>
 #include "../client/client.h"
 
 unsigned sys_frame_time;
 
-void Sys_Sleep( unsigned int millis )
+void Sys_Sleep( unsigned int ms )
 {
-	SDL_Delay( millis );
+	SDL_DelayPrecise( ms );
 }
 
 void Sys_Error( const char *format, ... )

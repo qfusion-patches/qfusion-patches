@@ -946,7 +946,7 @@ void	Sys_AppActivate( void );
 
 unsigned int	Sys_Milliseconds( void );
 uint64_t		Sys_Microseconds( void );
-void		Sys_Sleep( unsigned int millis );
+void		Sys_Sleep( unsigned int ms );
 
 char	*Sys_ConsoleInput( void );
 void	Sys_ConsoleOutput( char *string );
