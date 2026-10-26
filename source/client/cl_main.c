@@ -2527,10 +2527,8 @@ static void CL_NetFrame( int realmsec, int gamemsec )
 */
 void CL_Frame( int realmsec, int gamemsec )
 {
-	static int allRealMsec = 0, allGameMsec = 0, extraMsec = 0;
-	static float roundingMsec = 0.0f;
-	int minMsec;
-	float maxFps;
+	static int allRealMsec = 0, allGameMsec = 0;
+	static uint64_t nextClientFrameNS = 0;
 
 	if( dedicated->integer )
 		return;
@@ -2590,74 +2588,56 @@ void CL_Frame( int realmsec, int gamemsec )
 
 	if( cls.state == CA_CINEMATIC )
 	{
-#if 1
-		maxFps = 10000.0f;
-		minMsec = 1;
-		roundingMsec = 0;
-#else
-		maxFps = SCR_CinematicFramerate() * 2;
-		if( maxFps < 24 )
-			maxFps = 24.0f;
-		minMsec = max( ( 1000.0f / maxFps ), 1 );
-		roundingMsec += max( ( 1000.0f / maxFps ), 1.0f ) - minMsec;
-#endif
+		nextClientFrameNS = 0;
 	}
 	else if( cl_maxfps->integer > 0 && !cl_timedemo->integer
 		&& !( cls.demo.avi_video && cls.state == CA_ACTIVE ) )
 	{
 		const int absMinFps = 24;
+		float maxFps;
+		uint64_t frameIntervalNS;
+		uint64_t now;
 
 		// do not allow setting cl_maxfps to very low values to prevent cheating
 		if( cl_maxfps->integer < absMinFps )
 			Cvar_ForceSet( "cl_maxfps", STR_TOSTR( absMinFps ) );
 		maxFps = VID_AppIsActive() ? cl_maxfps->value : absMinFps;
-		minMsec = max( ( 1000.0f / maxFps ), 1 );
-		roundingMsec += max( ( 1000.0f / maxFps ), 1.0f ) - minMsec;
+		if( maxFps < absMinFps )
+			maxFps = absMinFps;
+
+		frameIntervalNS = (uint64_t)( 1000000000.0 / maxFps );
+		now = Sys_GetTimeNS();
+
+		if( nextClientFrameNS == 0 )
+			nextClientFrameNS = now;
+
+		if( now < nextClientFrameNS )
+		{
+			uint64_t remainingNS = nextClientFrameNS - now;
+
+			// let CPU sleep while playing fullscreen video, while minimized
+			// or when cl_sleep is enabled
+			bool sleep = cl_sleep->integer != 0;
+
+			sleep = sleep || ( cls.state == CA_CINEMATIC || cls.state == CA_DISCONNECTED );
+			sleep = sleep || !VID_AppIsActive(); // FIXME: not sure about listen server here..
+
+			if( sleep && remainingNS > 1000000ULL )
+				Sys_SleepNS( remainingNS );
+			return;
+		}
+
+		nextClientFrameNS += frameIntervalNS;
+		if( nextClientFrameNS < now )
+			nextClientFrameNS = now + frameIntervalNS;
 	}
 	else
 	{
-		maxFps = 10000.0f;
-		minMsec = 1;
-		roundingMsec = 0;
-	}
-
-	if( roundingMsec >= 1.0f )
-	{
-		minMsec += (int)roundingMsec;
-		roundingMsec -= (int)roundingMsec;
-	}
-
-	if( allRealMsec + extraMsec < minMsec )
-	{
-		// let CPU sleep while playing fullscreen video, while minimized
-		// or when cl_sleep is enabled
-		bool sleep = cl_sleep->integer != 0;
-
-		sleep = sleep || (cls.state == CA_CINEMATIC || cls.state == CA_DISCONNECTED);
-		sleep = sleep || !VID_AppIsActive(); // FIXME: not sure about listen server here..
-
-		if( sleep && minMsec - extraMsec > 1 )
-			Sys_Sleep( 1 );
-		return;
+		nextClientFrameNS = 0;
 	}
 
 	cls.frametime = (float)allGameMsec * 0.001f;
 	cls.realframetime = (float)allRealMsec * 0.001f;
-#if 1
-	if( allRealMsec < minMsec ) // is compensating for a too slow frame
-	{
-		extraMsec -= ( minMsec - allRealMsec );
-		clamp( extraMsec, 0, 100 );
-	}
-	else // too slow, or exact frame
-	{
-		extraMsec = allRealMsec - minMsec;
-		clamp( extraMsec, 0, 100 );
-	}
-#else
-	extraMsec = allRealMsec - minMsec;
-	clamp( extraMsec, 0, minMsec );
-#endif
 
 	CL_TimedemoStats();
 
@@ -2711,7 +2691,6 @@ void CL_Frame( int realmsec, int gamemsec )
 
 	cls.framecount++;
 }
-
 
 //============================================================================
 

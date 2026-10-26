@@ -183,7 +183,7 @@ void Sys_Error( const char *format, ... )
 /*
 * Sys_GetTimeNS
 */
-static inline uint64_t Sys_GetTimeNS( void )
+uint64_t Sys_GetTimeNS( void )
 {
 	struct timespec ts;
 	clock_gettime( CLOCK_MONOTONIC, &ts );
