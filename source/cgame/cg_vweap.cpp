@@ -341,11 +341,28 @@ void CG_CalcViewWeapon( cg_viewweapon_t *viewweapon )
 	// finish
 	AnglesToAxis( gunAngles, viewweapon->ent.axis );
 
-	if( cg_gun_fov->integer && !cg.predictedPlayerState.pmove.stats[PM_STAT_ZOOMTIME] )
+	if( cg_gun_fov->integer )
 	{
 		float fracWeapFOV;
-		float gun_fov_x = bound( 20, cg_gun_fov->value, 160 );
-		float gun_fov_y = CalcFov( gun_fov_x, cg.view.refdef.width, cg.view.refdef.height );
+		float gun_fov_x, gun_fov_y;
+		float frac;
+		float gunfov, zoomfov;
+
+		gunfov = cg_gun_fov->value;
+		zoomfov = cg_zoomfov->value;
+
+		if( cg.predictedPlayerState.pmove.stats[PM_STAT_ZOOMTIME] )
+		{
+			frac = (float)cg.predictedPlayerState.pmove.stats[PM_STAT_ZOOMTIME] / (float)ZOOMTIME;
+			gun_fov_x = gunfov - ( gunfov - zoomfov ) * frac;
+		}
+		else
+		{
+			gun_fov_x = gunfov;
+		}
+
+		gun_fov_x = bound( 20, gun_fov_x, 160 );
+		gun_fov_y = CalcFov( gun_fov_x, cg.view.refdef.width, cg.view.refdef.height );
 
 		AdjustFov( &gun_fov_x, &gun_fov_y, cgs.vidWidth, cgs.vidHeight, false );
 		fracWeapFOV = tan( gun_fov_x * ( M_PI/180 ) * 0.5f ) / cg.view.fracDistFOV;
