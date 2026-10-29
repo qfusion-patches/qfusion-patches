@@ -346,15 +346,16 @@ void CG_CalcViewWeapon( cg_viewweapon_t *viewweapon )
 		float fracWeapFOV;
 		float gun_fov_x, gun_fov_y;
 		float frac;
-		float gunfov, zoomfov;
+		float fov, gunfov, zoomfov;
 
+		fov = cg_fov->value;
 		gunfov = cg_gun_fov->value;
 		zoomfov = cg_zoomfov->value;
 
 		if( cg.predictedPlayerState.pmove.stats[PM_STAT_ZOOMTIME] )
 		{
 			frac = (float)cg.predictedPlayerState.pmove.stats[PM_STAT_ZOOMTIME] / (float)ZOOMTIME;
-			gun_fov_x = gunfov - ( gunfov - zoomfov ) * frac;
+			gun_fov_x = gunfov - ( gunfov - (gunfov * zoomfov / fov) ) * frac;
 		}
 		else
 		{
