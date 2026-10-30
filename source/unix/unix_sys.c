@@ -36,12 +36,17 @@ FIXME:  This will be remidied once a native Mac port is complete
 #include <fcntl.h>
 #include <stdarg.h>
 #include <stdio.h>
+#include <time.h>
+#include <stdint.h>
 #include <string.h>
 #include <ctype.h>
 #include <sys/wait.h>
 #include <sys/mman.h>
 #include <errno.h>
 #include <locale.h>
+
+#define NS_PER_MS 1000000ULL
+#define NS_PER_SEC 1000000000ULL
 
 #if defined ( __FreeBSD__ )
 #include <machine/param.h>
@@ -176,15 +181,89 @@ void Sys_Error( const char *format, ... )
 }
 
 /*
+* Sys_GetTimeNS
+*/
+uint64_t Sys_GetTimeNS( void )
+{
+	struct timespec ts;
+	clock_gettime( CLOCK_MONOTONIC, &ts );
+	return ( (uint64_t)ts.tv_sec * NS_PER_SEC ) + (uint64_t)ts.tv_nsec;
+}
+
+/*
+* Sys_DelayNS
+*/
+static inline void Sys_DelayNS( uint64_t ns )
+{
+	struct timespec req;
+	req.tv_sec = (time_t)( ns / NS_PER_SEC );
+	req.tv_nsec = (long)( ns % NS_PER_SEC );
+	nanosleep( &req, NULL );
+}
+
+/*
+* Sys_CPUPause
+*/
+static inline void Sys_CPUPause( void )
+{
+		__asm__ __volatile__( "pause" ::: "memory" );
+}
+
+/*
+* Sys_SleepNS
+*/
+void Sys_SleepNS( uint64_t ns )
+{
+	if( ns == 0 )
+	{
+		Sys_CPUPause();
+		return;
+	}
+
+	uint64_t current_value = Sys_GetTimeNS();
+	const uint64_t target_value = current_value + ns;
+
+	const uint64_t SHORT_SLEEP_NS = 1 * NS_PER_MS;
+	uint64_t max_sleep_ns = SHORT_SLEEP_NS;
+
+	while( current_value + max_sleep_ns < target_value )
+	{
+		Sys_DelayNS( SHORT_SLEEP_NS );
+
+		const uint64_t now = Sys_GetTimeNS();
+		const uint64_t next_sleep_ns = ( now - current_value );
+		if( next_sleep_ns > max_sleep_ns )
+			max_sleep_ns = next_sleep_ns;
+		current_value = now;
+	}
+
+	if( current_value < target_value && ( target_value - current_value ) > ( max_sleep_ns - SHORT_SLEEP_NS ) )
+	{
+		const uint64_t delay_ns = ( target_value - current_value ) - ( max_sleep_ns - SHORT_SLEEP_NS );
+		Sys_DelayNS( delay_ns );
+		current_value = Sys_GetTimeNS();
+	}
+
+	while( current_value + SHORT_SLEEP_NS < target_value )
+	{
+		Sys_DelayNS( SHORT_SLEEP_NS );
+		current_value = Sys_GetTimeNS();
+	}
+
+	while( current_value < target_value )
+	{
+		Sys_CPUPause();
+		current_value = Sys_GetTimeNS();
+	}
+}
+
+/*
 * Sys_Sleep
 */
-void Sys_Sleep( unsigned int millis )
+
+void Sys_Sleep( unsigned int ms )
 {
-	struct timespec ts = {
-		millis / 1000,
-		(millis % 1000) * 1000000
-	};
-	nanosleep( &ts, NULL );
+	Sys_SleepNS( (uint64_t)ms * NS_PER_MS );
 }
 
 /*

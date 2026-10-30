@@ -30,49 +30,44 @@ static ref_cmdbuf_t *RF_GetNextAdapterFrame( ref_frontendAdapter_t *adapter );
 */
 static void RF_AdapterFrame( ref_frontendAdapter_t *adapter )
 {
-	static unsigned lastTime = 0;
-	static int bias = 0;
-	unsigned time = ri.Sys_Milliseconds();
-	unsigned wait, frameTime;
-	unsigned minMsec;
-	ref_cmdbuf_t *frame;
+    static uint64_t nextFrameTargetNS = 0;
+    ref_cmdbuf_t *frame;
 
-	if( adapter->maxfps > 0 )
-		minMsec = 1000 / adapter->maxfps;
-	else
-		minMsec = 1;
-	frameTime = (int)(time - lastTime);
+    if( adapter->maxfps > 0 )
+    {
+        const uint64_t intervalNS = 1000000000ULL / (uint64_t)adapter->maxfps;
+        uint64_t now = ri.Sys_GetTimeNS();
 
-	bias += frameTime - minMsec;
-	if( bias > (int)minMsec )
-		bias = (int)minMsec;
+        if( nextFrameTargetNS == 0 ) {
+            nextFrameTargetNS = now;
+        }
 
-    // Adjust minMsec if previous frame took too long to render so
-    // that framerate is stable at the requested value.
-	bias -= minMsec;
+        // If we arrived before the target timestamp, sleep
+        if( now < nextFrameTargetNS ) {
+            ri.Sys_SleepNS( nextFrameTargetNS - now );
+            now = ri.Sys_GetTimeNS();
+        }
 
-	wait = frameTime;
-	do {
-		if( wait >= minMsec )
-			wait = 0;
-		else
-			wait = minMsec - wait;
-		if( wait < 1 )
-			ri.Sys_Sleep( 0 );
-		else
-			ri.Sys_Sleep( wait - 1 );
-		wait = ri.Sys_Milliseconds() - lastTime;
-	} while( wait < minMsec );
+        nextFrameTargetNS += intervalNS;
 
-	lastTime = ri.Sys_Milliseconds();
+        // If the frame took too long,
+        // reset the target so we don't render multiple frames to catch up
+        if( nextFrameTargetNS < now ) {
+            nextFrameTargetNS = now + intervalNS;
+        }
+    }
+    else
+    {
+        nextFrameTargetNS = 0;
+    }
 
-	frame = RF_GetNextAdapterFrame( adapter );
-	if( frame ) {
-		frame->RunCmds( frame );
-		adapter->readFrameId = frame->GetFrameId( frame );
-	}
+    frame = RF_GetNextAdapterFrame( adapter );
+    if( frame ) {
+        frame->RunCmds( frame );
+        adapter->readFrameId = frame->GetFrameId( frame );
+    }
 
-	adapter->cmdPipe->RunCmds( adapter->cmdPipe );
+    adapter->cmdPipe->RunCmds( adapter->cmdPipe );
 }
 
 /*

@@ -311,6 +311,8 @@ static bool VID_LoadRefresh( const char *name )
 	import.Sys_Milliseconds = &Sys_Milliseconds;
 	import.Sys_Microseconds = &Sys_Microseconds;
 	import.Sys_Sleep = &Sys_Sleep;
+	import.Sys_GetTimeNS = &Sys_GetTimeNS;
+	import.Sys_SleepNS = &Sys_SleepNS;
 
 	import.Com_LoadSysLibrary = Com_LoadSysLibrary;
 	import.Com_UnloadLibrary = Com_UnloadLibrary;

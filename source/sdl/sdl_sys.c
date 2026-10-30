@@ -1,11 +1,25 @@
 #include <SDL3/SDL.h>
+#include <SDL3/SDL_timer.h>
 #include "../client/client.h"
+
+#include <time.h>
+
+#define NS_PER_MS 1000000ULL
+#define NS_PER_SEC 1000000000ULL
 
 unsigned sys_frame_time;
 
-void Sys_Sleep( unsigned int millis )
+uint64_t Sys_GetTimeNS( void ) {
+    return SDL_GetTicksNS();
+}
+
+void Sys_SleepNS( uint64_t ns ) {
+	SDL_DelayPrecise( ns );
+}
+
+void Sys_Sleep( unsigned int ms )
 {
-	SDL_Delay( millis );
+	SDL_Delay( ms );
 }
 
 void Sys_Error( const char *format, ... )
