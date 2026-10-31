@@ -29,7 +29,7 @@ set(CFLAGS
 )
 
 # cmake expands CFLAGS to a semicolon-delimited string, so we gotta quote the
-# whole expression to avoid the command argument parser from splitting up our
+# whole expression to avoid the command argument parser splitting up our
 # genexp.
 add_compile_options("$<$<OR:$<COMPILE_LANGUAGE:C>,$<COMPILE_LANGUAGE:CXX>>:${CFLAGS}>")
 

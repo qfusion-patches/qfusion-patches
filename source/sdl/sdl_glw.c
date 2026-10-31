@@ -67,9 +67,9 @@ static void GLimp_CreateWindow( int x, int y, int width, int height )
 	SDL_PropertiesID props = SDL_CreateProperties();
 
 #define str(s) #s
-#define setprop(t, n, v) do {                                         \
-	if (!SDL_Set##t##Property(props, SDL_PROP_WINDOW_CREATE_##n, v))  \
-		Sys_Error(str(SDL_Set##t##Property) ": %s", SDL_GetError() ); \
+#define setprop(t, n, v) do {                                           \
+	if( !SDL_Set##t##Property( props, SDL_PROP_WINDOW_CREATE_##n, v ) ) \
+		Sys_Error( str( SDL_Set##t##Property) ": %s", SDL_GetError() ); \
 } while(0)
 
 	setprop( String, TITLE_STRING, glw_state.applicationName );
@@ -84,14 +84,13 @@ static void GLimp_CreateWindow( int x, int y, int width, int height )
 
 	glw_state.sdl_window = SDL_CreateWindowWithProperties( props );
 
-	SDL_DestroyProperties(props);
+	SDL_DestroyProperties( props );
 
 	if( !glw_state.sdl_window )
 		Sys_Error( "Couldn't create window: \"%s\"", SDL_GetError() );
 
-	if( glw_state.wndproc ) {
+	if( glw_state.wndproc )
 		glw_state.wndproc( glw_state.sdl_window, 0, 0, 0 );
-	}
 
 	GLimp_SetWindowIcon();
 }
@@ -111,9 +110,8 @@ rserr_t GLimp_SetMode( int x, int y, int width, int height, bool fullscreen )
 	ri.Com_Printf( " %d %d %s\n", width, height, win_fs[fullscreen] );
 
 	// destroy the existing window
-	if( glw_state.sdl_window ) {
+	if( glw_state.sdl_window )
 		SDL_DestroyWindow( glw_state.sdl_window );
-	}
 
 	GLimp_CreateWindow( x, y, width, height );
 

@@ -245,7 +245,6 @@ void Sys_OpenURLInBrowser( const char *url )
 		if( execlp( "xdg-open", "xdg-open", url, NULL ) == -1 )
 			_exit( EXIT_FAILURE );
 	}
-
 }
 #endif
 

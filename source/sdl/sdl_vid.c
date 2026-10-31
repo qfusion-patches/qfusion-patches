@@ -69,8 +69,7 @@ void VID_FlashWindow( int count )
  */
 unsigned int VID_GetSysModes( vidmode_t *modes )
 {
-	int i;
-	int num;
+	int i, num;
 	int prevwidth = 0, prevheight = 0;
 	SDL_DisplayMode *m, **mm;
 	unsigned int ret = 0;
